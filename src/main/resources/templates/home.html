@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Home</title>
+  <link rel="stylesheet" th:href="@{/css/site.css}" />
+</head>
+
+<body>
+
+  <h1>Welcome, <span th:text="${name}">User</span>!</h1>
+  <p th:if="${name == 'Wagner'}">Nice to see you again.</p>
+  <a th:href="@{/about}">About</a>
+
+</body>
+
+</html>

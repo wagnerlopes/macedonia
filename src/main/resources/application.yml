@@ -49,6 +49,11 @@ spring:
         pathmatch:
             matching-strategy: ant_path_matcher
 
+    thymeleaf:
+        cache: false
+        prefix: classpath:/templates/
+        suffix: .html
+    
     h2:
         console:
             enabled: true
