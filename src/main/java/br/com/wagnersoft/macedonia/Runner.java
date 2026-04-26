@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class Runner {
 
-	@RequestMapping("/")
+	@RequestMapping("/init")
 	String home() {
 		return "Runnig...";
 	}

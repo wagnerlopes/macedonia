@@ -1,0 +1,54 @@
+debug: false
+
+server:
+
+    port: 80
+
+    servlet:
+      context-path: /macedonia
+    compression:
+        enabled: true
+        min-response-size: 1KB
+        
+    http2:
+        enabled: true
+        
+    #ssl:
+    #    key-store: keystore.p12
+    #    key-store-password: 123
+    #    keyStoreType: PKCS12
+    #    keyAlias: macedonia
+
+spring:
+
+    application:
+        name: macedonia
+
+    datasource:
+        url: jdbc:h2:mem:macedonia;INIT=CREATE SCHEMA IF NOT EXISTS babilonia;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: 123
+        initial-size: 1
+
+    jpa:
+        show-sql: true
+        defer-datasource-initialization: true
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate: 
+                database-platform: org.hibernate.dialect.H2Dialect
+                format_sql: true
+
+    jdbc:
+        template:
+            query-timeout: 30
+
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+
+    h2:
+        console:
+            enabled: true
