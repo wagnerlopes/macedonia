@@ -7,11 +7,11 @@
   <modelVersion>4.0.0</modelVersion>
     
   <groupId>br.com.wagnersoft</groupId>
-  <artifactId>babilonia</artifactId>
+  <artifactId>macedonia</artifactId>
   <version>0.1</version>
 
   <name>br.com.wagnersoft.babilonia</name>
-  <description>REST API Web Service</description>
+  <description>Open view WEB APP</description>
   <inceptionYear>2026</inceptionYear>
   <url>https://wagnerlopes.github.io/</url>
 
@@ -22,12 +22,6 @@
   </parent>
 
   <dependencies>
-    
-    <dependency>
-      <groupId>org.springdoc</groupId>
-        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        <version>2.8.8</version>
-    </dependency>
     
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -50,72 +44,14 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.19.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>jakarta.json</artifactId>
-      <version>2.0.1</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt</artifactId>
-      <version>0.12.6</version>
-    </dependency>
-
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-boot-starter</artifactId>
-      <version>3.0.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.pdfbox</groupId>
-      <artifactId>pdfbox</artifactId>
-      <version>3.0.5</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-logging</groupId>
-          <artifactId>commons-logging</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <!-- TESTE -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.reflections</groupId>
-      <artifactId>reflections</artifactId>
-      <version>0.9.12</version>
       <scope>test</scope>
     </dependency>
 
@@ -139,22 +75,14 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <skipTests>true</skipTests>
+          <skipTests>false</skipTests>
         </configuration>
       </plugin>
 
     </plugins>
 
   </build>
-<!--
-  <repositories>
-    <repository>
-      <id>xwiki</id>
-      <name>Maven xwiki Repository</name>
-      <url>https://maven.xwiki.org/externals/</url>
-    </repository>
-  </repositories>
--->
+
   <organization>
     <name>WagnerSoft - WL</name>
     <url>https://github.com/WagnerSoft-WL</url>
