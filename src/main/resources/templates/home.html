@@ -11,8 +11,30 @@
 <body>
 
   <h1>Welcome, <span th:text="${name}">User</span>!</h1>
-  <p th:if="${name == 'Usuario'}">Nice to see you again.</p>
+  <p th:if="${name == 'User'}">Nice to see you again.</p>
   <a th:href="@{/about.html}">Sobre</a>
+
+  <hr>
+
+  <h4>Especialidades disponiveis:</</h4>  
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Codigo</th>
+				<th>Descricao</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${listEsp.empty}">
+				<td colspan="2">Sem especialidades</td>
+			</tr>
+			<tr th:each="esp : ${listEsp}">
+				<td><span th:text="${esp.codigo}"> Codigo </span></td>
+				<td><span th:text="${esp.descricao}"> Descricao </span></td>
+			</tr>
+		</tbody>
+	</table>
 
 </body>
 
