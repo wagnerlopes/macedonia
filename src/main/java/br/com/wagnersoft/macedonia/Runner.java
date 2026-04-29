@@ -20,12 +20,19 @@ public class Runner {
 	@Autowired
 	private EspecialidadeService svc;
 
-	@GetMapping("/")
+	@GetMapping("/especialidades")
 	public String home(Model model) {
 		logger.info("+++ New user ++");
 		model.addAttribute("name", "User");
 		model.addAttribute("listEsp", svc.listar());
-		return "home";
+		return "especialidades";
+	}
+
+	@GetMapping("/")
+	public String dashboard(Model model) {
+		logger.info("+++ New dashboard ++");
+		model.addAttribute("listEsp", svc.listar());
+		return "index";
 	}
 
 	public static void main(String[] args) {
