@@ -20,21 +20,49 @@ public class Runner {
 	@Autowired
 	private EspecialidadeService svc;
 
-	@GetMapping("/especialidades")
-	public String home(Model model) {
-		logger.info("+++ New user ++");
-		model.addAttribute("name", "User");
-		model.addAttribute("listEsp", svc.listar());
-		return "especialidades";
-	}
-
 	@GetMapping("/")
 	public String dashboard(Model model) {
-		logger.info("+++ New dashboard ++");
+		logger.info("+++ Index ++");
+		model.addAttribute("menu", "index");
+		return "index";
+	}
+	
+	@GetMapping("/contratos")
+	public String contratos(Model model) {
+		logger.info("+++ Contratos ++");
+		model.addAttribute("menu", "cont");
+		return "index";
+	}
+
+	@GetMapping("/especialidades")
+	public String especialidades(Model model) {
+		logger.info("+++ Especialidades ++");
+		model.addAttribute("menu", "esp");
 		model.addAttribute("listEsp", svc.listar());
 		return "index";
 	}
 
+	@GetMapping("/profissionais")
+	public String profissionais(Model model) {
+		logger.info("+++ Profissionais ++");
+		model.addAttribute("menu", "prof");
+		return "index";
+	}
+
+	@GetMapping("/guias")
+	public String guias(Model model) {
+		logger.info("+++ Guias ++");
+		model.addAttribute("menu", "guias");
+		return "index";
+	}
+
+	@GetMapping("/ocs")
+	public String ocs(Model model) {
+		logger.info("+++ ocs ++");
+		model.addAttribute("menu", "ocs");
+		return "index";
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Runner.class, args);
 	}
