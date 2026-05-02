@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
 
 @Controller
@@ -18,7 +19,10 @@ public class Runner {
 	private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
 	@Autowired
-	private EspecialidadeService svc;
+	private EspecialidadeService espSvc;
+
+	@Autowired
+	private BeneficiarioService benSvc;
 
 	@GetMapping("/")
 	public String dashboard(Model model) {
@@ -27,6 +31,14 @@ public class Runner {
 		return "index";
 	}
 	
+	@GetMapping("/beneficiarios")
+	public String beneficiarios(Model model) {
+		logger.info("+++ Beneficiarios ++");
+		model.addAttribute("menu", "ben");
+		model.addAttribute("listBen", benSvc.listar());
+		return "index";
+	}
+
 	@GetMapping("/contratos")
 	public String contratos(Model model) {
 		logger.info("+++ Contratos ++");
@@ -38,7 +50,7 @@ public class Runner {
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades ++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("listEsp", svc.listar());
+		model.addAttribute("listEsp", espSvc.listar());
 		return "index";
 	}
 

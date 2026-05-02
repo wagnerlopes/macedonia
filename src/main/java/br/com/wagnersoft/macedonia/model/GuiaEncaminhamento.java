@@ -41,7 +41,7 @@ public class GuiaEncaminhamento implements Serializable {
 	private LocalDate emissaoData;
 
 	@ManyToOne
-	@JoinColumn(name="beneficiario_id")
+	@JoinColumn(name="beneficiario_cpf")
 	private Beneficiario beneficiario;
 
 	@ManyToOne

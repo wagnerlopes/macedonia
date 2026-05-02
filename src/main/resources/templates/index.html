@@ -351,6 +351,15 @@
                 </li>
 
                 <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" th:href="@{/beneficiarios}">
+                    <svg class="bi" aria-hidden="true">
+                      <use xlink:href="#list"></use>
+                    </svg>
+                    Benefici&aacute;rios
+                  </a>
+                </li>
+
+                <li class="nav-item">
                   <a class="nav-link d-flex align-items-center gap-2" th:href="@{/contratos}">
                     <svg class="bi" aria-hidden="true">
                       <use xlink:href="#file-earmark"></use>
@@ -467,6 +476,9 @@
 
         </div>
 
+       <div th:replace="${#strings.equals(menu, 'ben')} ? ~{content :: beneficiarios} : ~{index :: grafico}">
+       </div>
+ 
        <div th:replace="${#strings.equals(menu, 'esp')} ? ~{content :: especialidades} : ~{index :: grafico}">
         
         <main class="col-md-9 col-lg-10 ms-sm-auto px-md-4" th:fragment="grafico">

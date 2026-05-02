@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,10 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="especialidades")
-@NamedQueries(value={
-  @NamedQuery(name="Especialidade.findByDesc", query="SELECT e FROM Especialidade e WHERE UPPER(e.descricao) LIKE ?1"),
-})
+@Table(name="especialidade")
 public class Especialidade implements Serializable {
 
   private static final long serialVersionUID = 1L;
