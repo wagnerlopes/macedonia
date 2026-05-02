@@ -19,9 +19,9 @@ public class EspecialidadeService {
 	private EspecialidadeRepository rep;
 
 	public List<Especialidade> listar() {
-		rep.save(new Especialidade(1, "Cardiologia"));
-		rep.save(new Especialidade(2, "Odontologia"));
-		rep.save(new Especialidade(3, "Urologia"));
+		//rep.save(new Especialidade(1, "Cardiologia"));
+		//rep.save(new Especialidade(2, "Odontologia"));
+		//rep.save(new Especialidade(3, "Urologia"));
 		final List<Especialidade> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
