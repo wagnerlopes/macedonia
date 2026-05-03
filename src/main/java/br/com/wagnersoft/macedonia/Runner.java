@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
 import br.com.wagnersoft.macedonia.service.OcsService;
+import br.com.wagnersoft.macedonia.service.ProfissionalService;
 
 @Controller
 @SpringBootApplication
@@ -27,6 +28,9 @@ public class Runner {
 
 	@Autowired
 	private OcsService ocsSvc;
+
+	@Autowired
+	private ProfissionalService profSvc;
 
 	@GetMapping("/")
 	public String dashboard(Model model) {
@@ -62,6 +66,7 @@ public class Runner {
 	public String profissionais(Model model) {
 		logger.info("+++ Profissionais ++");
 		model.addAttribute("menu", "prof");
+		model.addAttribute("lista4", profSvc.listar());
 		return "index";
 	}
 

@@ -14,3 +14,5 @@ insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, m
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('09216007000110', 'Hospital Grande', 'hospital geral', 'Avenida Principal', '265', 'Parque Clinico', 'Chapeco', 'SC', '(43) 97521-6789', 'Clara Gimenez');
 
 insert into procedimento_medico(amb90, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010022', 'Consulta hospitalar', 50, 0, 0);
+
+insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('99999999999', 'Joaquim Teixeira', '112456', 'SP', 1);

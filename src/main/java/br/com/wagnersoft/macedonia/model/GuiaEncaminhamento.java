@@ -58,11 +58,11 @@ public class GuiaEncaminhamento implements Serializable {
 	private String observacao;
 
 	@ManyToOne
-	@JoinColumn(name="solicitante_id")
+	@JoinColumn(name="solicitante_cpf")
 	private Profissional solicitante;
 
 	@ManyToOne
-	@JoinColumn(name="responsavel_id")
+	@JoinColumn(name="responsavel_cpf")
 	private Profissional responsavel;
 
 	@Column(name="valor_total")
