@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,14 +20,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="procedimentos_medicos")
-@NamedQuery(name="ProcedimentoMedico.findByDesc", query="SELECT p FROM ProcedimentoMedico p WHERE UPPER(p.descricao) LIKE ?1")
-@NamedQuery(name="ProcedimentoMedico.findByCodigo", query="SELECT p FROM ProcedimentoMedico p WHERE p.tuss = ?1")
+@Table(name="procedimento_medico")
 public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
 	private String amb90;
@@ -43,12 +43,12 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 	@Column(name="ch_qtd")
 	private int chQtd;
 
+	@Column(name="porte_anestesico")
+	private int porteAnestesico;
+
 	private String descricao;
 
 	private String grupo;
-
-	@Column(name="porte_anestesico")
-	private int porteAnestesico;
 
 	private String subgrupo;
 
