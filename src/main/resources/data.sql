@@ -10,3 +10,4 @@ insert into especialidade(codigo, descricao) values(3, 'Ginecologia');
 insert into especialidade(codigo, descricao) values(4, 'Nutrição');
 insert into especialidade(codigo, descricao) values(5, 'Ortopedia');
 
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('00394452053304', 'Hospital Santa Cruz', 'cardiologia', 'Rua das Cruzes', '115', 'fundos', 'Rio Branco', 'AC', '(91) 98234-4532', 'Maria das Dores');

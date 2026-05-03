@@ -403,6 +403,7 @@
 
         <div th:replace="${menu == 'ben'} ? ~{content1 :: beneficiarios} : ~{content :: grafico}"></div>
         <div th:replace="${menu == 'esp'} ? ~{content2 :: especialidades} : ~{content :: grafico}"></div>
+        <div th:replace="${menu == 'ocs'} ? ~{content3 :: ocs} : ~{content :: grafico}"></div>
 
 <!-- 
         <div th:switch="${menu}">

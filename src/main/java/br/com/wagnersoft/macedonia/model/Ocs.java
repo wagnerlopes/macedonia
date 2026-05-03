@@ -1,7 +1,6 @@
 package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -9,7 +8,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -25,9 +23,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Table(name="ocs")
-@NamedQuery(name="Ocs.findByCnpj", query="SELECT o FROM Ocs o WHERE o.cnpj = ?1")
-@NamedQuery(name="Ocs.findByEspec", query="SELECT o FROM Ocs o WHERE o.especialidade = ?1 ORDER BY o.descricao")
-@NamedQuery(name="Ocs.excluir", query="DELETE FROM Ocs o")
 public class Ocs implements Comparable<Ocs>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -77,6 +72,9 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 		return this.getDescricao().compareTo(o.getDescricao());
 	}
 
+}
+
+/*
 	public void addContrato(final Contrato c) throws Exception {
 		if (this.getContratos() == null) {
 			this.setContratos(new ArrayList<Contrato>(1));
@@ -102,15 +100,12 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 		}
 	}
 
-	/*
-  public String getCnpjf() {
+    public String getCnpjf() {
     //final String CNPJ = "^\\d{3}.?\\d{3}.?\\d{3}/?\\d{3}-?\\d{2}$";
     return this.cnpj.isEmpty() ? "CNPJ" : new StringBuilder(cnpj.substring(0,2)).append(".")
-                                                    .append(cnpj.substring(2,5)).append(".")
-                                                    .append(cnpj.substring(5,8)).append("/")
-                                                    .append(cnpj.substring(8,12)).append("-")
-                                                    .append(cnpj.substring(12)).toString();
-  }
-	 */
-
-}
+                                                  .append(cnpj.substring(2,5)).append(".")
+                                                  .append(cnpj.substring(5,8)).append("/")
+                                                  .append(cnpj.substring(8,12)).append("-")
+                                                  .append(cnpj.substring(12)).toString();
+    }
+*/

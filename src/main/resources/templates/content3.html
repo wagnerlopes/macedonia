@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Macedonia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+</head>
+
+<body>
+
+    <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4" th:fragment="ocs">
+
+    <h4>Organização Conveniada de Saude</h4>  
+
+    <hr class="my-3" />
+
+        <table class="table table-striped table-sm">
+
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">CNPJ</th>
+                  <th scope="col">Descricao</th>
+                  <th scope="col">Especialidade</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr th:if="${lista3.empty}">
+				  <td colspan="2">Sem OCS</td>
+			    </tr>
+			
+                <tr th:each="ocs : ${lista3}">
+                  <td><span th:text="${ocs.id}"> Codigo </span></td>
+                  <td><span th:text="${ocs.cnpj}"> CNPJ </span></td>
+				  <td><span th:text="${ocs.descricao}"> Descricao </span></td>
+				  <td><span th:text="${ocs.especialidade}"> Especialidade </span></td>
+			    </tr>
+
+              </tbody>
+
+            </table>
+      
+      </div>
+
+</body>
+
+</html>
