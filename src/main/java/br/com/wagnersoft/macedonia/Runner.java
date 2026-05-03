@@ -35,7 +35,7 @@ public class Runner {
 	public String beneficiarios(Model model) {
 		logger.info("+++ Beneficiarios ++");
 		model.addAttribute("menu", "ben");
-		model.addAttribute("listBen", benSvc.listar());
+		model.addAttribute("lista1", benSvc.listar());
 		return "index";
 	}
 
@@ -50,7 +50,7 @@ public class Runner {
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades ++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("listEsp", espSvc.listar());
+		model.addAttribute("lista2", espSvc.listar());
 		return "index";
 	}
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Macedonia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+</head>
+
+<body>
+
+    <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4" th:fragment="beneficiarios">
+
+    <h4>Benefici&aacute;rios</h4>  
+
+    <hr class="my-3" />
+
+        <table class="table table-striped table-sm">
+
+              <thead>
+                <tr>
+                  <th scope="col">CPF</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Nascimento</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr th:if="${lista1.empty}">
+				  <td colspan="2">Sem benefici&aacute;rios</td>
+			    </tr>
+			
+                <tr th:each="ben : ${lista1}">
+                  <td><span th:text="${ben.cpf}"> CPF </span></td>
+				  <td><span th:text="${ben.nome}"> Nome </span></td>
+				  <td><span th:text="${ben.nascimentoData}"> Nascimento </span></td>
+			    </tr>
+
+              </tbody>
+
+            </table>
+      
+      </div>
+
+</body>
+
+</html>
