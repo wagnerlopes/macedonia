@@ -17,8 +17,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="tipo_termo")
-public class TipoTermo implements Serializable {
+@Table(name="tipo_termo_contrato")
+public class TipoTermoContrato implements Serializable {
 
   private static final long serialVersionUID = 1L;
 

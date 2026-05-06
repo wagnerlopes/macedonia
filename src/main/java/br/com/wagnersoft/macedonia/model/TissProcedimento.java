@@ -19,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="tiss_procedimentos")
+@Table(name="tiss_procedimento")
 public class TissProcedimento implements Comparable<TissProcedimento>, Serializable {
 
 	private static final long serialVersionUID = 1L;

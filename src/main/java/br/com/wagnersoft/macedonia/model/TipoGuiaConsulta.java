@@ -17,7 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="tiss_tipo_guia_consulta")
+@Table(name="tipo_guia_consulta")
 public class TipoGuiaConsulta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
