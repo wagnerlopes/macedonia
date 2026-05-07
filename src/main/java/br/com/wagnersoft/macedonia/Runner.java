@@ -1,5 +1,7 @@
 package br.com.wagnersoft.macedonia;
 
+import java.util.Collections;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,46 +45,48 @@ public class Runner {
 	public String beneficiarios(Model model) {
 		logger.info("+++ Beneficiarios ++");
 		model.addAttribute("menu", "ben");
-		model.addAttribute("lista1", benSvc.listar());
-		return "index";
+		model.addAttribute("lista", benSvc.listar());
+		return "beneficiarios";
 	}
 
 	@GetMapping("/contratos")
 	public String contratos(Model model) {
 		logger.info("+++ Contratos ++");
 		model.addAttribute("menu", "cont");
-		return "index";
+		model.addAttribute("lista", Collections.EMPTY_LIST);
+		return "contratos";
 	}
 
 	@GetMapping("/especialidades")
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades ++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("lista2", espSvc.listar());
-		return "index";
+		model.addAttribute("lista", espSvc.listar());
+		return "especialidades";
 	}
 
 	@GetMapping("/profissionais")
 	public String profissionais(Model model) {
 		logger.info("+++ Profissionais ++");
 		model.addAttribute("menu", "prof");
-		model.addAttribute("lista4", profSvc.listar());
-		return "index";
+		model.addAttribute("lista", profSvc.listar());
+		return "profissionais";
 	}
 
 	@GetMapping("/guias")
 	public String guias(Model model) {
 		logger.info("+++ Guias ++");
 		model.addAttribute("menu", "guias");
-		return "index";
+		model.addAttribute("lista", Collections.EMPTY_LIST);
+		return "guias";
 	}
 
 	@GetMapping("/ocs")
 	public String ocs(Model model) {
 		logger.info("+++ ocs ++");
 		model.addAttribute("menu", "ocs");
-		model.addAttribute("lista3", ocsSvc.listar());
-		return "index";
+		model.addAttribute("lista", ocsSvc.listar());
+		return "ocs";
 	}
 	
 	public static void main(String[] args) {

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert = "~{index :: meta}">
+</head>
+
+<body>
+
+  <div th:replace = "~{index :: header}"></div>
+
+  <div class="container-fluid row">
+   
+    <div th:replace = "~{index :: menu}"></div>
+
+    <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
+
+      <h4>Guias de Encaminhamento</h4>  
+
+      <hr class="my-3" />
+
+      <table class="table table-striped table-sm">
+
+        <thead>
+          <tr>
+            <th scope="col">Beneficiário</th>
+            <th scope="col">OCS</th>
+            <th scope="col">Data</th>
+            <th scope="col">Valor</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:if="${lista.empty}">
+            <td colspan="4">Sem guias de encaminhamento</td>
+          </tr>
+			
+          <tr th:each="guia : ${lista}">
+            <td><span th:text="${guia.beneficiario}"> Beneficiário </span></td>
+            <td><span th:text="${guia.ocs}"> OCS </span></td>
+            <td><span th:text="${guia.emissaoData}"> Data </span></td>
+            <td><span th:text="${guia.valorTotal}"> Valor </span></td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  
+  </div>
+
+</body>
+
+</html>
