@@ -89,6 +89,14 @@ public class Runner {
 		return "ocs";
 	}
 	
+	@GetMapping("/tiss")
+	public String tiss(Model model) {
+		logger.info("+++ TISS ++");
+		model.addAttribute("menu", "tiss");
+		model.addAttribute("lista", Collections.EMPTY_LIST);
+		return "tiss";
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(Runner.class, args);
 	}

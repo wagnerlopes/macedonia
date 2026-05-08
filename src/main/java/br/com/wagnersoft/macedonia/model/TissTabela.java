@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** Troca de Informações de Saúde Complementar (TISS).
+ * 
+ */
 @Entity
 @Getter
 @Setter

@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** Terminologia Unificada da Saúde Suplementar (TUSS).
+ * 
+ */
 @Getter
 @Setter
 @Builder
