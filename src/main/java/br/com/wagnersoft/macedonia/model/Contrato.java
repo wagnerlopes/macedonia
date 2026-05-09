@@ -21,7 +21,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-//@NamedQuery(name="Contrato.findByOcs", query="SELECT c FROM Contrato c WHERE c.ocs.id = ?1")
 public class Contrato implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,10 +37,6 @@ public class Contrato implements Serializable {
 
 	@Column(name="ch_valor")
 	private BigDecimal chValor;
-
-	@ManyToOne
-	@JoinColumn(name="tipo_termo_contrato_codigo")
-	private TipoTermoContrato tipoTermoContrato;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")

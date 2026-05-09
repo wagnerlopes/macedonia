@@ -26,18 +26,28 @@
             <th scope="col">CPF</th>
             <th scope="col">Nome</th>
             <th scope="col">Nascimento</th>
+            <th scope="col">Guias</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:if="${lista.empty}">
-            <td colspan="2">Sem benefici&aacute;rios</td>
+            <td colspan="4">Sem benefici&aacute;rios</td>
           </tr>
 			
           <tr th:each="ben : ${lista}">
             <td><span th:text="${ben.cpf}"> CPF </span></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
-            <td><span th:text="${ben.nascimentoData}"> Nascimento </span></td>
+            <td><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
+            <td>
+              <table>
+                <tr th:each="g : ${ben.guias}">
+                  <td th:text="${'Nr:' + g.guiaNr}"></td>
+                  <td th:text="${' - Data: ' + g.emissaoData}"></td>
+                  <td th:text="${' - Total: R$ ' + #numbers.formatDecimal(g.valorTotal,1,2,'COMMA')}"></td>
+                </tr>
+              </table>
+            </td>
           </tr>
         </tbody>
 

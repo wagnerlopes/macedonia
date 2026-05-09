@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
+import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
+import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
 
@@ -27,6 +29,12 @@ public class Runner {
 
 	@Autowired
 	private BeneficiarioService benSvc;
+
+	@Autowired
+	private ContratoService cttSvc;
+
+	@Autowired
+	private GuiaEncaminhamentoService guiaSvc;
 
 	@Autowired
 	private OcsService ocsSvc;
@@ -53,7 +61,7 @@ public class Runner {
 	public String contratos(Model model) {
 		logger.info("+++ Contratos ++");
 		model.addAttribute("menu", "cont");
-		model.addAttribute("lista", Collections.EMPTY_LIST);
+		model.addAttribute("lista", cttSvc.listar());
 		return "contratos";
 	}
 
@@ -77,7 +85,7 @@ public class Runner {
 	public String guias(Model model) {
 		logger.info("+++ Guias ++");
 		model.addAttribute("menu", "guias");
-		model.addAttribute("lista", Collections.EMPTY_LIST);
+		model.addAttribute("lista", guiaSvc.listar());
 		return "guias";
 	}
 

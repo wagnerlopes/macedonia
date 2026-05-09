@@ -23,18 +23,19 @@
 
         <thead>
           <tr>
-            <th scope="col">CNP</th>
+            <th scope="col">CNPJ</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
             <th scope="col">Especialidade</th>
             <th scope="col">Munic&iacute;pio</th>
             <th scope="col">UF</th>
             <th scope="col">Di&aacute;rias</th>
+            <th scope="col">Procedimentos</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:if="${lista.empty}">
-            <td colspan="5">Sem OCS</td>
+            <td colspan="7">Sem OCS</td>
           </tr>
 			
           <tr th:each="ocs : ${lista}">
@@ -49,6 +50,14 @@
                   <td th:text="${dth.descricao}"></td>
                   <td th:text="${dth.unidade}"></td>
                   <td th:text="${#numbers.formatDecimal(dth.valor,3,2,'COMMA')}"></td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr th:each="x : ${ocs.ocsPm}">
+                  <td th:text="${x.pm.descricao}"></td>
+                  <td th:text="${'R$ ' + #numbers.formatDecimal(x.valor,3,2,'COMMA')}"></td>
                 </tr>
               </table>
             </td>

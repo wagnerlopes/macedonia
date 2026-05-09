@@ -26,7 +26,7 @@
             <th scope="col">Beneficiário</th>
             <th scope="col">OCS</th>
             <th scope="col">Data</th>
-            <th scope="col">Valor</th>
+            <th scope="col">Valor (R$)</th>
           </tr>
         </thead>
 
@@ -36,10 +36,10 @@
           </tr>
 			
           <tr th:each="guia : ${lista}">
-            <td><span th:text="${guia.beneficiario}"> Beneficiário </span></td>
-            <td><span th:text="${guia.ocs}"> OCS </span></td>
-            <td><span th:text="${guia.emissaoData}"> Data </span></td>
-            <td><span th:text="${guia.valorTotal}"> Valor </span></td>
+            <td><span th:text="${guia.beneficiario.cpf + ' - ' + guia.beneficiario.nome}"> Beneficiário </span></td>
+            <td><span th:text="${guia.ocs.descricao}"> OCS </span></td>
+            <td><span th:text="${#temporals.format(guia.emissaoData, 'dd/MM/yyyy')}"> Data </span></td>
+            <td><span th:text="${#numbers.formatDecimal(guia.valorTotal,1,2,'COMMA')}"> Valor </span></td>
           </tr>
         </tbody>
 

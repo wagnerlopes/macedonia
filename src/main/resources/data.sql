@@ -25,6 +25,18 @@ insert into procedimento_medico(amb90, descricao, ch_qtd, auxiliares_qtd, porte_
 insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('88888888888', 'Manoel Gomes', '45675', 'MG', 3);
 insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('99999999999', 'Joaquim Teixeira', '112456', 'SP', 1);
 
+insert into ocs_pm(ocs_id, pm_id, valor) values(1, 1, 321.74);
+insert into ocs_pm(ocs_id, pm_id, valor) values(2, 1, 247.74);
+
+insert into contrato(ocs_id, inicio_data, final_data, ch_valor) values (1, '2020-05-14', '2030-12-26', 20);
+insert into contrato(ocs_id, inicio_data, final_data, ch_valor) values (2, '2021-08-23', '2031-05-12', 20);
+
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 1, '2026-02-10', '145', '99999999999', '88888888888', 1654.87);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 2, '2026-03-15', '146', '99999999999', '88888888888', 321.18);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 1, '2026-01-21', '147', '99999999999', '88888888888', 528.16);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('33333333333', 2, '2026-02-23', '148', '99999999999', '88888888888', 159.98);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('44444444444', 1, '2026-04-16', '149', '99999999999', '88888888888', 692.38);
+
 insert into tipo_acomodacao values ('02', 'Quarto privativo / Particular');
 insert into tipo_acomodacao values ('26', 'Enfermaria de 4 ou mais leitos');
 
@@ -43,6 +55,3 @@ insert into tipo_guia_consulta values ('02', 'Guia SP/SADT');
 insert into tipo_guia_consulta values ('03', 'Guia de internação');
 insert into tipo_guia_consulta values ('04', 'Guia de honorários');
 insert into tipo_guia_consulta values ('05', 'Guia de resumo de internação');
-
-
-

@@ -24,9 +24,9 @@
         <thead>
           <tr>
             <th scope="col">OCS</th>
-            <th scope="col">Tipo</th>
             <th scope="col">Início</th>
             <th scope="col">Fim</th>
+            <th scope="col">CH Valor</th>
           </tr>
         </thead>
 
@@ -36,10 +36,10 @@
           </tr>
 			
           <tr th:each="cont : ${lista}">
-            <td><span th:text="${cont.ocs}"> OCS </span></td>
-            <td><span th:text="${cont.tipoTermoContrato}"> Tipo </span></td>
-            <td><span th:text="${cont.inicioData}"> Início </span></td>
-            <td><span th:text="${cont.finalData}"> Fim </span></td>
+            <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
+            <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Início </span></td>
+            <td><span th:text="${#temporals.format(cont.finalData, 'dd/MM/yyyy')}"> Fim </span></td>
+            <td th:text="${#numbers.formatDecimal(cont.chValor,1,2,'COMMA')}"></td>
           </tr>
         </tbody>
 

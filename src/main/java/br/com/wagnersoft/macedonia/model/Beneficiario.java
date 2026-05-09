@@ -2,6 +2,7 @@ package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +36,7 @@ public class Beneficiario implements Serializable {
 	private LocalDate nascimentoData;
 
 	@OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guias;
+	private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
 	@Override
 	public int hashCode() {
