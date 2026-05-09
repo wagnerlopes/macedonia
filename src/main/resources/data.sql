@@ -22,6 +22,7 @@ insert into dth(codigo, descricao, unidade, valor, ocs_id) values('3', 'Quarto',
 
 insert into procedimento_medico(amb90, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010022', 'Consulta hospitalar', 50, 0, 0);
 
+insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('88888888888', 'Manoel Gomes', '45675', 'MG', 3);
 insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('99999999999', 'Joaquim Teixeira', '112456', 'SP', 1);
 
 insert into tipo_acomodacao values ('02', 'Quarto privativo / Particular');

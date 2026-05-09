@@ -61,7 +61,6 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 		return Objects.hash(id);
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;

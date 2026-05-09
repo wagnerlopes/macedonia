@@ -2,24 +2,21 @@ package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class Profissional implements Comparable<Profissional>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,10 +40,24 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 		return this.getNome().compareTo(o.getNome());
 	}
 
-	public String getCrmf() {
+	@Override
+	public int hashCode() {
+		return Objects.hash(cpf);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Profissional other = (Profissional) obj;
+		return Objects.equals(cpf, other.cpf);
+	}
+
+	public String getCrmDotUf() {
 		final DecimalFormat df = new DecimalFormat();
 		df.setGroupingUsed(true);
-		return new StringBuilder("CRM").append("-").append(this.getCrmUf()).append(" ").append(df.format(Long.valueOf(this.getCrm()))).toString() ;
+		return "CRM" + "-" + this.getCrmUf() + " " + df.format(Long.valueOf(this.getCrm()));
 	}
 
 }

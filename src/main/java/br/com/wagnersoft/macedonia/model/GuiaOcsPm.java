@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,11 +36,11 @@ public class GuiaOcsPm implements Serializable {
 	@Column(name="pos_auditoria")
 	private BigDecimal posAuditoria;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="guia_id")
 	private GuiaEncaminhamento guiaEncaminhamento;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_pm_id")
 	private OcsPm ocsPm;
 
