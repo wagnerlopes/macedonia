@@ -24,10 +24,11 @@
         <thead>
           <tr>
             <th scope="col">CNP</th>
-            <th scope="col">Descrição</th>
+            <th scope="col">Descri&ccedil;&atilde;o</th>
             <th scope="col">Especialidade</th>
-            <th scope="col">Município</th>
+            <th scope="col">Munic&iacute;pio</th>
             <th scope="col">UF</th>
+            <th scope="col">Di&aacute;rias</th>
           </tr>
         </thead>
 
@@ -42,6 +43,15 @@
             <td><span th:text="${ocs.especialidade}"> Especialidade </span></td>
             <td><span th:text="${ocs.municipio}"> Municipio </span></td>
             <td><span th:text="${ocs.uf}"> UF </span></td>
+            <td>
+              <table>
+                <tr th:each="dth : ${ocs.dth}">
+                  <td th:text="${dth.descricao}"></td>
+                  <td th:text="${dth.unidade}"></td>
+                  <td th:text="${#numbers.formatDecimal(dth.valor,3,2,'COMMA')}"></td>
+                </tr>
+              </table>
+            </td>
           </tr>
         </tbody>
 

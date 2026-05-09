@@ -2,6 +2,7 @@ package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,20 +12,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Table(name="guia_ocs_pm")
 public class GuiaOcsPm implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,10 +43,18 @@ public class GuiaOcsPm implements Serializable {
 	@JoinColumn(name="ocs_pm_id")
 	private OcsPm ocsPm;
 
-	public GuiaOcsPm(final GuiaEncaminhamento guia, final OcsPm ocsPm, final Integer pmQtd) {
-		this.guiaEncaminhamento = guia;
-		this.ocsPm = ocsPm;
-		this.pmQtd = pmQtd;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		GuiaOcsPm other = (GuiaOcsPm) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 }

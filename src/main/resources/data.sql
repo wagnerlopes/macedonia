@@ -13,6 +13,13 @@ insert into especialidade(codigo, descricao) values(5, 'Ortopedia');
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('00394452053304', 'Hospital Santa Cruz', 'cardiologia', 'Rua das Cruzes', '115', 'fundos', 'Rio Branco', 'AC', '(91) 98234-4532', 'Maria das Dores');
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('09216007000110', 'Hospital Grande', 'hospital geral', 'Avenida Principal', '265', 'Parque Clinico', 'Chapeco', 'SC', '(43) 97521-6789', 'Clara Gimenez');
 
+insert into dth(codigo, descricao, unidade, valor, ocs_id) values('1', 'UTI', 'R$', 534.67, 1);
+insert into dth(codigo, descricao, unidade, valor, ocs_id) values('2', 'Enfermaria', 'R$', 215.98, 1);
+insert into dth(codigo, descricao, unidade, valor, ocs_id) values('3', 'Quarto', 'R$', 748.18, 1);
+insert into dth(codigo, descricao, unidade, valor, ocs_id) values('1', 'UTI', 'R$', 1025.37, 2);
+insert into dth(codigo, descricao, unidade, valor, ocs_id) values('2', 'Enfermaria', 'R$', 825.18, 2);
+insert into dth(codigo, descricao, unidade, valor, ocs_id) values('3', 'Quarto', 'R$', 1351.93, 2);
+
 insert into procedimento_medico(amb90, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010022', 'Consulta hospitalar', 50, 0, 0);
 
 insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('99999999999', 'Joaquim Teixeira', '112456', 'SP', 1);

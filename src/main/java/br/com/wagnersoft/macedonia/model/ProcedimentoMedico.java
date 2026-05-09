@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,18 +9,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Table(name="procedimento_medico")
 public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Serializable {
 
@@ -58,6 +55,21 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 	public int compareTo(ProcedimentoMedico o) {
 		return this.getDescricao().compareTo(o.getDescricao());
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		ProcedimentoMedico other = (ProcedimentoMedico) obj;
+		return Objects.equals(id, other.id);
+	}
 
 	public String getTussf() {
 		return this.tuss.isEmpty() ? "CNPJ" : new StringBuilder(tuss.substring(0,2)).append(".")
@@ -65,5 +77,5 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 				.append(tuss.substring(4,7)).append("-")
 				.append(tuss.substring(7)).toString();
 	}
-
+	
 }

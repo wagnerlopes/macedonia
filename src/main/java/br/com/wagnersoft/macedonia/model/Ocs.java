@@ -1,26 +1,26 @@
 package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 public class Ocs implements Comparable<Ocs>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,10 +29,13 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
+	@NonNull
 	private String cnpj;
 
+	@NonNull
 	private String descricao;
 
+	@NonNull
 	private String especialidade;
 
 	private String endereco;
@@ -49,27 +52,37 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 
 	private String contato;
 
-	@OneToMany(mappedBy="ocs", fetch=FetchType.EAGER, orphanRemoval=true)
-	private List<Contrato> contratos;
+	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Contrato> contratos = new ArrayList<>();
 
-	@OneToMany(mappedBy="ocs", fetch=FetchType.EAGER, orphanRemoval=true)
-	private List<OcsPm> ocsPm;
+	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Dth> dth = new ArrayList<>();
 
-	@OneToMany(mappedBy="ocs", fetch=FetchType.EAGER, orphanRemoval=true)
-	private List<Dth> dth;
+	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
-	@OneToMany(mappedBy="ocs")
-	private List<GuiaEncaminhamento> guias;
-
-	public Ocs(final Integer id) {
-		this.id = id;
-	}
+	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<OcsPm> ocsPm = new ArrayList<>();
 
 	@Override
 	public int compareTo(Ocs o) {
 		return this.getDescricao().compareTo(o.getDescricao());
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Ocs other = (Ocs) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 }
 
 /*
@@ -78,7 +91,7 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 			this.setContratos(new ArrayList<Contrato>(1));
 		}
 		if (this.getContratos().contains(c)) {
-			throw new Exception("Contrato j� existe");
+			throw new Exception("Contrato ja existe");
 		}
 		this.getContratos().add(c);
 		if (c.getOcs() != this) {
@@ -99,8 +112,8 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	}
 
     public String getCnpjf() {
-    //final String CNPJ = "^\\d{3}.?\\d{3}.?\\d{3}/?\\d{3}-?\\d{2}$";
-    return this.cnpj.isEmpty() ? "CNPJ" : new StringBuilder(cnpj.substring(0,2)).append(".")
+      final String CNPJ = "^\\d{3}.?\\d{3}.?\\d{3}/?\\d{3}-?\\d{2}$";
+      return this.cnpj.isEmpty() ? "CNPJ" : new StringBuilder(cnpj.substring(0,2)).append(".")
                                                   .append(cnpj.substring(2,5)).append(".")
                                                   .append(cnpj.substring(5,8)).append("/")
                                                   .append(cnpj.substring(8,12)).append("-")
