@@ -1,12 +1,14 @@
 package br.com.wagnersoft.macedonia;
 
 import java.util.Collections;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,16 +44,20 @@ public class Runner {
 	@Autowired
 	private ProfissionalService profSvc;
 
+	@Autowired
+	private MessageSource msg;
+	
 	@GetMapping("/")
 	public String dashboard(Model model) {
-		logger.info("+++ Index ++");
+		logger.info("+++ Index +++");
 		model.addAttribute("menu", "index");
+		model.addAttribute("welcome", msg.getMessage("user.welcome", new Object[] {" Usuário "}, Locale.getDefault()));
 		return "index";
 	}
 	
 	@GetMapping("/beneficiarios")
 	public String beneficiarios(Model model) {
-		logger.info("+++ Beneficiarios ++");
+		logger.info("+++ Beneficiarios +++");
 		model.addAttribute("menu", "ben");
 		model.addAttribute("lista", benSvc.listar());
 		return "beneficiarios";
@@ -59,7 +65,7 @@ public class Runner {
 
 	@GetMapping("/contratos")
 	public String contratos(Model model) {
-		logger.info("+++ Contratos ++");
+		logger.info("+++ Contratos +++");
 		model.addAttribute("menu", "cont");
 		model.addAttribute("lista", cttSvc.listar());
 		return "contratos";
@@ -67,7 +73,7 @@ public class Runner {
 
 	@GetMapping("/especialidades")
 	public String especialidades(Model model) {
-		logger.info("+++ Especialidades ++");
+		logger.info("+++ Especialidades +++");
 		model.addAttribute("menu", "esp");
 		model.addAttribute("lista", espSvc.listar());
 		return "especialidades";
@@ -75,7 +81,7 @@ public class Runner {
 
 	@GetMapping("/profissionais")
 	public String profissionais(Model model) {
-		logger.info("+++ Profissionais ++");
+		logger.info("+++ Profissionais +++");
 		model.addAttribute("menu", "prof");
 		model.addAttribute("lista", profSvc.listar());
 		return "profissionais";
@@ -83,7 +89,7 @@ public class Runner {
 
 	@GetMapping("/guias")
 	public String guias(Model model) {
-		logger.info("+++ Guias ++");
+		logger.info("+++ Guias +++");
 		model.addAttribute("menu", "guias");
 		model.addAttribute("lista", guiaSvc.listar());
 		return "guias";
@@ -91,7 +97,7 @@ public class Runner {
 
 	@GetMapping("/ocs")
 	public String ocs(Model model) {
-		logger.info("+++ ocs ++");
+		logger.info("+++ OCS +++");
 		model.addAttribute("menu", "ocs");
 		model.addAttribute("lista", ocsSvc.listar());
 		return "ocs";
@@ -99,7 +105,7 @@ public class Runner {
 	
 	@GetMapping("/tiss")
 	public String tiss(Model model) {
-		logger.info("+++ TISS ++");
+		logger.info("+++ TISS +++");
 		model.addAttribute("menu", "tiss");
 		model.addAttribute("lista", Collections.EMPTY_LIST);
 		return "tiss";
