@@ -46,13 +46,20 @@ public class Runner {
 
 	@Autowired
 	private MessageSource msg;
-	
+
 	@GetMapping("/")
 	public String dashboard(Model model) {
 		logger.info("+++ Index +++");
 		model.addAttribute("menu", "index");
 		model.addAttribute("welcome", msg.getMessage("user.welcome", new Object[] {" Usuário "}, Locale.getDefault()));
 		return "index";
+	}
+	
+	@GetMapping("/config")
+	public String config(Model model) {
+		logger.info("+++ Config +++");
+		model.addAttribute("menu", "config");
+		return "configuracoes";
 	}
 	
 	@GetMapping("/beneficiarios")
