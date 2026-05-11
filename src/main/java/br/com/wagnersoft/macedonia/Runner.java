@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
@@ -28,9 +27,6 @@ public class Runner {
 
 	@Autowired
 	private EspecialidadeService espSvc;
-
-	@Autowired
-	private BeneficiarioService benSvc;
 
 	@Autowired
 	private ContratoService cttSvc;
@@ -62,14 +58,6 @@ public class Runner {
 		return "configuracoes";
 	}
 	
-	@GetMapping("/beneficiarios")
-	public String beneficiarios(Model model) {
-		logger.info("+++ Beneficiarios +++");
-		model.addAttribute("menu", "ben");
-		model.addAttribute("lista", benSvc.listar());
-		return "beneficiarios";
-	}
-
 	@GetMapping("/contratos")
 	public String contratos(Model model) {
 		logger.info("+++ Contratos +++");

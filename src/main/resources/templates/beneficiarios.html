@@ -53,6 +53,44 @@
 
       </table>
 
+      <h4>Novo Benefici&aacute;rio</h4>
+
+      <hr class="my-3" />
+
+      <form action="#" th:action="@{/beneficiarios/save}" th:object="${beneficiario}" method="post">
+          
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
+
+        <div>
+          <label for="cpf" class="form-label my-1">
+            <span th:text="#{beneficiario.cpf}"><strong>CPF</strong></span>
+          </label>
+          <input type="text" th:field="*{cpf}" th:errorclass="error" maxlength="11" class="form-control"/>
+        </div>
+          
+        <div>
+          <label for="nome" class="form-label my-1">
+            <span th:text="#{beneficiario.nome}"><strong>Nome</strong></span>
+          </label>
+          <input type="text" th:field="*{nome}" th:errorclass="error" maxlength="255" class="form-control"/>
+        </div>
+
+        <div>
+          <label for="nascimentoData" class="form-label my-1">
+            <span th:text="#{beneficiario.nascimentoData}"><strong>Data Nascimento</strong></span>
+            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+          </label>
+          <input type="text" th:field="*{nascimentoData}" th:errorclass="error" maxlength="10"  class="form-control"/>
+        </div>
+          
+        <div class="submit">
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{beneficiario.save}">Novo</button>
+        </div>
+                  
+      </form>
+      
     </div>
   
   </div>

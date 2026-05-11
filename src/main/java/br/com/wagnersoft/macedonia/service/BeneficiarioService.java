@@ -18,10 +18,12 @@ public class BeneficiarioService {
 	@Autowired
 	private BeneficiarioRepository rep;
 
-	public List<Beneficiario> listar() {
+	public List<Beneficiario> listAll() {
 		final List<Beneficiario> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
-		return lista;
+		return lista;}
+	public void add(Beneficiario beneficiario) {
+		rep.save(beneficiario);
 	}
 
 }
