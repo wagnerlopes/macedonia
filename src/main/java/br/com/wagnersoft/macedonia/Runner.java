@@ -1,6 +1,8 @@
 package br.com.wagnersoft.macedonia;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,7 +14,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import br.com.wagnersoft.macedonia.model.Acomodacao;
 import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
@@ -57,15 +61,17 @@ public class Runner {
 		model.addAttribute("menu", "config");
 		return "configuracoes";
 	}
-	
+
+	/*
 	@GetMapping("/contratos")
 	public String contratos(Model model) {
 		logger.info("+++ Contratos +++");
 		model.addAttribute("menu", "cont");
-		model.addAttribute("lista", cttSvc.listar());
+		model.addAttribute("lista", cttSvc.listAll());
 		return "contratos";
 	}
-
+    */
+    
 	@GetMapping("/especialidades")
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades +++");
@@ -106,6 +112,11 @@ public class Runner {
 		return "tiss";
 	}
 
+	@ModelAttribute("allAcomodacao")
+    public List<Acomodacao> populateAcomodacao() {
+        return Arrays.asList(Acomodacao.ALL);
+    }
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Runner.class, args);
 	}

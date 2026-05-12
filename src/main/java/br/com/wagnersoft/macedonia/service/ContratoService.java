@@ -18,10 +18,14 @@ public class ContratoService {
 	@Autowired
 	private ContratoRepository rep;
 
-	public List<Contrato> listar() {
+	public List<Contrato> listAll() {
 		final List<Contrato> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
+	}
+
+	public void add(Contrato contrato) {
+		rep.save(contrato);
 	}
 
 }
