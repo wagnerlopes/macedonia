@@ -16,7 +16,7 @@ public interface OcsRepository extends JpaRepository<Ocs, Integer> {
 	Optional<Ocs> findById(int id);
 
 	@Query("SELECT o FROM Ocs o WHERE o.cnpj = :cnpj")
-	List<Ocs> findByCnpj(@Param("cnpj") String cnpj);
+	Optional<Ocs> findByCnpj(@Param("cnpj") String cnpj);
 
 	@Query("SELECT o FROM Ocs o WHERE o.especialidade = :esp ORDER BY o.descricao")
 	List<Ocs> findByEsp(@Param("esp") String esp);

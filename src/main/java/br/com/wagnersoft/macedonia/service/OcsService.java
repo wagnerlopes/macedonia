@@ -18,10 +18,14 @@ public class OcsService {
 	@Autowired
 	private OcsRepository rep;
 
-	public List<Ocs> listar() {
+	public List<Ocs> listAll() {
 		final List<Ocs> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
+	}
+
+	public Ocs findByCnpj(String cnpj) {
+		return rep.findByCnpj(cnpj).orElseThrow();
 	}
 
 }

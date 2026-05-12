@@ -45,6 +45,63 @@
 
       </table>
 
+      <h5>Adicionar Contrato</h5>
+
+      <hr class="my-3" />
+
+      <form action="#" th:action="@{/contratos/save}" th:object="${contrato}" method="post">
+          
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
+
+        <div class="form-group row mt-1">
+          <label for="cnpj" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{contrato.ocs.cnpj}">CNPJ</span></strong>
+          </label>
+          <div class="col-sm-6">
+            <select th:field="*{ocs.cnpj}" class="form-select">
+              <option selected value="">--- Selecione uma Organização de Saúde ---</option>
+              <option th:each="ocs : ${listOcs}" th:value="${ocs.cnpj}" th:text="${ocs.descricao}">OCS</option>
+            </select>
+          </div>
+        </div>
+          
+        <div class="form-group row mt-1">
+          <label for="inicioData" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{contrato.inicioData}"><strong>In&iacute;cio</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{inicioData}" th:errorclass="error" maxlength="10"  class="form-control"/>
+            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="finalata" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{contrato.finalData}"><strong>T&eacute;rmino</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{finalData}" th:errorclass="error" maxlength="10"  class="form-control"/>
+            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="chValor" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{contrato.chValor}">CH</span></strong>
+          </label>
+          <div class="col-sm-1">
+            <input type="text" th:field="*{chValor}" th:errorclass="error" maxlength="5" class="form-control"/>
+          </div>
+        </div>
+          
+        <div class="submit">
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{contrato.save}">Novo</button>
+        </div>
+                  
+      </form>
+      
     </div>
   
   </div>

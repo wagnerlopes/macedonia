@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,11 +17,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Contrato implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,8 +41,8 @@ public class Contrato implements Serializable {
 	@Column(name="ch_valor")
 	private BigDecimal chValor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="ocs_id", updatable = false, nullable = false)
 	private Ocs ocs;
 
 	@Override

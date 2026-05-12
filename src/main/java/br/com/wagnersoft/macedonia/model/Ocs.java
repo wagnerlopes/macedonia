@@ -16,11 +16,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Include;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
 public class Ocs implements Comparable<Ocs>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,9 +33,11 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	private Integer id;
 
 	@NonNull
+	@Include
 	private String cnpj;
 
 	@NonNull
+	@Include
 	private String descricao;
 
 	@NonNull

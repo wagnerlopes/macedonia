@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import br.com.wagnersoft.macedonia.model.Acomodacao;
-import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
@@ -33,9 +32,6 @@ public class Runner {
 	private EspecialidadeService espSvc;
 
 	@Autowired
-	private ContratoService cttSvc;
-
-	@Autowired
 	private GuiaEncaminhamentoService guiaSvc;
 
 	@Autowired
@@ -48,30 +44,20 @@ public class Runner {
 	private MessageSource msg;
 
 	@GetMapping("/")
-	public String dashboard(Model model) {
+	public String index(Model model) {
 		logger.info("+++ Index +++");
 		model.addAttribute("menu", "index");
 		model.addAttribute("welcome", msg.getMessage("user.welcome", new Object[] {" Usuário "}, Locale.getDefault()));
 		return "index";
 	}
 	
-	@GetMapping("/config")
-	public String config(Model model) {
+	@GetMapping("/configuracoes")
+	public String configuracoes(Model model) {
 		logger.info("+++ Config +++");
 		model.addAttribute("menu", "config");
 		return "configuracoes";
 	}
 
-	/*
-	@GetMapping("/contratos")
-	public String contratos(Model model) {
-		logger.info("+++ Contratos +++");
-		model.addAttribute("menu", "cont");
-		model.addAttribute("lista", cttSvc.listAll());
-		return "contratos";
-	}
-    */
-    
 	@GetMapping("/especialidades")
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades +++");
@@ -100,7 +86,7 @@ public class Runner {
 	public String ocs(Model model) {
 		logger.info("+++ OCS +++");
 		model.addAttribute("menu", "ocs");
-		model.addAttribute("lista", ocsSvc.listar());
+		model.addAttribute("lista", ocsSvc.listAll());
 		return "ocs";
 	}
 	
