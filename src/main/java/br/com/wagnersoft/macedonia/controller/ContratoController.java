@@ -48,14 +48,13 @@ public class ContratoController {
     
     @PostMapping(value="/contratos/save", params={"save"})
     public String save(final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
-        if (bindingResult.hasErrors()) {
-            return "contratos";
+        if (!bindingResult.hasErrors()) {
+        	final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj());
+        	contrato.setOcs(ocs);
+        	logger.info("{}", contrato);
+        	cttSvc.add(contrato);
+        	model.clear();
         }
-        final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj());
-        contrato.setOcs(ocs);
-		logger.info("{}", contrato);
-        cttSvc.add(contrato);
-        model.clear();
         return "redirect:/contratos";
     }
     

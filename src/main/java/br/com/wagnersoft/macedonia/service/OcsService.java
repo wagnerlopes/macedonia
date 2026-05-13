@@ -28,4 +28,8 @@ public class OcsService {
 		return rep.findByCnpj(cnpj).orElseThrow();
 	}
 
+	public void add(Ocs ocs) {
+		rep.save(ocs);
+	}
+
 }

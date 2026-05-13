@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
+import jakarta.validation.Valid;
 
 @Controller
 public class BeneficiarioController {
@@ -34,13 +35,12 @@ public class BeneficiarioController {
     }
     
     @PostMapping(value="/beneficiarios/save", params={"save"})
-    public String save(final Beneficiario beneficiario, final BindingResult bindingResult, final ModelMap model) {
-        if (bindingResult.hasErrors()) {
-            return "beneficiarios";
+    public String save(@Valid final Beneficiario beneficiario, final BindingResult bindingResult, final ModelMap model) {
+        if (!bindingResult.hasErrors()) {
+   	      logger.info("{}", beneficiario);
+          benSvc.add(beneficiario);
+          model.clear();
         }
-		logger.info("{}", beneficiario);
-        benSvc.add(beneficiario);
-        model.clear();
         return "redirect:/beneficiarios";
     }
     

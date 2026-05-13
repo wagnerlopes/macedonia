@@ -66,6 +66,112 @@
 
       </table>
 
+      <h5>Adicionar Organiza&ccedil;&atilde;o de Sa&uacute;de</h5>
+
+      <hr class="my-3" />
+
+      <form action="#" th:action="@{/ocs/save}" th:object="${ocs}" method="post">
+          
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
+
+        <div class="form-group row mt-1">
+          <label for="cnpj" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.cnpj}">CNPJ</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{cnpj}" th:errorclass="error" maxlength="11" class="form-control"/>
+          </div>
+        </div>
+          
+        <div class="form-group row mt-1">
+          <label for="descricao" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.descricao}">Descricao</span></strong>
+          </label>
+          <div class="col-sm-6">
+            <input type="text" th:field="*{descricao}" th:errorclass="error" maxlength="255" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="especialidade" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.especialidade}"><strong>Especialidade</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{especialidade}" th:errorclass="error" maxlength="30"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="endereco" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.endereco}"><strong>Endereço</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{endereco}" th:errorclass="error" maxlength="100"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="numero" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.numero}"><strong>numero</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{numero}" th:errorclass="error" maxlength="5"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="complemento" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.complemento}"><strong>Complemento</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{complemento}" th:errorclass="error" maxlength="30"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="municipio" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.municipio}"><strong>municipio</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{municipio}" th:errorclass="error" maxlength="70"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="uf" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.uf}"><strong>UF</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{uf}" th:errorclass="error" maxlength="2"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="telefone" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.telefone}"><strong>Telefone</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{telefone}" th:errorclass="error" maxlength="15"  class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="contato" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{ocs.contato}"><strong>contato</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{contato}" th:errorclass="error" maxlength="15"  class="form-control"/>
+          </div>
+        </div>
+          
+        <div class="submit">
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{ocs.save}">Novo</button>
+        </div>
+                  
+      </form>
+
     </div>
   
   </div>

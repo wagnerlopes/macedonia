@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import br.com.wagnersoft.macedonia.model.Acomodacao;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
-import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
 
 @Controller
@@ -33,9 +32,6 @@ public class Runner {
 
 	@Autowired
 	private GuiaEncaminhamentoService guiaSvc;
-
-	@Autowired
-	private OcsService ocsSvc;
 
 	@Autowired
 	private ProfissionalService profSvc;
@@ -82,14 +78,6 @@ public class Runner {
 		return "guias";
 	}
 
-	@GetMapping("/ocs")
-	public String ocs(Model model) {
-		logger.info("+++ OCS +++");
-		model.addAttribute("menu", "ocs");
-		model.addAttribute("lista", ocsSvc.listAll());
-		return "ocs";
-	}
-	
 	@GetMapping("/tiss")
 	public String tiss(Model model) {
 		logger.info("+++ TISS +++");
