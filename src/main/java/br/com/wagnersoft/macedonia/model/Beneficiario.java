@@ -2,6 +2,7 @@ package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,5 +57,18 @@ public class Beneficiario implements Serializable {
 		Beneficiario other = (Beneficiario) obj;
 		return Objects.equals(cpf, other.cpf);
 	}
-	
+
+	public long getIdade() {
+	    if (nascimentoData == null) return 0;
+	    final LocalDate today = LocalDate.now();
+	    if (nascimentoData.isAfter(today)) return -1;
+	    return ChronoUnit.YEARS.between(nascimentoData, today);
+	}	
+
+	public String getFaixaEtaria() {
+		long idade = getIdade();
+		long s = idade == 0 ? idade + 1 : idade%10 == 0 ? idade - 1 : idade;
+		return Math.round(s / 10) * 10 + " a " + Math.round((s + 9) / 10) * 10;
+	}
+
 }

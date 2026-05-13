@@ -26,19 +26,23 @@
             <th scope="col">CPF</th>
             <th scope="col">Nome</th>
             <th scope="col">Nascimento</th>
+            <th scope="col">Idade</th>
+            <th scope="col">Faixa Etária</th>
             <th scope="col">Guias</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:if="${lista.empty}">
-            <td colspan="4">Sem benefici&aacute;rios</td>
+            <td colspan="5">Sem benefici&aacute;rios</td>
           </tr>
 			
           <tr th:each="ben : ${lista}">
             <td><span th:text="${ben.cpf}"> CPF </span></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
             <td><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
+            <td><span th:text="${ben.idade}"> Idade </span></td>
+            <td><span th:text="${ben.faixaEtaria}"> Faixa Etaria </span></td>
             <td>
               <table>
                 <tr th:each="g : ${ben.guias}">
