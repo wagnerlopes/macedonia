@@ -13,6 +13,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -29,12 +31,15 @@ public class Beneficiario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Size(max=11)
 	private String cpf;
 
 	@NonNull
+	@Size(max=255)
 	private String nome;
 
 	@NonNull
+	@Past
 	@Column(name="nascimento_data")
 	private LocalDate nascimentoData;
 

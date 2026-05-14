@@ -36,11 +36,12 @@ public class BeneficiarioController {
     
     @PostMapping(value="/beneficiarios/save", params={"save"})
     public String save(@Valid final Beneficiario beneficiario, final BindingResult bindingResult, final ModelMap model) {
-        if (!bindingResult.hasErrors()) {
-   	      logger.info("{}", beneficiario);
-          benSvc.add(beneficiario);
-          model.clear();
+        if (bindingResult.hasErrors()) {
+            return "redirect:/beneficiarios";
         }
+        logger.info("{}", beneficiario);
+        benSvc.add(beneficiario);
+        model.clear();
         return "redirect:/beneficiarios";
     }
     
