@@ -1,48 +1,21 @@
-/* globals Chart:false */
 
-(() => {
-  'use strict'
+const formatDate = function(field_name) {
+  var field = document.getElementById(field_name);
+  field.addEventListener('input', (e) => {
+    let v = field.value.replace(/\D/g, '').slice(0,8);       // keep digits only, max 8
+    if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);  // insert slash after DD
+    if (v.length >= 6) v = v.slice(0,5) + '/' + v.slice(5);  // insert slash after MM
+    field.value = v;
+  });
 
-  // Graphs
-  const ctx = document.getElementById('myChart')
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
-        'Jan',
-        'Fev',
-        'Mar',
-        'Abr',
-        'Mai',
-        'Jun',
-        'Jul'
-      ],
-      datasets: [{
-        data: [
-          1533,
-          2134,
-          1848,
-          2400,
-          2348,
-          2409,
-          1203
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          boxPadding: 3
-        }
-      }
+  field.addEventListener('blur', () => {
+    const parts = field.value.split('/');
+    if (parts.length === 3) {
+      const dd = parts[0].padStart(2,'0');
+      const mm = parts[1].padStart(2,'0');
+      const yyyy = parts[2];
+      field.value = `${dd}/${mm}/${yyyy}`;
     }
-  })
-})()
+  });
+
+};
