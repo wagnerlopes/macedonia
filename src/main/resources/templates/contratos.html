@@ -31,11 +31,11 @@
         </thead>
 
         <tbody>
-          <tr th:if="${lista.empty}">
+          <tr th:if="${allContratos.empty}">
             <td colspan="4">Sem contratos</td>
           </tr>
 			
-          <tr th:each="cont : ${lista}">
+          <tr th:each="cont : ${allContratos}">
             <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Início </span></td>
             <td><span th:text="${#temporals.format(cont.finalData, 'dd/MM/yyyy')}"> Fim </span></td>
@@ -91,8 +91,8 @@
           <label for="chValor" class="col-sm-1 form-label my-1">
             <strong><span th:text="#{contrato.chValor}">CH</span></strong>
           </label>
-          <div class="col-sm-1">
-            <input type="text" th:field="*{chValor}" th:errorclass="error" maxlength="5" class="form-control"/>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{chValor}" th:errorclass="error" maxlength="6" class="form-control"/>
           </div>
         </div>
           

@@ -34,11 +34,11 @@
         </thead>
 
         <tbody>
-          <tr th:if="${lista.empty}">
+          <tr th:if="${allOcs.empty}">
             <td colspan="7">Sem OCS</td>
           </tr>
 			
-          <tr th:each="ocs : ${lista}">
+          <tr th:each="ocs : ${allOcs}">
             <td><span th:text="${ocs.cnpj}"> CNPJ </span></td>
             <td><span th:text="${ocs.descricao}"> Descricao </span></td>
             <td><span th:text="${ocs.especialidade}"> Especialidade </span></td>

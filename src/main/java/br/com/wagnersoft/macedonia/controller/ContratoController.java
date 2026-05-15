@@ -17,6 +17,7 @@ import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
+import jakarta.validation.Valid;
 
 @Controller
 public class ContratoController {
@@ -33,6 +34,11 @@ public class ContratoController {
         super();
     }
 
+    @ModelAttribute("allContratos")
+    public List<Contrato> populateContratos() {
+        return cttSvc.listAll();
+    }
+    
 	@ModelAttribute("listOcs")
     public List<Ocs> listOcs() {
         return ocsSvc.listAll();
@@ -42,19 +48,19 @@ public class ContratoController {
     public String show(final Contrato contrato, Model model) {
 		logger.info("+++ Contratos +++");
 		model.addAttribute("menu", "Contrato");
-		model.addAttribute("lista", cttSvc.listAll());
         return "contratos";
     }
     
     @PostMapping(value="/contratos/save", params={"save"})
-    public String save(final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
-        if (!bindingResult.hasErrors()) {
-        	final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj());
-        	contrato.setOcs(ocs);
-        	logger.info("{}", contrato);
-        	cttSvc.add(contrato);
-        	model.clear();
+    public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
+        if (bindingResult.hasErrors()) {
+        	return "contratos";
         }
+        final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj());
+        contrato.setOcs(ocs);
+        logger.info("{}", contrato);
+        cttSvc.add(contrato);
+        model.clear();
         return "redirect:/contratos";
     }
     

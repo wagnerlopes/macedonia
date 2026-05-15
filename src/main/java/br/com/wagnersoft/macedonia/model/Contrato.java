@@ -14,10 +14,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Getter
@@ -32,15 +35,19 @@ public class Contrato implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="final_data")
-	private LocalDate finalData;
-
+	@NotNull
 	@Column(name="inicio_data")
 	private LocalDate inicioData;
 
+	@NotNull
+	@Column(name="final_data")
+	private LocalDate finalData;
+
+	@Digits(fraction = 2, integer = 5)
 	@Column(name="ch_valor")
 	private BigDecimal chValor;
 
+	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="ocs_id", updatable = false, nullable = false)
 	private Ocs ocs;
@@ -62,8 +69,6 @@ public class Contrato implements Serializable {
 }
 
 /*
-
 @GeneratedValue(strategy=GenerationType.TABLE, generator="TGC")
 @TableGenerator(name="TGC", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", pkColumnValue="CONTRATOS", allocationSize=1)
-
 */
