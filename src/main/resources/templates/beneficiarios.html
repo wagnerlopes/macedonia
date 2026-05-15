@@ -33,11 +33,11 @@
         </thead>
 
         <tbody>
-          <tr th:if="${lista.empty}">
+          <tr th:if="${allBeneficiarios.empty}">
             <td colspan="5">Sem benefici&aacute;rios</td>
           </tr>
 			
-          <tr th:each="ben : ${lista}">
+          <tr th:each="ben : ${allBeneficiarios}">
             <td><span th:text="${ben.cpf}"> CPF </span></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
             <td><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
