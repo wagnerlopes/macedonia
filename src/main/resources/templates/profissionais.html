@@ -31,15 +31,15 @@
         </thead>
 
         <tbody>
-          <tr th:if="${lista.empty}">
+          <tr th:if="${allProfissionais.empty}">
             <td colspan="4">Sem profissionais</td>
           </tr>
 			
-          <tr th:each="med : ${lista}">
-            <td><span th:text="${med.cpf}"> CPF </span></td>
-            <td><span th:text="${med.nome}"> Nome </span></td>
-            <td><span th:text="${med.especialidade.descricao}"> Especialidade </span></td>
-            <td><span th:text="${med.crmDotUf}"> CRM </span></td>
+          <tr th:each="prof : ${allProfissionais}">
+            <td><span th:text="${prof.cpf}"> CPF </span></td>
+            <td><span th:text="${prof.nome}"> Nome </span></td>
+            <td><span th:text="${prof.especialidade.descricao}"> Especialidade </span></td>
+            <td><span th:text="${prof.crmDotUf}"> CRM </span></td>
           </tr>
         </tbody>
 

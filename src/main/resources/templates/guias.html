@@ -31,11 +31,11 @@
         </thead>
 
         <tbody>
-          <tr th:if="${lista.empty}">
+          <tr th:if="${allGuias.empty}">
             <td colspan="4">Sem guias de encaminhamento</td>
           </tr>
 			
-          <tr th:each="guia : ${lista}">
+          <tr th:each="guia : ${allGuias}">
             <td><span th:text="${guia.beneficiario.cpf + ' - ' + guia.beneficiario.nome}"> Beneficiário </span></td>
             <td><span th:text="${guia.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${#temporals.format(guia.emissaoData, 'dd/MM/yyyy')}"> Data </span></td>

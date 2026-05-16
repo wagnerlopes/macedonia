@@ -18,10 +18,14 @@ public class ProfissionalService {
 	@Autowired
 	private ProfissionalRepository rep;
 
-	public List<Profissional> listar() {
+	public List<Profissional> listAll() {
 		final List<Profissional> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
+	}
+
+	public void add(Profissional prof) {
+		rep.save(prof);
 	}
 
 }

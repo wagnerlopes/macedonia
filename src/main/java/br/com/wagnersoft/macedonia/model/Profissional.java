@@ -12,11 +12,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Profissional implements Comparable<Profissional>, Serializable {
 
 	private static final long serialVersionUID = 1L;

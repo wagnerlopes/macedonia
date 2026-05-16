@@ -18,7 +18,7 @@ public class EspecialidadeService {
 	@Autowired
 	private EspecialidadeRepository rep;
 
-	public List<Especialidade> listar() {
+	public List<Especialidade> listAll() {
 		final List<Especialidade> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;

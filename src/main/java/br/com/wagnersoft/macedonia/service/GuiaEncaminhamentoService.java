@@ -18,10 +18,14 @@ public class GuiaEncaminhamentoService {
 	@Autowired
 	private GuiaEncaminhamentoRepository rep;
 
-	public List<GuiaEncaminhamento> listar() {
+	public List<GuiaEncaminhamento> listAll() {
 		final List<GuiaEncaminhamento> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
+	}
+
+	public void add(GuiaEncaminhamento guia) {
+		rep.save(guia);
 	}
 
 }

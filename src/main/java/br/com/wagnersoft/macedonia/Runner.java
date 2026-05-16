@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import br.com.wagnersoft.macedonia.model.Acomodacao;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
-import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
-import br.com.wagnersoft.macedonia.service.ProfissionalService;
 
 @Controller
 @SpringBootApplication
@@ -29,12 +27,6 @@ public class Runner {
 
 	@Autowired
 	private EspecialidadeService espSvc;
-
-	@Autowired
-	private GuiaEncaminhamentoService guiaSvc;
-
-	@Autowired
-	private ProfissionalService profSvc;
 
 	@Autowired
 	private MessageSource msg;
@@ -58,24 +50,8 @@ public class Runner {
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades +++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("lista", espSvc.listar());
+		model.addAttribute("lista", espSvc.listAll());
 		return "especialidades";
-	}
-
-	@GetMapping("/profissionais")
-	public String profissionais(Model model) {
-		logger.info("+++ Profissionais +++");
-		model.addAttribute("menu", "prof");
-		model.addAttribute("lista", profSvc.listar());
-		return "profissionais";
-	}
-
-	@GetMapping("/guias")
-	public String guias(Model model) {
-		logger.info("+++ Guias +++");
-		model.addAttribute("menu", "guias");
-		model.addAttribute("lista", guiaSvc.listar());
-		return "guias";
 	}
 
 	@GetMapping("/tiss")

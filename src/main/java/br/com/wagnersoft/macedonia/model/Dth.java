@@ -59,16 +59,17 @@ public class Dth implements Comparable<Dth>, Serializable {
 		return Objects.equals(id, other.id);
 	}
 	
+    public String getDotCodigo() {
+        return this.codigo.isEmpty() || this.codigo.length() < 8 ? "CODIGO" :
+          codigo.substring(0,2) + "." +
+          codigo.substring(2,4) + "." +
+          codigo.substring(4,7) + "-" +
+          codigo.substring(7);
+    }
+
 }
 
 /*
-  public String getCodigof() {
-	return this.codigo.isEmpty() || this.codigo.length() < 8 ? "CODIGO" : new StringBuilder(codigo.substring(0,2)).append(".")
-			.append(codigo.substring(2,4)).append(".")
-			.append(codigo.substring(4,7)).append("-")
-			.append(codigo.substring(7)).toString();
-  }
-
   @GeneratedValue(strategy=GenerationType.TABLE, generator="TG_DTH")
   @TableGenerator(name="TG_DTH", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", pkColumnValue="DTH", allocationSize=1)
 */

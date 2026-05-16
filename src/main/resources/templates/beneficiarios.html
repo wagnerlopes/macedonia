@@ -31,9 +31,9 @@
           <tr>
             <th scope="col">CPF</th>
             <th scope="col">Nome</th>
-            <th scope="col">Nascimento</th>
-            <th scope="col">Idade</th>
-            <th scope="col">Faixa Etária</th>
+            <th scope="col" class="text-center">Nascimento</th>
+            <th scope="col" class="text-center">Idade</th>
+            <th scope="col" class="text-center">Faixa Etária</th>
             <th scope="col">Guias</th>
           </tr>
         </thead>
@@ -46,9 +46,9 @@
           <tr th:each="ben : ${allBeneficiarios}">
             <td><span th:text="${ben.cpf}"> CPF </span></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
-            <td><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
-            <td><span th:text="${ben.idade}"> Idade </span></td>
-            <td><span th:text="${ben.faixaEtaria}"> Faixa Etaria </span></td>
+            <td class="text-center"><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
+            <td class="text-center"><span th:text="${ben.idade}"> Idade </span></td>
+            <td class="text-center"><span th:text="${ben.faixaEtaria}"> Faixa Etaria </span></td>
             <td>
               <table>
                 <tr th:each="g : ${ben.guias}">
