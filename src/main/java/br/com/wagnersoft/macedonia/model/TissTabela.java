@@ -59,17 +59,3 @@ public class TissTabela implements Comparable<TissTabela>, Serializable {
 	}
 
 }
-
-/*
-public TissProcedimento addTissProcedimento(TissProcedimento tissProcedimento) {
-getTissProcedimentos().add(tissProcedimento);
-tissProcedimento.setTissTabela(this);
-return tissProcedimento;
-}
-
-public TissProcedimento removeTissProcedimento(TissProcedimento tissProcedimento) {
-getTissProcedimentos().remove(tissProcedimento);
-tissProcedimento.setTissTabela(null);
-return tissProcedimento;
-}
-*/

@@ -1,6 +1,9 @@
 
+// Formatacao de data
 const formatDate = function(field_name) {
+
   var field = document.getElementById(field_name);
+
   field.addEventListener('input', (e) => {
     let v = field.value.replace(/\D/g, '').slice(0,8);       // keep digits only, max 8
     if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);  // insert slash after DD

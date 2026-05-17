@@ -20,9 +20,3 @@ public interface DthRepository extends JpaRepository<Dth, Integer> {
 	List<Dth> findByCodigo(@Param("codigo") String codigo);
 
 }
-
-/*
-@NamedQuery(name="Dth.findByDesc", query="SELECT o FROM Dth o WHERE UPPER(o.descricao) LIKE ?1")
-@NamedQuery(name="Dth.findByOCS", query="SELECT o FROM Dth o WHERE o.ocs.id = ?1")
-@NamedQuery(name="Dth.excluirPorOcs", query="DELETE FROM Dth o WHERE o.ocs.id = ?1")
-*/

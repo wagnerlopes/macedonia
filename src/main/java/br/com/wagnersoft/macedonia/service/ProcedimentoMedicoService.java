@@ -11,9 +11,9 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
 @Service
-public class ProcedimentoService {
+public class ProcedimentoMedicoService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProcedimentoService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProcedimentoMedicoService.class);
 
 	@Autowired
 	private ProcedimentoMedicoRepository rep;
