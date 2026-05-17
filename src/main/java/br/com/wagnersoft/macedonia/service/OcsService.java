@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
+import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.repository.OcsRepository;
 
 @Service
@@ -32,4 +33,16 @@ public class OcsService {
 		rep.save(ocs);
 	}
 
+	public void addProcedimentoMedico(OcsPm ocsPm) {
+		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
+		ocs.getOcsPm().add(ocsPm);
+		rep.save(ocs);
+	}
+
+	public void removeProcedimentoMedico(OcsPm ocsPm) {
+		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
+		ocs.getOcsPm().remove(ocsPm);
+		rep.save(ocs);
+	}
+	
 }

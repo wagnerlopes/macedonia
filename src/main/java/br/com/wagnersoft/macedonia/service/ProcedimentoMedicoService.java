@@ -18,10 +18,14 @@ public class ProcedimentoMedicoService {
 	@Autowired
 	private ProcedimentoMedicoRepository rep;
 
-	public List<ProcedimentoMedico> listar() {
+	public List<ProcedimentoMedico> listAll() {
 		final List<ProcedimentoMedico> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
 	}
 
+	public void add(ProcedimentoMedico pm) {
+		rep.save(pm);
+	}
+	
 }

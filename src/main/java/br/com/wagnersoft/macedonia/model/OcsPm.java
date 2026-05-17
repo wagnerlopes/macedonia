@@ -16,15 +16,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name="ocs_pm")
-//@NamedQuery(name="OcsPm.findByPM", query="SELECT o FROM OcsPm o WHERE o.pm.id = ?1")
-//@NamedQuery(name="OcsPm.findByOCS", query="SELECT o FROM OcsPm o WHERE o.ocs.id = ?1")
-//@NamedQuery(name="OcsPm.excluirPorOcs", query="DELETE FROM OcsPm o WHERE o.ocs.id = ?1")
+@ToString
 public class OcsPm implements Comparable<OcsPm>, Serializable {
 
 	private static final long serialVersionUID = 1L;
