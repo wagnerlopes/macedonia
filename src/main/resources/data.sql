@@ -20,7 +20,10 @@ insert into dth(codigo, descricao, unidade, valor, ocs_id) values('1', 'UTI', 'R
 insert into dth(codigo, descricao, unidade, valor, ocs_id) values('2', 'Enfermaria', 'R$', 825.18, 2);
 insert into dth(codigo, descricao, unidade, valor, ocs_id) values('3', 'Quarto', 'R$', 1351.93, 2);
 
-insert into procedimento_medico(amb90, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010022', 'Consulta hospitalar', 50, 0, 0);
+insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010022', '', '', '', '10101020', 'Consulta em domicílio', 50, 0, 0);
+insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010014', '00010014', '00010014','00010014', '10101012', 'Consulta em consultório', 80, 0, 0);
+insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('', '', '','00010065', '10101039', 'Consulta em pronto-socorro', 100, 0, 0);
+insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00020010', '00020010', '00020010','00020010', '10102019', 'Visita hospitalar (paciente internado)', 90, 0, 0);
 
 insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('88888888888', 'Manoel Gomes', '45675', 'MG', 3);
 insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('99999999999', 'Joaquim Teixeira', '112456', 'SP', 1);

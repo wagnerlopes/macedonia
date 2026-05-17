@@ -24,8 +24,8 @@
         <thead>
           <tr>
             <th scope="col">Descri&ccedil;&atilde;o</th>
-            <th scope="col">Grupo</th>
-            <th scope="col">Subgrupo</th>
+            <th scope="col" class="text-center">Grupo</th>
+            <th scope="col" class="text-center">Subgrupo</th>
             <th scope="col" class="text-center">AMB 90</th>
             <th scope="col" class="text-center">AMB 92</th>
             <th scope="col" class="text-center">AMB 96</th>
@@ -44,8 +44,8 @@
 			
           <tr th:each="pm : ${allProcedimentos}">
             <td><span th:text="${pm.descricao}"> Descricao </span></td>
-            <td><span th:text="${pm.grupo}"> Grupo </span></td>
-            <td><span th:text="${pm.subgrupo}"> Subgrupo </span></td>
+            <td class="text-center"><span th:text="${pm.grupo}"> Grupo </span></td>
+            <td class="text-center"><span th:text="${pm.subgrupo}"> Subgrupo </span></td>
             <td class="text-center"><span th:text="${pm.amb90}"> AMB 90 </span></td>
             <td class="text-center"><span th:text="${pm.amb92}"> AMB 92 </span></td>
             <td class="text-center"><span th:text="${pm.amb96}"> AMB 96 </span></td>

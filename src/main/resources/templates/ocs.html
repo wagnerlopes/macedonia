@@ -28,8 +28,8 @@
             <th scope="col">Especialidade</th>
             <th scope="col">Munic&iacute;pio</th>
             <th scope="col">UF</th>
-            <th scope="col"><a href="#" th:href="@{/dth}" title="Ver lista de diárias">Di&aacute;rias</a></th>
-            <th scope="col">Procedimentos</th>
+            <th scope="col"><a href="#" th:href="@{/dth}" title="Lista de diárias">Di&aacute;ria(s)</a></th>
+            <th scope="col"><a href="#" th:href="@{/procedimentos}" title="Lista de procedimentos">Procedimento(s) M&eacute;dico(s)</a></th>
           </tr>
         </thead>
 
@@ -80,8 +80,8 @@
           <label for="cnpj" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.cnpj}">CNPJ</span></strong>
           </label>
-          <div class="col-sm-2">
-            <input type="text" th:field="*{cnpj}" th:errorclass="error" maxlength="11" class="form-control"/>
+          <div class="col-sm-3">
+            <input type="text" th:field="*{cnpj}" th:errorclass="error" maxlength="15" class="form-control"/>
           </div>
         </div>
           
@@ -98,7 +98,7 @@
           <label for="especialidade" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.especialidade}"><strong>Especialidade</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-4">
             <input type="text" th:field="*{especialidade}" th:errorclass="error" maxlength="30"  class="form-control"/>
           </div>
         </div>
@@ -107,7 +107,7 @@
           <label for="endereco" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.endereco}"><strong>Endereço</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-6">
             <input type="text" th:field="*{endereco}" th:errorclass="error" maxlength="100"  class="form-control"/>
           </div>
         </div>
@@ -125,7 +125,7 @@
           <label for="complemento" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.complemento}"><strong>Complemento</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-4">
             <input type="text" th:field="*{complemento}" th:errorclass="error" maxlength="30"  class="form-control"/>
           </div>
         </div>
@@ -134,7 +134,7 @@
           <label for="municipio" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.municipio}"><strong>municipio</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-6">
             <input type="text" th:field="*{municipio}" th:errorclass="error" maxlength="70"  class="form-control"/>
           </div>
         </div>
@@ -143,7 +143,7 @@
           <label for="uf" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.uf}"><strong>UF</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-1">
             <input type="text" th:field="*{uf}" th:errorclass="error" maxlength="2"  class="form-control"/>
           </div>
         </div>
@@ -152,7 +152,7 @@
           <label for="telefone" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.telefone}"><strong>Telefone</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <input type="text" th:field="*{telefone}" th:errorclass="error" maxlength="15"  class="form-control"/>
           </div>
         </div>
@@ -161,7 +161,7 @@
           <label for="contato" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.contato}"><strong>contato</strong></span></strong>
           </label>
-          <div class="col-sm-2">
+          <div class="col-sm-4">
             <input type="text" th:field="*{contato}" th:errorclass="error" maxlength="15"  class="form-control"/>
           </div>
         </div>
