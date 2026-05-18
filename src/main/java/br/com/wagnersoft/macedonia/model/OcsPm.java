@@ -35,8 +35,11 @@ public class OcsPm implements Comparable<OcsPm>, Serializable {
 	@Column(name="ch_qtd")
 	private Integer chQtd;
 
-	@Column(name="valor")
-	private BigDecimal valor;
+	@Column(name="unidade_medida")
+	private String unidadeMedida;
+
+	@Column(name="valor_unitario")
+	private BigDecimal valorUnitario;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")

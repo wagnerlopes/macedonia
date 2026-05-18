@@ -35,9 +35,9 @@ public class Dth implements Comparable<Dth>, Serializable {
 	private String descricao;
 
 	/** Diária, Hora, Procedimento, Sessão, Uso */
-	private String unidade;
+	private String unidadeMedida;
 
-	private BigDecimal valor;
+	private BigDecimal valorUnitario;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")

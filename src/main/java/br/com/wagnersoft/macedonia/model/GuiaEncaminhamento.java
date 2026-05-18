@@ -89,21 +89,19 @@ public class GuiaEncaminhamento implements Serializable {
 		GuiaEncaminhamento other = (GuiaEncaminhamento) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	public GuiaOcsPm addGuiaOcsPm(GuiaOcsPm guiaOcsPm) {
+		if (!this.getGuiaOcsPm().contains(guiaOcsPm)) {
+			this.getGuiaOcsPm().add(guiaOcsPm);
+			guiaOcsPm.setGuiaEncaminhamento(this);
+		}
+		return guiaOcsPm;
+	}
+
+	public GuiaOcsPm removeGuiaOcsPm(GuiaOcsPm guiaOcsPm) {
+		getGuiaOcsPm().remove(guiaOcsPm);
+		guiaOcsPm.setGuiaEncaminhamento(null);
+		return guiaOcsPm;
+	}
 	
 }
-
-/*
-  public GuiaOcsPm addGuiaOcsPm(GuiaOcsPm guiaOcsPm) {
-    if (!this.getGuiaOcsPm().contains(guiaOcsPm)) {
-      this.getGuiaOcsPm().add(guiaOcsPm);
-      guiaOcsPm.setGuiaEncaminhamento(this);
-    }
-	return guiaOcsPm;
-  }
-
-  public GuiaOcsPm removeGuiaOcsPm(GuiaOcsPm guiaOcsPm) {
-	getGuiaOcsPm().remove(guiaOcsPm);
-	guiaOcsPm.setGuiaEncaminhamento(null);
-	return guiaOcsPm;
-  }
-*/

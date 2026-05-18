@@ -1,6 +1,6 @@
 package br.com.wagnersoft.macedonia.type;
 
-public enum UnidadeEnum {
+public enum UnidadeMedidaEnum {
 
 	DIARIA("01", "Diária"),
 	HORA("02", "Hora"),
@@ -12,9 +12,9 @@ public enum UnidadeEnum {
 
 	private final String descricao;
 
-	public static final UnidadeEnum[] ALL = { DIARIA, HORA,PROCEDIMENTO, SESSAO, USO };
+	public static final UnidadeMedidaEnum[] ALL = { DIARIA, HORA,PROCEDIMENTO, SESSAO, USO };
 
-	private UnidadeEnum(final String codigo, final String descricao) {
+	private UnidadeMedidaEnum(final String codigo, final String descricao) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 	}
