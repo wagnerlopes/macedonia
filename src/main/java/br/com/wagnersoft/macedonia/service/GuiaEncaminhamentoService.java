@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
+import br.com.wagnersoft.macedonia.model.GuiaOcsPm;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
 
 @Service
@@ -28,4 +29,16 @@ public class GuiaEncaminhamentoService {
 		rep.save(guia);
 	}
 
+	public void addProcedimentoMedico(GuiaOcsPm gop) {
+		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
+		guia.getGuiaOcsPm().add(gop);
+		rep.save(guia);
+	}
+
+	public void removeProcedimentoMedico(GuiaOcsPm gop) {
+		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
+		guia.getGuiaOcsPm().remove(gop);
+		rep.save(guia);
+	}
+	
 }

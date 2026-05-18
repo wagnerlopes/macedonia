@@ -70,7 +70,7 @@ public class GuiaEncaminhamento implements Serializable {
 	@JoinColumn(name="protocolo_id")
 	private Protocolo protocolo;
 
-	@OneToMany(mappedBy="guiaEncaminhamento", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "guiaEncaminhamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<GuiaOcsPm> guiaOcsPm = new ArrayList<>();
 
 	@Override

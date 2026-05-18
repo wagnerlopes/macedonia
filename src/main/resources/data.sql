@@ -10,8 +10,10 @@ insert into especialidade(codigo, descricao) values(3, 'Ginecologia');
 insert into especialidade(codigo, descricao) values(4, 'Nutrição');
 insert into especialidade(codigo, descricao) values(5, 'Ortopedia');
 
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('00394452053304', 'Hospital Santa Cruz', 'cardiologia', 'Rua das Cruzes', '115', 'fundos', 'Rio Branco', 'AC', '(91) 98234-4532', 'Maria das Dores');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('09216007000110', 'Hospital Grande', 'hospital geral', 'Avenida Principal', '265', 'Parque Clinico', 'Chapeco', 'SC', '(43) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('062106505000192', 'Hospital Cruz Azul', 'Hopital Geral', 'Rua das Cruzes', '115', 'fundos', 'São Paulo', 'SP', '(91) 98234-4532', 'Maria das Dores');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061062212000198', 'Hospital Edmundo Vasconcelos', 'Maternidade', 'Avenida Principal', '265', 'Parque Clinico', 'Itajubá', 'MG', '(35) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061699567000192', 'Hospital São Paulo', 'Hospital Geral', 'Avenida Principal', '265', 'Parque Clinico', 'Chapecó', 'SC', '(43) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061599908000158', 'Beneficiência Portuguesa', 'Hospital e Maternidade', 'Avenida Principal', '265', 'Parque Clinico', 'Resende', 'RJ', '(21) 97521-6789', 'Clara Gimenez');
 
 insert into dth(codigo, descricao, unidade, valor, ocs_id) values('1', 'UTI', 'DIARIA', 534.67, 1);
 insert into dth(codigo, descricao, unidade, valor, ocs_id) values('2', 'Enfermaria', 'DIARIA', 215.98, 1);
