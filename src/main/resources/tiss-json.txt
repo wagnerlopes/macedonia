@@ -1,0 +1,79 @@
+{
+  "guiaFaturamento": {
+    "cabecalho": {
+      "identificacaoPrestador": {
+        "numeroRegistroANSPrestador": "1234567890",
+        "nomePrestador": "Clínica Exemplo Ltda",
+        "cnpj": "12.345.678/0001-90"
+      },
+      "identificacaoOperadora": {
+        "numeroRegistroANSOperadora": "987654",
+        "nomeOperadora": "Operadora Exemplo S.A."
+      },
+      "dataEmissao": "2026-05-18"
+    },
+    "procedimentos": [
+      {
+        "sequencial": 1,
+        "codigoProcedimento": "10101012",
+        "descricaoProcedimento": "Consulta médica - especialidade X",
+        "tabela": "TUSS",
+        "quantidade": 1,
+        "unidadeMedida": "ATO",
+        "valorUnitario": 150.00,
+        "valorTotal": 150.00,
+        "profissionalExecutante": {
+          "nome": "Dr. João Silva",
+          "cbo": "2251-10",
+          "cns": "123456789012345",
+          "cpf": "000.111.222-33",
+          "registroProfissional": {
+            "conselho": "CRM",
+            "numero": "12345",
+            "uf": "SP"
+          }
+        },
+        "dataRealizacao": "2026-05-17",
+        "procedimentoPrincipal": true
+      },
+      {
+        "sequencial": 2,
+        "codigoProcedimento": "30505023",
+        "descricaoProcedimento": "Sessão de fisioterapia",
+        "tabela": "TUSS",
+        "quantidade": 5,
+        "unidadeMedida": "SESSÃO",
+        "valorUnitario": 80.00,
+        "valorTotal": 400.00,
+        "profissionalExecutante": {
+          "nome": "Fisioterapeuta Exemplo",
+          "cbo": "2235-05",
+          "cns": "234567890123456",
+          "cpf": "111.222.333-44",
+          "registroProfissional": {
+            "conselho": "CREFITO",
+            "numero": "98765",
+            "uf": "SP"
+          }
+        },
+        "dataInicio": "2026-04-01",
+        "dataFim": "2026-04-15",
+        "procedimentoPrincipal": false
+      }
+    ],
+    "valores": {
+      "valorTotalGlosa": 0.00,
+      "valorTotalBruto": 550.00,
+      "valorTotalLiquido": 550.00,
+      "descontos": 0.00
+    },
+    "formasPagamento": [
+      {
+        "tipo": "APOS-PAGAMENTO",
+        "dataPagamento": "2026-05-25",
+        "valorPago": 550.00
+      }
+    ],
+    "observacoes": "Faturamento referente ao período abril/maio 2026"
+  }
+}

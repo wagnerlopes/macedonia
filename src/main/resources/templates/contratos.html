@@ -7,6 +7,13 @@
 
 <body>
 
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+ 	   formatDate('inicioData');
+	   formatDate('terminoData');
+    });
+  </script>
+
   <div th:replace = "~{index :: header}"></div>
 
   <div class="container-fluid row">
@@ -24,9 +31,9 @@
         <thead>
           <tr>
             <th scope="col">OCS</th>
-            <th scope="col">Início</th>
-            <th scope="col">Fim</th>
-            <th scope="col">CH Valor</th>
+            <th scope="col">In&iacutecio</th>
+            <th scope="col">T&eacute;rmino</th>
+            <th scope="col">CH (Valor)</th>
           </tr>
         </thead>
 
@@ -37,8 +44,8 @@
 			
           <tr th:each="cont : ${allContratos}">
             <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
-            <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Início </span></td>
-            <td><span th:text="${#temporals.format(cont.finalData, 'dd/MM/yyyy')}"> Fim </span></td>
+            <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
+            <td><span th:text="${#temporals.format(cont.terminoData, 'dd/MM/yyyy')}"> Termino </span></td>
             <td th:text="${#numbers.formatDecimal(cont.chValor,1,2,'COMMA')}"></td>
           </tr>
         </tbody>
@@ -79,10 +86,10 @@
 
         <div class="form-group row mt-1">
           <label for="finalata" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{contrato.finalData}"><strong>T&eacute;rmino</strong></span></strong>
+            <strong><span th:text="#{contrato.terminoData}"><strong>T&eacute;rmino</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{finalData}" th:errorclass="error" maxlength="10"  class="form-control"/>
+            <input type="text" th:field="*{terminoData}" th:errorclass="error" maxlength="10"  class="form-control"/>
             (<span th:text="#{date.format}">DD/MM/YYYY</span>)
           </div>
         </div>
@@ -107,5 +114,7 @@
   </div>
 
 </body>
+
+<script src="../js/macedonia.js" th:src="@{/js/macedonia.js}" ></script>
 
 </html>

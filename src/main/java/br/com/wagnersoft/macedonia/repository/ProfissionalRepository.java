@@ -12,10 +12,10 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Stri
 
 	List<Profissional> findByNome(String nome);
 
-	@Query("SELECT p FROM Profissional p WHERE p.crm = :crm")
-	List<Profissional> findByCrm(@Param("crm") String crm);
+	@Query("SELECT p FROM Profissional p WHERE p.registro.numero = :numero")
+	List<Profissional> findByRegistro(@Param("numero") String numero);
 
-	@Query("SELECT p FROM Profissional p WHERE p.especialidade.codigo = :codigo ORDER BY p.nome")
-	List<Profissional> findByEspecialidade(@Param("codigo") int codigo);
+	@Query("SELECT p FROM Profissional p WHERE p.cbo.codigo = :codigo ORDER BY p.nome")
+	List<Profissional> findByCBO(@Param("codigo") int codigo);
 	
 }

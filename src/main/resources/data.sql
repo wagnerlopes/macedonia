@@ -4,11 +4,16 @@ insert into beneficiario(cpf, nome, nascimento_data) values('33333333333', 'Luiz
 insert into beneficiario(cpf, nome, nascimento_data) values('44444444444', 'Adelaide Terra', '2001-02-04');
 insert into beneficiario(cpf, nome, nascimento_data) values('55555555555', 'Fernando Pires', '2010-12-07');
 
-insert into especialidade(codigo, descricao) values(1, 'Cardiologia');
-insert into especialidade(codigo, descricao) values(2, 'Oftalmologia');
-insert into especialidade(codigo, descricao) values(3, 'Ginecologia');
-insert into especialidade(codigo, descricao) values(4, 'Nutrição');
-insert into especialidade(codigo, descricao) values(5, 'Ortopedia');
+insert into cbo(codigo, descricao) values('2251-10', 'Médico clínico geral');
+insert into cbo(codigo, descricao) values('2251-15', 'Médico especialista');
+insert into cbo(codigo, descricao) values('3221-05', 'Enfermeiro');
+insert into cbo(codigo, descricao) values('3222-05', 'Técnico de enfermagem');
+insert into cbo(codigo, descricao) values('2235-05', 'Fisioterapeuta');
+insert into cbo(codigo, descricao) values('2231-10', 'Terapeuta ocupacional');
+insert into cbo(codigo, descricao) values('2511-10', 'Psicólogo clínico');
+insert into cbo(codigo, descricao) values('3223-05', 'Auxiliar de enfermagem');
+insert into cbo(codigo, descricao) values('2265-10', 'Dentista');
+insert into cbo(codigo, descricao) values('2241-10', 'Nutricionista');
 
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('062106505000192', 'Hospital Cruz Azul', 'Hopital Geral', 'Rua das Cruzes', '115', 'fundos', 'São Paulo', 'SP', '(91) 98234-4532', 'Maria das Dores');
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061062212000198', 'Hospital Edmundo Vasconcelos', 'Maternidade', 'Avenida Principal', '265', 'Parque Clinico', 'Itajubá', 'MG', '(35) 97521-6789', 'Clara Gimenez');
@@ -27,14 +32,17 @@ insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('', '', '','00010065', '10101039', 'Consulta em pronto-socorro', 100, 0, 0);
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00020010', '00020010', '00020010','00020010', '10102019', 'Visita hospitalar (paciente internado)', 90, 0, 0);
 
-insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('88888888888', 'Manoel Gomes', '45675', 'MG', 3);
-insert into profissional(cpf, nome, crm, crm_uf, especialidade_codigo) values ('99999999999', 'Joaquim Teixeira', '112456', 'SP', 1);
+insert into registro_profissional(conselho, numero, uf) values ('CRM', '457890', 'SP');
+insert into registro_profissional(conselho, numero, uf) values ('CRM', '1012453', 'MG');
+
+insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('88888888888', 'Manoel Gomes', 1, '2251-10');
+insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('99999999999', 'Joaquim Teixeira', 2,'2251-15');
 
 insert into ocs_pm(ocs_id, pm_id, valor) values(1, 1, 321.74);
 insert into ocs_pm(ocs_id, pm_id, valor) values(2, 1, 247.74);
 
-insert into contrato(ocs_id, inicio_data, final_data, ch_valor) values (1, '2020-05-14', '2030-12-26', 20);
-insert into contrato(ocs_id, inicio_data, final_data, ch_valor) values (2, '2021-08-23', '2031-05-12', 20);
+insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (1, '2020-05-14', '2030-12-26', 20);
+insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (2, '2021-08-23', '2031-05-12', 20);
 
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 1, '2026-02-10', '145', '99999999999', '88888888888', 1654.87);
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 2, '2026-03-15', '146', '99999999999', '88888888888', 321.18);

@@ -26,7 +26,7 @@
             <th scope="col">CPF</th>
             <th scope="col">Nome</th>
             <th scope="col">Especialidade</th>
-            <th scope="col">CRM</th>
+            <th scope="col">Registro</th>
           </tr>
         </thead>
 
@@ -38,8 +38,8 @@
           <tr th:each="prof : ${allProfissionais}">
             <td><span th:text="${prof.cpf}"> CPF </span></td>
             <td><span th:text="${prof.nome}"> Nome </span></td>
-            <td><span th:text="${prof.especialidade.descricao}"> Especialidade </span></td>
-            <td><span th:text="${prof.crmDotUf}"> CRM </span></td>
+            <td><span th:text="${prof.cbo.descricao}"> Especialidade </span></td>
+            <td><span th:text="${prof.registro}"> Registro </span></td>
           </tr>
         </tbody>
 

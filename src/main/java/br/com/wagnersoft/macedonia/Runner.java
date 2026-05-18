@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.wagnersoft.macedonia.service.EspecialidadeService;
+import br.com.wagnersoft.macedonia.service.ProfissionalService;
 
 @Controller
 @SpringBootApplication
@@ -22,7 +22,7 @@ public class Runner {
 	private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
 	@Autowired
-	private EspecialidadeService espSvc;
+	private ProfissionalService profSvc;
 
 	@Autowired
 	private MessageSource msg;
@@ -46,7 +46,7 @@ public class Runner {
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades +++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("lista", espSvc.listAll());
+		model.addAttribute("lista", profSvc.listAllCBO());
 		return "especialidades";
 	}
 

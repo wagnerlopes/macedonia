@@ -1,14 +1,13 @@
 package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,14 +27,15 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 
 	private String nome;
 
-	private String crm;
-
-	@Column(name="crm_uf")
-	private String crmUf;
-
+	private String cns;
+	
+	@OneToOne
+	@JoinColumn(name="registro_id")
+	private RegistroProfissional registro;
+	
 	@ManyToOne
-	@JoinColumn(name="especialidade_codigo")
-	private Especialidade especialidade;
+	@JoinColumn(name="cbo_codigo")
+	private CBO cbo;
 
 	@Override
 	public int compareTo(Profissional o) {
@@ -54,12 +54,6 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 		if (getClass() != obj.getClass()) return false;
 		Profissional other = (Profissional) obj;
 		return Objects.equals(cpf, other.cpf);
-	}
-
-	public String getCrmDotUf() {
-		final DecimalFormat df = new DecimalFormat();
-		df.setGroupingUsed(true);
-		return "CRM" + "-" + this.getCrmUf() + " " + df.format(Long.valueOf(this.getCrm()));
 	}
 
 }

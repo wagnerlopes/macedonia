@@ -40,13 +40,14 @@ public class Contrato implements Serializable {
 	private LocalDate inicioData;
 
 	@NotNull
-	@Column(name="final_data")
-	private LocalDate finalData;
+	@Column(name="termino_data")
+	private LocalDate TerminoData;
 
 	@Digits(fraction = 2, integer = 5)
 	@Column(name="ch_valor")
 	private BigDecimal chValor;
 
+	@NotNull
 	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="ocs_id", updatable = false, nullable = false)
