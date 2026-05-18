@@ -3,6 +3,7 @@ package br.com.wagnersoft.macedonia.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,9 +58,6 @@ public class GuiaEncaminhamento implements Serializable {
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 
-	@OneToMany(mappedBy="guiaEncaminhamento", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<GuiaOcsPm> guiaOcsPm;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="beneficiario_cpf")
 	private Beneficiario beneficiario;
@@ -71,6 +69,9 @@ public class GuiaEncaminhamento implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="protocolo_id")
 	private Protocolo protocolo;
+
+	@OneToMany(mappedBy="guiaEncaminhamento", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<GuiaOcsPm> guiaOcsPm = new ArrayList<>();
 
 	@Override
 	public int hashCode() {

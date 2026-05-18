@@ -1,8 +1,6 @@
 package br.com.wagnersoft.macedonia;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -14,10 +12,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
-import br.com.wagnersoft.macedonia.type.AcomodacaoEnum;
 
 @Controller
 @SpringBootApplication
@@ -62,11 +58,6 @@ public class Runner {
 		return "tiss";
 	}
 
-	@ModelAttribute("allAcomodacao")
-    public List<AcomodacaoEnum> populateAcomodacao() {
-        return Arrays.asList(AcomodacaoEnum.ALL);
-    }
-	
 	public static void main(String[] args) {
 		SpringApplication.run(Runner.class, args);
 	}

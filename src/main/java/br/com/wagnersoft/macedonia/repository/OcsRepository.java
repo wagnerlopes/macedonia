@@ -4,21 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
 
 public interface OcsRepository extends JpaRepository<Ocs, Integer> {
 
+	Optional<Ocs> findByCnpj(String cnpj);
+
 	List<Ocs> findByDescricao(String descricao);
 
-	Optional<Ocs> findById(int id);
-
-	@Query("SELECT o FROM Ocs o WHERE o.cnpj = :cnpj")
-	Optional<Ocs> findByCnpj(@Param("cnpj") String cnpj);
-
-	@Query("SELECT o FROM Ocs o WHERE o.especialidade = :esp ORDER BY o.descricao")
-	List<Ocs> findByEsp(@Param("esp") String esp);
+	List<Ocs> findByEspecialidade(String especialidade);
 	
 }

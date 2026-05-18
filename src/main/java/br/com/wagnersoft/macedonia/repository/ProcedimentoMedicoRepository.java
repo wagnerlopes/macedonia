@@ -11,6 +11,8 @@ public interface ProcedimentoMedicoRepository extends JpaRepository<Procedimento
 
 	Optional<ProcedimentoMedico> findById(int id);
 
+	List<ProcedimentoMedico> findByDescricao(String descricao);
+
 	List<ProcedimentoMedico> findByAmb90(String amb90);
 
 	List<ProcedimentoMedico> findByAmb92(String amb92);
@@ -18,8 +20,6 @@ public interface ProcedimentoMedicoRepository extends JpaRepository<Procedimento
 	List<ProcedimentoMedico> findByAmb96(String amb96);
 
 	List<ProcedimentoMedico> findByAmb99(String amb99);
-
-	List<ProcedimentoMedico> findByDescricao(String descricao);
 
 	List<ProcedimentoMedico> findByTuss(String tuss);
 

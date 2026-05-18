@@ -34,6 +34,14 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 
 	private String amb99;
 
+	private String tuss;
+	
+	private String grupo;
+
+	private String subgrupo;
+
+	private String descricao;
+
 	@Column(name="auxiliares_qtd")
 	private int auxiliaresQtd;
 
@@ -42,14 +50,6 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 
 	@Column(name="porte_anestesico")
 	private int porteAnestesico;
-
-	private String descricao;
-
-	private String grupo;
-
-	private String subgrupo;
-
-	private String tuss;
 
 	@Override
 	public int compareTo(ProcedimentoMedico o) {

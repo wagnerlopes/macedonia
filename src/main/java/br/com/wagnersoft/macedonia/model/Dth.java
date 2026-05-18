@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Diária de Tratamento Hospitalar (DTH). */
+/** Diárias e Taxas Hospitalares (DTH). */
 @Entity
 @Getter
 @Setter
@@ -34,6 +34,7 @@ public class Dth implements Comparable<Dth>, Serializable {
 
 	private String descricao;
 
+	/** Diária, Hora, Procedimento, Sessão, Uso */
 	private String unidade;
 
 	private BigDecimal valor;

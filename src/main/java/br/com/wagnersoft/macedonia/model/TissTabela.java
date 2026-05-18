@@ -1,9 +1,11 @@
 package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -48,8 +50,8 @@ public class TissTabela implements Comparable<TissTabela>, Serializable {
 	//@JoinColumn(name="tipo_guia_consulta_codigo")
 	private String tipoGuiaConsulta;
 
-	@OneToMany(mappedBy="tissTabela")
-	private List<TissProcedimento> tissProcedimentos;
+	@OneToMany(mappedBy="tissTabela", fetch = FetchType.LAZY)
+	private List<TissProcedimento> tissProcedimentos = new ArrayList<>();
 	
 	@Override
 	public int compareTo(TissTabela o) {
