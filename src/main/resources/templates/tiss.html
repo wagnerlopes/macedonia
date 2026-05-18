@@ -26,6 +26,7 @@
             <th scope="col">C&oacute;digo</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
             <th scope="col">Acomodação</th>
+            <th scope="col">Atendimento</th>
             <th scope="col">Consulta</th>
             <th scope="col">Guia</th>
           </tr>
@@ -33,15 +34,16 @@
 
         <tbody>
           <tr th:if="${lista.empty}">
-            <td colspan="5">Sem resgistros</td>
+            <td colspan="6">Sem resgistros</td>
           </tr>
 			
           <tr th:each="tiss : ${lista}">
             <td><span th:text="${tiss.codigo}"> Codigo </span></td>
             <td><span th:text="${tiss.descricao}"> Descricao </span></td>
-            <td><span th:text="${tiss.tipoAcomodacao.descricao}"> Acomodação </span></td>
-            <td><span th:text="${tiss.tipoConsulta.descricao}"> Consulta </span></td>
-            <td><span th:text="${tiss.tipoGuiaConsulta.descricao}"> Guia </span></td>
+            <td><span th:text="${tiss.tipoAcomodacao}"> Acomodação </span></td>
+            <td><span th:text="${tiss.tipoAtendimento}"> Atendimento </span></td>
+            <td><span th:text="${tiss.tipoConsulta}"> Consulta </span></td>
+            <td><span th:text="${tiss.tipoGuiaConsulta}"> Guia </span></td>
           </tr>
         </tbody>
 

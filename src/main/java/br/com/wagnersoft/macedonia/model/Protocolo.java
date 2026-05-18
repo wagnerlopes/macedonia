@@ -35,8 +35,6 @@ public class Protocolo implements Serializable {
 
 	private String assunto;
 
-	private LocalDate data;
-
 	private String destino;
 
 	@Column(name="doc_data")
@@ -54,12 +52,12 @@ public class Protocolo implements Serializable {
 
 	private BigDecimal valor;
 
-	@OneToMany(mappedBy = "protocolo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guias = new ArrayList<>();
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")
 	private Ocs ocs;
+
+	@OneToMany(mappedBy = "protocolo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
 	@Override
 	public int hashCode() {

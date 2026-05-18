@@ -40,6 +40,7 @@ insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr,
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('33333333333', 2, '2026-02-23', '148', '99999999999', '88888888888', 159.98);
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('44444444444', 1, '2026-04-16', '149', '99999999999', '88888888888', 692.38);
 
+/*
 insert into tipo_acomodacao values ('02', 'Quarto privativo / Particular');
 insert into tipo_acomodacao values ('26', 'Enfermaria de 4 ou mais leitos');
 
@@ -58,3 +59,4 @@ insert into tipo_guia_consulta values ('02', 'Guia SP/SADT');
 insert into tipo_guia_consulta values ('03', 'Guia de internação');
 insert into tipo_guia_consulta values ('04', 'Guia de honorários');
 insert into tipo_guia_consulta values ('05', 'Guia de resumo de internação');
+*/

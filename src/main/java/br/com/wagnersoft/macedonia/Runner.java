@@ -16,8 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import br.com.wagnersoft.macedonia.model.Acomodacao;
 import br.com.wagnersoft.macedonia.service.EspecialidadeService;
+import br.com.wagnersoft.macedonia.type.AcomodacaoEnum;
 
 @Controller
 @SpringBootApplication
@@ -63,8 +63,8 @@ public class Runner {
 	}
 
 	@ModelAttribute("allAcomodacao")
-    public List<Acomodacao> populateAcomodacao() {
-        return Arrays.asList(Acomodacao.ALL);
+    public List<AcomodacaoEnum> populateAcomodacao() {
+        return Arrays.asList(AcomodacaoEnum.ALL);
     }
 	
 	public static void main(String[] args) {
