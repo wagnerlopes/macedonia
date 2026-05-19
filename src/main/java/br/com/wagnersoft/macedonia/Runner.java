@@ -1,6 +1,5 @@
 package br.com.wagnersoft.macedonia;
 
-import java.util.Collections;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -48,14 +47,6 @@ public class Runner {
 		model.addAttribute("menu", "esp");
 		model.addAttribute("lista", profSvc.listAllCBO());
 		return "especialidades";
-	}
-
-	@GetMapping("/tiss")
-	public String tiss(Model model) {
-		logger.info("+++ TISS +++");
-		model.addAttribute("menu", "tiss");
-		model.addAttribute("lista", Collections.EMPTY_LIST);
-		return "tiss";
 	}
 
 	public static void main(String[] args) {

@@ -36,6 +36,8 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	@Include
 	private String cnpj;
 
+	private String registroAns;
+
 	@NonNull
 	@Include
 	private String descricao;

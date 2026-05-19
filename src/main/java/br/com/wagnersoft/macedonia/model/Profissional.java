@@ -22,20 +22,20 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String cpf;
-
 	private String nome;
 
-	private String cns;
-	
-	@OneToOne
-	@JoinColumn(name="registro_id")
-	private RegistroProfissional registro;
-	
 	@ManyToOne
 	@JoinColumn(name="cbo_codigo")
 	private CBO cbo;
+
+	private String cns;
+	
+	@Id
+	private String cpf;
+
+	@OneToOne
+	@JoinColumn(name="registro_id")
+	private RegistroProfissional registroProfissional;
 
 	@Override
 	public int compareTo(Profissional o) {

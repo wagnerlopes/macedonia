@@ -1,61 +1,21 @@
-package br.com.wagnersoft.macedonia.model;
+package br.com.wagnersoft.macedonia.type;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
-/** Troca de Informações de Saúde Complementar (TISS).
- * 
- */
-@Entity
+/** Troca de Informações de Saúde Complementar (TISS). */
 @Getter
-@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
-@Table(name="tiss_tabela")
-public class TissTabela implements Comparable<TissTabela>, Serializable {
+public class TissReponseDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String codigo;
-
-	private String descricao;
-
-	//@ManyToOne
-	//@JoinColumn(name="tipo_acomodacao_codigo")
-	private String tipoAcomodacao;
-
-	//@ManyToOne
-	//@JoinColumn(name="tipo_atendimento_codigo")
-	private String tipoAtendimento;
-	
-	//@ManyToOne
-	//@JoinColumn(name="tipo_consulta_codigo")
-	private String tipoConsulta;
-
-	//@ManyToOne
-	//@JoinColumn(name="tipo_guia_consulta_codigo")
-	private String tipoGuiaConsulta;
-
-	@OneToMany(mappedBy="tissTabela", fetch = FetchType.LAZY)
-	private List<TissProcedimento> tissProcedimentos = new ArrayList<>();
-	
-	@Override
-	public int compareTo(TissTabela o) {
-		return this.getDescricao().compareTo(o.getDescricao());
-	}
+	private GuiaFaturamento guiaFaturamento;
 
 }

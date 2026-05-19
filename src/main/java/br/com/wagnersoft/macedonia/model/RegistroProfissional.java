@@ -2,6 +2,8 @@ package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,11 +24,12 @@ public class RegistroProfissional implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonIgnore
 	private Integer id;
 
-	private String numero;
-
 	private String conselho;
+
+	private String numero;
 
 	private String uf;
 

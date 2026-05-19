@@ -21,11 +21,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Table(name="guia_encaminhamento")
 public class GuiaEncaminhamento implements Serializable {
 
@@ -47,10 +50,12 @@ public class GuiaEncaminhamento implements Serializable {
 	@Column(name="observacao")
 	private String observacao;
 
+	@Exclude
 	@ManyToOne
 	@JoinColumn(name="solicitante_cpf")
 	private Profissional solicitante;
 
+	@Exclude
 	@ManyToOne
 	@JoinColumn(name="responsavel_cpf")
 	private Profissional responsavel;
@@ -58,18 +63,22 @@ public class GuiaEncaminhamento implements Serializable {
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 
+	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="beneficiario_cpf")
 	private Beneficiario beneficiario;
 
+	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")
 	private Ocs ocs;
 
+	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="protocolo_id")
 	private Protocolo protocolo;
 
+	@Exclude
 	@OneToMany(mappedBy = "guiaEncaminhamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<GuiaOcsPm> guiaOcsPm = new ArrayList<>();
 

@@ -1,4 +1,4 @@
-package br.com.wagnersoft.macedonia.model;
+package br.com.wagnersoft.macedonia.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public final class Tuss {
+public final class CodigoTuss {
 
 	private String grupo;
 
@@ -58,9 +58,9 @@ public final class Tuss {
 	}
 	
   public static void main(String[] args) {
-    System.out.println(Tuss.builder().grupo("10").subgrupo("10").sequencial("101").dv("2").build());
-    System.out.println(Tuss.isValid("10101012"));
-    System.out.println(Tuss.modulo10("1010101"));
+    System.out.println(CodigoTuss.builder().grupo("10").subgrupo("10").sequencial("101").dv("2").build());
+    System.out.println(CodigoTuss.isValid("10101012"));
+    System.out.println(CodigoTuss.modulo10("1010101"));
   }
 
 }
