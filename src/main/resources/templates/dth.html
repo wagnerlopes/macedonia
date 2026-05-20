@@ -23,23 +23,25 @@
 
         <thead>
           <tr>
-            <th scope="col">Código</th>
-            <th scope="col">Descrição</th>
+            <th scope="col">C&oacute;digo</th>
+            <th scope="col">Descri&ccedil;&atilde;o</th>
             <th scope="col">OCS</th>
-            <th scope="col" class="text-center">Valor</th>
+            <th scope="col">Unidade de Medida</th>
+            <th scope="col" class="text-center">Valor Unit&aacute;rio</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:if="${allDth.empty}">
-            <td colspan="4">Sem Diárias</td>
+            <td colspan="4">Sem Di&aacute;rias e Taxas</td>
           </tr>
 			
           <tr th:each="dth : ${allDth}">
-            <td><span th:text="${dth.codigo}"> Código </span></td>
-            <td><span th:text="${dth.descricao}"> Descrição </span></td>
+            <td><span th:text="${dth.codigo}"> Codigo </span></td>
+            <td><span th:text="${dth.descricao}"> Descricao </span></td>
             <td><span th:text="${dth.ocs.descricao}"> OCS </span></td>
-            <td class="text-end"><span th:text="${dth.unidade + ' ' + dth.valor}"> Valor </span></td>
+            <td><span th:text="${dth.unidadeMedida}"> Unidade </span></td>
+            <td class="text-end"><span th:text="${'R$ ' + #numbers.formatDecimal(dth.valorUnitario,1,2,'COMMA')}"> Valor </span></td>
           </tr>
         </tbody>
 
@@ -74,20 +76,20 @@
         </div>
 
         <div class="form-group row mt-1">
-          <label for="unidade" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{dth.unidade}">Unidade</span></strong>
+          <label for="unidadeMedida" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{dth.unidadeMedida}">Unidade</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{unidade}" th:errorclass="error" maxlength="30" class="form-control"/>
+            <input type="text" th:field="*{unidadeMedida}" th:errorclass="error" maxlength="30" class="form-control"/>
           </div>
         </div>
 
         <div class="form-group row mt-1">
-          <label for="valor" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{dth.valor}">Valor</span></strong>
+          <label for="valorUnitario" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{dth.valorUnitario}">Valor</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{valor}" th:errorclass="error" maxlength="11" class="form-control"/>
+            <input type="text" th:field="*{valorUnitario}" th:errorclass="error" maxlength="11" class="form-control"/>
           </div>
         </div>
 

@@ -12,12 +12,15 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Include;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name="procedimento_medico")
+@ToString(onlyExplicitlyIncluded = true)
 public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,12 +37,14 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 
 	private String amb99;
 
+	@Include
 	private String tuss;
 	
 	private String grupo;
 
 	private String subgrupo;
 
+	@Include
 	private String descricao;
 
 	@Column(name="auxiliares_qtd")
@@ -70,11 +75,12 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 		return Objects.equals(id, other.id);
 	}
 
-	public String getTussf() {
-		return this.tuss.isEmpty() ? "CNPJ" : new StringBuilder(tuss.substring(0,2)).append(".")
-				.append(tuss.substring(2,4)).append(".")
-				.append(tuss.substring(4,7)).append("-")
-				.append(tuss.substring(7)).toString();
+	public String getCodigoTuss() {
+		return this.tuss.isEmpty() ? "COD TUSS" :
+			tuss.substring(0,2) + "." +
+			tuss.substring(2,4) + "." +
+			tuss.substring(4,7) + "-" +
+			tuss.substring(7);
 	}
 	
 }

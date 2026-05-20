@@ -36,14 +36,14 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	@Include
 	private String cnpj;
 
-	private String registroAns;
-
 	@NonNull
 	@Include
 	private String descricao;
 
 	@NonNull
 	private String especialidade;
+
+	private String registroAns;
 
 	private String endereco;
 
@@ -63,13 +63,13 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	private List<Contrato> contratos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Dth> dth = new ArrayList<>();
+	private List<Dth> dths = new ArrayList<>();
 
 	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
 	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<OcsPm> ocsPm = new ArrayList<>();
+	private List<OcsPm> procedimentos = new ArrayList<>();
 
 	@Override
 	public int compareTo(Ocs o) {
@@ -89,41 +89,61 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 		Ocs other = (Ocs) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	public Contrato addContrato(final Contrato contrato) {
+		if (!this.getContratos().contains(contrato)) {
+			this.getContratos().add(contrato);
+			contrato.setOcs(this);
+		}
+		return contrato;
+	}
+
+	public Contrato removeContrato(final Contrato contrato) {
+		getContratos().remove(contrato);
+		contrato.setOcs(null);
+		return contrato;
+	}
+
+	public Dth addDth(final Dth dth) {
+		if (!this.getDths().contains(dth)) {
+			this.getDths().add(dth);
+			dth.setOcs(this);
+		}
+		return dth;
+	}
+
+	public Dth removeDth(final Dth dth) {
+		getDths().remove(dth);
+		dth.setOcs(null);
+		return dth;
+	}
+
+	public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
+		if (!this.getGuias().contains(guia)) {
+			this.getGuias().add(guia);
+			guia.setOcs(this);
+		}
+		return guia;
+	}
+
+	public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
+		getGuias().remove(guia);
+		guia.setOcs(null);
+		return guia;
+	}
+
+	public OcsPm addOcsPm(final OcsPm opm) {
+		if (!this.getProcedimentos().contains(opm)) {
+			this.getProcedimentos().add(opm);
+			opm.setOcs(this);
+		}
+		return opm;
+	}
+
+	public OcsPm removeOcsPm(final OcsPm opm) {
+		getProcedimentos().remove(opm);
+		opm.setOcs(null);
+		return opm;
+	}
 	
 }
-
-/*
-	public void addContrato(final Contrato c) throws Exception {
-		if (this.getContratos() == null) {
-			this.setContratos(new ArrayList<Contrato>(1));
-		}
-		if (this.getContratos().contains(c)) {
-			throw new Exception("Contrato ja existe");
-		}
-		this.getContratos().add(c);
-		if (c.getOcs() != this) {
-			c.setOcs(this);
-		}
-	}
-
-	public void addDth(final Dth d) throws Exception {
-		if (this.getDth() == null) {
-			this.setDth(new ArrayList<Dth>(1));
-		}
-		if (!this.getDth().contains(d)) {
-			this.getDth().add(d);
-			if (d.getOcs() != this) {
-				d.setOcs(this);
-			}
-		}
-	}
-
-    public String getCnpjf() {
-      final String CNPJ = "^\\d{3}.?\\d{3}.?\\d{3}/?\\d{3}-?\\d{2}$";
-      return this.cnpj.isEmpty() ? "CNPJ" : new StringBuilder(cnpj.substring(0,2)).append(".")
-                                                  .append(cnpj.substring(2,5)).append(".")
-                                                  .append(cnpj.substring(5,8)).append("/")
-                                                  .append(cnpj.substring(8,12)).append("-")
-                                                  .append(cnpj.substring(12)).toString();
-    }
-*/

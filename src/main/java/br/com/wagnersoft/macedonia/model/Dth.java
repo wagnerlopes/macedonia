@@ -71,8 +71,3 @@ public class Dth implements Comparable<Dth>, Serializable {
     }
 
 }
-
-/*
-  @GeneratedValue(strategy=GenerationType.TABLE, generator="TG_DTH")
-  @TableGenerator(name="TG_DTH", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", pkColumnValue="DTH", allocationSize=1)
-*/

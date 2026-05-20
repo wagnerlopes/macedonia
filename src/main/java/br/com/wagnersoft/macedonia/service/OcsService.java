@@ -35,13 +35,13 @@ public class OcsService {
 
 	public void addProcedimentoMedico(OcsPm ocsPm) {
 		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
-		ocs.getOcsPm().add(ocsPm);
+		ocs.getProcedimentos().add(ocsPm);
 		rep.save(ocs);
 	}
 
 	public void removeProcedimentoMedico(OcsPm ocsPm) {
 		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
-		ocs.getOcsPm().remove(ocsPm);
+		ocs.getProcedimentos().remove(ocsPm);
 		rep.save(ocs);
 	}
 	

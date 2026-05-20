@@ -46,7 +46,7 @@
             <td><span th:text="${ocs.uf}"> UF </span></td>
             <td>
               <table>
-                <tr th:each="dth : ${ocs.dth}">
+                <tr th:each="dth : ${ocs.dths}">
                   <td th:text="${dth.descricao+ ' - '}"></td>
                   <td th:text="${dth.unidadeMedida + ' - '}"></td>
                   <td th:text="${'R$ ' +#numbers.formatDecimal(dth.valorUnitario,3,2,'COMMA')}"></td>
@@ -55,7 +55,7 @@
             </td>
             <td>
               <table>
-                <tr th:each="x : ${ocs.ocsPm}">
+                <tr th:each="x : ${ocs.procedimentos}">
                   <td th:text="${x.pm.descricao + ' - '}"></td>
                   <td th:text="${x.unidadeMedida + ' - '}"></td>
                   <td th:text="${'R$ ' + #numbers.formatDecimal(x.valorUnitario,3,2,'COMMA')}"></td>
