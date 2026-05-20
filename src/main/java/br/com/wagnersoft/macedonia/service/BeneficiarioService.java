@@ -26,8 +26,18 @@ public class BeneficiarioService {
 		final List<Beneficiario> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;    }
-	public void add(Beneficiario beneficiario) {
-		rep.save(beneficiario);
+	public void remove(final Beneficiario beneficiario) {
+		rep.delete(beneficiario);
+	}
+	
+	public void add(final Beneficiario beneficiario) {
+		rep.findById(beneficiario.getCpf()).ifPresentOrElse(oldBen -> save(oldBen, beneficiario), () -> rep.save(beneficiario));;
 	}
 
+	private void save(final Beneficiario oldBen, final Beneficiario newBen) {
+		oldBen.setNome(newBen.getNome());
+		oldBen.setNascimentoData(newBen.getNascimentoData());
+		rep.save(oldBen);
+	}
+	
 }

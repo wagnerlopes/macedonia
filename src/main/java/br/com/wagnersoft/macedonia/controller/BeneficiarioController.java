@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
@@ -27,6 +28,7 @@ public class BeneficiarioController {
 
     public BeneficiarioController() {
         super();
+    	logger.debug("{}", BeneficiarioController.class.getCanonicalName());
     }
     
     @ModelAttribute("allBeneficiarios")
@@ -35,10 +37,20 @@ public class BeneficiarioController {
     }
     
     @GetMapping({"/beneficiarios"})
-    public String show(final Beneficiario beneficiario, Model model) {
+    public String show(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, Model model) {
 		logger.info("+++ Beneficiarios +++");
 		model.addAttribute("menu", "ben");
+		if (cpf != null &&  !cpf.isEmpty())
+  		  model.addAttribute("beneficiario", benSvc.findByCpf(cpf));
         return "beneficiarios";
+    }
+
+    @GetMapping({"/beneficiarios/delete"})
+    public String delete(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, ModelMap model) {
+        logger.debug("{}", beneficiario);
+        benSvc.remove(beneficiario);
+        model.clear();
+        return "redirect:/beneficiarios";
     }
     
     @PostMapping(value="/beneficiarios/save", params={"save"})
@@ -46,7 +58,7 @@ public class BeneficiarioController {
         if (bindingResult.hasErrors()) {
             return "beneficiarios";
         }
-        logger.info("{}", beneficiario);
+        logger.debug("{}", beneficiario);
         benSvc.add(beneficiario);
         model.clear();
         return "redirect:/beneficiarios";

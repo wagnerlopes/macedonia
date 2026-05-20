@@ -29,6 +29,7 @@
 
         <thead>
           <tr>
+            <th scope="col">...</th>
             <th scope="col">CPF</th>
             <th scope="col">Nome</th>
             <th scope="col" class="text-center">Nascimento</th>
@@ -40,11 +41,12 @@
 
         <tbody>
           <tr th:if="${allBeneficiarios.empty}">
-            <td colspan="5">Sem benefici&aacute;rios</td>
+            <td colspan="6">Sem benefici&aacute;rios</td>
           </tr>
 			
           <tr th:each="ben : ${allBeneficiarios}">
-            <td><span th:text="${ben.cpf}"> CPF </span></td>
+            <td><a th:href="@{/beneficiarios/delete(cpf=${ben.cpf})}">DEL</a></td>
+            <td><a th:href="@{/beneficiarios(cpf=${ben.cpf})}">[[${ben.cpf}]]</a></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
             <td class="text-center"><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
             <td class="text-center"><span th:text="${ben.idade}"> Idade </span></td>
