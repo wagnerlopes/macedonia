@@ -16,6 +16,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 public final class CodigoTuss {
 
+	private String codigo;
+	
 	private String grupo;
 
 	private String subgrupo;
@@ -24,9 +26,24 @@ public final class CodigoTuss {
 
 	private String dv;
 
+	public CodigoTuss(String x) {
+		this.grupo = x.substring(0,2);
+		this.subgrupo = x.substring(2,4);
+		this.sequencial = x.substring(4,7);
+		this.dv = x.substring(7);
+	}
+	
 	@Override
 	public String toString() {
-	  return grupo + "." + subgrupo + "." + sequencial + "-" + dv;
+		return grupo + "." + subgrupo + "." + sequencial + "-" + dv;
+	}
+
+	public String getCodigoTuss() {
+		return codigo.isEmpty() ? "COD TUSS" :
+			codigo.substring(0,2) + "." +
+			codigo.substring(2,4) + "." +
+			codigo.substring(4,7) + "-" +
+			codigo.substring(7);
 	}
 	
 	public static boolean isValid(final String codigo) {
@@ -57,10 +74,10 @@ public final class CodigoTuss {
 		return soma%10 == 0 ? 0 : 10 - soma%10;
 	}
 	
-  public static void main(String[] args) {
-    System.out.println(CodigoTuss.builder().grupo("10").subgrupo("10").sequencial("101").dv("2").build());
-    System.out.println(CodigoTuss.isValid("10101012"));
-    System.out.println(CodigoTuss.modulo10("1010101"));
-  }
+	public static void main(String[] args) {
+		System.out.println(CodigoTuss.builder().grupo("10").subgrupo("10").sequencial("101").dv("2").build());
+		System.out.println(CodigoTuss.isValid("10101012"));
+		System.out.println(CodigoTuss.modulo10("1010101"));
+	}
 
 }

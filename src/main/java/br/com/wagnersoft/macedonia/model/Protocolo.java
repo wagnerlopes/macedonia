@@ -73,4 +73,18 @@ public class Protocolo implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
+		if (!this.getGuias().contains(guia)) {
+			this.getGuias().add(guia);
+			guia.setProtocolo(this);
+		}
+		return guia;
+	}
+
+	public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
+		getGuias().remove(guia);
+		guia.setProtocolo(null);
+		return guia;
+	}
+	
 }

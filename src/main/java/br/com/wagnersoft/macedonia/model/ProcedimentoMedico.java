@@ -3,6 +3,7 @@ package br.com.wagnersoft.macedonia.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.wagnersoft.macedonia.type.CodigoTuss;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -76,11 +77,7 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 	}
 
 	public String getCodigoTuss() {
-		return this.tuss.isEmpty() ? "COD TUSS" :
-			tuss.substring(0,2) + "." +
-			tuss.substring(2,4) + "." +
-			tuss.substring(4,7) + "-" +
-			tuss.substring(7);
+		return new CodigoTuss(tuss).getCodigoTuss();
 	}
 	
 }

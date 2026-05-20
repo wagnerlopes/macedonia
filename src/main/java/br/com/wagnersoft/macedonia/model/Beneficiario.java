@@ -76,4 +76,18 @@ public class Beneficiario implements Serializable {
 		return Math.round(s / 10) * 10 + " a " + Math.round((s + 9) / 10) * 10;
 	}
 
+	public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
+		if (!this.getGuias().contains(guia)) {
+			this.getGuias().add(guia);
+			guia.setBeneficiario(this);
+		}
+		return guia;
+	}
+
+	public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
+		getGuias().remove(guia);
+		guia.setBeneficiario(null);
+		return guia;
+	}
+	
 }
