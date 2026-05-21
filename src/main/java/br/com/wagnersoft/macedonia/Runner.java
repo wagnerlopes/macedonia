@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import br.com.wagnersoft.macedonia.service.CboService;
 
 @Controller
 @SpringBootApplication
@@ -18,7 +18,7 @@ public class Runner {
 	private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
 	@Autowired
-	private ProfissionalService profSvc;
+	private CboService cboSvc;
 
 	@GetMapping("/")
 	public String index(Model model) {
@@ -39,7 +39,7 @@ public class Runner {
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades +++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("lista", profSvc.listAllCBO());
+		model.addAttribute("lista", cboSvc.listAllCBO());
 		return "especialidades";
 	}
 

@@ -7,11 +7,13 @@ import jakarta.persistence.Id;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 /** Classificação Brasileira de Ocupacões. */
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode

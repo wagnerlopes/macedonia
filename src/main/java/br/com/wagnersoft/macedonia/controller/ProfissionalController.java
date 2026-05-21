@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.model.Profissional;
+import br.com.wagnersoft.macedonia.service.CboService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import jakarta.validation.Valid;
 
 @Controller
 public class ProfissionalController {
@@ -22,8 +25,11 @@ public class ProfissionalController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfissionalController.class);
 
     @Autowired
+    private CboService cboSvc;
+
+    @Autowired
     private ProfissionalService profSvc;
-	
+    
     public ProfissionalController() {
         super();
     }
@@ -32,21 +38,28 @@ public class ProfissionalController {
     public List<Profissional> listProfissionais() {
     	return profSvc.listAll();
     }
+
+	@ModelAttribute("listCbo")
+    public List<Cbo> listCbo() {
+        return cboSvc.listAllCBO();
+    }
     
 	@GetMapping("/profissionais")
-	public String profissionais(Model model) {
+	public String profissionais(final Profissional profissional, Model model) {
 		logger.info("+++ Profissionais +++");
 		model.addAttribute("menu", "prof");
 		return "profissionais";
 	}
     
     @PostMapping(value="/profissionais/save", params={"save"})
-    public String save(final Profissional prof, final BindingResult bindingResult, final ModelMap model) {
+    public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
         if (bindingResult.hasErrors()) {
         	return "profissionais";
         }
-        logger.info("{}", prof);
-        profSvc.add(prof);
+        final Cbo cbo =cboSvc.findById(profissional.getCbo().getCodigo()).orElseThrow();
+        profissional.setCbo(cbo);
+        logger.info("{}", profissional);
+        profSvc.add(profissional);
         model.clear();
         return "redirect:/profissionais";
     }

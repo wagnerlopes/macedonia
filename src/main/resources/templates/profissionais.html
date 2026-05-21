@@ -27,12 +27,13 @@
             <th scope="col">Nome</th>
             <th scope="col">Especialidade</th>
             <th scope="col">Registro</th>
+            <th scope="col">CNS</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:if="${allProfissionais.empty}">
-            <td colspan="4">Sem profissionais de sa&uacute;de</td>
+            <td colspan="5">Sem profissionais de sa&uacute;de</td>
           </tr>
 			
           <tr th:each="prof : ${allProfissionais}">
@@ -40,10 +41,66 @@
             <td><span th:text="${prof.nome}"> Nome </span></td>
             <td><span th:text="${prof.cbo.descricao}"> Especialidade </span></td>
             <td><span th:text="${prof.registroProfissional}"> Registro </span></td>
+            <td><span th:text="${prof.cns}"> CNS </span></td>
           </tr>
         </tbody>
 
       </table>
+
+      <h5>Adicionar Profissional de Sa&uacute;de</h5>
+
+      <hr class="my-3" />
+
+      <form action="#" th:action="@{/profissionais/save}" th:object="${profissional}" method="post">
+          
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
+
+        <div class="form-group row mt-1">
+          <label for="cpf" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{profissional.cpf}">CPF</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{cpf}" th:errorclass="error" maxlength="11" class="form-control"/>
+          </div>
+        </div>
+          
+        <div class="form-group row mt-1">
+          <label for="nome" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{profissional.nome}">Nome</span></strong>
+          </label>
+          <div class="col-sm-6">
+            <input type="text" th:field="*{nome}" th:errorclass="error" maxlength="255" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="cbo.codigo" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{profissional.cbo.codigo}"><strong>Especialidade</strong></span></strong>
+          </label>
+          <div class="col-sm-4">
+            <select th:field="*{cbo.codigo}" class="form-select">
+              <option selected value="">--- Selecione ---</option>
+              <option th:each="cbo : ${listCbo}" th:value="${cbo.codigo}" th:text="${cbo.descricao}"> CBO </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="cns" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{profissional.cns}"><strong>CNS</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{cns}" th:errorclass="error" maxlength="10"  class="form-control" />
+          </div>
+        </div>
+          
+        <div class="submit">
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{profissional.save}">Novo</button>
+        </div>
+                  
+      </form>
 
     </div>
   
