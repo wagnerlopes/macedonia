@@ -15,24 +15,26 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <h4>Configurações</h4>  
+      <h3>Configura&ccedil;&otilde;es</h3>  
 
       <hr class="my-3" />
 
-      <p>LOCALE = <span th:text="${#locale}">LOCALE</span></p>
+      <h5>LOCALE</h5>
+      
+      <p th:text="${#locale}">LOCALE</p>
 
 
-      <p>DATA-HORA = <span th:text="${#calendars.format(#execInfo.now,'dd MMMM yyyy HH:mm:ss')}">INFO</span></p>
+      <h5>DATA-HORA</h5>
+       
+       <p th:text="${#calendars.format(#execInfo.now,'dd MMMM yyyy HH:mm:ss')}">INFO</p>
+
+      <h5>CONTEXT</h5>
+
+      <p th:text="${#ctx}">CTX</p>
 
 <!-- 
       <p>INFO = <span th:text="${#messages.msg('error.notfound','x')}">INFO</span></p>
- -->
 
-      <p>CONTEXT = <span th:text="${#ctx}">CTX</span></p>
-
-      <p>VARS = <span th:text="${#vars}">VARS</span></p>
-
-<!-- 
       <table class="table table-striped table-sm">
 
         <thead>

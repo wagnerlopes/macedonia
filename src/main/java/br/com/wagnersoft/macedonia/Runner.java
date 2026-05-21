@@ -1,13 +1,10 @@
 package br.com.wagnersoft.macedonia;
 
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +20,11 @@ public class Runner {
 	@Autowired
 	private ProfissionalService profSvc;
 
-	@Autowired
-	private MessageSource msg;
-
 	@GetMapping("/")
 	public String index(Model model) {
 		logger.info("+++ Index +++");
 		model.addAttribute("menu", "index");
-		model.addAttribute("welcome", msg.getMessage("user.welcome", new Object[] {" Usuário "}, Locale.getDefault()));
+		model.addAttribute("usr", " Meu Truta ");
 		return "index";
 	}
 	
