@@ -33,15 +33,17 @@ public class TissController {
     public ResponseEntity<TissReponseDTO> getAll() {
 		logger.info("+++ TISS +++");
         final List<GuiaFaturamento> lista = tissSvc.listAll();
-        TissReponseDTO dto = new TissReponseDTO(lista.getFirst());
+        logger.debug("{}", lista);
+        final TissReponseDTO dto = TissReponseDTO.builder().guiaFaturamento(lista.get(0)).build();
         return ResponseEntity.ok(dto);
     }    
 
     @GetMapping("/{id}")
     public ResponseEntity<TissReponseDTO> getById(@PathVariable Integer id) {
         final GuiaFaturamento guia = tissSvc.findById(id);
+        logger.debug("{}", guia);
         if (guia == null) return ResponseEntity.notFound().build();
-        TissReponseDTO dto = new TissReponseDTO(guia);
+        final TissReponseDTO dto = TissReponseDTO.builder().guiaFaturamento(guia).build();
         return ResponseEntity.ok(dto);
     }
 

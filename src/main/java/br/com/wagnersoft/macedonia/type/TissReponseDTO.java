@@ -2,15 +2,13 @@ package br.com.wagnersoft.macedonia.type;
 
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /** Troca de Informações de Saúde Complementar (TISS). */
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @ToString
 public class TissReponseDTO implements Serializable {
 

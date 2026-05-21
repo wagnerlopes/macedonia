@@ -16,12 +16,15 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name="guia_ocs_pm")
+@ToString
 public class GuiaOcsPm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,10 +39,12 @@ public class GuiaOcsPm implements Serializable {
 	@Column(name="pos_auditoria")
 	private BigDecimal posAuditoria;
 
+	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="guia_id")
 	private GuiaEncaminhamento guiaEncaminhamento;
 
+	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_pm_id")
 	private OcsPm ocsPm;

@@ -59,12 +59,21 @@ public class TissService {
 
 		final List<Procedimento> procedimentos = new ArrayList<>(guia.getGuiaOcsPm().size());
 
-		final BigDecimal valorLiquido = BigDecimal.ZERO;
+		final Valores valores = Valores.builder()
+				.valorTotalGlosa(BigDecimal.ZERO)
+				.valorTotalBruto(guia.getValorTotal())
+				.valorTotalLiquido(BigDecimal.ZERO.setScale(2))
+				.descontos(BigDecimal.ZERO)
+				.build();
 		
 		guia.getGuiaOcsPm().forEach(g -> {
 
-			valorLiquido.add(g.getPosAuditoria());
-			
+			logger.info("{}", g);
+
+			valores.setValorTotalLiquido(valores.getValorTotalLiquido().add(g.getPosAuditoria()).setScale(2));
+
+			logger.info("liquido Total = {}", valores.getValorTotalLiquido());
+
 			final Procedimento proc = Procedimento.builder()
 					.sequencial(1)
 					.codigoProcedimento(g.getOcsPm().getPm().getTuss())
@@ -73,7 +82,7 @@ public class TissService {
 					.quantidade(g.getPmQtd())
 					.unidadeMedida(g.getOcsPm().getUnidadeMedida())
 					.valorUnitario(g.getOcsPm().getValorUnitario())
-					.valorTotal(g.getOcsPm().getValorUnitario().multiply(BigDecimal.valueOf(Long.valueOf(g.getPmQtd()))))
+					.valorTotal(g.getOcsPm().getValorUnitario().multiply(BigDecimal.valueOf(Long.valueOf(g.getPmQtd()))).setScale(2))
 					.profissionalExecutante(guia.getResponsavel())
 					.dataRealizacao(guia.getEmissaoData())
 					.procedimentoPrincipal(false)
@@ -82,13 +91,8 @@ public class TissService {
 			procedimentos.add(proc);
 		});
 
-		final Valores val = Valores.builder()
-				.valorTotalGlosa(guia.getValorTotal().subtract(valorLiquido))
-				.valorTotalBruto(guia.getValorTotal())
-				.valorTotalLiquido(valorLiquido)
-				.descontos(BigDecimal.ZERO)
-				.build();
-
+		valores.setValorTotalGlosa(valores.getValorTotalBruto().subtract(valores.getValorTotalLiquido()));
+		
 		final List<FormaPagamento> pagamentos = new ArrayList<>();
 		
 		final FormaPagamento pag = FormaPagamento.builder()
@@ -102,7 +106,7 @@ public class TissService {
 		final GuiaFaturamento guiaFaturamento = GuiaFaturamento.builder()
 				.cabecalho(cab)
 				.procedimentos(procedimentos)
-				.valores(val)
+				.valores(valores)
 				.formasPagamento(pagamentos)
 				.observacoes("Teste pagamento guia de encaminhamento")
 				.build();
