@@ -9,12 +9,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/** Classificação Brasileira de Ocupacões. */
 @Entity
 @Getter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class CBO implements Serializable {
+public class Cbo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

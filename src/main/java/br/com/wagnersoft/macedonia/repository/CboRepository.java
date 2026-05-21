@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.wagnersoft.macedonia.model.CBO;
+import br.com.wagnersoft.macedonia.model.Cbo;
 
-public interface CboRepository extends JpaRepository<CBO, String> {
+public interface CboRepository extends JpaRepository<Cbo, String> {
 
-	List<CBO> findByDescricao(String descricao);
+	List<Cbo> findByDescricao(String descricao);
 
 }

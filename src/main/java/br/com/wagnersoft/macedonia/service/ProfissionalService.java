@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.wagnersoft.macedonia.model.CBO;
+import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.repository.CboRepository;
 import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
@@ -23,8 +23,8 @@ public class ProfissionalService {
 	@Autowired
 	private ProfissionalRepository rep;
 
-	public List<CBO> listAllCBO() {
-		final List<CBO> lista = cboRep.findAll();
+	public List<Cbo> listAllCBO() {
+		final List<Cbo> lista = cboRep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
 	}

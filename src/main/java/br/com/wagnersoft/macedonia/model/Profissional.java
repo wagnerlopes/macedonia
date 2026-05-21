@@ -26,7 +26,7 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 
 	@ManyToOne
 	@JoinColumn(name="cbo_codigo")
-	private CBO cbo;
+	private Cbo cbo;
 
 	private String cns;
 	
