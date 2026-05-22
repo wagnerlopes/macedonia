@@ -24,8 +24,28 @@ public class ContratoService {
 		return lista;
 	}
 
-	public void add(Contrato contrato) {
-		rep.save(contrato);
+	public Contrato findById(Integer id) {
+		return rep.findById(id).orElse(new Contrato());
 	}
 
+	public void remove(final Integer id) {
+		rep.findById(id).ifPresent(c -> rep.delete(c));
+	}
+	
+	public void add(Contrato contrato) {
+		if (contrato.getId() == null) {
+			rep.save(contrato);
+		} else {
+			rep.findById(contrato.getId()).ifPresentOrElse(oldCont -> save(oldCont, contrato), () -> rep.save(contrato));
+		}
+	}
+
+	private void save(final Contrato oldCont, final Contrato newCont) {
+		oldCont.setChValor(newCont.getChValor());
+		oldCont.setInicioData(newCont.getInicioData());
+		oldCont.setTerminoData(newCont.getTerminoData());
+		oldCont.setOcs(newCont.getOcs());
+		rep.save(oldCont);
+	}
+	
 }

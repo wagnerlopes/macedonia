@@ -26,12 +26,12 @@ public class BeneficiarioService {
 		final List<Beneficiario> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;    }
-	public void remove(final Beneficiario beneficiario) {
-		rep.delete(beneficiario);
+	public void remove(final String cpf) {
+		 rep.findById(cpf).ifPresent(b -> rep.delete(b));
 	}
 	
 	public void add(final Beneficiario beneficiario) {
-		rep.findById(beneficiario.getCpf()).ifPresentOrElse(oldBen -> save(oldBen, beneficiario), () -> rep.save(beneficiario));;
+		rep.findById(beneficiario.getCpf()).ifPresentOrElse(oldBen -> save(oldBen, beneficiario), () -> rep.save(beneficiario));
 	}
 
 	private void save(final Beneficiario oldBen, final Beneficiario newBen) {

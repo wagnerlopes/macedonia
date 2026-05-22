@@ -30,6 +30,8 @@
 
         <thead>
           <tr>
+            <th scope="col">...</th>
+            <th scope="col">ID</th>
             <th scope="col">OCS</th>
             <th scope="col">In&iacute;cio</th>
             <th scope="col">T&eacute;rmino</th>
@@ -39,10 +41,12 @@
 
         <tbody>
           <tr th:if="${allContratos.empty}">
-            <td colspan="4">Sem contratos</td>
+            <td colspan="6">Sem contratos</td>
           </tr>
 			
           <tr th:each="cont : ${allContratos}">
+            <td><a th:href="@{/contratos/delete(id=${cont.id})}"><img th:src="@{/trash-can.png}" height="16" width="16" title="Excluir" /></a></td>
+            <td><a th:href="@{/contratos(id=${cont.id})}" title="Editar">[[${cont.id}]]</a></td>
             <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
             <td><span th:text="${#temporals.format(cont.terminoData, 'dd/MM/yyyy')}"> Termino </span></td>
@@ -57,6 +61,8 @@
       <hr class="my-3" />
 
       <form action="#" th:action="@{/contratos/save}" th:object="${contrato}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
           
         <ul th:if="${#fields.hasErrors('*')}" class="error">
           <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>

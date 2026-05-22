@@ -59,17 +59,17 @@ public class ProfissionalController {
     }
 
 	@GetMapping("/profissionais")
-	public String profissionais(final Profissional profissional, Model model) {
+	public String show(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, Model model) {
 		logger.info("+++ Profissionais +++");
 		model.addAttribute("menu", "prof");
+		if (cpf != null &&  !cpf.isEmpty())
+	  		  model.addAttribute("profissional", profSvc.findByCpf(cpf));
 		return "profissionais";
 	}
 
     @GetMapping({"/profissionais/delete"})
-    public String delete(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, ModelMap model) {
-        logger.debug("{}", profissional);
-        profSvc.remove(profissional);
-        model.clear();
+    public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
+        profSvc.remove(cpf);
         return "redirect:/profissionais";
     }
 	

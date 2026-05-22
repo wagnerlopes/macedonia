@@ -23,6 +23,7 @@
 
         <thead>
           <tr>
+            <th scope="col">...</th>
             <th scope="col">CPF</th>
             <th scope="col">Nome</th>
             <th scope="col">Especialidade</th>
@@ -33,11 +34,12 @@
 
         <tbody>
           <tr th:if="${allProfissionais.empty}">
-            <td colspan="5">Sem profissionais de sa&uacute;de</td>
+            <td colspan="6">Sem profissionais de sa&uacute;de</td>
           </tr>
 			
           <tr th:each="prof : ${allProfissionais}">
-            <td><span th:text="${prof.cpf}"> CPF </span></td>
+            <td><a th:href="@{/profissionais/delete(cpf=${prof.cpf})}"><img th:src="@{/trash-can.png}" height="16" width="16" title="Excluir" /></a></td>
+            <td><a th:href="@{/profissionais(cpf=${prof.cpf})}" title="Editar">[[${prof.cpf}]]</a></td>
             <td><span th:text="${prof.nome}"> Nome </span></td>
             <td><span th:text="${prof.cbo.descricao}"> Especialidade </span></td>
             <td><span th:text="${prof.registroProfissional}"> Registro </span></td>

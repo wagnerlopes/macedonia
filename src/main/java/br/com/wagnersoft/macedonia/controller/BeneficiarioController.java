@@ -46,10 +46,8 @@ public class BeneficiarioController {
     }
 
     @GetMapping({"/beneficiarios/delete"})
-    public String delete(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, ModelMap model) {
-        logger.debug("{}", beneficiario);
-        benSvc.remove(beneficiario);
-        model.clear();
+    public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
+        benSvc.remove(cpf);
         return "redirect:/beneficiarios";
     }
     

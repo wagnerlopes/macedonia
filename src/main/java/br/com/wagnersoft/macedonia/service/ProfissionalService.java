@@ -24,12 +24,28 @@ public class ProfissionalService {
 		return lista;
 	}
 
-	public void add(Profissional prof) {
-		profRep.save(prof);
+	public Profissional findByCpf(String cpf) {
+		return profRep.findById(cpf).orElseThrow();
 	}
 
-	public void remove(Profissional profissional) {
-		profRep.delete(profissional);
+	public void add(Profissional profissional) {
+		profRep.findById(profissional.getCpf()).ifPresentOrElse(oldProf -> save(oldProf, profissional), () -> profRep.save(profissional));;
+		profRep.save(profissional);
 	}
 
+	public void remove(String cpf) {
+		profRep.findById(cpf).ifPresent(p -> {
+			if (p.getGuiasResponsavel().isEmpty() && p.getGuiasSolicitante().isEmpty())
+				profRep.delete(p);
+		});
+	}
+
+	private void save(final Profissional oldProf, final Profissional newProf) {
+		oldProf.setNome(newProf.getNome());
+		oldProf.setCbo(newProf.getCbo());
+		oldProf.setCns(newProf.getCns());
+		oldProf.setRegistroProfissional(newProf.getRegistroProfissional());
+		profRep.save(oldProf);
+	}
+	
 }

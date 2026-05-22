@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import br.com.wagnersoft.macedonia.service.CboService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @SpringBootApplication
@@ -21,10 +22,10 @@ public class Runner {
 	private CboService cboSvc;
 
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(HttpSession session, Model model) {
 		logger.info("+++ Index +++");
 		model.addAttribute("menu", "index");
-		model.addAttribute("usr", " Meu Truta ");
+		session.setAttribute("usr", " Meu Truta ");
 		return "index";
 	}
 	

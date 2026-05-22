@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.model.Ocs;
@@ -45,10 +46,17 @@ public class ContratoController {
     }
     
     @GetMapping({"/contratos"})
-    public String show(final Contrato contrato, Model model) {
+    public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ Contratos +++");
 		model.addAttribute("menu", "Contrato");
+        model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id));
         return "contratos";
+    }
+
+    @GetMapping({"/contratos/delete"})
+    public String delete(@RequestParam(name = "id", required = false) Integer id) {
+        cttSvc.remove(id);
+        return "redirect:/contratos";
     }
     
     @PostMapping(value="/contratos/save", params={"save"})
