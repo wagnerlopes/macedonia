@@ -95,6 +95,27 @@
             <input type="text" th:field="*{cns}" th:errorclass="error" maxlength="10"  class="form-control" />
           </div>
         </div>
+
+        <div class="form-group row mt-1">
+          <label for="registroProfissional.conselho" class="col-sm-2 form-label my-1">
+            <strong><span th:text="#{profissional.registro}"><strong>Registro</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <select th:field="*{registroProfissional.conselho}" class="form-select">
+              <option selected value="">--- Conselho ---</option>
+              <option th:each="con : ${allConselho}" th:value="${con}" th:text="${con}"> Conselho </option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <select th:field="*{registroProfissional.uf}" class="form-select">
+              <option selected value="">--- UF ---</option>
+              <option th:each="uf : ${allUf}" th:value="${uf}" th:text="${uf}"> UF </option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{registroProfissional.numero}" th:errorclass="error" maxlength="10" class="form-control" placeholder="0000-0"/>
+          </div>
+        </div>
           
         <div class="submit">
           <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{profissional.save}">Novo</button>

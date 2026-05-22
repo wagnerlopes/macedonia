@@ -100,7 +100,11 @@
             <strong><span th:text="#{ocs.especialidade}"><strong>Especialidade</strong></span></strong>
           </label>
           <div class="col-sm-4">
-            <input type="text" th:field="*{especialidade}" th:errorclass="error" maxlength="30"  class="form-control"/>
+            <!-- input type="text" th:field="*{especialidade}" th:errorclass="error" maxlength="30"  class="form-control"-->
+            <select th:field="*{especialidade}" class="form-select">
+              <option selected value="">--- Selecione ---</option>
+              <option th:each="esp : ${allEspecialidade}" th:value="${esp.codigo}" th:text="${esp.descricao}"> UF </option>
+            </select>
           </div>
         </div>
 
@@ -144,8 +148,11 @@
           <label for="uf" class="col-sm-2 form-label my-1">
             <strong><span th:text="#{ocs.uf}"><strong>UF</strong></span></strong>
           </label>
-          <div class="col-sm-1">
-            <input type="text" th:field="*{uf}" th:errorclass="error" maxlength="2"  class="form-control"/>
+          <div class="col-sm-2">
+            <select th:field="*{uf}" class="form-select">
+              <option selected value="">--- UF ---</option>
+              <option th:each="uf : ${allUf}" th:value="${uf}" th:text="${uf}"> UF </option>
+            </select>
           </div>
         </div>
 

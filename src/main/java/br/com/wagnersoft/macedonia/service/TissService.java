@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
-import br.com.wagnersoft.macedonia.type.Cabecalho;
-import br.com.wagnersoft.macedonia.type.FormaPagamento;
-import br.com.wagnersoft.macedonia.type.GuiaFaturamento;
-import br.com.wagnersoft.macedonia.type.Operadora;
-import br.com.wagnersoft.macedonia.type.Prestador;
-import br.com.wagnersoft.macedonia.type.Procedimento;
-import br.com.wagnersoft.macedonia.type.Valores;
+import br.com.wagnersoft.macedonia.tiss.Cabecalho;
+import br.com.wagnersoft.macedonia.tiss.FormaPagamento;
+import br.com.wagnersoft.macedonia.tiss.GuiaFaturamento;
+import br.com.wagnersoft.macedonia.tiss.Operadora;
+import br.com.wagnersoft.macedonia.tiss.Prestador;
+import br.com.wagnersoft.macedonia.tiss.Procedimento;
+import br.com.wagnersoft.macedonia.tiss.Valores;
 
 @Service
 public class TissService {

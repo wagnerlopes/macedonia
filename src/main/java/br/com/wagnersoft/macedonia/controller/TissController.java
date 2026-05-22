@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.wagnersoft.macedonia.service.TissService;
-import br.com.wagnersoft.macedonia.type.GuiaFaturamento;
-import br.com.wagnersoft.macedonia.type.TissReponseDTO;
+import br.com.wagnersoft.macedonia.tiss.GuiaFaturamento;
+import br.com.wagnersoft.macedonia.tiss.TissReponseDTO;
 
 @RestController
 @RequestMapping("/api/tiss")

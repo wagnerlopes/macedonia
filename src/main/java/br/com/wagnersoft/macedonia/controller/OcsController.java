@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.service.OcsService;
+import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
+import br.com.wagnersoft.macedonia.type.UfEnum;
 
 @Controller
 public class OcsController {
@@ -32,7 +35,17 @@ public class OcsController {
     public List<Ocs> listOcs() {
     	return ocsSvc.listAll();
     }
+
+	@ModelAttribute("allEspecialidade")
+    public List<EstabelecimentoSaudeEnum> allEspecialidade() {
+        return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
+    }
     
+	@ModelAttribute("allUf")
+    public List<UfEnum> allUf() {
+        return Arrays.asList(UfEnum.ALL);
+    }
+
 	@GetMapping("/ocs")
 	public String ocs(Ocs ocs, Model model) {
 		logger.info("+++ OCS +++");

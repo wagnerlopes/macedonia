@@ -1,4 +1,4 @@
-package br.com.wagnersoft.macedonia.type;
+package br.com.wagnersoft.macedonia.tiss;
 
 import lombok.Builder;
 import lombok.Getter;

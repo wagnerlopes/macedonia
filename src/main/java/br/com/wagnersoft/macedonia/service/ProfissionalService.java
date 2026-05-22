@@ -16,16 +16,20 @@ public class ProfissionalService {
 	private static final Logger logger = LoggerFactory.getLogger(ProfissionalService.class);
 
 	@Autowired
-	private ProfissionalRepository rep;
+	private ProfissionalRepository profRep;
 
 	public List<Profissional> listAll() {
-		final List<Profissional> lista = rep.findAll();
+		final List<Profissional> lista = profRep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
 	}
 
 	public void add(Profissional prof) {
-		rep.save(prof);
+		profRep.save(prof);
+	}
+
+	public void remove(Profissional profissional) {
+		profRep.delete(profissional);
 	}
 
 }

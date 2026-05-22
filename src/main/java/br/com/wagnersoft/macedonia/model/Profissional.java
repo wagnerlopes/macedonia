@@ -35,7 +35,7 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 	@Id
 	private String cpf;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="registro_id")
 	private RegistroProfissional registroProfissional;
 

@@ -1,6 +1,5 @@
-package br.com.wagnersoft.macedonia.type;
+package br.com.wagnersoft.macedonia.tiss;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,13 +9,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class FormaPagamento {
+public class Cabecalho {
 
-	private String tipo;
+	private Prestador identificacaoPrestador;
 	
+	private Operadora identificacaoOperadora;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
-	private LocalDate dataPagamento;
-	
-	private BigDecimal valorPago;
+    private LocalDate dataEmissao;
 
 }

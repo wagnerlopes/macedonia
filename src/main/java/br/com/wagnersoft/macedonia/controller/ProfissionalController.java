@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,11 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.CboService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import br.com.wagnersoft.macedonia.type.ConselhoEnum;
+import br.com.wagnersoft.macedonia.type.UfEnum;
 import jakarta.validation.Valid;
 
 @Controller
@@ -34,6 +38,16 @@ public class ProfissionalController {
         super();
     }
 
+	@ModelAttribute("allConselho")
+    public List<ConselhoEnum> allConselho() {
+        return Arrays.asList(ConselhoEnum.ALL);
+    }
+	
+	@ModelAttribute("allUf")
+    public List<UfEnum> allUf() {
+        return Arrays.asList(UfEnum.ALL);
+    }
+	
     @ModelAttribute("allProfissionais")
     public List<Profissional> listProfissionais() {
     	return profSvc.listAll();
@@ -43,14 +57,22 @@ public class ProfissionalController {
     public List<Cbo> listCbo() {
         return cboSvc.listAllCBO();
     }
-    
+
 	@GetMapping("/profissionais")
 	public String profissionais(final Profissional profissional, Model model) {
 		logger.info("+++ Profissionais +++");
 		model.addAttribute("menu", "prof");
 		return "profissionais";
 	}
-    
+
+    @GetMapping({"/profissionais/delete"})
+    public String delete(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, ModelMap model) {
+        logger.debug("{}", profissional);
+        profSvc.remove(profissional);
+        model.clear();
+        return "redirect:/profissionais";
+    }
+	
     @PostMapping(value="/profissionais/save", params={"save"})
     public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
         if (bindingResult.hasErrors()) {
