@@ -64,7 +64,7 @@ public class ContratoController {
         if (bindingResult.hasErrors()) {
         	return "contratos";
         }
-        final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj());
+        final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj()).orElse(new Ocs());
         contrato.setOcs(ocs);
         logger.info("{}", contrato);
         cttSvc.add(contrato);

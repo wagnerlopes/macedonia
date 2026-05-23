@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,18 +22,35 @@ public class OcsService {
 
 	public List<Ocs> listAll() {
 		final List<Ocs> lista = rep.findAll();
-		lista.forEach(e -> {logger.info(e.toString());});
+/*		
+		lista.forEach(e -> {
+			e.setEspecialidade(EstabelecimentoSaudeEnum.findByCodigo(e.getEspecialidade()));
+			logger.info(e.toString());
+		});
+*/
 		return lista;
 	}
 
-	public Ocs findByCnpj(String cnpj) {
-		return rep.findByCnpj(cnpj).orElseThrow();
+	public Optional<Ocs> findById(Integer id) {
+		return rep.findById(id);
+	}
+
+	public Optional<Ocs> findByCnpj(String cnpj) {
+		return rep.findByCnpj(cnpj);
 	}
 
 	public void add(Ocs ocs) {
-		rep.save(ocs);
+		logger.debug("{}", ocs);
+		rep.findById(ocs.getId()).ifPresentOrElse(oldOcs -> save(oldOcs, ocs), () -> rep.save(ocs));
 	}
 
+	public void remove(Integer id) {
+		rep.findById(id).ifPresent(o -> {
+			if (o.getGuias().isEmpty())
+				rep.delete(o);
+		});
+	}
+	
 	public void addProcedimentoMedico(OcsPm ocsPm) {
 		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
 		ocs.getProcedimentos().add(ocsPm);
@@ -43,6 +61,21 @@ public class OcsService {
 		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
 		ocs.getProcedimentos().remove(ocsPm);
 		rep.save(ocs);
+	}
+
+	private void save(final Ocs oldOcs, final Ocs newOcs) {
+		oldOcs.setCnpj(newOcs.getCnpj());
+		oldOcs.setComplemento(newOcs.getComplemento());
+		oldOcs.setContato(newOcs.getContato());
+		oldOcs.setDescricao(newOcs.getDescricao());
+		oldOcs.setEndereco(newOcs.getEndereco());
+		oldOcs.setEspecialidade(newOcs.getEspecialidade());
+		oldOcs.setMunicipio(newOcs.getMunicipio());
+		oldOcs.setNumero(newOcs.getNumero());
+		oldOcs.setRegistroAns(newOcs.getRegistroAns());
+		oldOcs.setTelefone(newOcs.getTelefone());
+		oldOcs.setUf(newOcs.getUf());
+		rep.save(oldOcs);
 	}
 	
 }

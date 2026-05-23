@@ -38,7 +38,11 @@
           </tr>
 			
           <tr th:each="prof : ${allProfissionais}">
-            <td><a th:href="@{/profissionais/delete(cpf=${prof.cpf})}"><img th:src="@{/trash-can.png}" height="16" width="16" title="Excluir" /></a></td>
+            <td>
+              <a th:href="@{/profissionais/delete(cpf=${prof.cpf})}">
+                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+              </a>
+            </td>
             <td><a th:href="@{/profissionais(cpf=${prof.cpf})}" title="Editar">[[${prof.cpf}]]</a></td>
             <td><span th:text="${prof.nome}"> Nome </span></td>
             <td><span th:text="${prof.cbo.descricao}"> Especialidade </span></td>

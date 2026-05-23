@@ -56,7 +56,7 @@ public class DthController {
         if (bindingResult.hasErrors()) {
         	return "dth";
         }
-        final Ocs ocs = ocsSvc.findByCnpj(dth.getOcs().getCnpj());
+        final Ocs ocs = ocsSvc.findByCnpj(dth.getOcs().getCnpj()).orElse(new Ocs());
         dth.setOcs(ocs);
         logger.info("{}", dth);
         dthSvc.add(dth);

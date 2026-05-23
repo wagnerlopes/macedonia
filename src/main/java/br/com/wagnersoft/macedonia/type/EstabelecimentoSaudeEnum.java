@@ -1,5 +1,7 @@
 package br.com.wagnersoft.macedonia.type;
 
+import java.util.Arrays;
+
 public enum EstabelecimentoSaudeEnum {
 
 	HOSPITAL_GERAL("01", "Hospital geral"),
@@ -63,6 +65,14 @@ public enum EstabelecimentoSaudeEnum {
 		return this.descricao;
 	}
 
+	public static final String fromCodigo(String codigo) {
+		return Arrays.stream(EstabelecimentoSaudeEnum.values())
+		.filter(e -> e.getCodigo().equals(codigo))
+        .map(EstabelecimentoSaudeEnum::getDescricao)
+        .findFirst()
+        .orElse("");
+	}
+	
 	@Override
 	public String toString() {
 		return getDescricao();

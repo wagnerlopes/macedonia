@@ -45,7 +45,11 @@
           </tr>
 			
           <tr th:each="ben : ${allBeneficiarios}">
-            <td><a th:href="@{/beneficiarios/delete(cpf=${ben.cpf})}"><img th:src="@{/trash-can.png}" height="16" width="16" title="Excluir" /></a></td>
+            <td>
+              <a th:href="@{/beneficiarios/delete(cpf=${ben.cpf})}">
+                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+              </a>
+            </td>
             <td><a th:href="@{/beneficiarios(cpf=${ben.cpf})}" title="Editar">[[${ben.cpf}]]</a></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
             <td class="text-center"><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>

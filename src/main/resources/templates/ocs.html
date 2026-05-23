@@ -23,6 +23,7 @@
 
         <thead>
           <tr>
+            <th scope="col">...</th>
             <th scope="col">CNPJ</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
             <th scope="col">Especialidade</th>
@@ -35,13 +36,18 @@
 
         <tbody>
           <tr th:if="${allOcs.empty}">
-            <td colspan="7">Sem OCS</td>
+            <td colspan="8">Sem OCS</td>
           </tr>
 			
           <tr th:each="ocs : ${allOcs}">
-            <td><span th:text="${ocs.cnpj}"> CNPJ </span></td>
+            <td>
+              <a th:href="@{/ocs/delete(id=${ocs.id})}">
+                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+              </a>
+            </td>
+            <td><a th:href="@{/ocs(id=${ocs.id})}" title="Editar">[[${ocs.cnpj}]]</a></td>
             <td><span th:text="${ocs.descricao}"> Descricao </span></td>
-            <td><span th:text="${ocs.especialidade}"> Especialidade </span></td>
+            <td><span th:text="${tipoOcsMap[ocs.especialidade]}"> Especialidade </span></td>
             <td><span th:text="${ocs.municipio}"> Municipio </span></td>
             <td><span th:text="${ocs.uf}"> UF </span></td>
             <td>
@@ -49,7 +55,7 @@
                 <tr th:each="dth : ${ocs.dths}">
                   <td th:text="${dth.descricao+ ' - '}"></td>
                   <td th:text="${dth.unidadeMedida + ' - '}"></td>
-                  <td th:text="${'R$ ' +#numbers.formatDecimal(dth.valorUnitario,3,2,'COMMA')}"></td>
+                  <td th:text="${'R$ ' +#numbers.formatDecimal(dth.valorUnitario,1,2,'COMMA')}"></td>
                 </tr>
               </table>
             </td>
@@ -58,7 +64,7 @@
                 <tr th:each="x : ${ocs.procedimentos}">
                   <td th:text="${x.pm.descricao + ' - '}"></td>
                   <td th:text="${x.unidadeMedida + ' - '}"></td>
-                  <td th:text="${'R$ ' + #numbers.formatDecimal(x.valorUnitario,3,2,'COMMA')}"></td>
+                  <td th:text="${'R$ ' + #numbers.formatDecimal(x.valorUnitario,1,2,'COMMA')}"></td>
                 </tr>
               </table>
             </td>
@@ -72,6 +78,8 @@
       <hr class="my-3" />
 
       <form action="#" th:action="@{/ocs/save}" th:object="${ocs}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
           
         <ul th:if="${#fields.hasErrors('*')}" class="error">
           <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
@@ -100,7 +108,6 @@
             <strong><span th:text="#{ocs.especialidade}"><strong>Especialidade</strong></span></strong>
           </label>
           <div class="col-sm-4">
-            <!-- input type="text" th:field="*{especialidade}" th:errorclass="error" maxlength="30"  class="form-control"-->
             <select th:field="*{especialidade}" class="form-select">
               <option selected value="">--- Selecione ---</option>
               <option th:each="esp : ${allEspecialidade}" th:value="${esp.codigo}" th:text="${esp.descricao}"> UF </option>

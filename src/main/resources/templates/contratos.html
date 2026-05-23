@@ -45,7 +45,11 @@
           </tr>
 			
           <tr th:each="cont : ${allContratos}">
-            <td><a th:href="@{/contratos/delete(id=${cont.id})}"><img th:src="@{/trash-can.png}" height="16" width="16" title="Excluir" /></a></td>
+            <td>
+              <a th:href="@{/contratos/delete(id=${cont.id})}">
+                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+              </a>
+            </td>
             <td><a th:href="@{/contratos(id=${cont.id})}" title="Editar">[[${cont.id}]]</a></td>
             <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
