@@ -23,14 +23,12 @@
 
         <thead>
           <tr>
+            <th scope="col" class="text-center">TUSS</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
-            <th scope="col" class="text-center">Grupo</th>
-            <th scope="col" class="text-center">Subgrupo</th>
             <th scope="col" class="text-center">AMB 90</th>
             <th scope="col" class="text-center">AMB 92</th>
             <th scope="col" class="text-center">AMB 96</th>
             <th scope="col" class="text-center">AMB 99</th>
-            <th scope="col" class="text-center">TUSS</th>
             <th scope="col" class="text-end">Auxiliare(s)</th>
             <th scope="col" class="text-end">Porte Anest&eacute;sico</th>
             <th scope="col" class="text-end">CH (QTD)</th>
@@ -39,18 +37,16 @@
 
         <tbody>
           <tr th:if="${allProcedimentos.empty}">
-            <td colspan="4">Sem procedimentos m&eacute;dicos</td>
+            <td colspan="9">Sem procedimentos m&eacute;dicos</td>
           </tr>
 			
           <tr th:each="pm : ${allProcedimentos}">
+            <td class="text-center"><span th:text="${pm.tuss}"> TUSS </span></td>
             <td><span th:text="${pm.descricao}"> Descricao </span></td>
-            <td class="text-center"><span th:text="${pm.grupo}"> Grupo </span></td>
-            <td class="text-center"><span th:text="${pm.subgrupo}"> Subgrupo </span></td>
             <td class="text-center"><span th:text="${pm.amb90}"> AMB 90 </span></td>
             <td class="text-center"><span th:text="${pm.amb92}"> AMB 92 </span></td>
             <td class="text-center"><span th:text="${pm.amb96}"> AMB 96 </span></td>
             <td class="text-center"><span th:text="${pm.amb99}"> AMB 99 </span></td>
-            <td class="text-center"><span th:text="${pm.tuss}"> TUSS </span></td>
             <td class="text-end"><span th:text="${pm.auxiliaresQtd}"> Aux </span></td>
             <td class="text-end"><span th:text="${pm.porteAnestesico}"> Porte Anest </span></td>
             <td class="text-end"><span th:text="${pm.chQtd}"> CH </span></td>
