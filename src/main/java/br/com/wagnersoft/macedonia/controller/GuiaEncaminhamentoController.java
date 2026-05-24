@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
@@ -34,9 +35,10 @@ public class GuiaEncaminhamentoController {
     }
     
 	@GetMapping("/guias")
-	public String guias(Model model) {
+    public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ Guias +++");
 		model.addAttribute("menu", "guias");
+        model.addAttribute("guia", id == null ? new GuiaEncaminhamento() : guiaSvc.findById(id).orElse(new GuiaEncaminhamento()));
 		return "guias";
 	}
     

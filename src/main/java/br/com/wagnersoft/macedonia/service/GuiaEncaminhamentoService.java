@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,10 @@ public class GuiaEncaminhamentoService {
 		return lista;
 	}
 
+	public Optional<GuiaEncaminhamento> findById(Integer id) {
+		return rep.findById(id);
+	}
+	
 	public void add(GuiaEncaminhamento guia) {
 		rep.save(guia);
 	}

@@ -7,6 +7,12 @@
 
 <body>
 
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+      formatDate('emissaoData');
+  });
+</script>
+
   <div th:replace = "~{index :: header}"></div>
 
   <div class="container-fluid row">
@@ -36,7 +42,7 @@
           </tr>
 			
           <tr th:each="guia : ${allGuias}">
-            <td><span th:text="${guia.beneficiario.cpf + ' - ' + guia.beneficiario.nome}"> Beneficiário </span></td>
+            <td><span th:text="${guia.beneficiario.cpf + ' - ' + guia.beneficiario.nome}"> Beneficiario </span></td>
             <td><span th:text="${guia.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${#temporals.format(guia.emissaoData, 'dd/MM/yyyy')}"> Data </span></td>
             <td><span th:text="${#numbers.formatDecimal(guia.valorTotal,1,2,'COMMA')}"> Valor </span></td>
@@ -45,10 +51,81 @@
 
       </table>
 
+      <h5>Adicionar Guia</h5>
+
+      <hr class="my-3" />
+
+      <form action="#" th:action="@{/guias/save}" th:object="${guia}" method="post">
+
+        <input type="hidden" th:field="*{id}"/>
+          
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
+
+        <div class="form-group row mt-1">
+          <label for="guiaNr" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{guia.guiaNr}">NR</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{guiaNr}" th:errorclass="error" maxlength="11" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="emissaoData" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{guia.emissao}"><strong>Emissao</strong></span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{emissaoData}" th:errorclass="error" maxlength="10"  class="form-control" />
+            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="solicitante" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{guia.solicitante}">Solicitante</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{solicitante}" th:errorclass="error" maxlength="11" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="responsavel" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{guia.responsavel}">Responsavel</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{responsavel}" th:errorclass="error" maxlength="11" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="operador" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{guia.operador}">Operador</span></strong>
+          </label>
+          <div class="col-sm-4">
+            <input type="text" th:field="*{operador}" th:errorclass="error" maxlength="30" class="form-control"/>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="observacao" class="col-sm-1 form-label my-1">
+            <strong><span th:text="#{guia.observacao}">Observacao</span></strong>
+          </label>
+          <div class="col-sm-8">
+            <input type="text" th:field="*{observacao}" th:errorclass="error" maxlength="255" class="form-control"/>
+          </div>
+        </div>
+
+      </form>
+
     </div>
   
   </div>
 
 </body>
+
+<script src="../js/macedonia.js" th:src="@{/js/macedonia.js}" ></script>
 
 </html>
