@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
+import br.com.wagnersoft.macedonia.model.Ocs;
+import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 
 @Controller
@@ -32,6 +35,21 @@ public class GuiaEncaminhamentoController {
     @ModelAttribute("allGuias")
     public List<GuiaEncaminhamento> listGuias() {
     	return guiaSvc.listAll();
+    }
+
+    @ModelAttribute("allBeneficiario")
+    public List<Beneficiario> listBeneficiario() {
+    	return guiaSvc.allBeneficiario();
+    }
+
+    @ModelAttribute("allProfissional")
+    public List<Profissional> listProfissional() {
+    	return guiaSvc.allProfissional();
+    }
+
+    @ModelAttribute("allOcs")
+    public List<Ocs> listOcs() {
+    	return guiaSvc.allOcs();
     }
     
 	@GetMapping("/guias")

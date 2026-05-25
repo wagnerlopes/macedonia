@@ -23,8 +23,6 @@
       
       <p th:text="${#locale}">LOCALE</p>
 
-      <p th:utext="#{error.notfound}">CTX</p>
-
       <h5>DATA-HORA</h5>
        
        <p th:text="${#calendars.format(#execInfo.now,'dd MMMM yyyy HH:mm:ss')}">INFO</p>

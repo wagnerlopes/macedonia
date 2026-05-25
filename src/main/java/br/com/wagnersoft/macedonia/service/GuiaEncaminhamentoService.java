@@ -8,9 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.GuiaOcsPm;
+import br.com.wagnersoft.macedonia.model.Ocs;
+import br.com.wagnersoft.macedonia.model.Profissional;
+import br.com.wagnersoft.macedonia.repository.BeneficiarioRepository;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
+import br.com.wagnersoft.macedonia.repository.OcsRepository;
+import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 
 @Service
 public class GuiaEncaminhamentoService {
@@ -20,12 +26,33 @@ public class GuiaEncaminhamentoService {
 	@Autowired
 	private GuiaEncaminhamentoRepository rep;
 
+	@Autowired
+	private BeneficiarioRepository benRep;
+
+	@Autowired
+	private OcsRepository ocsRep;
+
+	@Autowired
+	private ProfissionalRepository profRep;
+	
 	public List<GuiaEncaminhamento> listAll() {
 		final List<GuiaEncaminhamento> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
 	}
 
+	public List<Beneficiario> allBeneficiario() {
+		return benRep.findAll();
+	}
+
+	public List<Profissional> allProfissional() {
+		return profRep.findAll();
+	}
+
+	public List<Ocs> allOcs() {
+		return ocsRep.findAll();
+	}
+	
 	public Optional<GuiaEncaminhamento> findById(Integer id) {
 		return rep.findById(id);
 	}
