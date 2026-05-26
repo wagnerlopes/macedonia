@@ -7,12 +7,6 @@
 
 <body>
 
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-	  formatDate('nascimentoData');
-  });
-</script>
-
   <div th:replace = "~{index :: header}"></div>
 
   <div class="container-fluid row">
@@ -21,7 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <h4>Benefici&aacute;rios</h4>  
+      <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded">Benefici&aacute;rios</h4>  
 
       <hr class="my-3" />
 
@@ -69,7 +63,7 @@
 
       </table>
 
-      <h5>Adicionar Benefici&aacute;rio</h5>
+      <h5 class="shadow-sm p-3 my-3 bg-body-tertiary rounded">Editar Benefici&aacute;rio</h5>
 
       <hr class="my-3" />
 
@@ -102,8 +96,7 @@
             <strong><span th:text="#{beneficiario.nascimentoData}"><strong>Dt Nasc</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{nascimentoData}" th:errorclass="error" maxlength="10"  class="form-control" />
-            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+            <input type="date" th:field="*{nascimentoData}" th:errorclass="error" class="form-control" />
           </div>
         </div>
           
@@ -118,7 +111,5 @@
   </div>
 
 </body>
-
-<script src="../js/macedonia.js" th:src="@{/js/macedonia.js}" ></script>
 
 </html>

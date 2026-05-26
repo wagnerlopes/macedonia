@@ -7,13 +7,6 @@
 
 <body>
 
-  <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
- 	   formatDate('inicioData');
-	   formatDate('terminoData');
-    });
-  </script>
-
   <div th:replace = "~{index :: header}"></div>
 
   <div class="container-fluid row">
@@ -22,7 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <h4>Contratos</h4>  
+      <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded">Contratos</h4>  
 
       <hr class="my-3" />
 
@@ -60,7 +53,7 @@
 
       </table>
 
-      <h5>Adicionar Contrato</h5>
+      <h5 class="shadow-sm p-3 my-3 bg-body-tertiary rounded">Editar Contrato</h5>
 
       <hr class="my-3" />
 
@@ -89,8 +82,7 @@
             <strong><span th:text="#{contrato.inicioData}"><strong>In&iacute;cio</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{inicioData}" th:errorclass="error" maxlength="10"  class="form-control"/>
-            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+            <input type="date" th:field="*{inicioData}" th:errorclass="error" class="form-control"/>
           </div>
         </div>
 
@@ -99,8 +91,7 @@
             <strong><span th:text="#{contrato.terminoData}"><strong>T&eacute;rmino</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{terminoData}" th:errorclass="error" maxlength="10"  class="form-control"/>
-            (<span th:text="#{date.format}">DD/MM/YYYY</span>)
+            <input type="date" th:field="*{terminoData}" th:errorclass="error" class="form-control"/>
           </div>
         </div>
 
@@ -124,7 +115,5 @@
   </div>
 
 </body>
-
-<script src="../js/macedonia.js" th:src="@{/js/macedonia.js}" ></script>
 
 </html>
