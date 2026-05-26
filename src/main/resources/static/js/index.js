@@ -5,39 +5,27 @@
 
   // Graphs
   const ctx = document.getElementById('myChart')
+  const xValues = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"];
+  const yValues = [10, 13, 25, 22, 15, 9];
+  const barColors = ["blue"]; //["red", "yellow", "green", "blue", "orange", "brown"];
+  
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
-      labels: [
-        'Jan',
-        'Fev',
-        'Mar',
-        'Abr',
-        'Mai',
-        'Jun',
-        'Jul'
-      ],
+      labels: xValues,
       datasets: [{
-        data: [
-          1533,
-          2134,
-          1848,
-          2400,
-          2348,
-          2409,
-          1203
-        ],
+        data: yValues,
         lineTension: 0,
-        backgroundColor: 'transparent',
+        backgroundColor: barColors, // 'transparent',
         borderColor: '#007bff',
-        borderWidth: 4,
+        borderWidth: 0,
         pointBackgroundColor: '#007bff'
       }]
     },
     options: {
       plugins: {
         legend: {
-          display: true
+          display: false
         },
         tooltip: {
           boxPadding: 3

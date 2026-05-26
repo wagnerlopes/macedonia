@@ -23,6 +23,7 @@
 
         <thead>
           <tr>
+            <th scope="col">...</th>
             <th scope="col">C&oacute;digo</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
             <th scope="col">OCS</th>
@@ -33,11 +34,16 @@
 
         <tbody>
           <tr th:if="${allDth.empty}">
-            <td colspan="4">Sem Di&aacute;rias e Taxas</td>
+            <td colspan="6">Sem Di&aacute;rias e Taxas</td>
           </tr>
 			
           <tr th:each="dth : ${allDth}">
-            <td><span th:text="${dth.codigo}"> Codigo </span></td>
+            <td>
+              <a th:href="@{/dth/delete(id=${dth.id})}">
+                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+              </a>
+            </td>
+            <td><a th:href="@{/dth(id=${dth.id})}" title="Editar">[[${dth.dotCodigo}]]</a></td>
             <td><span th:text="${dth.descricao}"> Descricao </span></td>
             <td><span th:text="${dth.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${dth.unidadeMedida}"> Unidade </span></td>
@@ -53,6 +59,8 @@
 
       <form action="#" th:action="@{/dth/save}" th:object="${dth}" method="post">
           
+        <input type="hidden" th:field="*{id}"/>
+
         <ul th:if="${#fields.hasErrors('*')}" class="error">
           <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
         </ul>
@@ -62,7 +70,7 @@
             <strong><span th:text="#{dth.codigo}">Codigo</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{codigo}" th:errorclass="error" maxlength="11" class="form-control"/>
+            <input type="text" th:field="*{codigo}" th:errorclass="error" maxlength="8" class="form-control"/>
           </div>
         </div>
           
@@ -99,7 +107,7 @@
           </label>
           <div class="col-sm-6">
             <select th:field="*{ocs.cnpj}" class="form-select">
-              <option selected value="">--- Selecione uma Organização de Saúde ---</option>
+              <option selected value="">--- Selecione ---</option>
               <option th:each="ocs : ${allOcs}" th:value="${ocs.cnpj}" th:text="${ocs.descricao}">OCS</option>
             </select>
           </div>

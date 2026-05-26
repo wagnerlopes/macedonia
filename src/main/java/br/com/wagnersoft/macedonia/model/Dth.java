@@ -63,7 +63,7 @@ public class Dth implements Comparable<Dth>, Serializable {
 	}
 	
     public String getDotCodigo() {
-        return this.codigo.isEmpty() || this.codigo.length() < 8 ? "CODIGO" :
+        return this.codigo.isEmpty() || this.codigo.length() < 8 ? codigo :
           codigo.substring(0,2) + "." +
           codigo.substring(2,4) + "." +
           codigo.substring(4,7) + "-" +

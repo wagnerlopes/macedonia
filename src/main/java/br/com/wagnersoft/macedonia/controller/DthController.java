@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.model.Ocs;
@@ -45,10 +46,17 @@ public class DthController {
     }
     
     @GetMapping({"/dth"})
-    public String show(final Dth dth, Model model) {
+    public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ DTH +++");
 		model.addAttribute("menu", "Dth");
+        model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id));
         return "dth";
+    }
+
+    @GetMapping({"/dth/delete"})
+    public String delete(@RequestParam(name = "id", required = false) Integer id) {
+        dthSvc.remove(id);
+        return "redirect:/dth";
     }
     
     @PostMapping(value="/dth/save", params={"save"})
