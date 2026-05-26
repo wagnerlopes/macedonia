@@ -46,6 +46,8 @@ spring:
             query-timeout: 30
 
     mvc:
+        format:
+            date: yyyy-MM-dd
         pathmatch:
             matching-strategy: ant_path_matcher
 
