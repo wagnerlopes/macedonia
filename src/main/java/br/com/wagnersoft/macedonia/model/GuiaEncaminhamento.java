@@ -18,8 +18,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
@@ -38,10 +40,13 @@ public class GuiaEncaminhamento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="emissao_data")
+	@NonNull
+	@FutureOrPresent
+	@Column(name="emissao_data", updatable = false)
 	private LocalDate emissaoData;
 
-	@Column(name="guia_nr")
+	@NonNull
+	@Column(name="guia_nr", updatable = false)
 	private Integer guiaNr;
 
 	@Column(name="operador")
@@ -60,14 +65,17 @@ public class GuiaEncaminhamento implements Serializable {
 	@JoinColumn(name="responsavel_cpf")
 	private Profissional responsavel;
 
+	@NonNull
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 
+	@NonNull
 	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="beneficiario_cpf")
+	@JoinColumn(name="beneficiario_cpf", updatable = false)
 	private Beneficiario beneficiario;
 
+	@NonNull
 	@Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")

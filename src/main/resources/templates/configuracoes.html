@@ -19,6 +19,8 @@
 
       <hr class="my-3" />
 
+      <p th:utext="${emsg} != null ? #{app.error(${emsg})} : ''"></p>
+
       <h5>LOCALE</h5>
       
       <p th:text="${#locale}">LOCALE</p>
