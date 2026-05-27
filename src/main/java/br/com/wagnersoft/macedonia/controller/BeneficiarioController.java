@@ -32,7 +32,7 @@ public class BeneficiarioController {
     }
     
     @ModelAttribute("allBeneficiarios")
-    public List<Beneficiario> populateBeneficiarios() {
+    public List<Beneficiario> listBeneficiarios() {
         return benSvc.listAll();
     }
     
@@ -61,5 +61,5 @@ public class BeneficiarioController {
         model.clear();
         return "redirect:/beneficiarios";
     }
-    
+  
 }

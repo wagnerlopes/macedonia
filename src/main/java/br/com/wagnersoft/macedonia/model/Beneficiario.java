@@ -13,11 +13,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -31,14 +33,16 @@ public class Beneficiario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Size(max=11)
+	@Size(min = 11, max=11, message = "informar 11 dígitos")
+	@NotBlank
+	@Digits(integer = 11, fraction = 0, message = "somente dígitos permitidos")
 	private String cpf;
 
-	@NonNull
+	@NotBlank
 	@Size(max=255)
 	private String nome;
 
-	@NonNull
+	@NotNull
 	@Past
 	@Column(name="nascimento_data")
 	private LocalDate nascimentoData;
