@@ -28,7 +28,7 @@
             <th scope="col">OCS</th>
             <th scope="col">In&iacute;cio</th>
             <th scope="col">T&eacute;rmino</th>
-            <th scope="col">CH (Valor)</th>
+            <th scope="col">CH</th>
           </tr>
         </thead>
 
@@ -47,7 +47,7 @@
             <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
             <td><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
             <td><span th:text="${#temporals.format(cont.terminoData, 'dd/MM/yyyy')}"> Termino </span></td>
-            <td th:text="${#numbers.formatDecimal(cont.chValor,1,2,'COMMA')}"></td>
+            <td th:text="${#numbers.formatCurrency(cont.chValor)}"> CH </td>
           </tr>
         </tbody>
 
@@ -61,7 +61,7 @@
 
         <input type="hidden" th:field="*{id}"/>
           
-        <ul th:if="${#fields.hasErrors('*')}" class="error">
+        <ul th:if="${#fields.hasErrors('*')}" class="text-danger">
           <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
         </ul>
 
@@ -71,7 +71,7 @@
           </label>
           <div class="col-sm-6">
             <select th:field="*{ocs.cnpj}" class="form-select">
-              <option selected value="">--- Selecione uma Organização de Saúde ---</option>
+              <option selected value="">--- Selecione ---</option>
               <option th:each="ocs : ${listOcs}" th:value="${ocs.cnpj}" th:text="${ocs.descricao}">OCS</option>
             </select>
           </div>
@@ -82,7 +82,7 @@
             <strong><span th:text="#{contrato.inicioData}"><strong>In&iacute;cio</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="date" th:field="*{inicioData}" th:errorclass="error" class="form-control"/>
+            <input type="date" th:field="*{inicioData}" th:errorclass="text-danger" class="form-control"/>
           </div>
         </div>
 
@@ -91,7 +91,7 @@
             <strong><span th:text="#{contrato.terminoData}"><strong>T&eacute;rmino</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="date" th:field="*{terminoData}" th:errorclass="error" class="form-control"/>
+            <input type="date" th:field="*{terminoData}" th:errorclass="text-danger" class="form-control"/>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
             <strong><span th:text="#{contrato.chValor}">CH</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{chValor}" th:errorclass="error" maxlength="6" class="form-control"/>
+            <input type="text" th:field="*{chValor}" th:errorclass="text-danger" class="form-control"/>
           </div>
         </div>
           
