@@ -13,6 +13,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,16 +34,20 @@ public class Dth implements Comparable<Dth>, Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotBlank
 	private String codigo;
 
+	@NotBlank
 	private String descricao;
 
-	/** Diária, Hora, Procedimento, Sessão, Uso */
+	@NotBlank
 	private String unidadeMedida;
 
+    @NotNull
 	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	private BigDecimal valorUnitario;
 
+    @NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")
 	private Ocs ocs;
