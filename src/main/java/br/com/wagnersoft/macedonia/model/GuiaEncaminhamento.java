@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -66,6 +68,7 @@ public class GuiaEncaminhamento implements Serializable {
 	private Profissional responsavel;
 
 	@NonNull
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 

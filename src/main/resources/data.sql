@@ -20,12 +20,12 @@ insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, m
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061699567000192', 'Hospital São Paulo', '03', 'Avenida Principal', '265', 'Parque Clinico', 'Chapecó', 'SC', '(43) 97521-6789', 'Clara Gimenez');
 insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061599908000158', 'Beneficiência Portuguesa', '04', 'Avenida Principal', '265', 'Parque Clinico', 'Resende', 'RJ', '(21) 97521-6789', 'Clara Gimenez');
 
-insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('1', 'UTI', 'DIARIA', 534.67, 1);
-insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('2', 'Enfermaria', 'DIARIA', 215.98, 1);
-insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('3', 'Quarto', 'DIARIA', 748.18, 1);
-insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('1', 'UTI', 'DIARIA', 1025.37, 2);
-insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('2', 'Enfermaria', 'DIARIA', 825.18, 2);
-insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('3', 'Quarto', 'DIARIA', 1351.93, 2);
+insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('1', 'UTI', '01', 534.67, 1);
+insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('2', 'Enfermaria', '01', 215.98, 1);
+insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('3', 'Quarto', '01', 748.18, 1);
+insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('1', 'UTI', '01', 1025.37, 2);
+insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('2', 'Enfermaria', '01', 825.18, 2);
+insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('3', 'Quarto', '01', 1351.93, 2);
 
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010022', '', '', '', '10101020', 'Consulta em domicílio', 50, 0, 0);
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010014', '00010014', '00010014','00010014', '10101012', 'Consulta em consultório', 80, 0, 0);

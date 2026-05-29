@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,6 +39,7 @@ public class Dth implements Comparable<Dth>, Serializable {
 	/** Diária, Hora, Procedimento, Sessão, Uso */
 	private String unidadeMedida;
 
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	private BigDecimal valorUnitario;
 
 	@ManyToOne(fetch = FetchType.LAZY)

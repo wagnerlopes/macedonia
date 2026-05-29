@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,6 +40,7 @@ public class OcsPm implements Comparable<OcsPm>, Serializable {
 	@Column(name="unidade_medida")
 	private String unidadeMedida;
 
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="valor_unitario")
 	private BigDecimal valorUnitario;
 

@@ -1,6 +1,8 @@
 package br.com.wagnersoft.macedonia.controller;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.service.DthService;
 import br.com.wagnersoft.macedonia.service.OcsService;
+import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.validation.Valid;
 
 @Controller
@@ -44,12 +47,18 @@ public class DthController {
     public List<Ocs> populateOcs() {
         return ocsSvc.listAll();
     }
+ 
+	@ModelAttribute("allUnidadeMedida")
+    public List<UnidadeMedidaEnum> allUnidadeMedida() {
+        return Arrays.asList(UnidadeMedidaEnum.ALL);
+    }
     
     @GetMapping({"/dth"})
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ DTH +++");
 		model.addAttribute("menu", "Dth");
         model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id));
+        model.addAttribute("tipoUmMap", Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao)));
         return "dth";
     }
 
