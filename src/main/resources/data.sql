@@ -42,7 +42,7 @@ insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, '
 insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, 'SESSAO', 247.74);
 
 insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (1, '2020-05-14', '2030-12-26', 20);
-insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (2, '2021-08-23', '2031-05-12', 20);
+insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (2, '2021-08-23', '2031-05-12', 30);
 
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 1, '2026-02-10', '145', '99999999999', '88888888888', 321.74);
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 2, '2026-03-15', '146', '99999999999', '88888888888', 569.58);

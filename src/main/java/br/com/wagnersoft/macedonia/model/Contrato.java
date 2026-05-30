@@ -42,8 +42,9 @@ public class Contrato implements Serializable {
 
 	@NotNull
 	@Column(name="termino_data")
-	private LocalDate TerminoData;
+	private LocalDate terminoData;
 
+	@NotNull
 	@Column(name="ch_valor")
 	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	private BigDecimal chValor;
@@ -69,8 +70,3 @@ public class Contrato implements Serializable {
 	}
 	
 }
-
-/*
-@GeneratedValue(strategy=GenerationType.TABLE, generator="TGC")
-@TableGenerator(name="TGC", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", pkColumnValue="CONTRATOS", allocationSize=1)
-*/

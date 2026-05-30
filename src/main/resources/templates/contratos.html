@@ -61,19 +61,18 @@
 
         <input type="hidden" th:field="*{id}"/>
           
-        <ul th:if="${#fields.hasErrors('*')}" class="text-danger">
-          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
-        </ul>
-
         <div class="form-group row mt-1">
           <label for="ocs.cnpj" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{contrato.ocs.cnpj}">OCS</span></strong>
           </label>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <select th:field="*{ocs.cnpj}" class="form-select">
               <option selected value="">--- Selecione ---</option>
               <option th:each="ocs : ${listOcs}" th:value="${ocs.cnpj}" th:text="${ocs.descricao}">OCS</option>
             </select>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de cnpj</small>
           </div>
         </div>
           
@@ -84,6 +83,9 @@
           <div class="col-sm-2">
             <input type="date" th:field="*{inicioData}" th:errorclass="text-danger" class="form-control"/>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('inicioData')}" th:errors="*{inicioData}" class="text-danger">Erro de data</small>
+          </div>
         </div>
 
         <div class="form-group row mt-1">
@@ -93,6 +95,9 @@
           <div class="col-sm-2">
             <input type="date" th:field="*{terminoData}" th:errorclass="text-danger" class="form-control"/>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('terminoData')}" th:errors="*{terminoData}" class="text-danger">Erro de data</small>
+          </div>
         </div>
 
         <div class="form-group row mt-1">
@@ -101,6 +106,9 @@
           </label>
           <div class="col-sm-2">
             <input type="text" th:field="*{chValor}" th:errorclass="text-danger" class="form-control"/>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('chValor')}" th:errors="*{chValor}" class="text-danger">Erro de CH</small>
           </div>
         </div>
           
