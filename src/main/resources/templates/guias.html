@@ -47,7 +47,7 @@
             <td><span th:text="${guia.beneficiario.cpf + ' - ' + guia.beneficiario.nome}"> Beneficiario </span></td>
             <td><span th:text="${guia.ocs.descricao}"> OCS </span></td>
             <td class="text-center"><span th:text="${#temporals.format(guia.emissaoData, 'dd/MM/yyyy')}"> Data </span></td>
-            <td class="text-end"><span th:text="${#numbers.formatDecimal(guia.valorTotal,1,2,'COMMA')}"> Valor </span></td>
+            <td class="text-end"><span th:text="${#numbers.formatCurrency(guia.valorTotal)}"> Valor </span></td>
           </tr>
         </tbody>
 
