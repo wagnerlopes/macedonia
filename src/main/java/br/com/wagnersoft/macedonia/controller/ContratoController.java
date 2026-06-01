@@ -61,11 +61,10 @@ public class ContratoController {
     
     @PostMapping(value="/contratos/save", params={"save"})
     public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
+        ocsSvc.findByCnpj(contrato.getOcs().getCnpj()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs", "", "OCS deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "contratos";
         }
-        final Ocs ocs = ocsSvc.findByCnpj(contrato.getOcs().getCnpj()).orElse(new Ocs());
-        contrato.setOcs(ocs);
         logger.info("{}", contrato);
         cttSvc.add(contrato);
         model.clear();

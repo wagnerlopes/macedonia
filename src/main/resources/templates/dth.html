@@ -96,7 +96,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de OCS</small>
+            <small th:if="${#fields.hasErrors('ocs')}" th:errors="*{ocs}" class="text-danger">Erro de OCS</small>
           </div>
         </div>
          
@@ -132,6 +132,10 @@
         <div class="submit text-center">
           <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{dth.save}">Novo</button>
         </div>
+
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
                   
       </form>
       

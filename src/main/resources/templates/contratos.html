@@ -63,7 +63,7 @@
           
         <div class="form-group row mt-1">
           <label for="ocs.cnpj" class="col-sm-2 form-label my-1 text-end">
-            <strong><span th:text="#{contrato.ocs.cnpj}">OCS</span></strong>
+            <strong><span th:text="#{contrato.ocs}">OCS</span></strong>
           </label>
           <div class="col-sm-4">
             <select th:field="*{ocs.cnpj}" class="form-select">
@@ -72,7 +72,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de cnpj</small>
+            <small th:if="${#fields.hasErrors('ocs')}" th:errors="*{ocs}" class="text-danger">Erro de OCS</small>
           </div>
         </div>
           

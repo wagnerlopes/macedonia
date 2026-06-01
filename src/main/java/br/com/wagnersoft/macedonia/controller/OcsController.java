@@ -67,7 +67,7 @@ public class OcsController {
     @PostMapping(value="/ocs/save", params={"save"})
     public String save(@Valid final Ocs ocs, final BindingResult bindingResult, final ModelMap model) {
         if (bindingResult.hasErrors()) {
-        	return "ocs";
+            return "ocs";
         }
         logger.info("{}", ocs);
         ocsSvc.add(ocs);

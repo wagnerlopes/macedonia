@@ -12,7 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,15 +32,15 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@NotNull
+	@NotBlank
 	@Include
 	private String cnpj;
 
-	@NotNull
+	@NotBlank
 	@Include
 	private String descricao;
 
-	@NotNull
+	@NotBlank
 	private String especialidade;
 
 	private String registroAns;
