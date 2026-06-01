@@ -18,7 +18,11 @@ import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Profissional;
+import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
+import br.com.wagnersoft.macedonia.service.OcsService;
+import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import jakarta.validation.Valid;
 
 @Controller
 public class GuiaEncaminhamentoController {
@@ -27,7 +31,16 @@ public class GuiaEncaminhamentoController {
 
     @Autowired
     private GuiaEncaminhamentoService guiaSvc;
-	
+
+    @Autowired
+    private BeneficiarioService benSvc;
+
+    @Autowired
+    private ProfissionalService profSvc;
+
+    @Autowired
+    private OcsService ocsSvc;
+    
     public GuiaEncaminhamentoController() {
         super();
     }
@@ -56,17 +69,21 @@ public class GuiaEncaminhamentoController {
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ Guias +++");
 		model.addAttribute("menu", "guias");
-        model.addAttribute("guia", id == null ? new GuiaEncaminhamento() : guiaSvc.findById(id).orElse(new GuiaEncaminhamento()));
+        model.addAttribute("guiaEncaminhamento", id == null ? new GuiaEncaminhamento() : guiaSvc.findById(id).orElse(new GuiaEncaminhamento()));
 		return "guias";
 	}
     
     @PostMapping(value="/guias/save", params={"save"})
-    public String save(final GuiaEncaminhamento guia, final BindingResult bindingResult, final ModelMap model) {
+    public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
+        benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario", "", "Beneficiário deve ser informado"));
+        profSvc.findByCpf(guiaEncaminhamento.getSolicitante().getCpf()).ifPresentOrElse(s -> guiaEncaminhamento.setSolicitante(s) , () -> bindingResult.rejectValue("solicitante", "", "Solicitante deve ser informado"));
+        profSvc.findByCpf(guiaEncaminhamento.getResponsavel().getCpf()).ifPresentOrElse(r -> guiaEncaminhamento.setResponsavel(r) , () -> bindingResult.rejectValue("responsavel", "", "Responsável deve ser informado"));
+        ocsSvc.findByCnpj(guiaEncaminhamento.getOcs().getCnpj()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs", "", "OCS deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "guias";
         }
-        logger.info("{}", guia);
-        guiaSvc.add(guia);
+        logger.info("{}", guiaEncaminhamento);
+        guiaSvc.add(guiaEncaminhamento);
         model.clear();
         return "redirect:/guias";
     }

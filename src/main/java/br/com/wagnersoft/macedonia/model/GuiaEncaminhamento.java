@@ -58,32 +58,32 @@ public class GuiaEncaminhamento implements Serializable {
 	private String observacao;
 
 	@NotNull
-	@Exclude
-	@ManyToOne
-	@JoinColumn(name="solicitante_cpf")
-	private Profissional solicitante;
-
-	@NotNull
-	@Exclude
-	@ManyToOne
-	@JoinColumn(name="responsavel_cpf")
-	private Profissional responsavel;
-
-	@NotNull
 	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 
 	@NotNull
 	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="beneficiario_cpf", updatable = false)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="solicitante_cpf", updatable = false, nullable = false)
+	private Profissional solicitante;
+
+	@NotNull
+	@Exclude
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="responsavel_cpf", updatable = false, nullable = false)
+	private Profissional responsavel;
+
+	@NotNull
+	@Exclude
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="beneficiario_cpf", updatable = false, nullable = false)
 	private Beneficiario beneficiario;
 
 	@NotNull
 	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="ocs_id", updatable = false, nullable = false)
 	private Ocs ocs;
 
 	@Exclude

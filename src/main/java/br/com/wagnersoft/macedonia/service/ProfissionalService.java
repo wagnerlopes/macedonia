@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,8 @@ public class ProfissionalService {
 		return lista;
 	}
 
-	public Profissional findByCpf(String cpf) {
-		return profRep.findById(cpf).orElseThrow();
+	public Optional<Profissional> findByCpf(String cpf) {
+		return profRep.findById(cpf);
 	}
 
 	public void add(Profissional profissional) {
