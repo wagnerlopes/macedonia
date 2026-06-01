@@ -2,6 +2,7 @@ package br.com.wagnersoft.macedonia.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -49,12 +50,16 @@ public class OcsController {
         return Arrays.asList(UfEnum.ALL);
     }
 
+	@ModelAttribute("tipoOcsMap")
+    public Map<String, String> tipoOcsMap() {
+        return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
+    }
+
 	@GetMapping("/ocs")
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ OCS +++");
 		model.addAttribute("menu", "ocs");
         model.addAttribute("ocs", id == null ? new Ocs() : ocsSvc.findById(id).orElse(new Ocs()));
-        model.addAttribute("tipoOcsMap", Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao)));
         return "ocs";
     }
 
