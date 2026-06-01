@@ -110,7 +110,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('beneficiario')}" th:errors="*{beneficiario}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('beneficiario.cpf')}" th:errors="*{beneficiario.cpf}" class="text-danger">Erro de CPF</small>
           </div>
         </div>
 
@@ -125,7 +125,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('solicitante')}" th:errors="*{solicitante}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('solicitante.cpf')}" th:errors="*{solicitante.cpf}" class="text-danger">Erro de CPF</small>
           </div>
         </div>
 
@@ -140,7 +140,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('responsavel')}" th:errors="*{responsavel}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('responsavel.cpf')}" th:errors="*{responsavel.cpf}" class="text-danger">Erro de CPF</small>
           </div>
         </div>
 
@@ -157,7 +157,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('ocs')}" th:errors="*{ocs}" class="text-danger">Erro de OCS</small>
+            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de OCS</small>
           </div>
         </div>
 

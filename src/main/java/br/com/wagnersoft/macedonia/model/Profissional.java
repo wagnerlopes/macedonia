@@ -15,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,17 +32,21 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@NotBlank
+	private String cpf;
+
+	@NotBlank
 	private String nome;
 
+	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="cbo_codigo")
 	private Cbo cbo;
 
 	private String cns;
 	
-	@Id
-	private String cpf;
-
+	@NotNull
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="registro_id")
 	private RegistroProfissional registroProfissional;

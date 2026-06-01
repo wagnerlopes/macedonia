@@ -75,7 +75,7 @@ public class DthController {
     
     @PostMapping(value="/dth/save", params={"save"})
     public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
-        ocsSvc.findByCnpj(dth.getOcs().getCnpj()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs", "", "OCS deve ser informado"));
+        ocsSvc.findByCnpj(dth.getOcs().getCnpj()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "dth.erro.ocs", "Deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "dth";
         }

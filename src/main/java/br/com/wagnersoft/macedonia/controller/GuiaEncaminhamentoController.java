@@ -75,10 +75,10 @@ public class GuiaEncaminhamentoController {
     
     @PostMapping(value="/guias/save", params={"save"})
     public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
-        benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario", "", "Beneficiário deve ser informado"));
-        profSvc.findByCpf(guiaEncaminhamento.getSolicitante().getCpf()).ifPresentOrElse(s -> guiaEncaminhamento.setSolicitante(s) , () -> bindingResult.rejectValue("solicitante", "", "Solicitante deve ser informado"));
-        profSvc.findByCpf(guiaEncaminhamento.getResponsavel().getCpf()).ifPresentOrElse(r -> guiaEncaminhamento.setResponsavel(r) , () -> bindingResult.rejectValue("responsavel", "", "Responsável deve ser informado"));
-        ocsSvc.findByCnpj(guiaEncaminhamento.getOcs().getCnpj()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs", "", "OCS deve ser informado"));
+        benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario.cpf", "guia.erro.beneficiario", "Deve ser informado"));
+        profSvc.findByCpf(guiaEncaminhamento.getSolicitante().getCpf()).ifPresentOrElse(s -> guiaEncaminhamento.setSolicitante(s) , () -> bindingResult.rejectValue("solicitante.cpf", "guia.erro.solicitante", "Deve ser informado"));
+        profSvc.findByCpf(guiaEncaminhamento.getResponsavel().getCpf()).ifPresentOrElse(r -> guiaEncaminhamento.setResponsavel(r) , () -> bindingResult.rejectValue("responsavel.cpf", "guia.erro.responsavel", "Deve ser informado"));
+        ocsSvc.findByCnpj(guiaEncaminhamento.getOcs().getCnpj()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "guia.erro.cnpj", "Deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "guias";
         }

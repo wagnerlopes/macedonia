@@ -59,30 +59,32 @@
 
       <form action="#" th:action="@{/profissionais/save}" th:object="${profissional}" method="post">
           
-        <ul th:if="${#fields.hasErrors('*')}" class="error">
-          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
-        </ul>
-
         <div class="form-group row mt-1">
-          <label for="cpf" class="col-sm-2 form-label my-1">
+          <label for="cpf" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{profissional.cpf}">CPF</span></strong>
           </label>
           <div class="col-sm-2">
             <input type="text" th:field="*{cpf}" th:errorclass="error" maxlength="11" class="form-control" placeholder="00000000000"/>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="text-danger">Erro de CPF</small>
+          </div>
         </div>
           
         <div class="form-group row mt-1">
-          <label for="nome" class="col-sm-2 form-label my-1">
+          <label for="nome" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{profissional.nome}">Nome</span></strong>
           </label>
           <div class="col-sm-6">
             <input type="text" th:field="*{nome}" th:errorclass="error" maxlength="255" class="form-control"/>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger">Erro de nome</small>
+          </div>
         </div>
 
         <div class="form-group row mt-1">
-          <label for="cbo.codigo" class="col-sm-2 form-label my-1">
+          <label for="cbo.codigo" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{profissional.cbo.codigo}"><strong>Especialidade</strong></span></strong>
           </label>
           <div class="col-sm-4">
@@ -91,19 +93,25 @@
               <option th:each="cbo : ${listCbo}" th:value="${cbo.codigo}" th:text="${cbo.descricao}"> CBO </option>
             </select>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('cbo.codigo')}" th:errors="*{cbo.codigo}" class="text-danger">Erro de CBO</small>
+          </div>
         </div>
 
         <div class="form-group row mt-1">
-          <label for="cns" class="col-sm-2 form-label my-1">
+          <label for="cns" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{profissional.cns}"><strong>CNS</strong></span></strong>
           </label>
           <div class="col-sm-2">
             <input type="text" th:field="*{cns}" th:errorclass="error" maxlength="10"  class="form-control" placeholder="0000000000"/>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('cns')}" th:errors="*{cns}" class="text-danger">Erro de CNS</small>
+          </div>
         </div>
 
         <div class="form-group row mt-1">
-          <label for="registroProfissional.conselho" class="col-sm-2 form-label my-1">
+          <label for="registroProfissional.conselho" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{profissional.registro}"><strong>Registro</strong></span></strong>
           </label>
           <div class="col-sm-2">
@@ -121,9 +129,14 @@
           <div class="col-sm-2">
             <input type="text" th:field="*{registroProfissional.numero}" th:errorclass="error" maxlength="10" class="form-control" placeholder="0000-0"/>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('registroProfissional')}" th:errors="*{registroProfissional}" class="text-danger">Erro de registro</small>
+          </div>
         </div>
           
-        <div class="submit">
+        <hr class="my-3" />
+        
+        <div class="submit text-center">
           <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{profissional.save}">Novo</button>
         </div>
                   

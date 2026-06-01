@@ -74,7 +74,7 @@ public class ProfissionalController {
 	
     @PostMapping(value="/profissionais/save", params={"save"})
     public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
-    	cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo", "", "Especialidade deve ser informada"));
+    	cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
         if (bindingResult.hasErrors()) {
         	return "profissionais";
         }
