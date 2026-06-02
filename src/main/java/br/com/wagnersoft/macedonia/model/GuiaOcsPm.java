@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,6 +38,7 @@ public class GuiaOcsPm implements Serializable {
 	@Column(name="pm_qtd")
 	private Integer pmQtd;
 
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="pos_auditoria")
 	private BigDecimal posAuditoria;
 

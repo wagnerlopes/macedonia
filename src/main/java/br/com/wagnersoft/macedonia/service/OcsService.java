@@ -22,12 +22,6 @@ public class OcsService {
 
 	public List<Ocs> listAll() {
 		final List<Ocs> lista = rep.findAll();
-/*		
-		lista.forEach(e -> {
-			e.setEspecialidade(EstabelecimentoSaudeEnum.findByCodigo(e.getEspecialidade()));
-			logger.info(e.toString());
-		});
-*/
 		return lista;
 	}
 

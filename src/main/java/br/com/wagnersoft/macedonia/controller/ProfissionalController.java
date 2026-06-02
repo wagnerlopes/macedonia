@@ -62,8 +62,7 @@ public class ProfissionalController {
 	public String show(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, Model model) {
 		logger.info("+++ Profissionais +++");
 		model.addAttribute("menu", "prof");
-		if (cpf != null &&  !cpf.isEmpty())
-	  		  model.addAttribute("profissional", profSvc.findByCpf(cpf));
+        model.addAttribute("profissional", cpf == null ? new Profissional() : profSvc.findByCpf(cpf).orElse(new Profissional()));
 		return "profissionais";
 	}
 
@@ -75,6 +74,7 @@ public class ProfissionalController {
 	
     @PostMapping(value="/profissionais/save", params={"save"})
     public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
+    	cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
         if (bindingResult.hasErrors()) {
         	return "profissionais";
         }

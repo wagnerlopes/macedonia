@@ -23,25 +23,31 @@
 
         <thead>
           <tr>
+            <th scope="col">...</th>
             <th scope="col">C&oacute;digo</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
-            <th scope="col">OCS</th>
+            <th scope="col">Estabelecimento</th>
             <th scope="col">Unidade de Medida</th>
-            <th scope="col" class="text-center">Valor Unit&aacute;rio</th>
+            <th scope="col" class="text-end">Valor Unit&aacute;rio</th>
           </tr>
         </thead>
 
         <tbody>
           <tr th:if="${allDth.empty}">
-            <td colspan="4">Sem Di&aacute;rias e Taxas</td>
+            <td colspan="6">Sem Di&aacute;rias e Taxas</td>
           </tr>
 			
           <tr th:each="dth : ${allDth}">
-            <td><span th:text="${dth.codigo}"> Codigo </span></td>
+            <td>
+              <a th:href="@{/dth/delete(id=${dth.id})}">
+                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+              </a>
+            </td>
+            <td><a th:href="@{/dth(id=${dth.id})}" title="Editar">[[${dth.dotCodigo}]]</a></td>
             <td><span th:text="${dth.descricao}"> Descricao </span></td>
             <td><span th:text="${dth.ocs.descricao}"> OCS </span></td>
-            <td><span th:text="${dth.unidadeMedida}"> Unidade </span></td>
-            <td class="text-end"><span th:text="${'R$ ' + #numbers.formatDecimal(dth.valorUnitario,1,2,'COMMA')}"> Valor </span></td>
+            <td><span th:text="${tipoUmMap[dth.UnidadeMedida]}"> Unidade </span></td>
+            <td class="text-end" th:text="${#numbers.formatCurrency(dth.valorUnitario)}"> Valor </td>
           </tr>
         </tbody>
 
@@ -53,61 +59,83 @@
 
       <form action="#" th:action="@{/dth/save}" th:object="${dth}" method="post">
           
-        <ul th:if="${#fields.hasErrors('*')}" class="error">
-          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
-        </ul>
+        <input type="hidden" th:field="*{id}"/>
 
         <div class="form-group row mt-1">
-          <label for="codigo" class="col-sm-1 form-label my-1">
+          <label for="codigo" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{dth.codigo}">Codigo</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{codigo}" th:errorclass="error" maxlength="11" class="form-control"/>
+            <input type="text" th:field="*{codigo}" th:errorclass="text-danger" maxlength="8" class="form-control"/>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}" class="text-danger">Erro de codigo</small>
           </div>
         </div>
           
         <div class="form-group row mt-1">
-          <label for="descricao" class="col-sm-1 form-label my-1">
+          <label for="descricao" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{dth.descricao}">Descricao</span></strong>
           </label>
           <div class="col-sm-6">
-            <input type="text" th:field="*{descricao}" th:errorclass="error" maxlength="255" class="form-control"/>
+            <input type="text" th:field="*{descricao}" th:errorclass="text-danger" maxlength="255" class="form-control"/>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger">Erro de descricao</small>
           </div>
         </div>
 
         <div class="form-group row mt-1">
-          <label for="unidadeMedida" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{dth.unidadeMedida}">Unidade</span></strong>
-          </label>
-          <div class="col-sm-2">
-            <input type="text" th:field="*{unidadeMedida}" th:errorclass="error" maxlength="30" class="form-control"/>
-          </div>
-        </div>
-
-        <div class="form-group row mt-1">
-          <label for="valorUnitario" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{dth.valorUnitario}">Valor</span></strong>
-          </label>
-          <div class="col-sm-2">
-            <input type="text" th:field="*{valorUnitario}" th:errorclass="error" maxlength="11" class="form-control"/>
-          </div>
-        </div>
-
-        <div class="form-group row mt-1">
-          <label for="cnpj" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{dth.ocs}">CNPJ</span></strong>
+          <label for="cnpj" class="col-sm-2 form-label my-1 text-end">
+            <strong><span th:text="#{dth.ocs}">Estabelecimento</span></strong>
           </label>
           <div class="col-sm-6">
             <select th:field="*{ocs.cnpj}" class="form-select">
-              <option selected value="">--- Selecione uma Organização de Saúde ---</option>
+              <option selected value="">--- Selecione ---</option>
               <option th:each="ocs : ${allOcs}" th:value="${ocs.cnpj}" th:text="${ocs.descricao}">OCS</option>
             </select>
           </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de OCS</small>
+          </div>
         </div>
          
-        <div class="submit">
+        <div class="form-group row mt-1">
+          <label for="unidadeMedida" class="col-sm-2 form-label my-1 text-end">
+            <strong><span th:text="#{dth.unidadeMedida}">Unidade</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <select th:field="*{unidadeMedida}" class="form-select">
+              <option selected value="">--- Selecione ---</option>
+              <option th:each="um : ${allUnidadeMedida}" th:value="${um.codigo}" th:text="${um.descricao}">OCS</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('unidadeMedida')}" th:errors="*{unidadeMedida}" class="text-danger">Erro de unidade</small>
+          </div>
+        </div>
+
+        <div class="form-group row mt-1">
+          <label for="valorUnitario" class="col-sm-2 form-label my-1 text-end">
+            <strong><span th:text="#{dth.valorUnitario}">Valor</span></strong>
+          </label>
+          <div class="col-sm-2">
+            <input type="text" th:field="*{valorUnitario}" th:errorclass="text-danger" maxlength="11" class="form-control"/>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('valorUnitario')}" th:errors="*{valorUnitario}" class="text-danger">Erro de valor</small>
+          </div>
+        </div>
+
+        <hr class="my-3" />
+
+        <div class="submit text-center">
           <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{dth.save}">Novo</button>
         </div>
+
+        <ul th:if="${#fields.hasErrors('*')}" class="error">
+          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
+        </ul>
                   
       </form>
       

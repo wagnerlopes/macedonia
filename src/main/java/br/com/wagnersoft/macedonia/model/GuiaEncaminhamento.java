@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +20,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,10 +42,13 @@ public class GuiaEncaminhamento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="emissao_data")
+	@NotNull
+	@FutureOrPresent
+	@Column(name="emissao_data", updatable = false)
 	private LocalDate emissaoData;
 
-	@Column(name="guia_nr")
+	@NotNull
+	@Column(name="guia_nr", updatable = false)
 	private Integer guiaNr;
 
 	@Column(name="operador")
@@ -50,27 +57,33 @@ public class GuiaEncaminhamento implements Serializable {
 	@Column(name="observacao")
 	private String observacao;
 
-	@Exclude
-	@ManyToOne
-	@JoinColumn(name="solicitante_cpf")
-	private Profissional solicitante;
-
-	@Exclude
-	@ManyToOne
-	@JoinColumn(name="responsavel_cpf")
-	private Profissional responsavel;
-
+	@NotNull
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;
 
+	@NotNull
 	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="beneficiario_cpf")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="solicitante_cpf", updatable = false, nullable = false)
+	private Profissional solicitante;
+
+	@NotNull
+	@Exclude
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="responsavel_cpf", updatable = false, nullable = false)
+	private Profissional responsavel;
+
+	@NotNull
+	@Exclude
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="beneficiario_cpf", updatable = false, nullable = false)
 	private Beneficiario beneficiario;
 
+	@NotNull
 	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="ocs_id", updatable = false, nullable = false)
 	private Ocs ocs;
 
 	@Exclude

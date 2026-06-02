@@ -35,7 +35,7 @@
 
         <tbody>
           <tr th:if="${allBeneficiarios.empty}">
-            <td colspan="6">Sem benefici&aacute;rios</td>
+            <td colspan="7">Sem benefici&aacute;rios</td>
           </tr>
 			
           <tr th:each="ben : ${allBeneficiarios}">
@@ -63,44 +63,51 @@
 
       </table>
 
+      <p  class="bg-danger" th:text="${error} ?: _"></p>
+      
       <h5 class="shadow-sm p-3 my-3 bg-body-tertiary rounded">Editar Benefici&aacute;rio</h5>
 
       <hr class="my-3" />
 
       <form action="#" th:action="@{/beneficiarios/save}" th:object="${beneficiario}" method="post">
           
-        <ul th:if="${#fields.hasErrors('*')}" class="error">
-          <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Erros no formul&aacute;rio</li>
-        </ul>
-
         <div class="form-group row mt-1">
-          <label for="cpf" class="col-sm-1 form-label my-1">
+          <label for="cpf" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{beneficiario.cpf}">CPF</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{cpf}" th:errorclass="error" maxlength="11" class="form-control"/>
+            <input type="text" th:field="*{cpf}" th:errorclass="text-danger" maxlength="11" class="form-control"/>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="text-danger">Incorrect cpf</small>
           </div>
         </div>
           
         <div class="form-group row mt-1">
-          <label for="nome" class="col-sm-1 form-label my-1">
+          <label for="nome" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{beneficiario.nome}">Nome</span></strong>
           </label>
           <div class="col-sm-6">
-            <input type="text" th:field="*{nome}" th:errorclass="error" maxlength="255" class="form-control"/>
+            <input type="text" th:field="*{nome}" th:errorclass="text-danger" maxlength="255" class="form-control"/>
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger">Incorrect nome</small>
           </div>
         </div>
 
         <div class="form-group row mt-1">
-          <label for="nascimentoData" class="col-sm-1 form-label my-1">
-            <strong><span th:text="#{beneficiario.nascimentoData}"><strong>Dt Nasc</strong></span></strong>
+          <label for="nascimentoData" class="col-sm-2 form-label my-1 text-end">
+            <strong><span th:text="#{beneficiario.nascimentoData}"><strong>Data Nasc</strong></span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="date" th:field="*{nascimentoData}" th:errorclass="error" class="form-control" />
+            <input type="date" th:field="*{nascimentoData}" th:errorclass="text-danger" class="form-control" />
+          </div>
+          <div class="col-sm-4">
+            <small th:if="${#fields.hasErrors('nascimentoData')}" th:errors="*{nascimentoData}" class="text-danger">Incorrect date</small>
           </div>
         </div>
           
-        <div class="submit">
+        <div class="submit text-center">
           <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{beneficiario.save}">Novo</button>
         </div>
                   

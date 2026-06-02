@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import org.springframework.format.annotation.NumberFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,10 +42,11 @@ public class Contrato implements Serializable {
 
 	@NotNull
 	@Column(name="termino_data")
-	private LocalDate TerminoData;
+	private LocalDate terminoData;
 
-	@Digits(fraction = 2, integer = 5)
+	@NotNull
 	@Column(name="ch_valor")
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	private BigDecimal chValor;
 
 	@NotNull
@@ -68,8 +70,3 @@ public class Contrato implements Serializable {
 	}
 	
 }
-
-/*
-@GeneratedValue(strategy=GenerationType.TABLE, generator="TGC")
-@TableGenerator(name="TGC", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", pkColumnValue="CONTRATOS", allocationSize=1)
-*/

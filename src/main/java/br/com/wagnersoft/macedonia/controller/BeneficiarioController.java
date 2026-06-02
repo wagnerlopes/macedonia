@@ -32,7 +32,7 @@ public class BeneficiarioController {
     }
     
     @ModelAttribute("allBeneficiarios")
-    public List<Beneficiario> populateBeneficiarios() {
+    public List<Beneficiario> listBeneficiarios() {
         return benSvc.listAll();
     }
     
@@ -40,8 +40,7 @@ public class BeneficiarioController {
     public String show(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, Model model) {
 		logger.info("+++ Beneficiarios +++");
 		model.addAttribute("menu", "ben");
-		if (cpf != null &&  !cpf.isEmpty())
-  		  model.addAttribute("beneficiario", benSvc.findByCpf(cpf));
+        model.addAttribute("beneficiario", cpf  == null ? new Beneficiario() : benSvc.findByCpf(cpf).orElse(new Beneficiario()));
         return "beneficiarios";
     }
 
@@ -61,5 +60,5 @@ public class BeneficiarioController {
         model.clear();
         return "redirect:/beneficiarios";
     }
-    
+  
 }

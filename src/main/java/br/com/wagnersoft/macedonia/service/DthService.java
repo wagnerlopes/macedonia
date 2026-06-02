@@ -24,8 +24,29 @@ public class DthService {
 		return lista;
 	}
 
-	public void add(Dth dth) {
-		rep.save(dth);
+	public Dth findById(Integer id) {
+		return rep.findById(id).orElse(new Dth());
 	}
 
+	public void remove(final Integer id) {
+		rep.findById(id).ifPresent(c -> rep.delete(c));
+	}
+	
+	public void add(Dth dth) {
+		if (dth.getId() == null) {
+			rep.save(dth);
+		} else {
+			rep.findById(dth.getId()).ifPresentOrElse(oldDth -> save(oldDth, dth), () -> rep.save(dth));
+		}
+	}
+
+	private void save(final Dth oldDth, final Dth newDth) {
+		oldDth.setDescricao(newDth.getDescricao());
+		oldDth.setCodigo(newDth.getCodigo());
+		oldDth.setUnidadeMedida(newDth.getUnidadeMedida());
+		oldDth.setValorUnitario(newDth.getValorUnitario());
+		oldDth.setOcs(newDth.getOcs());
+		rep.save(oldDth);
+	}
+	
 }
