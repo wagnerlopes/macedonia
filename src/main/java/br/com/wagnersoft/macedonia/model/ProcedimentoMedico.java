@@ -26,6 +26,7 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
 
 	private static final long serialVersionUID = 1L;
 
+	@Include
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;

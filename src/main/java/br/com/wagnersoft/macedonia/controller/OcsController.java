@@ -14,13 +14,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
+import br.com.wagnersoft.macedonia.model.OcsPm;
+import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.OcsService;
+import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
 import br.com.wagnersoft.macedonia.type.UfEnum;
+import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -30,7 +35,10 @@ public class OcsController {
 
     @Autowired
     private OcsService ocsSvc;
-	
+
+    @Autowired
+    private ProcedimentoMedicoService pmSvc;
+    
     public OcsController() {
         super();
     }
@@ -40,6 +48,11 @@ public class OcsController {
     	return ocsSvc.listAll();
     }
 
+    @ModelAttribute("allProcedimentos")
+    public List<ProcedimentoMedico> listProcedimentos() {
+    	return pmSvc.listAll();
+    }
+    
 	@ModelAttribute("allEspecialidade")
     public List<EstabelecimentoSaudeEnum> allEspecialidade() {
         return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
@@ -55,11 +68,17 @@ public class OcsController {
         return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
     }
 
+	@ModelAttribute("unidadeMedidaMap")
+    public Map<String, String> unidadeMedidaMap() {
+        return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
+    }
+	
 	@GetMapping("/ocs")
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ OCS +++");
 		model.addAttribute("menu", "ocs");
         model.addAttribute("ocs", id == null ? new Ocs() : ocsSvc.findById(id).orElse(new Ocs()));
+        model.addAttribute("procedimentos", id != null && ocsSvc.findById(id).isPresent() ? ocsSvc.findById(id).get().getProcedimentos() : new OcsPm());
         return "ocs";
     }
 
@@ -69,7 +88,7 @@ public class OcsController {
         return "redirect:/ocs";
     }
 	
-    @PostMapping(value="/ocs/save", params={"save"})
+    @RequestMapping(value="/ocs", params={"save"})
     public String save(@Valid final Ocs ocs, final BindingResult bindingResult, final ModelMap model) {
         if (bindingResult.hasErrors()) {
             return "ocs";
@@ -78,6 +97,23 @@ public class OcsController {
         ocsSvc.add(ocs);
         model.clear();
         return "redirect:/ocs";
+    }
+
+    @RequestMapping(value="/ocs", params={"addRow"})
+    public String addRow(final Ocs ocs, final BindingResult bindingResult, final Model model) {
+        ocs.getProcedimentos().add(new OcsPm());
+        model.addAttribute("ocs", ocs);
+        model.addAttribute("procedimentos", ocs.getProcedimentos());
+        return "ocs";
+    }
+
+    @RequestMapping(value="/ocs", params={"removeRow"})
+    public String removeRow(final Ocs ocs, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
+        final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+        ocs.getProcedimentos().remove(rowId.intValue());
+        model.addAttribute("ocs", ocs);
+        model.addAttribute("procedimentos", ocs.getProcedimentos());
+        return "ocs";
     }
     
 }

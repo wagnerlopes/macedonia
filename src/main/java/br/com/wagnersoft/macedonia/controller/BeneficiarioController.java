@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -36,7 +37,7 @@ public class BeneficiarioController {
         return benSvc.listAll();
     }
     
-    @GetMapping({"/beneficiarios"})
+    @GetMapping("/beneficiarios")
     public String show(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, Model model) {
 		logger.info("+++ Beneficiarios +++");
 		model.addAttribute("menu", "ben");
@@ -44,14 +45,14 @@ public class BeneficiarioController {
         return "beneficiarios";
     }
 
-    @GetMapping({"/beneficiarios/delete"})
+    @GetMapping("/beneficiarios/delete")
     public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
         benSvc.remove(cpf);
         return "redirect:/beneficiarios";
     }
     
-    @PostMapping(value="/beneficiarios/save", params={"save"})
-    public String save(@Valid final Beneficiario beneficiario, final BindingResult bindingResult, final ModelMap model) {
+    @PostMapping("/beneficiarios/save")
+    public String save(@Valid final Beneficiario beneficiario, final BindingResult bindingResult, final HttpServletRequest req, final ModelMap model) {
         if (bindingResult.hasErrors()) {
             return "beneficiarios";
         }

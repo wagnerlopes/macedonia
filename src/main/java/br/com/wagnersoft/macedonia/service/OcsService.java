@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.repository.OcsRepository;
+import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
 @Service
 public class OcsService {
@@ -20,6 +21,9 @@ public class OcsService {
 	@Autowired
 	private OcsRepository rep;
 
+	@Autowired
+	private ProcedimentoMedicoRepository pmRep;
+	
 	public List<Ocs> listAll() {
 		final List<Ocs> lista = rep.findAll();
 		return lista;
@@ -69,6 +73,12 @@ public class OcsService {
 		oldOcs.setRegistroAns(newOcs.getRegistroAns());
 		oldOcs.setTelefone(newOcs.getTelefone());
 		oldOcs.setUf(newOcs.getUf());
+		if (newOcs.getProcedimentos() != null) {
+		  newOcs.getProcedimentos().forEach(op -> {
+    	    pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
+		    oldOcs.addOcsPm(op);
+		  });
+		}
 		rep.save(oldOcs);
 	}
 	
