@@ -35,7 +35,7 @@
 
         <tbody>
           <tr th:if="${allOcs.empty}">
-            <td colspan="8">Sem Estabelecimentos de Sa&uacute;de</td>
+            <td colspan="7">Sem Estabelecimentos de Sa&uacute;de</td>
           </tr>
 			
           <tr th:each="ocs : ${allOcs}">
@@ -71,6 +71,8 @@
             </td>
           </tr>
         </tbody>
+
+        <tfoot><tr><td colspan="7"><small th:text="${'Total de estabelecimentos = ' + allOcs.size}">0</small></td></tr></tfoot>
 
       </table>
 
