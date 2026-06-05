@@ -24,8 +24,9 @@ public class Runner {
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
 		logger.info("+++ Index +++");
-		model.addAttribute("menu", "index");
+		session.setMaxInactiveInterval(0);
 		session.setAttribute("usr", " Meu Truta ");
+		model.addAttribute("menu", "index");
 		return "index";
 	}
 	
