@@ -58,6 +58,14 @@ public class ProfissionalController {
         return cboSvc.listAllCBO();
     }
 
+	@GetMapping("/especialidades")
+	public String especialidades(Model model) {
+		logger.info("+++ Especialidades +++");
+		model.addAttribute("menu", "esp");
+		model.addAttribute("lista", cboSvc.listAllCBO());
+		return "especialidades";
+	}
+	
 	@GetMapping("/profissionais")
 	public String show(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, Model model) {
 		logger.info("+++ Profissionais +++");

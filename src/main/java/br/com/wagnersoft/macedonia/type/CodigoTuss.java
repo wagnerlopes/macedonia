@@ -27,6 +27,9 @@ public final class CodigoTuss {
 	private String dv;
 
 	public CodigoTuss(String x) {
+		if (x.length() != 8) {
+			throw new IllegalArgumentException();
+		}
 		this.grupo = x.substring(0,2);
 		this.subgrupo = x.substring(2,4);
 		this.sequencial = x.substring(4,7);
@@ -75,6 +78,9 @@ public final class CodigoTuss {
 	}
 	
 	public static void main(String[] args) {
+		CodigoTuss tuss = new CodigoTuss("10102019");
+		System.out.println("TUSS = " + tuss.toString());
+		System.out.println(CodigoTuss.isValid(tuss.codigo + tuss.subgrupo + tuss.sequencial + tuss.dv));
 		System.out.println(CodigoTuss.builder().grupo("10").subgrupo("10").sequencial("101").dv("2").build());
 		System.out.println(CodigoTuss.isValid("10101012"));
 		System.out.println(CodigoTuss.modulo10("1010101"));
