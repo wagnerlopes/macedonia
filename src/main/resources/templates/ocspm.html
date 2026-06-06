@@ -47,7 +47,7 @@
             <td><span th:text="${op.pm.descricao}"> Descricao </span></td>
             <td><span th:text="${unidadeMedidaMap[op.UnidadeMedida]}"> Unidade </span></td>
             <td class="text-end" th:text="${#numbers.formatCurrency(op.valorUnitario)}"> Valor </td>
-            <td class="text-end" th:text="${#numbers.formatCurrency(op.chQtd)}"> CH </td>
+            <td class="text-end" th:text="${op.chQtd}"> CH </td>
           </tr>
         </tbody>
 
@@ -96,7 +96,7 @@
             <input type="text" th:field="*{valorUnitario}" th:errorclass="text-danger" maxlength="11" class="form-control"/>
           </div>
           <div class="col-sm-1">
-            <input type="text" th:field="*{chQtd}" th:errorclass="text-danger" maxlength="11" class="form-control"/>
+            <input type="text" th:field="*{chQtd}" th:errorclass="text-danger" maxlength="6" class="form-control"/>
           </div>
         </div>
 

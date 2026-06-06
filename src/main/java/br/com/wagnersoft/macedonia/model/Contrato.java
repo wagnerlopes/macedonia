@@ -1,11 +1,8 @@
 package br.com.wagnersoft.macedonia.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-
-import org.springframework.format.annotation.NumberFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -45,9 +42,8 @@ public class Contrato implements Serializable {
 	private LocalDate terminoData;
 
 	@NotNull
-	@Column(name="ch_valor")
-	@NumberFormat(style = NumberFormat.Style.CURRENCY)
-	private BigDecimal chValor;
+	@Column(name="ch_qtd")
+	private int chQtd;
 
 	@NotNull
 	@Exclude

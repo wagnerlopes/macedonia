@@ -41,7 +41,7 @@ public class ContratoService {
 	}
 
 	private void save(final Contrato oldCont, final Contrato newCont) {
-		oldCont.setChValor(newCont.getChValor());
+		oldCont.setChQtd(newCont.getChQtd());
 		oldCont.setInicioData(newCont.getInicioData());
 		oldCont.setTerminoData(newCont.getTerminoData());
 		oldCont.setOcs(newCont.getOcs());
