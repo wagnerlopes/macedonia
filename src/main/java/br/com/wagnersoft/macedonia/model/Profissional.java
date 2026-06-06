@@ -39,25 +39,25 @@ public class Profissional implements Comparable<Profissional>, Serializable {
 	@NotBlank
 	private String nome;
 
+	private String cns;
+	
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="cbo_codigo")
 	private Cbo cbo;
 
-	private String cns;
-	
 	@NotNull
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="registro_id")
 	private RegistroProfissional registroProfissional;
 
-	@Exclude
 	@JsonIgnore
+	@Exclude
 	@OneToMany(mappedBy = "solicitante", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<GuiaEncaminhamento> guiasSolicitante = new ArrayList<>();
 
-	@Exclude
 	@JsonIgnore
+	@Exclude
 	@OneToMany(mappedBy = "responsavel", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
 	private List<GuiaEncaminhamento> guiasResponsavel = new ArrayList<>();
 
