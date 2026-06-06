@@ -57,7 +57,7 @@ public class TissService {
 				.dataEmissao(guia.getEmissaoData())
 				.build();
 
-		final List<Procedimento> procedimentos = new ArrayList<>(guia.getGuiaOcsPm().size());
+		final List<Procedimento> procedimentos = new ArrayList<>(guia.getProcedimentos().size());
 
 		final Valores valores = Valores.builder()
 				.valorTotalGlosa(BigDecimal.ZERO)
@@ -66,7 +66,7 @@ public class TissService {
 				.descontos(BigDecimal.ZERO)
 				.build();
 		
-		guia.getGuiaOcsPm().forEach(g -> {
+		guia.getProcedimentos().forEach(g -> {
 
 			logger.info("{}", g);
 

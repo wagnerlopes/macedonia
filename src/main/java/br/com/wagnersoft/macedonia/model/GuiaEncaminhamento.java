@@ -93,7 +93,7 @@ public class GuiaEncaminhamento implements Serializable {
 
 	@Exclude
 	@OneToMany(mappedBy = "guiaEncaminhamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaPm> guiaOcsPm = new ArrayList<>();
+	private List<GuiaPm> procedimentos = new ArrayList<>();
 
 	@Override
 	public int hashCode() {
@@ -112,18 +112,18 @@ public class GuiaEncaminhamento implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	public GuiaPm addGuiaOcsPm(GuiaPm guiaOcsPm) {
-		if (!this.getGuiaOcsPm().contains(guiaOcsPm)) {
-			this.getGuiaOcsPm().add(guiaOcsPm);
-			guiaOcsPm.setGuiaEncaminhamento(this);
+	public GuiaPm addGuiaPm(GuiaPm guiaPm) {
+		if (!this.getProcedimentos().contains(guiaPm)) {
+			this.getProcedimentos().add(guiaPm);
+			guiaPm.setGuiaEncaminhamento(this);
 		}
-		return guiaOcsPm;
+		return guiaPm;
 	}
 
-	public GuiaPm removeGuiaOcsPm(GuiaPm guiaOcsPm) {
-		getGuiaOcsPm().remove(guiaOcsPm);
-		guiaOcsPm.setGuiaEncaminhamento(null);
-		return guiaOcsPm;
+	public GuiaPm removeGuiaPm(GuiaPm guiaPm) {
+		this.getProcedimentos().remove(guiaPm);
+		guiaPm.setGuiaEncaminhamento(null);
+		return guiaPm;
 	}
 	
 }

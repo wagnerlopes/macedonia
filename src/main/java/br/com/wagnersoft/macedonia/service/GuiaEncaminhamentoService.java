@@ -61,15 +61,15 @@ public class GuiaEncaminhamentoService {
 		rep.save(guia);
 	}
 
-	public void addProcedimentoMedico(GuiaPm gop) {
+	public void addProcedimento(GuiaPm gop) {
 		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
-		guia.getGuiaOcsPm().add(gop);
+		guia.getProcedimentos().add(gop);
 		rep.save(guia);
 	}
 
-	public void removeProcedimentoMedico(GuiaPm gop) {
+	public void removeProcedimento(GuiaPm gop) {
 		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
-		guia.getGuiaOcsPm().remove(gop);
+		guia.getProcedimentos().remove(gop);
 		rep.save(guia);
 	}
 	
