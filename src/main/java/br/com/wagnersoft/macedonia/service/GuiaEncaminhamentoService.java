@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
-import br.com.wagnersoft.macedonia.model.GuiaOcsPm;
+import br.com.wagnersoft.macedonia.model.GuiaPm;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.repository.BeneficiarioRepository;
@@ -61,13 +61,13 @@ public class GuiaEncaminhamentoService {
 		rep.save(guia);
 	}
 
-	public void addProcedimentoMedico(GuiaOcsPm gop) {
+	public void addProcedimentoMedico(GuiaPm gop) {
 		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
 		guia.getGuiaOcsPm().add(gop);
 		rep.save(guia);
 	}
 
-	public void removeProcedimentoMedico(GuiaOcsPm gop) {
+	public void removeProcedimentoMedico(GuiaPm gop) {
 		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
 		guia.getGuiaOcsPm().remove(gop);
 		rep.save(guia);

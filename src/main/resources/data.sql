@@ -50,9 +50,9 @@ insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr,
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('33333333333', 2, '2026-02-23', '148', '99999999999', '88888888888', 247.74);
 insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('44444444444', 1, '2026-04-16', '149', '99999999999', '88888888888', 321.74);
 
-insert into guia_ocs_pm (guia_id, ocs_pm_id, pm_qtd, pos_auditoria) values (1, 1, 1, 250.00);
-insert into guia_ocs_pm (guia_id, ocs_pm_id, pm_qtd, pos_auditoria) values (2, 1, 1, 270.00);
-insert into guia_ocs_pm (guia_id, ocs_pm_id, pm_qtd, pos_auditoria) values (2, 2, 1, 210.00);
-insert into guia_ocs_pm (guia_id, ocs_pm_id, pm_qtd, pos_auditoria) values (3, 1, 1, 290.00);
-insert into guia_ocs_pm (guia_id, ocs_pm_id, pm_qtd, pos_auditoria) values (4, 2, 1, 300.00);
-insert into guia_ocs_pm (guia_id, ocs_pm_id, pm_qtd, pos_auditoria) values (5, 1, 1, 290.00);
+insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, pos_auditoria, unidade_medida) values (1, 1, 1, 327.27, 250.00, '01');
+insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, pos_auditoria, unidade_medida) values (2, 1, 1, 301.53, 270.00, '01');
+insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, pos_auditoria, unidade_medida) values (2, 2, 1, 312.14, 210.00, '01');
+insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, pos_auditoria, unidade_medida) values (3, 1, 1, 291.24, 290.00, '01');
+insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, pos_auditoria, unidade_medida) values (4, 2, 1, 311.34, 300.00, '01');
+insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, pos_auditoria, unidade_medida) values (5, 1, 1, 300.20, 290.00, '01');
