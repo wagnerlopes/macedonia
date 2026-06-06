@@ -15,7 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded">Organiza&ccedil;&atilde;o Conveniada de Sa&uacute;de</h4>  
+      <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded">Estabelecimentos de Sa&uacute;de Conveniados</h4>  
 
       <hr class="my-3" />
 
@@ -26,9 +26,8 @@
             <th scope="col">...</th>
             <th scope="col">CNPJ</th>
             <th scope="col">Descri&ccedil;&atilde;o</th>
-            <th scope="col">Especialidade</th>
+            <th scope="col">Tipo</th>
             <th scope="col">Munic&iacute;pio</th>
-            <th scope="col">UF</th>
             <th scope="col"><a href="#" th:href="@{/dth}" title="Lista de diárias">Di&aacute;ria(s) e Taxa(s)</a></th>
             <th scope="col"><a href="#" th:href="@{/procedimentos}" title="Lista de procedimentos">Procedimento(s) M&eacute;dico(s)</a></th>
           </tr>
@@ -36,7 +35,7 @@
 
         <tbody>
           <tr th:if="${allOcs.empty}">
-            <td colspan="8">Sem OCS</td>
+            <td colspan="7">Sem Estabelecimentos de Sa&uacute;de</td>
           </tr>
 			
           <tr th:each="ocs : ${allOcs}">
@@ -47,29 +46,33 @@
             </td>
             <td><a th:href="@{/ocs(id=${ocs.id})}" title="Editar">[[${ocs.cnpj}]]</a></td>
             <td><span th:text="${ocs.descricao}"> Descricao </span></td>
-            <td><span th:text="${tipoOcsMap[ocs.especialidade]}"> Especialidade </span></td>
-            <td><span th:text="${ocs.municipio}"> Municipio </span></td>
-            <td><span th:text="${ocs.uf}"> UF </span></td>
+            <td><span th:text="${tipoOcsMap[ocs.especialidade]}"> Tipo </span></td>
+            <td><span th:text="${ocs.municipio + ' - ' + ocs.uf}"> Municipio </span></td>
             <td>
-              <table>
+              <table class="table table-striped table-sm">
                 <tr th:each="dth : ${ocs.dths}">
-                  <td th:text="${dth.descricao+ ' - '}"></td>
-                  <td th:text="${dth.unidadeMedida + ' - '}"></td>
+                  <td th:text="${dth.descricao}"></td>
+                  <td th:text="${unidadeMedidaMap[dth.unidadeMedida]}"></td>
                   <td th:text="${'R$ ' +#numbers.formatDecimal(dth.valorUnitario,1,2,'COMMA')}"></td>
                 </tr>
               </table>
             </td>
-            <td>
-              <table>
-                <tr th:each="x : ${ocs.procedimentos}">
-                  <td th:text="${x.pm.descricao + ' - '}"></td>
-                  <td th:text="${x.unidadeMedida + ' - '}"></td>
-                  <td th:text="${'R$ ' + #numbers.formatDecimal(x.valorUnitario,1,2,'COMMA')}"></td>
+            <td class="text-center"><a th:href="@{ocspm(ocsid=${ocs.id})}" href="#" title="Lista de procedimentos">Total = <span th:text="${ocs.procedimentos.size}">0</span></a>
+<!--/*             
+              <table class="table table-striped table-sm">
+                <tr th:each="op : ${ocs.procedimentos}">
+                  <td th:text="${op.pm.descricao}"></td>
+                  <td th:text="${unidadeMedidaMap[op.unidadeMedida]}"></td>
+                  <td th:text="${'R$ ' + #numbers.formatDecimal(op.valorUnitario,1,2,'COMMA')}"></td>
+                  <td th:text="${'CH:' + op.chQtd}"></td>
                 </tr>
               </table>
+*/-->              
             </td>
           </tr>
         </tbody>
+
+        <tfoot><tr><td colspan="7"><small th:text="${'Total de estabelecimentos = ' + allOcs.size}">0</small></td></tr></tfoot>
 
       </table>
 
@@ -77,7 +80,7 @@
 
       <hr class="my-3" />
 
-      <form action="#" th:action="@{/ocs/save}" th:object="${ocs}" method="post">
+      <form action="#" th:action="@{/ocs}" th:object="${ocs}" method="post">
 
         <input type="hidden" th:field="*{id}"/>
           
@@ -186,10 +189,56 @@
           </div>
         </div>
 
+        <div class="form-group row mt-1">
+          <label for="contato" class="col-sm-2 form-label my-1 text-end">
+            <strong><span th:text="#{ocs.procedimentos}"><strong>Procedimentos</strong></span></strong>
+          </label>
+          <div class="col-sm-10">
+
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Descri&ccedil;&atilde;o</th>
+                <th>Unidade</th>
+                <th>Valor</th>
+                <th>CH</th>
+                <th><button type="submit" class="btn btn-sm btn-success" name="addRow"><i class="bi bi-plus" style="color: white;" title="Excluir"></i></button></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="proc,rowStat : ${procedimentos}">
+                  <td>
+                    <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].id}"/>
+                    <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].ocs.id}"/>
+                    <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select">
+                      <option selected value="">--- Selecione ---</option>
+                      <option th:each="p : ${allProcedimentos}" th:value="${p.id}" th:text="${p.descricao}">Procedimento</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-select" th:field="*{procedimentos[__${rowStat.index}__].unidadeMedida}">
+                      <option th:each="um : ${unidadeMedidaMap}" th:value="${um.key}" th:text="${um.value}">Unidade</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" th:field="*{procedimentos[__${rowStat.index}__].valorUnitario}" th:errorclass="text-danger" />
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" th:field="*{procedimentos[__${rowStat.index}__].chQtd}" th:errorclass="text-danger" />
+                  </td>
+                  <td>
+                    <button type="submit" class="btn btn-sm btn-danger"  name="removeRow" th:value="${rowStat.index}"><i class="bi bi-trash" style="color: white;" title="Excluir"></i></button>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
         <hr class="my-3" />
           
         <div class="submit text-center">
-          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{ocs.save}">Novo</button>
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{ocs.save}"> Salvar </button>
         </div>
                   
       </form>

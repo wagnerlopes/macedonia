@@ -28,6 +28,7 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Include
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -71,6 +72,11 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<OcsPm> procedimentos = new ArrayList<>();
 
+	public Ocs(Integer id) {
+		super();
+		this.id = id;
+	}
+	
 	@Override
 	public int compareTo(Ocs o) {
 		return this.getDescricao().compareTo(o.getDescricao());
@@ -133,10 +139,11 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 	}
 
 	public OcsPm addOcsPm(final OcsPm opm) {
-		if (!this.getProcedimentos().contains(opm)) {
-			this.getProcedimentos().add(opm);
-			opm.setOcs(this);
+		if (this.getProcedimentos().contains(opm)) {
+			this.getProcedimentos().remove(opm);
 		}
+		this.getProcedimentos().add(opm);
+		opm.setOcs(this);
 		return opm;
 	}
 

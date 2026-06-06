@@ -10,7 +10,7 @@ public class Cnpj {
 		return PATTERN.matcher(cnpj).matches();
 	}
 	
-    public String format(String cnpj) {
+    public static String format(String cnpj) {
       return cnpj.isEmpty() ? "CNPJ XXX.XXX.XXX/XXXX-XX" :
     	  cnpj.substring(0,2) + "." +
           cnpj.substring(2,5) + "." + 

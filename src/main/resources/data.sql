@@ -38,8 +38,8 @@ insert into registro_profissional(conselho, numero, uf) values ('CRM', '1012453'
 insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('88888888888', 'Manoel Gomes', 1, '2251-10');
 insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('99999999999', 'Joaquim Teixeira', 2,'2251-15');
 
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, 'SESSAO', 321.74);
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, 'SESSAO', 247.74);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, '04', 321.74);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, '04', 247.74);
 
 insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (1, '2020-05-14', '2030-12-26', 20);
 insert into contrato(ocs_id, inicio_data, termino_data, ch_valor) values (2, '2021-08-23', '2031-05-12', 30);

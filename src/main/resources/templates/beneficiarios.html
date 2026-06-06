@@ -61,6 +61,8 @@
           </tr>
         </tbody>
 
+        <tfoot><tr><td colspan="7"><small th:text="${'Total de Benefici&aacute;rios = ' + allBeneficiarios.size}">0</small></td></tr></tfoot>
+
       </table>
 
       <p  class="bg-danger" th:text="${error} ?: _"></p>
@@ -108,7 +110,7 @@
         </div>
           
         <div class="submit text-center">
-          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{beneficiario.save}">Novo</button>
+          <button type="submit" class="btn btn-primary my-3" th:text="#{beneficiario.save}">Salvar</button>
         </div>
                   
       </form>
