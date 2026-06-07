@@ -16,6 +16,7 @@ import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.repository.BeneficiarioRepository;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
 import br.com.wagnersoft.macedonia.repository.OcsRepository;
+import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 
 @Service
@@ -31,6 +32,9 @@ public class GuiaEncaminhamentoService {
 
 	@Autowired
 	private OcsRepository ocsRep;
+
+	@Autowired
+	private ProcedimentoMedicoRepository pmRep;
 
 	@Autowired
 	private ProfissionalRepository profRep;
@@ -58,9 +62,29 @@ public class GuiaEncaminhamentoService {
 	}
 	
 	public void add(GuiaEncaminhamento guia) {
-		rep.save(guia);
+		rep.findById(guia.getId()).ifPresentOrElse(oldGuia -> save(oldGuia, guia), () -> rep.save(guia));
 	}
 
+	private void save(final GuiaEncaminhamento oldGuia, final GuiaEncaminhamento guia) {
+		oldGuia.setBeneficiario(guia.getBeneficiario());
+		oldGuia.setEmissaoData(guia.getEmissaoData());
+		oldGuia.setGuiaNr(guia.getGuiaNr());
+		oldGuia.setObservacao(guia.getObservacao());
+		oldGuia.setOcs(guia.getOcs());
+		oldGuia.setOperador(guia.getOperador());
+		oldGuia.setProtocolo(guia.getProtocolo());
+		oldGuia.setResponsavel(guia.getResponsavel());
+		oldGuia.setSolicitante(guia.getSolicitante());
+		oldGuia.setValorTotal(guia.getValorTotal());
+		if (guia.getProcedimentos() != null) {
+			  guia.getProcedimentos().forEach(p -> {
+	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
+			    oldGuia.addGuiaPm(p);
+			  });
+			}
+		rep.save(oldGuia);
+	}
+	
 	public void addProcedimento(GuiaPm gop) {
 		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
 		guia.getProcedimentos().add(gop);

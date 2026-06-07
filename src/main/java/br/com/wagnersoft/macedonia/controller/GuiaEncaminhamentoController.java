@@ -12,16 +12,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
+import br.com.wagnersoft.macedonia.model.GuiaPm;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -76,16 +79,33 @@ public class GuiaEncaminhamentoController {
     @PostMapping(value="/guias/save", params={"save"})
     public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
         benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario.cpf", "guia.erro.beneficiario", "Deve ser informado"));
+        ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
         profSvc.findByCpf(guiaEncaminhamento.getSolicitante().getCpf()).ifPresentOrElse(s -> guiaEncaminhamento.setSolicitante(s) , () -> bindingResult.rejectValue("solicitante.cpf", "guia.erro.solicitante", "Deve ser informado"));
         profSvc.findByCpf(guiaEncaminhamento.getResponsavel().getCpf()).ifPresentOrElse(r -> guiaEncaminhamento.setResponsavel(r) , () -> bindingResult.rejectValue("responsavel.cpf", "guia.erro.responsavel", "Deve ser informado"));
-        ocsSvc.findByCnpj(guiaEncaminhamento.getOcs().getCnpj()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "guia.erro.cnpj", "Deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "guias";
         }
-        logger.info("{}", guiaEncaminhamento);
+        logger.info("NEW = {}", guiaEncaminhamento);
         guiaSvc.add(guiaEncaminhamento);
         model.clear();
         return "redirect:/guias";
+    }
+
+    @RequestMapping(value="/guias", params={"addRow"})
+    public String addRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final Model model) {
+        guiaEncaminhamento.getProcedimentos().add(new GuiaPm());
+        model.addAttribute("guia", guiaEncaminhamento);
+        model.addAttribute("procedimentos", guiaEncaminhamento.getProcedimentos());
+        return "guias";
+    }
+
+    @RequestMapping(value="/guias", params={"removeRow"})
+    public String removeRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
+        final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+        guiaEncaminhamento.getProcedimentos().remove(rowId.intValue());
+        model.addAttribute("guia", guiaEncaminhamento);
+        model.addAttribute("procedimentos", guiaEncaminhamento.getProcedimentos());
+        return "guias";
     }
     
 }

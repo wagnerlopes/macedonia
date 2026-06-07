@@ -20,7 +20,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +42,6 @@ public class GuiaEncaminhamento implements Serializable {
 	private Integer id;
 
 	@NotNull
-	@FutureOrPresent
 	@Column(name="emissao_data", updatable = false)
 	private LocalDate emissaoData;
 
@@ -112,18 +110,19 @@ public class GuiaEncaminhamento implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	public GuiaPm addGuiaPm(GuiaPm guiaPm) {
-		if (!this.getProcedimentos().contains(guiaPm)) {
-			this.getProcedimentos().add(guiaPm);
-			guiaPm.setGuiaEncaminhamento(this);
+	public GuiaPm addGuiaPm(GuiaPm gpm) {
+		if (this.getProcedimentos().contains(gpm)) {
+			this.getProcedimentos().remove(gpm);
 		}
-		return guiaPm;
+		this.getProcedimentos().add(gpm);
+		gpm.setGuiaEncaminhamento(this);
+		return gpm;
 	}
 
-	public GuiaPm removeGuiaPm(GuiaPm guiaPm) {
-		this.getProcedimentos().remove(guiaPm);
-		guiaPm.setGuiaEncaminhamento(null);
-		return guiaPm;
+	public GuiaPm removeGuiaPm(GuiaPm gpm) {
+		this.getProcedimentos().remove(gpm);
+		gpm.setGuiaEncaminhamento(null);
+		return gpm;
 	}
 	
 }
