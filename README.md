@@ -1,6 +1,8 @@
-# Project Macedonia
+# Project Macedônia
 
- - Open remote view
- - SpringBoot 4
- - Jdk 21
+ - Emissão Eletrônica de Guias de Saúde;
+ - Spring-boot project;
+ - Spring-data repository;
+ - Thymeleaf templates view;
+ - Jdk 21.
  
