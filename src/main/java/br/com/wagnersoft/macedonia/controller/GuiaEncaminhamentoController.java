@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -76,7 +75,7 @@ public class GuiaEncaminhamentoController {
 		return "guias";
 	}
     
-    @PostMapping(value="/guias/save", params={"save"})
+    @RequestMapping(value="/guias", params={"save"})
     public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
         benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario.cpf", "guia.erro.beneficiario", "Deve ser informado"));
         ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
