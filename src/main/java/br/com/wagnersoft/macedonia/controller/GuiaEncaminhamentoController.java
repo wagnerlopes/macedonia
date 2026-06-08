@@ -1,6 +1,10 @@
 package br.com.wagnersoft.macedonia.controller;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,7 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -66,12 +71,19 @@ public class GuiaEncaminhamentoController {
     public List<Ocs> listOcs() {
     	return guiaSvc.allOcs();
     }
-    
+
+	@ModelAttribute("unidadeMedidaMap")
+    public Map<String, String> unidadeMedidaMap() {
+        return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
+    }
+
 	@GetMapping("/guias")
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ Guias +++");
 		model.addAttribute("menu", "guias");
-        model.addAttribute("guiaEncaminhamento", id == null ? new GuiaEncaminhamento() : guiaSvc.findById(id).orElse(new GuiaEncaminhamento()));
+		final GuiaEncaminhamento guia = id == null ? new GuiaEncaminhamento() : guiaSvc.findById(id).orElse(new GuiaEncaminhamento());
+        model.addAttribute("guiaEncaminhamento", guia);
+        model.addAttribute("opm", this.listOcsPm(guia));
 		return "guias";
 	}
     
@@ -93,8 +105,9 @@ public class GuiaEncaminhamentoController {
     @RequestMapping(value="/guias", params={"addRow"})
     public String addRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final Model model) {
         guiaEncaminhamento.getProcedimentos().add(new GuiaPm());
+        ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
         model.addAttribute("guia", guiaEncaminhamento);
-        model.addAttribute("procedimentos", guiaEncaminhamento.getProcedimentos());
+        model.addAttribute("opm", this.listOcsPm(guiaEncaminhamento));
         return "guias";
     }
 
@@ -102,9 +115,15 @@ public class GuiaEncaminhamentoController {
     public String removeRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
         final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
         guiaEncaminhamento.getProcedimentos().remove(rowId.intValue());
+        ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
         model.addAttribute("guia", guiaEncaminhamento);
-        model.addAttribute("procedimentos", guiaEncaminhamento.getProcedimentos());
+        model.addAttribute("opm", this.listOcsPm(guiaEncaminhamento));
         return "guias";
     }
-    
+
+    private List<?> listOcsPm(final GuiaEncaminhamento guiaEncaminhamento) {
+    	return guiaEncaminhamento.getOcs() != null ? guiaEncaminhamento.getOcs().getProcedimentos() : Collections.EMPTY_LIST;
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,13 +76,15 @@ public class GuiaEncaminhamentoService {
 		oldGuia.setProtocolo(guia.getProtocolo());
 		oldGuia.setResponsavel(guia.getResponsavel());
 		oldGuia.setSolicitante(guia.getSolicitante());
-		oldGuia.setValorTotal(guia.getValorTotal());
-		if (guia.getProcedimentos() != null) {
+		// Totaliza Guia e obtem Procedimento Medico 
+		oldGuia.setValorTotal(BigDecimal.ZERO);
+		if (guia.getProcedimentos() != null && !guia.getProcedimentos().isEmpty()) {
 			  guia.getProcedimentos().forEach(p -> {
+				oldGuia.setValorTotal(oldGuia.getValorTotal().add(p.getValorTotal()));
 	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
 			    oldGuia.addGuiaPm(p);
 			  });
-			}
+		}
 		rep.save(oldGuia);
 	}
 	

@@ -47,6 +47,10 @@ public class GuiaPm implements Serializable {
 	private BigDecimal valorUnitario;
 
 	@NumberFormat(style = NumberFormat.Style.CURRENCY)
+	@Column(name="valor_total")
+	private BigDecimal valorTotal;
+	
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="pos_auditoria")
 	private BigDecimal posAuditoria;
 
