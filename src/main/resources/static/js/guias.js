@@ -1,30 +1,34 @@
-/* Guias: copiar dados de procedimentos */
+/* Guias: calcular total e copiar dados de procedimentos */
 
-const calculaTotal = function(field_name) {
+const limpa_numero = (numero_formatado) => {return Number(numero_formatado.replace(/[^\d,-]/g, "").replace(",", "."))};
 
+const calculaTotal = function(pm_id, pm_qtd) {
 
- const qtd = document.getElementById(field_name).value;
-   
- const match = field_name.match(/procedimentos(\d+)\.pmQtd/);
- const num = match ? match[1] : null; // "0" ou null se não bater
- const n = num !== null ? Number(num) : null; // 0 ou null
+ console.log("ID = " + pm_id + " - Qtd = " + pm_qtd);
+	
+ const match = pm_id.match(/^([a-zA-Z]+)(\d+)\.pmQtd$/);
 
- const base_field = document.getElementById("procedimentos" + n + ".valorBase");
- console.log("BASE =" + base_field.value);
+  if (match) {
+   var proc = match[1]; // "procedimentos"
+   var index = Number(match[2]); // "digito"
+ }
+  
+ //const match = pm_id.match(/procedimentos(\d+)\.pmQtd/);
+ //const n = match ? match[1] : null; // "0" ou null se não bater
+ //const index = n !== null ? Number(n) : null; // 0 ou null
 
- //const valor_base = Number(base_field.value.replace(/[^\d,.-]/g, "").replace(",", "."));
- 
- const valor_total = base_field.value * qtd;
- 
- console.log(valor_total);
+ const valor_unitario = limpa_numero(document.getElementById(proc + index + ".valorUnitario").value);
 
- const formatado = valor_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" }); 
+ const valor_total = valor_unitario * pm_qtd;
 
- console.log(formatado);
+ const total_moeda = valor_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
- const total_field = document.getElementById("procedimentos" + n + ".valorTotal");
+ document.getElementById(proc + index + ".valorTotal").value = total_moeda;
 
- total_field.value = formatado;
- 
+ console.log(match);
+ console.log("Vlr Unit = " + valor_unitario);
+ console.log("Vlr Total = " + valor_total);
+ console.log(total_moeda);
 }
+
 
