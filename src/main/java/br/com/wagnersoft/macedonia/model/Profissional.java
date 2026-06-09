@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ import lombok.ToString.Exclude;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Profissional implements Comparable<Profissional>, Serializable {
 
 	private static final long serialVersionUID = 1L;

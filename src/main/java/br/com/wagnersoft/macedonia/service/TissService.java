@@ -19,6 +19,7 @@ import br.com.wagnersoft.macedonia.tiss.Operadora;
 import br.com.wagnersoft.macedonia.tiss.Prestador;
 import br.com.wagnersoft.macedonia.tiss.Procedimento;
 import br.com.wagnersoft.macedonia.tiss.Valores;
+import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
 @Service
 public class TissService {
@@ -80,7 +81,7 @@ public class TissService {
 					.descricaoProcedimento(g.getPm().getDescricao())
 					.tabela("TUSS")
 					.quantidade(g.getPmQtd())
-					.unidadeMedida(g.getUnidadeMedida())
+					.unidadeMedida(UnidadeMedidaEnum.getDescricaoByCodigo(g.getUnidadeMedida()).orElse("N/I"))
 					.valorUnitario(g.getValorUnitario())
 					.valorTotal(g.getValorUnitario().multiply(BigDecimal.valueOf(Long.valueOf(g.getPmQtd()))).setScale(2))
 					.profissionalExecutante(guia.getResponsavel())
@@ -108,7 +109,7 @@ public class TissService {
 				.procedimentos(procedimentos)
 				.valores(valores)
 				.formasPagamento(pagamentos)
-				.observacoes("Teste pagamento guia de encaminhamento")
+				.observacoes(guia.getObservacao())
 				.build();
 		return guiaFaturamento;
 	}
