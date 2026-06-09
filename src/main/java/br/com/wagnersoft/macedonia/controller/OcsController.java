@@ -58,12 +58,12 @@ public class OcsController {
         return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
     }
     
-	@ModelAttribute("allUf")
+	  @ModelAttribute("allUf")
     public List<UfEnum> allUf() {
         return Arrays.asList(UfEnum.ALL);
     }
 
-	@ModelAttribute("tipoOcsMap")
+	  @ModelAttribute("tipoOcsMap")
     public Map<String, String> tipoOcsMap() {
         return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
     }
