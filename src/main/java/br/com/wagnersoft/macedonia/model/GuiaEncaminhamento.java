@@ -20,7 +20,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +42,6 @@ public class GuiaEncaminhamento implements Serializable {
 	private Integer id;
 
 	@NotNull
-	@FutureOrPresent
 	@Column(name="emissao_data", updatable = false)
 	private LocalDate emissaoData;
 
@@ -93,7 +91,7 @@ public class GuiaEncaminhamento implements Serializable {
 
 	@Exclude
 	@OneToMany(mappedBy = "guiaEncaminhamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaOcsPm> guiaOcsPm = new ArrayList<>();
+	private List<GuiaPm> procedimentos = new ArrayList<>();
 
 	@Override
 	public int hashCode() {
@@ -112,18 +110,19 @@ public class GuiaEncaminhamento implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	public GuiaOcsPm addGuiaOcsPm(GuiaOcsPm guiaOcsPm) {
-		if (!this.getGuiaOcsPm().contains(guiaOcsPm)) {
-			this.getGuiaOcsPm().add(guiaOcsPm);
-			guiaOcsPm.setGuiaEncaminhamento(this);
+	public GuiaPm addGuiaPm(GuiaPm gpm) {
+		if (this.getProcedimentos().contains(gpm)) {
+			this.getProcedimentos().remove(gpm);
 		}
-		return guiaOcsPm;
+		this.getProcedimentos().add(gpm);
+		gpm.setGuiaEncaminhamento(this);
+		return gpm;
 	}
 
-	public GuiaOcsPm removeGuiaOcsPm(GuiaOcsPm guiaOcsPm) {
-		getGuiaOcsPm().remove(guiaOcsPm);
-		guiaOcsPm.setGuiaEncaminhamento(null);
-		return guiaOcsPm;
+	public GuiaPm removeGuiaPm(GuiaPm gpm) {
+		this.getProcedimentos().remove(gpm);
+		gpm.setGuiaEncaminhamento(null);
+		return gpm;
 	}
 	
 }

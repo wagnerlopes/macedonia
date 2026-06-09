@@ -19,6 +19,7 @@ import br.com.wagnersoft.macedonia.tiss.Operadora;
 import br.com.wagnersoft.macedonia.tiss.Prestador;
 import br.com.wagnersoft.macedonia.tiss.Procedimento;
 import br.com.wagnersoft.macedonia.tiss.Valores;
+import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
 @Service
 public class TissService {
@@ -57,7 +58,7 @@ public class TissService {
 				.dataEmissao(guia.getEmissaoData())
 				.build();
 
-		final List<Procedimento> procedimentos = new ArrayList<>(guia.getGuiaOcsPm().size());
+		final List<Procedimento> procedimentos = new ArrayList<>(guia.getProcedimentos().size());
 
 		final Valores valores = Valores.builder()
 				.valorTotalGlosa(BigDecimal.ZERO)
@@ -66,7 +67,7 @@ public class TissService {
 				.descontos(BigDecimal.ZERO)
 				.build();
 		
-		guia.getGuiaOcsPm().forEach(g -> {
+		guia.getProcedimentos().forEach(g -> {
 
 			logger.info("{}", g);
 
@@ -76,13 +77,13 @@ public class TissService {
 
 			final Procedimento proc = Procedimento.builder()
 					.sequencial(1)
-					.codigoProcedimento(g.getOcsPm().getPm().getTuss())
-					.descricaoProcedimento(g.getOcsPm().getPm().getDescricao())
+					.codigoProcedimento(g.getPm().getTuss())
+					.descricaoProcedimento(g.getPm().getDescricao())
 					.tabela("TUSS")
 					.quantidade(g.getPmQtd())
-					.unidadeMedida(g.getOcsPm().getUnidadeMedida())
-					.valorUnitario(g.getOcsPm().getValorUnitario())
-					.valorTotal(g.getOcsPm().getValorUnitario().multiply(BigDecimal.valueOf(Long.valueOf(g.getPmQtd()))).setScale(2))
+					.unidadeMedida(UnidadeMedidaEnum.getDescricaoByCodigo(g.getUnidadeMedida()).orElse("N/I"))
+					.valorUnitario(g.getValorUnitario())
+					.valorTotal(g.getValorUnitario().multiply(BigDecimal.valueOf(Long.valueOf(g.getPmQtd()))).setScale(2))
 					.profissionalExecutante(guia.getResponsavel())
 					.dataRealizacao(guia.getEmissaoData())
 					.procedimentoPrincipal(false)
@@ -108,7 +109,7 @@ public class TissService {
 				.procedimentos(procedimentos)
 				.valores(valores)
 				.formasPagamento(pagamentos)
-				.observacoes("Teste pagamento guia de encaminhamento")
+				.observacoes(guia.getObservacao())
 				.build();
 		return guiaFaturamento;
 	}

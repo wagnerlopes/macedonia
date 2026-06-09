@@ -47,7 +47,7 @@
             <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
             <td class="text-center"><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
             <td class="text-center"><span th:text="${#temporals.format(cont.terminoData, 'dd/MM/yyyy')}"> Termino </span></td>
-            <td class="text-end" th:text="${#numbers.formatCurrency(cont.chValor)}"> CH </td>
+            <td class="text-end" th:text="${cont.chQtd}"> CH </td>
           </tr>
         </tbody>
 
@@ -104,13 +104,13 @@
 
         <div class="form-group row mt-1">
           <label for="chValor" class="col-sm-2 form-label my-1 text-end">
-            <strong><span th:text="#{contrato.chValor}">CH</span></strong>
+            <strong><span th:text="#{contrato.chQtd}">CH</span></strong>
           </label>
           <div class="col-sm-2">
-            <input type="text" th:field="*{chValor}" th:errorclass="text-danger" class="form-control"/>
+            <input type="text" th:field="*{chQtd}" th:errorclass="text-danger" class="form-control"/>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('chValor')}" th:errors="*{chValor}" class="text-danger">Erro de CH</small>
+            <small th:if="${#fields.hasErrors('chQtd')}" th:errors="*{chQtd}" class="text-danger">Erro de CH</small>
           </div>
         </div>
           

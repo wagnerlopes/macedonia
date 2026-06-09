@@ -53,7 +53,7 @@ public class OcsController {
     	return pmSvc.listAll();
     }
     
-	  @ModelAttribute("allEspecialidade")
+	@ModelAttribute("allEspecialidade")
     public List<EstabelecimentoSaudeEnum> allEspecialidade() {
         return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
     }
@@ -68,15 +68,15 @@ public class OcsController {
         return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
     }
 
-	  @ModelAttribute("unidadeMedidaMap")
+	@ModelAttribute("unidadeMedidaMap")
     public Map<String, String> unidadeMedidaMap() {
         return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
     }
 	
-	  @GetMapping("/ocs")
+	@GetMapping("/ocs")
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
-		    logger.info("+++ OCS +++");
-		    model.addAttribute("menu", "ocs");
+        logger.info("+++ OCS +++");
+        model.addAttribute("menu", "ocs");
         model.addAttribute("ocs", id == null ? new Ocs() : ocsSvc.findById(id).orElse(new Ocs()));
         model.addAttribute("procedimentos", id != null && ocsSvc.findById(id).isPresent() ? ocsSvc.findById(id).get().getProcedimentos() : new OcsPm());
         return "ocs";

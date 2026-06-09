@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,9 +26,9 @@ import lombok.ToString.Exclude;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="guia_ocs_pm")
+@Table(name="guia_pm")
 @ToString
-public class GuiaOcsPm implements Serializable {
+public class GuiaPm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,19 +39,30 @@ public class GuiaOcsPm implements Serializable {
 	@Column(name="pm_qtd")
 	private Integer pmQtd;
 
+	@Column(name="unidade_medida")
+	private String unidadeMedida;
+
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
+	@Column(name="valor_unitario")
+	private BigDecimal valorUnitario;
+
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
+	@Column(name="valor_total")
+	private BigDecimal valorTotal;
+	
 	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="pos_auditoria")
 	private BigDecimal posAuditoria;
 
 	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="guia_id")
-	private GuiaEncaminhamento guiaEncaminhamento;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name="pm_id", updatable = false, nullable = false)
+	private ProcedimentoMedico pm;
 
 	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_pm_id")
-	private OcsPm ocsPm;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="guia_id", updatable = false, nullable = false)
+	private GuiaEncaminhamento guiaEncaminhamento;
 
 	@Override
 	public int hashCode() {
@@ -62,7 +74,7 @@ public class GuiaOcsPm implements Serializable {
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
-		GuiaOcsPm other = (GuiaOcsPm) obj;
+		GuiaPm other = (GuiaPm) obj;
 		return Objects.equals(id, other.id);
 	}
 	
