@@ -30,16 +30,16 @@ public class GuiaEncaminhamentoService {
 	@Autowired
 	private ProcedimentoMedicoRepository pmRep;
 
+	public Optional<GuiaEncaminhamento> findById(Integer id) {
+		return rep.findById(id);
+	}
+	
 	public List<GuiaEncaminhamento> listAll() {
 		final List<GuiaEncaminhamento> lista = rep.findAll();
 		lista.forEach(e -> {logger.debug("LIST = {}", e.toString());});
 		return lista;
 	}
 
-	public Optional<GuiaEncaminhamento> findById(Integer id) {
-		return rep.findById(id);
-	}
-	
 	public void add(GuiaEncaminhamento guia) {
 		rep.findById(guia.getId()).ifPresentOrElse(oldGuia -> save(oldGuia, guia), () -> rep.save(guia));
 	}

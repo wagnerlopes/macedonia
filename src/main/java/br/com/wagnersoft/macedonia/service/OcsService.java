@@ -15,6 +15,11 @@ import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.repository.OcsRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
+/** OCS (Estabelecimento de Saude) service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class OcsService {
 
@@ -26,6 +31,14 @@ public class OcsService {
 	@Autowired
 	private ProcedimentoMedicoRepository pmRep;
 
+	public Optional<Ocs> findById(Integer id) {
+		return rep.findById(id);
+	}
+
+	public Optional<Ocs> findByCnpj(String cnpj) {
+		return rep.findByCnpj(cnpj);
+	}
+
 	public Map<Integer, String> mapAll() {
 		return listAll().stream().collect(Collectors.toMap(Ocs::getId, Ocs::getDescricao));
 	}
@@ -33,14 +46,6 @@ public class OcsService {
 	public List<Ocs> listAll() {
 		final List<Ocs> lista = rep.findAll();
 		return lista;
-	}
-
-	public Optional<Ocs> findById(Integer id) {
-		return rep.findById(id);
-	}
-
-	public Optional<Ocs> findByCnpj(String cnpj) {
-		return rep.findByCnpj(cnpj);
 	}
 
 	public void add(Ocs ocs) {

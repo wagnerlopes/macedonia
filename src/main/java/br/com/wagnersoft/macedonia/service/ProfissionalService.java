@@ -26,6 +26,10 @@ public class ProfissionalService {
 	@Autowired
 	private ProfissionalRepository profRep;
 
+	public Optional<Profissional> findByCpf(String cpf) {
+		return profRep.findById(cpf);
+	}
+
 	public List<Profissional> listAll() {
 		final List<Profissional> lista = profRep.findAll();
 		lista.forEach(e -> {logger.debug(e.toString());});
@@ -36,10 +40,6 @@ public class ProfissionalService {
 		return listAll().stream().collect(Collectors.toMap(Profissional::getCpf, Profissional::getNome));
 	}
 	
-	public Optional<Profissional> findByCpf(String cpf) {
-		return profRep.findById(cpf);
-	}
-
 	public void add(Profissional profissional) {
 		profRep.findById(profissional.getCpf()).ifPresentOrElse(oldProf -> save(oldProf, profissional), () -> profRep.save(profissional));;
 		profRep.save(profissional);

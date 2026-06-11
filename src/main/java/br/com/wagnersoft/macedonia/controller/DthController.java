@@ -68,7 +68,7 @@ public class DthController {
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ DTH +++");
 		model.addAttribute("menu", "Dth");
-        model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id));
+        model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id).orElse(new Dth()));
         return "dth";
     }
 
@@ -78,7 +78,7 @@ public class DthController {
         return "redirect:/dth";
     }
     
-    @PostMapping(value="/dth/save", params={"save"})
+    @PostMapping(value="/dth", params={"save"})
     public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
     	if (dth.getOcs().getId() == null)
     		bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");

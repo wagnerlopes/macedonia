@@ -21,6 +21,11 @@ import br.com.wagnersoft.macedonia.tiss.Procedimento;
 import br.com.wagnersoft.macedonia.tiss.Valores;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
+/** TISS API service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class TissService {
 
@@ -29,15 +34,15 @@ public class TissService {
 	@Autowired
 	private GuiaEncaminhamentoRepository rep;
 
+	public GuiaFaturamento findById(Integer id) {
+		final GuiaEncaminhamento guia = rep.findById(id).orElseThrow();
+		return this.convert(guia);
+	}
+
 	public List<GuiaFaturamento> listAll() {
 		final List<GuiaFaturamento> lista = new ArrayList<>();
 		rep.findAll().forEach(e -> {lista.add(this.convert(e)); logger.info(e.toString());});
 		return lista;
-	}
-
-	public GuiaFaturamento findById(Integer id) {
-		final GuiaEncaminhamento guia = rep.findById(id).orElseThrow();
-		return this.convert(guia);
 	}
 
 	private GuiaFaturamento convert(GuiaEncaminhamento guia) {

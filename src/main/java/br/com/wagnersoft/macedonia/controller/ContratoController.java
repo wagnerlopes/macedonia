@@ -54,7 +54,7 @@ public class ContratoController {
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ Contratos +++");
 		model.addAttribute("menu", "Contrato");
-        model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id));
+        model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id).orElse(new Contrato()));
         return "contratos";
     }
 

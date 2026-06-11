@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
+/** Procedimento Medico service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class ProcedimentoMedicoService {
 
@@ -21,6 +26,10 @@ public class ProcedimentoMedicoService {
 	@Autowired
 	private ProcedimentoMedicoRepository rep;
 
+	public Optional<ProcedimentoMedico> findById(final Integer id) {
+		return rep.findById(id);
+	}
+	
 	public List<ProcedimentoMedico> listAll() {
 		final List<ProcedimentoMedico> lista = rep.findAll();
 		lista.forEach(e -> {logger.debug(e.toString());});
@@ -29,10 +38,6 @@ public class ProcedimentoMedicoService {
 
 	public Map<Integer, String> mapAll() {
 		return listAll().stream().collect(Collectors.toMap(ProcedimentoMedico::getId, ProcedimentoMedico::getDescricao));
-	}
-	
-	public Optional<ProcedimentoMedico> findById(final Integer id) {
-		return rep.findById(id);
 	}
 	
 	public void add(ProcedimentoMedico pm) {

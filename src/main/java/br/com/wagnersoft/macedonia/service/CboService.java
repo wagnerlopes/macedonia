@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.repository.CboRepository;
 
+/** CBO (Classificacao Brasileira de Ocupacoes) service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class CboService {
 
@@ -21,6 +26,10 @@ public class CboService {
 	@Autowired
 	private CboRepository rep;
 	
+	public Optional<Cbo> findById(String id) {
+		return rep.findById(id);
+	}
+
 	public List<Cbo> listAll() {
 		final List<Cbo> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
@@ -31,8 +40,4 @@ public class CboService {
 		return listAll().stream().collect(Collectors.toMap(Cbo::getCodigo, Cbo::getDescricao));
 	}
 	
-	public Optional<Cbo> findById(String id) {
-		return rep.findById(id);
-	}
-
 }
