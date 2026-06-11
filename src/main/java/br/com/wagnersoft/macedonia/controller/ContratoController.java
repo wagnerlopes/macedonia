@@ -1,6 +1,8 @@
 package br.com.wagnersoft.macedonia.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
-import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import jakarta.validation.Valid;
 
+/** Contrato Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class ContratoController {
 
@@ -36,13 +42,15 @@ public class ContratoController {
     }
 
     @ModelAttribute("allContratos")
-    public List<Contrato> populateContratos() {
+    public List<Contrato> listContratos() {
         return cttSvc.listAll();
     }
     
-	@ModelAttribute("listOcs")
-    public List<Ocs> listOcs() {
-        return ocsSvc.listAll();
+    @ModelAttribute("allOcs")
+    public Map<String, String> listEstabelecimento() {
+    	final Map<String, String> lista = new HashMap<>();
+    	ocsSvc.listAll().forEach(e -> lista.put(e.getId().toString(), e.getDescricao()));
+    	return lista;
     }
     
     @GetMapping({"/contratos"})
@@ -61,7 +69,10 @@ public class ContratoController {
     
     @PostMapping(value="/contratos/save", params={"save"})
     public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
-        ocsSvc.findByCnpj(contrato.getOcs().getCnpj()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs.cnpj", "contrato.erro.ocs", "Deve ser informado"));
+    	if (contrato.getOcs().getId() == null)
+    		bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
+    	else
+          ocsSvc.findById(contrato.getOcs().getId()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "contratos";
         }

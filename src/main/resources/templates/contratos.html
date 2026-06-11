@@ -25,7 +25,7 @@
           <tr>
             <th scope="col">...</th>
             <th scope="col">ID</th>
-            <th scope="col">OCS</th>
+            <th scope="col">Estabeleciemento</th>
             <th scope="col" class="text-center">In&iacute;cio</th>
             <th scope="col" class="text-center">T&eacute;rmino</th>
             <th scope="col" class="text-end">CH</th>
@@ -44,7 +44,7 @@
               </a>
             </td>
             <td><a th:href="@{/contratos(id=${cont.id})}" title="Editar">[[${cont.id}]]</a></td>
-            <td><span th:text="${cont.ocs.descricao}"> OCS </span></td>
+            <td><span th:text="${cont.ocs.descricao}"> Estabelecimento </span></td>
             <td class="text-center"><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
             <td class="text-center"><span th:text="${#temporals.format(cont.terminoData, 'dd/MM/yyyy')}"> Termino </span></td>
             <td class="text-end" th:text="${cont.chQtd}"> CH </td>
@@ -65,16 +65,16 @@
           
         <div class="form-group row mt-1">
           <label for="ocs.cnpj" class="col-sm-2 form-label my-1 text-end">
-            <strong><span th:text="#{contrato.ocs}">OCS</span></strong>
+            <strong><span th:text="#{contrato.ocs}">Estabelecimento</span></strong>
           </label>
           <div class="col-sm-4">
-            <select th:field="*{ocs.cnpj}" class="form-select">
+            <select th:field="*{ocs.id}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="ocs : ${listOcs}" th:value="${ocs.cnpj}" th:text="${ocs.descricao}">OCS</option>
+              <option th:each="e : ${allOcs}" th:value="${e.key}" th:text="${e.value}">Estabelecimento</option>
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de OCS</small>
+            <small th:if="${#fields.hasErrors('ocs.id')}" th:errors="*{ocs.id}" class="text-danger">Erro de Estabelecimento</small>
           </div>
         </div>
           
