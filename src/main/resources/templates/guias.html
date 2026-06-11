@@ -90,11 +90,11 @@
           </div>
 
           <div class="col-sm-6">
-            <small th:if="${#fields.hasErrors('emissaoData')}" th:errors="*{emissaoData}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('emissaoData')}" th:errors="*{emissaoData}" class="text-danger">Erro de Emissao</small>
           </div>
 
           <div class="col-sm-6">
-            <small th:if="${#fields.hasErrors('operador')}" th:errors="*{operador}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('operador')}" th:errors="*{operador}" class="text-danger">Erro de Operador</small>
           </div>
 
         </div>
@@ -112,7 +112,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('beneficiario.cpf')}" th:errors="*{beneficiario.cpf}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('beneficiario.cpf')}" th:errors="*{beneficiario.cpf}" class="text-danger">Erro de Beneficiario</small>
           </div>
         </div>
 
@@ -127,7 +127,7 @@
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('solicitante.cpf')}" th:errors="*{solicitante.cpf}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('solicitante.cpf')}" th:errors="*{solicitante.cpf}" class="text-danger">Erro de Profissional</small>
           </div>
         </div>
 
@@ -138,11 +138,11 @@
           <div class="col-sm-6">
             <select th:field="*{responsavel.cpf}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="prof : ${allProfissional}" th:value="${prof.cpf}" th:text="${prof.nome}"> Profissional </option>
+              <option th:each="prof : ${allProfissional}" th:value="${prof.cpf}" th:text="${prof.nome}"> Responsavel </option>
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('responsavel.cpf')}" th:errors="*{responsavel.cpf}" class="text-danger">Erro de CPF</small>
+            <small th:if="${#fields.hasErrors('responsavel.cpf')}" th:errors="*{responsavel.cpf}" class="text-danger">Erro de Responsavel</small>
           </div>
         </div>
 

@@ -31,6 +31,11 @@ import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+/** Guia de Encaminhamento Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class GuiaEncaminhamentoController {
 
@@ -59,17 +64,17 @@ public class GuiaEncaminhamentoController {
 
     @ModelAttribute("allBeneficiario")
     public List<Beneficiario> listBeneficiario() {
-    	return guiaSvc.allBeneficiario();
+    	return benSvc.listAll();
     }
 
     @ModelAttribute("allProfissional")
     public List<Profissional> listProfissional() {
-    	return guiaSvc.allProfissional();
+    	return profSvc.listAll();
     }
 
     @ModelAttribute("allOcs")
     public List<Ocs> listOcs() {
-    	return guiaSvc.allOcs();
+    	return ocsSvc.listAll();
     }
 
 	@ModelAttribute("unidadeMedidaMap")
