@@ -2,6 +2,7 @@ package br.com.wagnersoft.macedonia.controller;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,11 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.GuiaPm;
-import br.com.wagnersoft.macedonia.model.Ocs;
-import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
@@ -55,6 +53,7 @@ public class GuiaEncaminhamentoController {
     
     public GuiaEncaminhamentoController() {
         super();
+        logger.debug("{} loaded", GuiaEncaminhamento.class.getSimpleName());
     }
 
     @ModelAttribute("allGuias")
@@ -63,18 +62,24 @@ public class GuiaEncaminhamentoController {
     }
 
     @ModelAttribute("allBeneficiario")
-    public List<Beneficiario> listBeneficiario() {
-    	return benSvc.listAll();
+    public Map<String, String> listBeneficiario() {
+    	final Map<String, String> lista = new HashMap<>();
+    	benSvc.listAll().forEach(b -> lista.put(b.getCpf(), b.getNome()));
+    	return lista;
     }
 
     @ModelAttribute("allProfissional")
-    public List<Profissional> listProfissional() {
-    	return profSvc.listAll();
+    public Map<String, String> listProfissional() {
+    	final Map<String, String> lista = new HashMap<>();
+    	profSvc.listAll().forEach(p -> lista.put(p.getCpf(), p.getNome()));
+    	return lista;
     }
 
     @ModelAttribute("allOcs")
-    public List<Ocs> listOcs() {
-    	return ocsSvc.listAll();
+    public Map<String, String> listEstabelecimento() {
+    	final Map<String, String> lista = new HashMap<>();
+    	ocsSvc.listAll().forEach(e -> lista.put(e.getId().toString(), e.getDescricao()));
+    	return lista;
     }
 
 	@ModelAttribute("unidadeMedidaMap")

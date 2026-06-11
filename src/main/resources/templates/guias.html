@@ -108,7 +108,7 @@
           <div class="col-sm-6">
             <select th:field="*{beneficiario.cpf}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="ben : ${allBeneficiario}" th:value="${ben.cpf}" th:text="${ben.nome}"> Beneficiario </option>
+              <option th:each="b : ${allBeneficiario}" th:value="${b.key}" th:text="${b.value}"> Beneficiario </option>
             </select>
           </div>
           <div class="col-sm-4">
@@ -123,7 +123,7 @@
           <div class="col-sm-6">
             <select th:field="*{solicitante.cpf}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="prof : ${allProfissional}" th:value="${prof.cpf}" th:text="${prof.nome}"> Profissional </option>
+              <option th:each="p : ${allProfissional}" th:value="${p.key}" th:text="${p.value}"> Profissional </option>
             </select>
           </div>
           <div class="col-sm-4">
@@ -138,7 +138,7 @@
           <div class="col-sm-6">
             <select th:field="*{responsavel.cpf}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="prof : ${allProfissional}" th:value="${prof.cpf}" th:text="${prof.nome}"> Responsavel </option>
+              <option th:each="p : ${allProfissional}" th:value="${p.key}" th:text="${p.value}"> Responsavel </option>
             </select>
           </div>
           <div class="col-sm-4">
@@ -150,16 +150,16 @@
   
         <div class="form-group row mt-1">
           <label for="ocs.id" class="col-sm-2 form-label my-1 text-end">
-            <strong><span th:text="#{guia.ocs}">OCS</span></strong>
+            <strong><span th:text="#{guia.ocs}">Estabelecimento</span></strong>
           </label>
           <div class="col-sm-6">
             <select th:field="*{ocs.id}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="ocs : ${allOcs}" th:value="${ocs.id}" th:text="${ocs.descricao}"> OCS </option>
+              <option th:each="e : ${allOcs}" th:value="${e.key}" th:text="${e.value}"> Estabelecimento </option>
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de OCS</small>
+            <small th:if="${#fields.hasErrors('ocs.cnpj')}" th:errors="*{ocs.cnpj}" class="text-danger">Erro de Estabelecimento</small>
           </div>
         </div>
 
