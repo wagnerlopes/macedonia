@@ -1,7 +1,9 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +21,14 @@ public class CboService {
 	@Autowired
 	private CboRepository rep;
 	
-	public List<Cbo> listAllCBO() {
+	public List<Cbo> listAll() {
 		final List<Cbo> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
+	}
+
+	public Map<String, String> mapAll() {
+		return listAll().stream().collect(Collectors.toMap(Cbo::getCodigo, Cbo::getDescricao));
 	}
 	
 	public Optional<Cbo> findById(String id) {

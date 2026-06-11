@@ -15,6 +15,11 @@ import br.com.wagnersoft.macedonia.service.TissService;
 import br.com.wagnersoft.macedonia.tiss.GuiaFaturamento;
 import br.com.wagnersoft.macedonia.tiss.TissReponseDTO;
 
+/** TISS API Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @RestController
 @RequestMapping("/api/tiss")
 public class TissController {
@@ -26,7 +31,7 @@ public class TissController {
 	
     public TissController() {
         super();
-        logger.debug("{} inicializado.", TissController.class.getCanonicalName());
+        logger.debug("{} inicializado.", TissController.class.getSimpleName());
     }
 
     @GetMapping
