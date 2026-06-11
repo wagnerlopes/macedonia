@@ -1,6 +1,5 @@
 package br.com.wagnersoft.macedonia.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,10 +46,8 @@ public class ContratoController {
     }
     
     @ModelAttribute("allOcs")
-    public Map<String, String> listEstabelecimento() {
-    	final Map<String, String> lista = new HashMap<>();
-    	ocsSvc.listAll().forEach(e -> lista.put(e.getId().toString(), e.getDescricao()));
-    	return lista;
+    public Map<Integer, String> listEstabelecimento() {
+        return ocsSvc.mapAll();
     }
     
     @GetMapping({"/contratos"})

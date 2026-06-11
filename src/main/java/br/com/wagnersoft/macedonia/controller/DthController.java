@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Dth;
-import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.service.DthService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.validation.Valid;
 
+/** Diarias e Taxas (DTH) Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class DthController {
 
@@ -40,13 +44,13 @@ public class DthController {
     }
 
     @ModelAttribute("allDth")
-    public List<Dth> populateDth() {
+    public List<Dth> allDth() {
         return dthSvc.listAll();
     }
     
     @ModelAttribute("allOcs")
-    public List<Ocs> populateOcs() {
-        return ocsSvc.listAll();
+    public Map<Integer, String> allOcs() {
+        return ocsSvc.mapAll();
     }
  
 	@ModelAttribute("allUnidadeMedida")
@@ -75,7 +79,10 @@ public class DthController {
     
     @PostMapping(value="/dth/save", params={"save"})
     public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
-        ocsSvc.findByCnpj(dth.getOcs().getCnpj()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "dth.erro.ocs", "Deve ser informado"));
+    	if (dth.getOcs().getId() == null)
+    		bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
+    	else
+        ocsSvc.findById(dth.getOcs().getId()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "dth.erro.ocs", "Deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "dth";
         }

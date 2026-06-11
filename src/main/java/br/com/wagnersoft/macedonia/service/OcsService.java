@@ -1,7 +1,9 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +25,11 @@ public class OcsService {
 
 	@Autowired
 	private ProcedimentoMedicoRepository pmRep;
-	
+
+	public Map<Integer, String> mapAll() {
+		return listAll().stream().collect(Collectors.toMap(Ocs::getId, Ocs::getDescricao));
+	}
+
 	public List<Ocs> listAll() {
 		final List<Ocs> lista = rep.findAll();
 		return lista;
