@@ -1,7 +1,9 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,11 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 
+/** Profissional service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class ProfissionalService {
 
@@ -21,10 +28,14 @@ public class ProfissionalService {
 
 	public List<Profissional> listAll() {
 		final List<Profissional> lista = profRep.findAll();
-		lista.forEach(e -> {logger.info(e.toString());});
+		lista.forEach(e -> {logger.debug(e.toString());});
 		return lista;
 	}
 
+	public Map<String, String> mapAll() {
+		return listAll().stream().collect(Collectors.toMap(Profissional::getCpf, Profissional::getNome));
+	}
+	
 	public Optional<Profissional> findByCpf(String cpf) {
 		return profRep.findById(cpf);
 	}

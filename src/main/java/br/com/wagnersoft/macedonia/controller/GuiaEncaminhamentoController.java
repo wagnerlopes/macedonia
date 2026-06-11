@@ -2,7 +2,6 @@ package br.com.wagnersoft.macedonia.controller;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -63,23 +62,17 @@ public class GuiaEncaminhamentoController {
 
     @ModelAttribute("allBeneficiario")
     public Map<String, String> listBeneficiario() {
-    	final Map<String, String> lista = new HashMap<>();
-    	benSvc.listAll().forEach(b -> lista.put(b.getCpf(), b.getNome()));
-    	return lista;
+    	return benSvc.mapAll();
     }
 
     @ModelAttribute("allProfissional")
     public Map<String, String> listProfissional() {
-    	final Map<String, String> lista = new HashMap<>();
-    	profSvc.listAll().forEach(p -> lista.put(p.getCpf(), p.getNome()));
-    	return lista;
+    	return profSvc.mapAll();
     }
 
     @ModelAttribute("allOcs")
-    public Map<String, String> listEstabelecimento() {
-    	final Map<String, String> lista = new HashMap<>();
-    	ocsSvc.listAll().forEach(e -> lista.put(e.getId().toString(), e.getDescricao()));
-    	return lista;
+    public Map<Integer, String> listEstabelecimento() {
+    	return ocsSvc.mapAll();
     }
 
 	@ModelAttribute("unidadeMedidaMap")

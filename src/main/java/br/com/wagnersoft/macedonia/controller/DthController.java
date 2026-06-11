@@ -41,6 +41,7 @@ public class DthController {
 	
     public DthController() {
         super();
+    	logger.debug("{} loaded", DthController.class.getSimpleName());
     }
 
     @ModelAttribute("allDth")

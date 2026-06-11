@@ -1,7 +1,9 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,11 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.repository.BeneficiarioRepository;
 
+/** Beneficiario service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class BeneficiarioService {
 
@@ -25,8 +32,12 @@ public class BeneficiarioService {
 	
 	public List<Beneficiario> listAll() {
 		final List<Beneficiario> lista = rep.findAll();
-		lista.forEach(e -> {logger.info(e.toString());});
+		lista.forEach(e -> {logger.debug(e.toString());});
 		return lista;    }
+	public Map<String, String> mapAll() {
+		return listAll().stream().collect(Collectors.toMap(Beneficiario::getCpf, Beneficiario::getNome));
+	}
+
 	public void remove(final String cpf) {
 		 rep.findById(cpf).ifPresent(b -> rep.delete(b));
 	}
