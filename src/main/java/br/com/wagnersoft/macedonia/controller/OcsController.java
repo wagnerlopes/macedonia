@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.OcsPm;
-import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
@@ -28,10 +27,15 @@ import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+/** OCS (Estabelecimento de Saude) Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class OcsController {
 
-	  private static final Logger logger = LoggerFactory.getLogger(OcsController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OcsController.class);
 
     @Autowired
     private OcsService ocsSvc;
@@ -44,31 +48,31 @@ public class OcsController {
     }
 
     @ModelAttribute("allOcs")
-    public List<Ocs> listOcs() {
+    public List<Ocs> allOcs() {
     	return ocsSvc.listAll();
     }
 
     @ModelAttribute("allProcedimentos")
-    public List<ProcedimentoMedico> listProcedimentos() {
-    	return pmSvc.listAll();
+    public Map<Integer, String> allProcedimentos() {
+    	return pmSvc.mapAll();
     }
     
-	@ModelAttribute("allEspecialidade")
+    @ModelAttribute("allEspecialidade")
     public List<EstabelecimentoSaudeEnum> allEspecialidade() {
         return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
     }
     
-	  @ModelAttribute("allUf")
+    @ModelAttribute("allUf")
     public List<UfEnum> allUf() {
         return Arrays.asList(UfEnum.ALL);
     }
 
-	  @ModelAttribute("tipoOcsMap")
+    @ModelAttribute("tipoOcsMap")
     public Map<String, String> tipoOcsMap() {
         return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
     }
 
-	@ModelAttribute("unidadeMedidaMap")
+    @ModelAttribute("unidadeMedidaMap")
     public Map<String, String> unidadeMedidaMap() {
         return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
     }
