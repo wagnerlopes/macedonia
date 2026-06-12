@@ -1,7 +1,8 @@
-/* Guias: calcular total e copiar dados de procedimentos */
+/* View guias.html: calcular total e copiar dados de procedimentos */
 
 const limpa_numero = (numero_formatado) => {return Number(numero_formatado.replace(/[^\d,-]/g, "").replace(",", "."))};
 
+// Calcula o Valor Total do Procedimento Medico = vlt unit * qtd
 const calculaTotal = function(pm_id, pm_qtd) {
 
  console.log("ID = " + pm_id + " - Qtd = " + pm_qtd);
@@ -31,4 +32,65 @@ const calculaTotal = function(pm_id, pm_qtd) {
  console.log(total_moeda);
 }
 
+// Carrega os dados Procedimento Medico selecionado na lista
+const opmLoad = function (idx, id) {
+  fetch(`/macedonia/opm/${encodeURIComponent(id)}`)
+    .then(response => {
+      if (response.ok) return response.json();
+      if (response.status === 404) throw new Error('Procedimento não encontrado');
+      throw new Error('Erro na requisição: ' + response.status);
+    })
+    .then(data => {
+      console.log(data);
+	  document.getElementById('procedimentos' + idx + '.valorUnitario').value = data.valorUnitario.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+	  document.getElementById('procedimentos' + idx + '.unidadeMedida').value = data.unidadeMedida;
+      document.getElementById('procedimentos' + idx + '.pm.tuss').value = data.tuss;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
 
+// Eventos adicionados ao carregar a pagina
+window.onload = function() {
+
+  // Evento do Select 'ProcedimentoMedico'
+  document.querySelectorAll('.list-pm').forEach(s => {
+    s.addEventListener('change', e => {
+      const name = e.target.name || e.target.id;
+      const match = name.match(/\[(\d+)\]/);
+      if(!match) return;
+      const idx = match[1];
+      const val = e.target.value;
+	  console.log('IDX = ' + idx);
+	  console.log('VLR = ' + val);
+      opmLoad(idx, val);
+    });
+  });
+
+  // Input Qtd Procedimento Medico
+  document.querySelectorAll('.pm-qtd').forEach(s => {
+    s.addEventListener('change', e => {
+	    const name = e.target.name || e.target.id;
+	    const match = name.match(/\[(\d+)\]/);
+	    if(!match) return;
+	    const idx = match[1];
+	    const val = e.target.value;
+  	    console.log('IDX = ' + idx);
+	    console.log('VLR = ' + val);
+        calculaTotal(s.id, val)
+	});
+  });
+
+}
+
+//const selector = '[name="procedimentos['+ idx +'].valorTotal], #procedimentos'+ idx +'\\.valorTotal';
+//const target = document.querySelector(selector);
+
+// ao carregar com id vindo da URL, por exemplo ?id=123
+//const params = new URLSearchParams(window.location.search);
+//const id = params.get('id');
+//if (id) carregarProcedimento(id);
+
+// ou ao clicar um botão:
+// document.getElementById('btnCarregar').addEventListener('click', () => carregarProcedimento(123));

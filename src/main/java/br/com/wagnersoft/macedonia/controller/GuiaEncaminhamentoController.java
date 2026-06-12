@@ -128,5 +128,4 @@ public class GuiaEncaminhamentoController {
     	return guiaEncaminhamento.getOcs() != null ? guiaEncaminhamento.getOcs().getProcedimentos() : Collections.EMPTY_LIST;
     }
 
-
 }

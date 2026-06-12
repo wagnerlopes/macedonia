@@ -59,7 +59,7 @@ public class GuiaEncaminhamentoService {
 		if (guia.getProcedimentos() != null && !guia.getProcedimentos().isEmpty()) {
 			  guia.getProcedimentos().forEach(p -> {
 				oldGuia.setValorTotal(oldGuia.getValorTotal().add(p.getValorTotal()));
-	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
+ 	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
 			    oldGuia.addGuiaPm(p);
 			  });
 		}

@@ -211,8 +211,7 @@
                 <td>
                   <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].id}"/>
                   <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].guiaEncaminhamento.id}"/>
-                  <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].pm.id}"/>
-                  <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select">
+                  <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select list-pm">
                     <option selected value="">--- Selecione ---</option>
                     <option th:each="p : ${opm}" th:value="${p.pm.id}" th:text="${p.pm.descricao}">Procedimento</option>
                   </select>
@@ -226,11 +225,10 @@
                   </select>
                 </td>
                 <td>
-                  <input type="text" th:field="*{procedimentos[__${rowStat.index}__].pmQtd}" class="form-control text-end" onchange="calculaTotal(this.id, this.value)"/>
+                  <input type="text" th:field="*{procedimentos[__${rowStat.index}__].pmQtd}" class="form-control pm-qtd text-end"/>
                 </td>
                 <td class="text-end">
                   <input type="text" th:field="*{procedimentos[__${rowStat.index}__].valorTotal}" class="form-control text-end"/>
-                  <input type="hidden" th:id="procedimentos__${rowStat.index}__.valorBase" th:value="*{procedimentos[__${rowStat.index}__].valorUnitario}"/>
                   <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].valorUnitario}"/>
                 </td>
                 <td class="text-end">

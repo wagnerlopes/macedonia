@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import org.springframework.format.annotation.NumberFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -44,10 +46,12 @@ public class OcsPm implements Comparable<OcsPm>, Serializable {
 	@Column(name="valor_unitario")
 	private BigDecimal valorUnitario;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ocs_id")
 	private Ocs ocs;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="pm_id")
 	private ProcedimentoMedico pm;
