@@ -2,6 +2,7 @@ package br.com.wagnersoft.macedonia.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,11 @@ import br.com.wagnersoft.macedonia.type.ConselhoEnum;
 import br.com.wagnersoft.macedonia.type.UfEnum;
 import jakarta.validation.Valid;
 
+/** Profissional Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class ProfissionalController {
 
@@ -36,6 +42,17 @@ public class ProfissionalController {
     
     public ProfissionalController() {
         super();
+    	logger.debug("{} loaded", ProfissionalController.class.getSimpleName());
+    }
+
+    @ModelAttribute("allProfissionais")
+    public List<Profissional> allProfissionais() {
+    	return profSvc.listAll();
+    }
+
+	@ModelAttribute("allCbo")
+    public Map<String, String> allCbo() {
+        return cboSvc.mapAll();
     }
 
 	@ModelAttribute("allConselho")
@@ -48,21 +65,11 @@ public class ProfissionalController {
         return Arrays.asList(UfEnum.ALL);
     }
 	
-    @ModelAttribute("allProfissionais")
-    public List<Profissional> listProfissionais() {
-    	return profSvc.listAll();
-    }
-
-	@ModelAttribute("listCbo")
-    public List<Cbo> listCbo() {
-        return cboSvc.listAllCBO();
-    }
-
 	@GetMapping("/especialidades")
 	public String especialidades(Model model) {
 		logger.info("+++ Especialidades +++");
 		model.addAttribute("menu", "esp");
-		model.addAttribute("lista", cboSvc.listAllCBO());
+		model.addAttribute("lista", cboSvc.listAll());
 		return "especialidades";
 	}
 	
@@ -80,7 +87,7 @@ public class ProfissionalController {
         return "redirect:/profissionais";
     }
 	
-    @PostMapping(value="/profissionais/save", params={"save"})
+    @PostMapping(value="/profissionais", params={"save"})
     public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
     	cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
         if (bindingResult.hasErrors()) {

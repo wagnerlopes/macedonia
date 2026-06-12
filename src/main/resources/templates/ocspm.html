@@ -83,7 +83,7 @@
           <div class="col-sm-6">
             <select th:field="*{pm.id}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="p : ${allProcedimentos}" th:value="${p.id}" th:text="${p.descricao}">Procedimento</option>
+              <option th:each="p : ${allProcedimentos}" th:value="${p.key}" th:text="${p.value}">Procedimento</option>
             </select>
           </div>
           <div class="col-sm-2">

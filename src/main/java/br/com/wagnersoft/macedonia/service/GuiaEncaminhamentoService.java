@@ -9,17 +9,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.GuiaPm;
-import br.com.wagnersoft.macedonia.model.Ocs;
-import br.com.wagnersoft.macedonia.model.Profissional;
-import br.com.wagnersoft.macedonia.repository.BeneficiarioRepository;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
-import br.com.wagnersoft.macedonia.repository.OcsRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
-import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 
+/** Guia de Encaminhamento Service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class GuiaEncaminhamentoService {
 
@@ -29,39 +28,18 @@ public class GuiaEncaminhamentoService {
 	private GuiaEncaminhamentoRepository rep;
 
 	@Autowired
-	private BeneficiarioRepository benRep;
-
-	@Autowired
-	private OcsRepository ocsRep;
-
-	@Autowired
 	private ProcedimentoMedicoRepository pmRep;
 
-	@Autowired
-	private ProfissionalRepository profRep;
-	
-	public List<GuiaEncaminhamento> listAll() {
-		final List<GuiaEncaminhamento> lista = rep.findAll();
-		lista.forEach(e -> {logger.info(e.toString());});
-		return lista;
-	}
-
-	public List<Beneficiario> allBeneficiario() {
-		return benRep.findAll();
-	}
-
-	public List<Profissional> allProfissional() {
-		return profRep.findAll();
-	}
-
-	public List<Ocs> allOcs() {
-		return ocsRep.findAll();
-	}
-	
 	public Optional<GuiaEncaminhamento> findById(Integer id) {
 		return rep.findById(id);
 	}
 	
+	public List<GuiaEncaminhamento> listAll() {
+		final List<GuiaEncaminhamento> lista = rep.findAll();
+		lista.forEach(e -> {logger.debug("LIST = {}", e.toString());});
+		return lista;
+	}
+
 	public void add(GuiaEncaminhamento guia) {
 		rep.findById(guia.getId()).ifPresentOrElse(oldGuia -> save(oldGuia, guia), () -> rep.save(guia));
 	}
@@ -81,10 +59,11 @@ public class GuiaEncaminhamentoService {
 		if (guia.getProcedimentos() != null && !guia.getProcedimentos().isEmpty()) {
 			  guia.getProcedimentos().forEach(p -> {
 				oldGuia.setValorTotal(oldGuia.getValorTotal().add(p.getValorTotal()));
-	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
+ 	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
 			    oldGuia.addGuiaPm(p);
 			  });
 		}
+		logger.debug("SAVE = {}", oldGuia);
 		rep.save(oldGuia);
 	}
 	

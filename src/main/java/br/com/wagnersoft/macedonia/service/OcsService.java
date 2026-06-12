@@ -1,7 +1,9 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,11 @@ import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.repository.OcsRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
+/** OCS (Estabelecimento de Saude) service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class OcsService {
 
@@ -23,11 +30,6 @@ public class OcsService {
 
 	@Autowired
 	private ProcedimentoMedicoRepository pmRep;
-	
-	public List<Ocs> listAll() {
-		final List<Ocs> lista = rep.findAll();
-		return lista;
-	}
 
 	public Optional<Ocs> findById(Integer id) {
 		return rep.findById(id);
@@ -35,6 +37,15 @@ public class OcsService {
 
 	public Optional<Ocs> findByCnpj(String cnpj) {
 		return rep.findByCnpj(cnpj);
+	}
+
+	public Map<Integer, String> mapAll() {
+		return listAll().stream().collect(Collectors.toMap(Ocs::getId, Ocs::getDescricao));
+	}
+
+	public List<Ocs> listAll() {
+		final List<Ocs> lista = rep.findAll();
+		return lista;
 	}
 
 	public void add(Ocs ocs) {

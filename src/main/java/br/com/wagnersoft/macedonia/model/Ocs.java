@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,6 +29,7 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@NotNull
 	@Include
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

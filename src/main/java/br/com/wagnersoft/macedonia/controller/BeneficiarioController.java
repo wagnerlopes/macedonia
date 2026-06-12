@@ -19,6 +19,11 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+/** Beneficiario Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class BeneficiarioController {
 
@@ -29,7 +34,7 @@ public class BeneficiarioController {
 
     public BeneficiarioController() {
         super();
-    	logger.debug("{}", BeneficiarioController.class.getCanonicalName());
+    	logger.debug("{} loaded", BeneficiarioController.class.getSimpleName());
     }
     
     @ModelAttribute("allBeneficiarios")
@@ -41,7 +46,7 @@ public class BeneficiarioController {
     public String show(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, Model model) {
 		logger.info("+++ Beneficiarios +++");
 		model.addAttribute("menu", "ben");
-        model.addAttribute("beneficiario", cpf  == null ? new Beneficiario() : benSvc.findByCpf(cpf).orElse(new Beneficiario()));
+        model.addAttribute("beneficiario", cpf  == null ? new Beneficiario() : benSvc.findByCpf(cpf));
         return "beneficiarios";
     }
 

@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
-import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import jakarta.validation.Valid;
 
+/** Contrato Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class ContratoController {
 
@@ -36,20 +41,20 @@ public class ContratoController {
     }
 
     @ModelAttribute("allContratos")
-    public List<Contrato> populateContratos() {
+    public List<Contrato> listContratos() {
         return cttSvc.listAll();
     }
     
-	@ModelAttribute("listOcs")
-    public List<Ocs> listOcs() {
-        return ocsSvc.listAll();
+    @ModelAttribute("allOcs")
+    public Map<Integer, String> listEstabelecimento() {
+        return ocsSvc.mapAll();
     }
     
     @GetMapping({"/contratos"})
     public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
 		logger.info("+++ Contratos +++");
 		model.addAttribute("menu", "Contrato");
-        model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id));
+        model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id).orElse(new Contrato()));
         return "contratos";
     }
 
@@ -61,7 +66,10 @@ public class ContratoController {
     
     @PostMapping(value="/contratos/save", params={"save"})
     public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
-        ocsSvc.findByCnpj(contrato.getOcs().getCnpj()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs.cnpj", "contrato.erro.ocs", "Deve ser informado"));
+    	if (contrato.getOcs().getId() == null)
+    		bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
+    	else
+          ocsSvc.findById(contrato.getOcs().getId()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado"));
         if (bindingResult.hasErrors()) {
         	return "contratos";
         }

@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 
+/** Procedimento Medico Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class ProcedimentoMedicoController {
 
@@ -26,6 +31,7 @@ public class ProcedimentoMedicoController {
 	
     public ProcedimentoMedicoController() {
         super();
+    	logger.debug("{} loaded", ProcedimentoMedicoController.class.getSimpleName());
     }
 
     @ModelAttribute("allProcedimentos")
@@ -40,7 +46,7 @@ public class ProcedimentoMedicoController {
 		return "procedimentos";
 	}
     
-    @PostMapping(value="/procedimentos/save", params={"save"})
+    @PostMapping(value="/procedimentos", params={"save"})
     public String save(final ProcedimentoMedico pm, final BindingResult bindingResult, final ModelMap model) {
         if (bindingResult.hasErrors()) {
         	return "procedimentos";

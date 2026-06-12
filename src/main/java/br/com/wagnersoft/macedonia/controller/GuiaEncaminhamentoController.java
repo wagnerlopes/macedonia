@@ -18,11 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.GuiaPm;
-import br.com.wagnersoft.macedonia.model.Ocs;
-import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
@@ -31,6 +28,11 @@ import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
+/** Guia de Encaminhamento Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class GuiaEncaminhamentoController {
 
@@ -50,6 +52,7 @@ public class GuiaEncaminhamentoController {
     
     public GuiaEncaminhamentoController() {
         super();
+        logger.debug("{} loaded", GuiaEncaminhamento.class.getSimpleName());
     }
 
     @ModelAttribute("allGuias")
@@ -58,18 +61,18 @@ public class GuiaEncaminhamentoController {
     }
 
     @ModelAttribute("allBeneficiario")
-    public List<Beneficiario> listBeneficiario() {
-    	return guiaSvc.allBeneficiario();
+    public Map<String, String> listBeneficiario() {
+    	return benSvc.mapAll();
     }
 
     @ModelAttribute("allProfissional")
-    public List<Profissional> listProfissional() {
-    	return guiaSvc.allProfissional();
+    public Map<String, String> listProfissional() {
+    	return profSvc.mapAll();
     }
 
     @ModelAttribute("allOcs")
-    public List<Ocs> listOcs() {
-    	return guiaSvc.allOcs();
+    public Map<Integer, String> listEstabelecimento() {
+    	return ocsSvc.mapAll();
     }
 
 	@ModelAttribute("unidadeMedidaMap")
@@ -124,6 +127,5 @@ public class GuiaEncaminhamentoController {
     private List<?> listOcsPm(final GuiaEncaminhamento guiaEncaminhamento) {
     	return guiaEncaminhamento.getOcs() != null ? guiaEncaminhamento.getOcs().getProcedimentos() : Collections.EMPTY_LIST;
     }
-
 
 }

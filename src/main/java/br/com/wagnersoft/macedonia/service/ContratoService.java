@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,11 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.repository.ContratoRepository;
 
+/** Contrato com Estabelecimento de Saude service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class ContratoService {
 
@@ -18,14 +24,14 @@ public class ContratoService {
 	@Autowired
 	private ContratoRepository rep;
 
+	public Optional<Contrato> findById(Integer id) {
+		return rep.findById(id);
+	}
+
 	public List<Contrato> listAll() {
 		final List<Contrato> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
-	}
-
-	public Contrato findById(Integer id) {
-		return rep.findById(id).orElse(new Contrato());
 	}
 
 	public void remove(final Integer id) {

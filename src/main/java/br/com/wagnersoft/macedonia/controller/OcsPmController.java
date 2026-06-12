@@ -1,7 +1,6 @@
 package br.com.wagnersoft.macedonia.controller;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -19,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.OcsPm;
-import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.OcsPmService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.validation.Valid;
 
+/** OcsPm Controller.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 public class OcsPmController {
 
@@ -42,16 +45,12 @@ public class OcsPmController {
     
     public OcsPmController() {
         super();
-    }
-
-    @ModelAttribute("allOcs")
-    public List<Ocs> listOcs() {
-    	return ocsSvc.listAll();
+    	logger.debug("{} loaded", OcsPmController.class.getSimpleName());
     }
 
     @ModelAttribute("allProcedimentos")
-    public List<ProcedimentoMedico> listProcedimentos() {
-    	return pmSvc.listAll();
+    public Map<Integer, String> allProcedimentos() {
+    	return pmSvc.mapAll();
     }
     
 	@ModelAttribute("unidadeMedidaMap")

@@ -115,11 +115,11 @@
           <div class="col-sm-4">
             <select th:field="*{especialidade}" class="form-select">
               <option selected value="">--- Selecione ---</option>
-              <option th:each="esp : ${allEspecialidade}" th:value="${esp.codigo}" th:text="${esp.descricao}"> UF </option>
+              <option th:each="esp : ${allEspecialidade}" th:value="${esp.codigo}" th:text="${esp.descricao}"> Especialidade </option>
             </select>
           </div>
           <div class="col-sm-4">
-            <small th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}" class="text-danger">Erro de OCS</small>
+            <small th:if="${#fields.hasErrors('especialidade')}" th:errors="*{especialidade}" class="text-danger">Erro de Especialidade</small>
           </div>
         </div>
 
@@ -212,7 +212,7 @@
                     <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].ocs.id}"/>
                     <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select">
                       <option selected value="">--- Selecione ---</option>
-                      <option th:each="p : ${allProcedimentos}" th:value="${p.id}" th:text="${p.descricao}">Procedimento</option>
+                      <option th:each="p : ${allProcedimentos}" th:value="${p.key}" th:text="${p.value}">Procedimento</option>
                     </select>
                   </td>
                   <td>

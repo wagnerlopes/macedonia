@@ -1,16 +1,21 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Protocolo;
 import br.com.wagnersoft.macedonia.repository.ProtocoloRepository;
 
+/** Protocolo de Guia de Saude Service.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Service
 public class ProtocoloService {
 
@@ -19,14 +24,14 @@ public class ProtocoloService {
 	@Autowired
 	private ProtocoloRepository rep;
 
+	public Optional<Protocolo> findById(Integer id) {
+		return rep.findById(id);
+	}
+	
 	public List<Protocolo> listAll() {
 		final List<Protocolo> lista = rep.findAll();
 		lista.forEach(e -> {logger.info(e.toString());});
 		return lista;
-	}
-
-	public Ocs findByCnpj(String cnpj) {
-		return rep.findByCnpj(cnpj).orElseThrow();
 	}
 
 	public void add(Protocolo protocolo) {
