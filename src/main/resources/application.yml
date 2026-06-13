@@ -1,66 +1,79 @@
 debug: false
 
 logging:
-    level:
-        org.springframework: WARN
-        br.com.wagnersoft.macedonia: INFO
+    
+  level:
+    org.springframework: WARN
+    br.com.wagnersoft.macedonia: INFO
 
 server:
 
-    port: 80
+  port: 80
 
-    servlet:
-      context-path: /macedonia
+  http2:
+    enabled: true
+
+  servlet:
+    context-path: /macedonia
     compression:
-        enabled: true
-        min-response-size: 1KB
+      enabled: true
+      min-response-size: 1KB
         
-    http2:
-        enabled: true
-        
-    #ssl:
-    #    key-store: keystore.p12
-    #    key-store-password: 123
-    #    keyStoreType: PKCS12
-    #    keyAlias: macedonia
+  ssl:
+    enabled: false
+    key-store: "" #wagnerstore.p12
+    key-store-password: "" #123
+    #keyStoreType: PKCS12
+    #keyAlias: macedonia
 
 spring:
 
-    application:
-        name: macedonia
+  application:
+    name: macedonia
 
-    datasource:
-        url: jdbc:h2:mem:macedonia;INIT=CREATE SCHEMA IF NOT EXISTS babilonia;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
-        driver-class-name: org.h2.Driver
-        username: sa
-        password: 123
-        initial-size: 1
+  profiles:
+    active: dev
+ 
+  datasource:
+    url: jdbc:h2:mem:macedonia;INIT=CREATE SCHEMA IF NOT EXISTS babilonia;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 123
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+      idle-timeout: 600000       # ms (10 min)
+      max-lifetime: 1800000      # ms (30 min)
+      connection-timeout: 30000  # ms (30 s)
+      pool-name: MacedoniaHikari
+      initialization-fail-timeout: 1
 
-    jpa:
-        show-sql: true
-        defer-datasource-initialization: true
-        hibernate:
-            ddl-auto: create-drop
-        properties:
-            hibernate: 
-                database-platform: org.hibernate.dialect.H2Dialect
-                format_sql: true
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate: 
+        format_sql: true
 
-    jdbc:
-        template:
-            query-timeout: 30
+  jdbc:
+    template:
+      query-timeout: 30
 
-    mvc:
-        format:
-            date: yyyy-MM-dd
-        pathmatch:
-            matching-strategy: ant_path_matcher
+  mvc:
+    format:
+      date: yyyy-MM-dd
+    pathmatch:
+      matching-strategy: path-pattern-parser
 
-    thymeleaf:
-        cache: false
-        prefix: classpath:/templates/
-        suffix: .html
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
     
-    h2:
-        console:
-            enabled: true
+  h2:
+    console:
+      enabled: true
