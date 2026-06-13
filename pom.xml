@@ -8,7 +8,7 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>macedonia</artifactId>
-  <version>0.1</version>
+  <version>1.0-test</version>
 
   <name>br.com.wagnersoft.babilonia</name>
   <description>Open view WEB APP</description>
@@ -58,16 +58,17 @@
       <artifactId>lombok</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.4.240</version>
+    </dependency>
+  
     <!-- TESTE -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
     </dependency>
 
   </dependencies>
