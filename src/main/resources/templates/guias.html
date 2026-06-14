@@ -29,6 +29,7 @@
             <th scope="col">OCS</th>
             <th scope="col" class="text-center">Data</th>
             <th scope="col" class="text-center">Valor (R$)</th>
+            <th scope="col">TISS</th>
           </tr>
         </thead>
 
@@ -48,6 +49,11 @@
             <td><span th:text="${guiaEncaminhamento.ocs.descricao}"> OCS </span></td>
             <td class="text-center"><span th:text="${#temporals.format(guiaEncaminhamento.emissaoData, 'dd/MM/yyyy')}"> Data </span></td>
             <td class="text-end"><span th:text="${#numbers.formatCurrency(guiaEncaminhamento.valorTotal)}"> Valor </span></td>
+            <td>
+              <a th:href="@{/api/tiss/} + ${guiaEncaminhamento.id}" target="_blank">
+                <i class="bi bi-send" style="font-size: 1rem; color: cornflowerblue;" title="Enviar"></i>
+              </a>
+            </td>
           </tr>
         </tbody>
 
