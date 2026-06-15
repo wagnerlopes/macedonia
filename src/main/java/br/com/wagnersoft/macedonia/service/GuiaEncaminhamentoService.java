@@ -41,30 +41,33 @@ public class GuiaEncaminhamentoService {
 	}
 
 	public void add(GuiaEncaminhamento guia) {
-		rep.findById(guia.getId()).ifPresentOrElse(oldGuia -> save(oldGuia, guia), () -> rep.save(guia));
+	  if (guia == null) return;
+	  Optional.ofNullable(guia.getId())
+  	  .flatMap(rep::findById)
+	    .ifPresentOrElse(existing -> save(existing, guia), () -> rep.save(guia));	  
 	}
 
-	private void save(final GuiaEncaminhamento oldGuia, final GuiaEncaminhamento guia) {
-		oldGuia.setBeneficiario(guia.getBeneficiario());
-		oldGuia.setEmissaoData(guia.getEmissaoData());
-		oldGuia.setGuiaNr(guia.getGuiaNr());
-		oldGuia.setObservacao(guia.getObservacao());
-		oldGuia.setOcs(guia.getOcs());
-		oldGuia.setOperador(guia.getOperador());
-		oldGuia.setProtocolo(guia.getProtocolo());
-		oldGuia.setResponsavel(guia.getResponsavel());
-		oldGuia.setSolicitante(guia.getSolicitante());
+	private void save(final GuiaEncaminhamento existing, final GuiaEncaminhamento guia) {
+		existing.setBeneficiario(guia.getBeneficiario());
+		existing.setEmissaoData(guia.getEmissaoData());
+		existing.setGuiaNr(guia.getGuiaNr());
+		existing.setObservacao(guia.getObservacao());
+		existing.setOcs(guia.getOcs());
+		existing.setOperador(guia.getOperador());
+		existing.setProtocolo(guia.getProtocolo());
+		existing.setResponsavel(guia.getResponsavel());
+		existing.setSolicitante(guia.getSolicitante());
 		// Totaliza Guia e obtem Procedimento Medico 
-		oldGuia.setValorTotal(BigDecimal.ZERO);
+		existing.setValorTotal(BigDecimal.ZERO);
 		if (guia.getProcedimentos() != null && !guia.getProcedimentos().isEmpty()) {
 			  guia.getProcedimentos().forEach(p -> {
-				oldGuia.setValorTotal(oldGuia.getValorTotal().add(p.getValorTotal()));
+				existing.setValorTotal(existing.getValorTotal().add(p.getValorTotal()));
  	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
-			    oldGuia.addGuiaPm(p);
+			    existing.addGuiaPm(p);
 			  });
 		}
-		logger.debug("SAVE = {}", oldGuia);
-		rep.save(oldGuia);
+		logger.debug("SAVE = {}", existing);
+		rep.save(existing);
 	}
 	
 	public void addProcedimento(GuiaPm gop) {

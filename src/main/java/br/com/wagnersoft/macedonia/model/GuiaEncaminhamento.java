@@ -55,7 +55,6 @@ public class GuiaEncaminhamento implements Serializable {
 	@Column(name="observacao")
 	private String observacao;
 
-	@NotNull
 	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	@Column(name="valor_total")
 	private BigDecimal valorTotal;

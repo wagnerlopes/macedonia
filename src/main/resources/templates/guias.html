@@ -219,7 +219,7 @@
                   <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].guiaEncaminhamento.id}"/>
                   <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select list-pm">
                     <option selected value="">--- Selecione ---</option>
-                    <option th:each="p : ${opm}" th:value="${p.pm.id}" th:text="${p.pm.descricao}">Procedimento</option>
+                    <option th:each="p : ${opm}" th:value="${p.id}" th:text="${p.pm.descricao}">Procedimento</option>
                   </select>
                 </td>
                 <td>
