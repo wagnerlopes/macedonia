@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
@@ -31,12 +32,13 @@ public class GuiaEncaminhamentoService {
 	private ProcedimentoMedicoRepository pmRep;
 
 	public Optional<GuiaEncaminhamento> findById(final Integer id) {
+	  if (id == null) return Optional.empty();
 		return rep.findById(id);
 	}
 	
 	public List<GuiaEncaminhamento> listAll() {
-		final List<GuiaEncaminhamento> lista = rep.findAll();
-		lista.forEach(e -> {logger.debug("LIST = {}", e.toString());});
+		final List<GuiaEncaminhamento> lista = rep.findAll(Sort.by(Sort.Order.by("beneficiario_cpf")));
+		logger.debug("{}", lista);
 		return lista;
 	}
 
@@ -47,20 +49,20 @@ public class GuiaEncaminhamentoService {
 	    .ifPresentOrElse(existing -> this.save(existing, guia), () -> rep.save(guia));	  
 	}
 
-	private void save(final GuiaEncaminhamento existing, final GuiaEncaminhamento guia) {
-		existing.setBeneficiario(guia.getBeneficiario());
-		existing.setEmissaoData(guia.getEmissaoData());
-		existing.setGuiaNr(guia.getGuiaNr());
-		existing.setObservacao(guia.getObservacao());
-		existing.setOcs(guia.getOcs());
-		existing.setOperador(guia.getOperador());
-		existing.setProtocolo(guia.getProtocolo());
-		existing.setResponsavel(guia.getResponsavel());
-		existing.setSolicitante(guia.getSolicitante());
+	private void save(final GuiaEncaminhamento existing, final GuiaEncaminhamento replacement) {
+		existing.setBeneficiario(replacement.getBeneficiario());
+		existing.setEmissaoData(replacement.getEmissaoData());
+		existing.setGuiaNr(replacement.getGuiaNr());
+		existing.setObservacao(replacement.getObservacao());
+		existing.setOcs(replacement.getOcs());
+		existing.setOperador(replacement.getOperador());
+		existing.setProtocolo(replacement.getProtocolo());
+		existing.setResponsavel(replacement.getResponsavel());
+		existing.setSolicitante(replacement.getSolicitante());
 		// Totaliza Guia e obtem Procedimento Medico 
 		existing.setValorTotal(BigDecimal.ZERO);
-		if (guia.getProcedimentos() != null && !guia.getProcedimentos().isEmpty()) {
-			  guia.getProcedimentos().forEach(p -> {
+		if (replacement.getProcedimentos() != null && !replacement.getProcedimentos().isEmpty()) {
+			  replacement.getProcedimentos().forEach(p -> {
 				existing.setValorTotal(existing.getValorTotal().add(p.getValorTotal()));
  	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
 			    existing.addGuiaPm(p);
