@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,35 +32,44 @@ public class OcsPmService {
 		return lista;
 	}
 
-	public Optional<OcsPm> findById(Integer id) {
+	public Optional<OcsPm> findById(final Integer id) {
+	  if (id == null) return Optional.empty();
 		return rep.findById(id);
 	}
 
-	public List<OcsPm> findByOcs(Ocs ocs) {
+	public List<OcsPm> findByOcs(final Ocs ocs) {
+	  if (ocs == null) return Collections.emptyList();
 		return rep.findByOcs(ocs);
 	}
 
 	public List<OcsPm> findByPm(ProcedimentoMedico pm) {
+    if (pm == null) return Collections.emptyList();
 		return rep.findByPm(pm);
 	}
 	
-	public void add(OcsPm ocspm) {
-		logger.debug("{}", ocspm);
-		rep.findById(ocspm.getId() == null ? 0 : ocspm.getId()).ifPresentOrElse(old -> save(old, ocspm), () -> rep.save(ocspm));
+  public void remove(Integer id) {
+    if (id == null) return;
+    rep.findById(id).ifPresent(o -> {
+      if (o.getOcs().getGuias().isEmpty())
+        rep.delete(o);
+    });
+  }
+  
+	public void add(OcsPm opm) {
+	  if (opm == null) return;
+	  Optional.ofNullable(opm.getId())
+	    .flatMap(rep::findById)
+	    .ifPresentOrElse(old -> save(old, opm), () -> rep.save(opm));
+		//rep.findById(opm.getId() == null ? 0 : opm.getId()).ifPresentOrElse(old -> save(old, opm), () -> rep.save(opm));
 	}
 
-	public void remove(Integer id) {
-		rep.findById(id).ifPresent(o -> {
-			if (o.getOcs().getGuias().isEmpty())
-				rep.delete(o);
-		});
-	}
-	
-	private void save(final OcsPm oldOP, final OcsPm newOP) {
-		oldOP.setChQtd(newOP.getChQtd());
-		oldOP.setUnidadeMedida(newOP.getUnidadeMedida());
-		oldOP.setValorUnitario(newOP.getValorUnitario());
-		rep.save(oldOP);
+	private void save(final OcsPm existing, final OcsPm replacement) {
+    logger.debug("existing: {}", existing);
+    logger.debug("replacement: {}", replacement);
+		existing.setChQtd(replacement.getChQtd());
+		existing.setUnidadeMedida(replacement.getUnidadeMedida());
+		existing.setValorUnitario(replacement.getValorUnitario());
+		rep.save(existing);
 	}
 	
 }
