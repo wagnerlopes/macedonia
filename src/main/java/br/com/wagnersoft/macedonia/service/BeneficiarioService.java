@@ -1,5 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,8 +36,13 @@ public class BeneficiarioService {
 		final List<Beneficiario> lista = rep.findAll();
 		lista.forEach(e -> {logger.debug(e.toString());});
 		return lista;    }
+	/** Usado nas listas onde interessa apenas o nome (value) e o cpf (key).
+	 * @return
+	 */
 	public Map<String, String> mapAll() {
-		return listAll().stream().collect(Collectors.toMap(Beneficiario::getCpf, Beneficiario::getNome));
+		return listAll().stream()
+		    .sorted(Comparator.comparing(Beneficiario::getNome, String.CASE_INSENSITIVE_ORDER))
+		    .collect(Collectors.toMap(Beneficiario::getCpf, Beneficiario::getNome, (existing, replacement) -> existing, LinkedHashMap::new));
 	}
 
 	public void remove(final String cpf) {
@@ -43,13 +50,16 @@ public class BeneficiarioService {
 	}
 	
 	public void add(final Beneficiario beneficiario) {
-		rep.findById(beneficiario.getCpf()).ifPresentOrElse(oldBen -> save(oldBen, beneficiario), () -> rep.save(beneficiario));
+	  if (beneficiario == null) return;
+	  Optional.ofNullable(beneficiario.getCpf())
+      .flatMap(rep::findById)
+      .ifPresentOrElse(existing -> this.save(existing, beneficiario), () -> rep.save(beneficiario));
 	}
 
-	private void save(final Beneficiario oldBen, final Beneficiario newBen) {
-		oldBen.setNome(newBen.getNome());
-		oldBen.setNascimentoData(newBen.getNascimentoData());
-		rep.save(oldBen);
+	private void save(final Beneficiario existing, final Beneficiario newBen) {
+		existing.setNome(newBen.getNome());
+		existing.setNascimentoData(newBen.getNascimentoData());
+		rep.save(existing);
 	}
 	
 }

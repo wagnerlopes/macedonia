@@ -30,7 +30,7 @@ public class GuiaEncaminhamentoService {
 	@Autowired
 	private ProcedimentoMedicoRepository pmRep;
 
-	public Optional<GuiaEncaminhamento> findById(Integer id) {
+	public Optional<GuiaEncaminhamento> findById(final Integer id) {
 		return rep.findById(id);
 	}
 	
@@ -44,7 +44,7 @@ public class GuiaEncaminhamentoService {
 	  if (guia == null) return;
 	  Optional.ofNullable(guia.getId())
   	  .flatMap(rep::findById)
-	    .ifPresentOrElse(existing -> save(existing, guia), () -> rep.save(guia));	  
+	    .ifPresentOrElse(existing -> this.save(existing, guia), () -> rep.save(guia));	  
 	}
 
 	private void save(final GuiaEncaminhamento existing, final GuiaEncaminhamento guia) {
