@@ -28,55 +28,55 @@ import lombok.ToString;
 @ToString
 public class Dth implements Comparable<Dth>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  private Integer id;
 
-	@NotBlank
-	private String codigo;
+  @NotBlank
+  private String codigo;
 
-	@NotBlank
-	private String descricao;
+  @NotBlank
+  private String descricao;
 
-	@NotBlank
-	private String unidadeMedida;
+  @NotBlank
+  private String unidadeMedida;
 
-    @NotNull
-	@NumberFormat(style = NumberFormat.Style.CURRENCY)
-	private BigDecimal valorUnitario;
+  @NotNull
+  @NumberFormat(style = NumberFormat.Style.CURRENCY)
+  private BigDecimal valorUnitario;
 
-    @NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id")
-	private Ocs ocs;
+  @NotNull
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name="ocs_id")
+  private Ocs ocs;
 
-	@Override
-	public int compareTo(Dth o) {
-		return this.getCodigo().compareTo(o.getCodigo());
-	}
+  @Override
+  public int compareTo(Dth o) {
+    return this.getCodigo().compareTo(o.getCodigo());
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		Dth other = (Dth) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-    public String getDotCodigo() {
-        return this.codigo.isEmpty() || this.codigo.length() < 8 ? codigo :
-          codigo.substring(0,2) + "." +
-          codigo.substring(2,4) + "." +
-          codigo.substring(4,7) + "-" +
-          codigo.substring(7);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Dth other = (Dth) obj;
+    return Objects.equals(id, other.id);
+  }
+
+  public String getDotCodigo() {
+    return this.codigo.isEmpty() || this.codigo.length() < 8 ? codigo :
+      codigo.substring(0,2) + "." +
+      codigo.substring(2,4) + "." +
+      codigo.substring(4,7) + "-" +
+      codigo.substring(7);
+  }
 
 }
