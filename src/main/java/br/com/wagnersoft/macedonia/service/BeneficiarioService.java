@@ -1,6 +1,5 @@
 package br.com.wagnersoft.macedonia.service;
 
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +38,10 @@ public class BeneficiarioService {
     logger.debug("{}", lista);
     return lista;  }
   /** Retorna apenas o mapa de nome (value) e o cpf (key) usado em select list.
-   * @return {@link Map<String, String>} CPF e Valor
+   * @return {@link Map<String, String>} CPF e Nome
    */
   public Map<String, String> mapAll() {
-    return listAll().stream()
-        .sorted(Comparator.comparing(Beneficiario::getNome, String.CASE_INSENSITIVE_ORDER))
+    return this.listAll().stream()
         .collect(Collectors.toMap(Beneficiario::getCpf, Beneficiario::getNome, (existing, replacement) -> existing, LinkedHashMap::new));
   }
 
