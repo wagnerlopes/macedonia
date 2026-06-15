@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
@@ -25,33 +26,36 @@ public class ContratoService {
 	private ContratoRepository rep;
 
 	public Optional<Contrato> findById(Integer id) {
+	  if (id == null) return Optional.empty();
 		return rep.findById(id);
 	}
 
 	public List<Contrato> listAll() {
-		final List<Contrato> lista = rep.findAll();
-		lista.forEach(e -> {logger.info(e.toString());});
+		final List<Contrato> lista = rep.findAll(Sort.by(Sort.Order.by("id")));
+		logger.debug("{}", lista);
 		return lista;
 	}
 
 	public void remove(final Integer id) {
+    if (id == null) return;
 		rep.findById(id).ifPresent(c -> rep.delete(c));
 	}
 	
 	public void add(Contrato contrato) {
-		if (contrato.getId() == null) {
-			rep.save(contrato);
-		} else {
-			rep.findById(contrato.getId()).ifPresentOrElse(oldCont -> save(oldCont, contrato), () -> rep.save(contrato));
-		}
+		if (contrato == null) return;
+		Optional.ofNullable(contrato.getId())
+		  .flatMap(rep::findById)
+		  .ifPresentOrElse(existing -> this.save(existing, contrato), () -> rep.save(contrato));
 	}
 
-	private void save(final Contrato oldCont, final Contrato newCont) {
-		oldCont.setChQtd(newCont.getChQtd());
-		oldCont.setInicioData(newCont.getInicioData());
-		oldCont.setTerminoData(newCont.getTerminoData());
-		oldCont.setOcs(newCont.getOcs());
-		rep.save(oldCont);
+	private void save(final Contrato existing, final Contrato replacement) {
+	  logger.debug("existing: {}", existing);
+    logger.debug("replacement: {}", replacement);
+		existing.setChQtd(replacement.getChQtd());
+		existing.setInicioData(replacement.getInicioData());
+		existing.setTerminoData(replacement.getTerminoData());
+		existing.setOcs(replacement.getOcs());
+		rep.save(existing);
 	}
 	
 }
