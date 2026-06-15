@@ -31,6 +31,8 @@ insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00010014', '00010014', '00010014','00010014', '10101012', 'Consulta em consultório', 80, 0, 0);
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('', '', '','00010065', '10101039', 'Consulta em pronto-socorro', 100, 0, 0);
 insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00020010', '00020010', '00020010','00020010', '10102019', 'Visita hospitalar (paciente internado)', 90, 0, 0);
+insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00040010', '00040010', '14010011', '14010011', '10104020', 'Atendimento médico do intensivista em UTI geral ou pediátrica (plantão de 12 horas - por paciente)',20, 2, 0);
+insert into procedimento_medico(amb90, amb92, amb96, amb99, tuss, descricao, ch_qtd, auxiliares_qtd, porte_anestesico) values ('00040029', '00040029', '14010020', '14010020', '10104020', 'Atendimento médico do intensivista em UTI geral ou pediátrica (plantão de 12 horas - por paciente)', 30, 1, 0);
 
 insert into registro_profissional(conselho, numero, uf) values ('CRM', '457890', 'SP');
 insert into registro_profissional(conselho, numero, uf) values ('CRM', '1012453', 'MG');
