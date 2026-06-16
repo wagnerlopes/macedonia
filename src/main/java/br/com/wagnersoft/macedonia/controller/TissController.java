@@ -1,7 +1,5 @@
 package br.com.wagnersoft.macedonia.controller;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,32 +22,28 @@ import br.com.wagnersoft.macedonia.tiss.TissReponseDTO;
 @RequestMapping("/api/tiss")
 public class TissController {
 
-	private static final Logger logger = LoggerFactory.getLogger(TissController.class);
+  private static final Logger logger = LoggerFactory.getLogger(TissController.class);
 
-	@Autowired
-	private TissService tissSvc;
-	
-    public TissController() {
-        super();
-        logger.debug("{} inicializado.", TissController.class.getSimpleName());
-    }
+  @Autowired
+  private TissService tissSvc;
 
-    @GetMapping
-    public ResponseEntity<TissReponseDTO> getAll() {
-		logger.info("+++ TISS +++");
-        final List<GuiaFaturamento> lista = tissSvc.listAll();
-        logger.debug("{}", lista);
-        final TissReponseDTO dto = TissReponseDTO.builder().guiaFaturamento(lista.get(0)).build();
-        return ResponseEntity.ok(dto);
-    }    
+  public TissController() {
+    super();
+    logger.debug("{} inicializado.", TissController.class.getSimpleName());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TissReponseDTO> getById(@PathVariable Integer id) {
-        final GuiaFaturamento guia = tissSvc.findById(id);
-        logger.debug("{}", guia);
-        if (guia == null) return ResponseEntity.notFound().build();
-        final TissReponseDTO dto = TissReponseDTO.builder().guiaFaturamento(guia).build();
-        return ResponseEntity.ok(dto);
-    }
+  @GetMapping
+  public ResponseEntity<TissReponseDTO> getAll() {
+    logger.info("+++ TISS +++");
+    final TissReponseDTO dto = TissReponseDTO.builder().guiaFaturamento(GuiaFaturamento.empty()).build();
+    return ResponseEntity.ok(dto);
+  }    
+
+  @GetMapping("/{id}")
+  public ResponseEntity<TissReponseDTO> getById(@PathVariable Integer id) {
+    final TissReponseDTO dto = TissReponseDTO.builder().guiaFaturamento(tissSvc.findById(id)).build();
+    logger.debug("{}", dto);
+    return ResponseEntity.ok(dto);
+  }
 
 }

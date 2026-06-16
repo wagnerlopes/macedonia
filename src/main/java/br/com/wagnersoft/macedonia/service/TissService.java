@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
+import br.com.wagnersoft.macedonia.model.GuiaPm;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
 import br.com.wagnersoft.macedonia.tiss.Cabecalho;
 import br.com.wagnersoft.macedonia.tiss.FormaPagamento;
@@ -29,94 +31,103 @@ import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 @Service
 public class TissService {
 
-	private static final Logger logger = LoggerFactory.getLogger(TissService.class);
+  private static final Logger logger = LoggerFactory.getLogger(TissService.class);
 
-	@Autowired
-	private GuiaEncaminhamentoRepository rep;
+  @Autowired
+  private GuiaEncaminhamentoRepository rep;
 
-	public GuiaFaturamento findById(Integer id) {
-		final GuiaEncaminhamento guia = rep.findById(id).orElseThrow();
-		return this.convert(guia);
-	}
+  public GuiaFaturamento findById(final Integer id) {
+    return rep.findById(id)
+        .map(this::convertNonNull)
+        .orElseGet(GuiaFaturamento::empty);
+  }
 
-	public List<GuiaFaturamento> listAll() {
-		final List<GuiaFaturamento> lista = new ArrayList<>();
-		rep.findAll().forEach(e -> {lista.add(this.convert(e)); logger.info(e.toString());});
-		return lista;
-	}
+  private GuiaFaturamento convertNonNull(final GuiaEncaminhamento guia) {
 
-	private GuiaFaturamento convert(GuiaEncaminhamento guia) {
-		final Prestador prestador = Prestador.builder()
-				.numeroRegistroANSPrestador(guia.getOcs().getRegistroAns())
-				.nomePrestador(guia.getOcs().getDescricao())
-				.cnpj(guia.getOcs().getCnpj())
-				.build();
+    final Prestador prestador = Prestador.builder()
+        .numeroRegistroANSPrestador(guia.getOcs().getRegistroAns() != null ? guia.getOcs().getRegistroAns() : "N/I")
+        .nomePrestador(guia.getOcs().getDescricao())
+        .cnpj(guia.getOcs().getCnpj())
+        .build();
 
-		final Operadora operadora = Operadora.builder()
-				.nomeOperadora("Saude Integrada S/A")
-				.numeroRegistroANSOperadora("12345678")
-				.build();
-				
-		final Cabecalho cab = Cabecalho.builder()
-				.identificacaoPrestador(prestador)
-				.identificacaoOperadora(operadora)
-				.dataEmissao(guia.getEmissaoData())
-				.build();
+    final Operadora operadora = Operadora.builder()
+        .nomeOperadora("N/I")
+        .numeroRegistroANSOperadora("N/I")
+        .build();
 
-		final List<Procedimento> procedimentos = new ArrayList<>(guia.getProcedimentos().size());
+    final Cabecalho cab = Cabecalho.builder()
+        .identificacaoPrestador(prestador)
+        .identificacaoOperadora(operadora)
+        .dataEmissao(guia.getEmissaoData())
+        .build();
 
-		final Valores valores = Valores.builder()
-				.valorTotalGlosa(BigDecimal.ZERO)
-				.valorTotalBruto(guia.getValorTotal())
-				.valorTotalLiquido(BigDecimal.ZERO.setScale(2))
-				.descontos(BigDecimal.ZERO)
-				.build();
-		
-		guia.getProcedimentos().forEach(g -> {
+    final List<Procedimento> procedimentos = new ArrayList<>();
 
-			logger.info("{}", g);
+    BigDecimal totalBrutoAcumulado = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 
-			valores.setValorTotalLiquido(valores.getValorTotalLiquido().add(g.getPosAuditoria()).setScale(2));
+    final Valores valores = Valores.builder()
+        .valorTotalGlosa(BigDecimal.ZERO)
+        .valorTotalBruto(BigDecimal.ZERO)
+        .valorTotalLiquido(BigDecimal.ZERO.setScale(2))
+        .descontos(BigDecimal.ZERO)
+        .build();
 
-			logger.info("liquido Total = {}", valores.getValorTotalLiquido());
+    int sequencial = 1;
 
-			final Procedimento proc = Procedimento.builder()
-					.sequencial(1)
-					.codigoProcedimento(g.getPm().getTuss())
-					.descricaoProcedimento(g.getPm().getDescricao())
-					.tabela("TUSS")
-					.quantidade(g.getPmQtd())
-					.unidadeMedida(UnidadeMedidaEnum.getDescricaoByCodigo(g.getUnidadeMedida()).orElse("N/I"))
-					.valorUnitario(g.getValorUnitario())
-					.valorTotal(g.getValorUnitario().multiply(BigDecimal.valueOf(Long.valueOf(g.getPmQtd()))).setScale(2))
-					.profissionalExecutante(guia.getResponsavel())
-					.dataRealizacao(guia.getEmissaoData())
-					.procedimentoPrincipal(false)
-					.build();
-			
-			procedimentos.add(proc);
-		});
+    for (GuiaPm gpm : guia.getProcedimentos()) {
 
-		valores.setValorTotalGlosa(valores.getValorTotalBruto().subtract(valores.getValorTotalLiquido()));
-		
-		final List<FormaPagamento> pagamentos = new ArrayList<>();
-		
-		final FormaPagamento pag = FormaPagamento.builder()
-				.tipo("ONLINE")
-				.dataPagamento(LocalDate.now())
-				.valorPago(guia.getValorTotal())
-				.build();
+      logger.debug("{}", gpm);
 
-		pagamentos.add(pag);
-		
-		final GuiaFaturamento guiaFaturamento = GuiaFaturamento.builder()
-				.cabecalho(cab)
-				.procedimentos(procedimentos)
-				.valores(valores)
-				.formasPagamento(pagamentos)
-				.observacoes(guia.getObservacao())
-				.build();
-		return guiaFaturamento;
-	}
+      BigDecimal posAuditoria = gpm.getPosAuditoria() != null ? gpm.getPosAuditoria() : BigDecimal.ZERO;
+
+      valores.setValorTotalLiquido(valores.getValorTotalLiquido().add(posAuditoria).setScale(2, RoundingMode.HALF_UP));
+
+      logger.info("liquido Total = {}", valores.getValorTotalLiquido());
+
+      BigDecimal quantidade = BigDecimal.valueOf(Long.valueOf(gpm.getPmQtd()));
+
+      BigDecimal valorUnitario = gpm.getValorUnitario() != null ? gpm.getValorUnitario() : BigDecimal.ZERO;      
+
+      BigDecimal valorTotalProc = valorUnitario.multiply(quantidade).setScale(2, RoundingMode.HALF_UP);
+
+      Procedimento proc = Procedimento.builder()
+          .sequencial(sequencial++)
+          .codigoProcedimento(gpm.getPm().getTuss())
+          .descricaoProcedimento(gpm.getPm().getDescricao())
+          .tabela("TUSS")
+          .quantidade(gpm.getPmQtd())
+          .unidadeMedida(UnidadeMedidaEnum.getDescricaoByCodigo(gpm.getUnidadeMedida()).orElse("N/I"))
+          .valorUnitario(valorUnitario)
+          .valorTotal(valorTotalProc)
+          .profissionalExecutante(guia.getResponsavel())
+          .dataRealizacao(guia.getEmissaoData())
+          .procedimentoPrincipal(false)
+          .build();
+
+      procedimentos.add(proc);
+      totalBrutoAcumulado = totalBrutoAcumulado.add(valorTotalProc);
+    };
+
+    valores.setValorTotalBruto(totalBrutoAcumulado);
+
+    valores.setValorTotalGlosa(valores.getValorTotalBruto().subtract(valores.getValorTotalLiquido()));
+
+    final List<FormaPagamento> pagamentos = new ArrayList<>();
+
+    pagamentos.add(FormaPagamento.builder()
+        .tipo("ONLINE")
+        .dataPagamento(LocalDate.now())
+        .valorPago(guia.getValorTotal() != null ? guia.getValorTotal() : BigDecimal.ZERO)
+        .build());
+
+    return GuiaFaturamento.builder()
+        .cabecalho(cab)
+        .procedimentos(procedimentos)
+        .valores(valores)
+        .formasPagamento(pagamentos)
+        .observacoes(guia.getObservacao() != null ? guia.getObservacao() : "N/I")
+        .build();
+
+  }
 
 }
