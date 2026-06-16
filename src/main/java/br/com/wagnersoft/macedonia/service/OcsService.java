@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
@@ -32,65 +34,77 @@ public class OcsService {
 	private ProcedimentoMedicoRepository pmRep;
 
 	public Optional<Ocs> findById(Integer id) {
+	  if (id == null) return Optional.empty();
 		return rep.findById(id);
 	}
 
-	public Optional<Ocs> findByCnpj(String cnpj) {
-		return rep.findByCnpj(cnpj);
-	}
-
-	public Map<Integer, String> mapAll() {
-		return listAll().stream().collect(Collectors.toMap(Ocs::getId, Ocs::getDescricao));
-	}
-
 	public List<Ocs> listAll() {
-		final List<Ocs> lista = rep.findAll();
-		return lista;
+    final List<Ocs> lista = rep.findAll(Sort.by(Sort.Order.by("descricao").ignoreCase()));
+    logger.debug("{}", lista);
+    return lista;
 	}
 
-	public void add(Ocs ocs) {
-		logger.debug("{}", ocs);
-		rep.findById(ocs.getId()).ifPresentOrElse(oldOcs -> save(oldOcs, ocs), () -> rep.save(ocs));
+  /** Retorna apenas o mapa de nome (value) e o cpf (key) usado em select list.
+   * @return {@link Map<String, String>} Id e Descricao
+   */
+  public Map<Integer, String> mapAll() {
+    return this.listAll().stream()
+        .collect(Collectors.toMap(Ocs::getId, Ocs::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));
+  }
+
+  public void remove(final Integer id) {
+    if (id == null) return;
+    rep.findById(id).ifPresent(o -> {
+      if (o.getGuias().isEmpty())
+        rep.delete(o);
+    });
+  }
+  
+	public void add(final Ocs ocs) {
+    if (ocs == null) return;
+    logger.debug("{}", ocs);
+    Optional.ofNullable(ocs.getId())
+      .flatMap(rep::findById)
+      .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
 	}
 
-	public void remove(Integer id) {
-		rep.findById(id).ifPresent(o -> {
-			if (o.getGuias().isEmpty())
-				rep.delete(o);
+	public void addProcedimentoMedico(final OcsPm opm) {
+    if (opm == null) return;
+		final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
+		ocs.ifPresent(o -> {
+		  o.addOcsPm(opm);
+		  rep.save(o);
 		});
 	}
-	
-	public void addProcedimentoMedico(OcsPm ocsPm) {
-		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
-		ocs.getProcedimentos().add(ocsPm);
-		rep.save(ocs);
+
+	public void removeProcedimentoMedico(final OcsPm opm) {
+    if (opm == null) return;
+    final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
+    ocs.ifPresent(o -> {
+      o.removeOcsPm(opm);
+      rep.save(o);
+    });
 	}
 
-	public void removeProcedimentoMedico(OcsPm ocsPm) {
-		final Ocs ocs = rep.getReferenceById(ocsPm.getOcs().getId());
-		ocs.getProcedimentos().remove(ocsPm);
-		rep.save(ocs);
-	}
-
-	private void save(final Ocs oldOcs, final Ocs newOcs) {
-		oldOcs.setCnpj(newOcs.getCnpj());
-		oldOcs.setComplemento(newOcs.getComplemento());
-		oldOcs.setContato(newOcs.getContato());
-		oldOcs.setDescricao(newOcs.getDescricao());
-		oldOcs.setEndereco(newOcs.getEndereco());
-		oldOcs.setEspecialidade(newOcs.getEspecialidade());
-		oldOcs.setMunicipio(newOcs.getMunicipio());
-		oldOcs.setNumero(newOcs.getNumero());
-		oldOcs.setRegistroAns(newOcs.getRegistroAns());
-		oldOcs.setTelefone(newOcs.getTelefone());
-		oldOcs.setUf(newOcs.getUf());
-		if (newOcs.getProcedimentos() != null) {
-		  newOcs.getProcedimentos().forEach(op -> {
+	private void save(final Ocs existing, final Ocs replacement) {
+		existing.setCnpj(replacement.getCnpj());
+		existing.setComplemento(replacement.getComplemento());
+		existing.setContato(replacement.getContato());
+		existing.setDescricao(replacement.getDescricao());
+		existing.setEndereco(replacement.getEndereco());
+		existing.setEspecialidade(replacement.getEspecialidade());
+		existing.setMunicipio(replacement.getMunicipio());
+		existing.setNumero(replacement.getNumero());
+		existing.setRegistroAns(replacement.getRegistroAns());
+		existing.setTelefone(replacement.getTelefone());
+		existing.setUf(replacement.getUf());
+		if (replacement.getProcedimentos() != null) {
+		  replacement.getProcedimentos().forEach(op -> {
     	    pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
-		    oldOcs.addOcsPm(op);
+		    existing.addOcsPm(op);
 		  });
 		}
-		rep.save(oldOcs);
+		rep.save(existing);
 	}
 	
 }

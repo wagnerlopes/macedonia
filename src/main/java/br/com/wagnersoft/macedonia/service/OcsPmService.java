@@ -27,11 +27,6 @@ public class OcsPmService {
 	@Autowired
 	private OcsPmRepository rep;
 
-	public List<OcsPm> listAll() {
-		final List<OcsPm> lista = rep.findAll();
-		return lista;
-	}
-
 	public Optional<OcsPm> findById(final Integer id) {
 	  if (id == null) return Optional.empty();
 		return rep.findById(id);
@@ -42,12 +37,17 @@ public class OcsPmService {
 		return rep.findByOcs(ocs);
 	}
 
-	public List<OcsPm> findByPm(ProcedimentoMedico pm) {
+	public List<OcsPm> findByPm(final ProcedimentoMedico pm) {
     if (pm == null) return Collections.emptyList();
 		return rep.findByPm(pm);
 	}
 	
-  public void remove(Integer id) {
+  public List<OcsPm> listAll() {
+    final List<OcsPm> lista = rep.findAll();
+    return lista;
+  }
+  
+  public void remove(final Integer id) {
     if (id == null) return;
     rep.findById(id).ifPresent(o -> {
       if (o.getOcs().getGuias().isEmpty())
@@ -55,12 +55,11 @@ public class OcsPmService {
     });
   }
   
-	public void add(OcsPm opm) {
+	public void add(final OcsPm opm) {
 	  if (opm == null) return;
 	  Optional.ofNullable(opm.getId())
 	    .flatMap(rep::findById)
-	    .ifPresentOrElse(old -> save(old, opm), () -> rep.save(opm));
-		//rep.findById(opm.getId() == null ? 0 : opm.getId()).ifPresentOrElse(old -> save(old, opm), () -> rep.save(opm));
+	    .ifPresentOrElse(existing -> save(existing, opm), () -> rep.save(opm));
 	}
 
 	private void save(final OcsPm existing, final OcsPm replacement) {
