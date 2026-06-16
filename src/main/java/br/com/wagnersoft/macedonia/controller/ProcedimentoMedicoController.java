@@ -7,11 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
@@ -35,7 +32,7 @@ public class ProcedimentoMedicoController {
     }
 
     @ModelAttribute("allProcedimentos")
-    public List<ProcedimentoMedico> listProcedimentos() {
+    public List<ProcedimentoMedico> allProcedimentos() {
     	return pmSvc.listAll();
     }
     
@@ -45,16 +42,5 @@ public class ProcedimentoMedicoController {
 		model.addAttribute("menu", "proc");
 		return "procedimentos";
 	}
-    
-    @PostMapping(value="/procedimentos", params={"save"})
-    public String save(final ProcedimentoMedico pm, final BindingResult bindingResult, final ModelMap model) {
-        if (bindingResult.hasErrors()) {
-        	return "procedimentos";
-        }
-        logger.info("{}", pm);
-        pmSvc.add(pm);
-        model.clear();
-        return "redirect:/procedimentos";
-    }
     
 }

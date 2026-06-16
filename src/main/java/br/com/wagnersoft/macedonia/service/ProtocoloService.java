@@ -24,11 +24,6 @@ public class ProtocoloService {
 	@Autowired
 	private ProtocoloRepository rep;
 
-  public void delete(final Integer id) {
-    if (id == null) return;
-    this.findById(id).ifPresent(p -> rep.delete(p));
-  }
-  
 	public Optional<Protocolo> findById(final Integer id) {
 	  if (id == null) return Optional.empty();
 		return rep.findById(id);
@@ -40,6 +35,11 @@ public class ProtocoloService {
 		return lista;
 	}
 
+  public void remove(final Integer id) {
+    if (id == null) return;
+    this.findById(id).ifPresent(p -> rep.delete(p));
+  }
+  
 	public void add(final Protocolo protocolo) {
 	  if (protocolo == null) return;
     logger.debug("{}", protocolo);
