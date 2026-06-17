@@ -5,6 +5,10 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +46,13 @@ public class TissService {
         .orElseGet(GuiaFaturamento::empty);
   }
 
+  /** Converte a Guia de ENcaminhamento em Guia de Faturamento no padrao TISS.
+   * @param guia Guia de Encaminhamento
+   * @return Guia de Faturamento
+   */
   private GuiaFaturamento convertNonNull(final GuiaEncaminhamento guia) {
+
+    logger.debug("{}", guia);
 
     final Prestador prestador = Prestador.builder()
         .numeroRegistroANSPrestador(guia.getOcs().getRegistroAns() != null ? guia.getOcs().getRegistroAns() : "N/I")
@@ -61,65 +71,34 @@ public class TissService {
         .dataEmissao(guia.getEmissaoData())
         .build();
 
-    final List<Procedimento> procedimentos = new ArrayList<>();
+    // Conversao de List<GuiaPm> em List<Procedimento>
+    List<Procedimento> procedimentos = IntStream.range(0, guia.getProcedimentos().size())
+        .mapToObj(i -> toProcedimento(guia.getProcedimentos().get(i), i + 1))
+        .collect(Collectors.toList());
 
-    BigDecimal totalBrutoAcumulado = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+    // Calculo dos Valores da Guia
+    BigDecimal bruto = calcularValorTotalBruto(procedimentos);
 
-    final Valores valores = Valores.builder()
-        .valorTotalGlosa(BigDecimal.ZERO)
-        .valorTotalBruto(BigDecimal.ZERO)
-        .valorTotalLiquido(BigDecimal.ZERO.setScale(2))
+    BigDecimal liquido = calcularValorTotalLiquido(guia.getProcedimentos());
+
+    BigDecimal glosa = bruto.subtract(liquido);
+
+    Valores valores = Valores.builder()
+        .valorTotalBruto(bruto)
+        .valorTotalLiquido(liquido)
+        .valorTotalGlosa(glosa)
         .descontos(BigDecimal.ZERO)
         .build();
-
-    int sequencial = 1;
-
-    for (GuiaPm gpm : guia.getProcedimentos()) {
-
-      logger.debug("{}", gpm);
-
-      BigDecimal posAuditoria = gpm.getPosAuditoria() != null ? gpm.getPosAuditoria() : BigDecimal.ZERO;
-
-      valores.setValorTotalLiquido(valores.getValorTotalLiquido().add(posAuditoria).setScale(2, RoundingMode.HALF_UP));
-
-      logger.info("liquido Total = {}", valores.getValorTotalLiquido());
-
-      BigDecimal quantidade = BigDecimal.valueOf(Long.valueOf(gpm.getPmQtd()));
-
-      BigDecimal valorUnitario = gpm.getValorUnitario() != null ? gpm.getValorUnitario() : BigDecimal.ZERO;      
-
-      BigDecimal valorTotalProc = valorUnitario.multiply(quantidade).setScale(2, RoundingMode.HALF_UP);
-
-      Procedimento proc = Procedimento.builder()
-          .sequencial(sequencial++)
-          .codigoProcedimento(gpm.getPm().getTuss())
-          .descricaoProcedimento(gpm.getPm().getDescricao())
-          .tabela("TUSS")
-          .quantidade(gpm.getPmQtd())
-          .unidadeMedida(UnidadeMedidaEnum.getDescricaoByCodigo(gpm.getUnidadeMedida()).orElse("N/I"))
-          .valorUnitario(valorUnitario)
-          .valorTotal(valorTotalProc)
-          .profissionalExecutante(guia.getResponsavel())
-          .dataRealizacao(guia.getEmissaoData())
-          .procedimentoPrincipal(false)
-          .build();
-
-      procedimentos.add(proc);
-      totalBrutoAcumulado = totalBrutoAcumulado.add(valorTotalProc);
-    };
-
-    valores.setValorTotalBruto(totalBrutoAcumulado);
-
-    valores.setValorTotalGlosa(valores.getValorTotalBruto().subtract(valores.getValorTotalLiquido()));
 
     final List<FormaPagamento> pagamentos = new ArrayList<>();
 
     pagamentos.add(FormaPagamento.builder()
         .tipo("ONLINE")
         .dataPagamento(LocalDate.now())
-        .valorPago(guia.getValorTotal() != null ? guia.getValorTotal() : BigDecimal.ZERO)
+        .valorPago(liquido != null ? liquido : BigDecimal.ZERO)
         .build());
 
+    // Montagem da Guia de Faturamento
     return GuiaFaturamento.builder()
         .cabecalho(cab)
         .procedimentos(procedimentos)
@@ -128,6 +107,59 @@ public class TissService {
         .observacoes(guia.getObservacao() != null ? guia.getObservacao() : "N/I")
         .build();
 
+  }  
+  
+  /** Converte a entidade {@link GuiaPm} em {@link Procedimento}.
+   * @param gpm
+   * @param sequencial
+   * @return {@link Procedimento} Procedimento no padrao TISS
+   */
+  private Procedimento toProcedimento(final GuiaPm gpm, int sequencial) {
+
+    logger.debug("{} - {}", sequencial, gpm);
+
+    BigDecimal quantidade = BigDecimal.valueOf(Optional.ofNullable(gpm.getPmQtd()).orElse(0));
+
+    BigDecimal valorUnitario = Optional.ofNullable(gpm.getValorUnitario()).orElse(BigDecimal.ZERO);
+
+    BigDecimal valorTotal = valorUnitario.multiply(quantidade).setScale(2, RoundingMode.HALF_UP);
+
+    return Procedimento.builder()
+        .codigoProcedimento(gpm.getPm().getTuss())
+        .dataRealizacao(gpm.getGuiaEncaminhamento().getEmissaoData())
+        .descricaoProcedimento(gpm.getPm().getDescricao())
+        .procedimentoPrincipal(sequencial == 1 ? true : false)
+        .profissionalExecutante(gpm.getGuiaEncaminhamento().getResponsavel())
+        .quantidade(gpm.getPmQtd())
+        .sequencial(sequencial)
+        .tabela("TUSS")
+        .unidadeMedida(UnidadeMedidaEnum.getDescricaoByCodigo(gpm.getUnidadeMedida()).orElse("N/I"))
+        .valorTotal(valorTotal)
+        .valorUnitario(valorUnitario)
+        .build();
   }
+
+  /** Calculo do Valor Total Bruto, soma dos valores parciais dos procedimentos.
+   * @param procs
+   * @return Valor Bruto Total
+   */
+  private BigDecimal calcularValorTotalBruto(final List<Procedimento> procs) {
+    return procs.stream()
+        .map(Procedimento::getValorTotal)
+        .filter(Objects::nonNull)
+        .reduce(BigDecimal.ZERO, BigDecimal::add)
+        .setScale(2, RoundingMode.HALF_UP);
+  }  
+
+  /** Calculo do Valor Total Liquido, soma dos valores pos-auditoria dos procedimentos.
+   * @param procs
+   * @return Valor Liquido Total
+   */
+  private BigDecimal calcularValorTotalLiquido(final List<GuiaPm> itens) {
+    return itens.stream()
+        .map(i -> Optional.ofNullable(i.getPosAuditoria()).orElse(BigDecimal.ZERO))
+        .reduce(BigDecimal.ZERO, BigDecimal::add)
+        .setScale(2, RoundingMode.HALF_UP);
+  }  
 
 }
