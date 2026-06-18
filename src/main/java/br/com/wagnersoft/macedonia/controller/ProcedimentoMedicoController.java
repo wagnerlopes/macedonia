@@ -21,26 +21,26 @@ import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 @Controller
 public class ProcedimentoMedicoController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProcedimentoMedicoController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ProcedimentoMedicoController.class);
 
-    @Autowired
-    private ProcedimentoMedicoService pmSvc;
-	
-    public ProcedimentoMedicoController() {
-        super();
-    	logger.debug("{} loaded", ProcedimentoMedicoController.class.getSimpleName());
-    }
+  @Autowired
+  private ProcedimentoMedicoService pmSvc;
 
-    @ModelAttribute("allProcedimentos")
-    public List<ProcedimentoMedico> allProcedimentos() {
-    	return pmSvc.listAll();
-    }
-    
-	@GetMapping("/procedimentos")
-	public String procedimentos(Model model) {
-		logger.info("+++ Procedimentos +++");
-		model.addAttribute("menu", "proc");
-		return "procedimentos";
-	}
-    
+  public ProcedimentoMedicoController() {
+    super();
+    logger.debug("{} loaded", ProcedimentoMedicoController.class.getSimpleName());
+  }
+
+  @ModelAttribute("allProcedimentos")
+  public List<ProcedimentoMedico> allProcedimentos() {
+    return pmSvc.listAll();
+  }
+
+  @GetMapping("/procedimentos")
+  public String procedimentos(Model model) {
+    logger.info("+++ Procedimentos +++");
+    model.addAttribute("menu", "proc");
+    return "procedimentos";
+  }
+
 }

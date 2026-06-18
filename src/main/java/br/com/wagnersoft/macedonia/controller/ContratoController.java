@@ -38,6 +38,7 @@ public class ContratoController {
 
     public ContratoController() {
         super();
+        logger.debug("{} loaded", ContratoController.class.getSimpleName());
     }
 
     @ModelAttribute("allContratos")

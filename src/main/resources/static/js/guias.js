@@ -2,6 +2,8 @@
 
 const limpa_numero = (numero_formatado) => {return Number(numero_formatado.replace(/[^\d,-]/g, "").replace(",", "."))};
 
+const base = window.location.pathname.split('/').slice(0,2).join('/') || '';
+
 // Calcula o Valor Total do Procedimento Medico = vlt unit * qtd
 const calculaTotal = function(pm_id, pm_qtd) {
 
@@ -34,7 +36,7 @@ const calculaTotal = function(pm_id, pm_qtd) {
 
 // Carrega os dados Procedimento Medico selecionado na lista
 const opmLoad = function (idx, id) {
-  fetch(`/macedonia/opm/${encodeURIComponent(id)}`)
+  fetch(`${base}/api/opm/${encodeURIComponent(id)}`)
     .then(response => {
       if (response.ok) return response.json();
       if (response.status === 404) throw new Error('Procedimento não encontrado');

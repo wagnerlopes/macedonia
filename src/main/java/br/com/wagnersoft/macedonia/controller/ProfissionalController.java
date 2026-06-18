@@ -32,73 +32,73 @@ import jakarta.validation.Valid;
 @Controller
 public class ProfissionalController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProfissionalController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ProfissionalController.class);
 
-    @Autowired
-    private CboService cboSvc;
+  @Autowired
+  private CboService cboSvc;
 
-    @Autowired
-    private ProfissionalService profSvc;
-    
-    public ProfissionalController() {
-        super();
-    	logger.debug("{} loaded", ProfissionalController.class.getSimpleName());
-    }
+  @Autowired
+  private ProfissionalService profSvc;
 
-    @ModelAttribute("allProfissionais")
-    public List<Profissional> allProfissionais() {
-    	return profSvc.listAll();
-    }
+  public ProfissionalController() {
+    super();
+    logger.debug("{} loaded", ProfissionalController.class.getSimpleName());
+  }
 
-	@ModelAttribute("allCbo")
-    public Map<String, String> allCbo() {
-        return cboSvc.mapAll();
-    }
+  @ModelAttribute("allProfissionais")
+  public List<Profissional> allProfissionais() {
+    return profSvc.listAll();
+  }
 
-	@ModelAttribute("allConselho")
-    public List<ConselhoEnum> allConselho() {
-        return Arrays.asList(ConselhoEnum.ALL);
-    }
-	
-	@ModelAttribute("allUf")
-    public List<UfEnum> allUf() {
-        return Arrays.asList(UfEnum.ALL);
-    }
-	
-	@GetMapping("/especialidades")
-	public String especialidades(Model model) {
-		logger.info("+++ Especialidades +++");
-		model.addAttribute("menu", "esp");
-		model.addAttribute("lista", cboSvc.listAll());
-		return "especialidades";
-	}
-	
-	@GetMapping("/profissionais")
-	public String show(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, Model model) {
-		logger.info("+++ Profissionais +++");
-		model.addAttribute("menu", "prof");
-        model.addAttribute("profissional", cpf == null ? new Profissional() : profSvc.findByCpf(cpf).orElse(new Profissional()));
-		return "profissionais";
-	}
+  @ModelAttribute("allCbo")
+  public Map<String, String> allCbo() {
+    return cboSvc.mapAll();
+  }
 
-    @GetMapping({"/profissionais/delete"})
-    public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
-        profSvc.remove(cpf);
-        return "redirect:/profissionais";
+  @ModelAttribute("allConselho")
+  public List<ConselhoEnum> allConselho() {
+    return Arrays.asList(ConselhoEnum.ALL);
+  }
+
+  @ModelAttribute("allUf")
+  public List<UfEnum> allUf() {
+    return Arrays.asList(UfEnum.ALL);
+  }
+
+  @GetMapping("/especialidades")
+  public String especialidades(Model model) {
+    logger.info("+++ Especialidades +++");
+    model.addAttribute("menu", "esp");
+    model.addAttribute("lista", cboSvc.listAll());
+    return "especialidades";
+  }
+
+  @GetMapping("/profissionais")
+  public String show(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, Model model) {
+    logger.info("+++ Profissionais +++");
+    model.addAttribute("menu", "prof");
+    model.addAttribute("profissional", cpf == null ? new Profissional() : profSvc.findByCpf(cpf).orElse(new Profissional()));
+    return "profissionais";
+  }
+
+  @GetMapping({"/profissionais/delete"})
+  public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
+    profSvc.remove(cpf);
+    return "redirect:/profissionais";
+  }
+
+  @PostMapping(value="/profissionais", params={"save"})
+  public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
+    cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
+    if (bindingResult.hasErrors()) {
+      return "profissionais";
     }
-	
-    @PostMapping(value="/profissionais", params={"save"})
-    public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
-    	cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
-        if (bindingResult.hasErrors()) {
-        	return "profissionais";
-        }
-        final Cbo cbo =cboSvc.findById(profissional.getCbo().getCodigo()).orElseThrow();
-        profissional.setCbo(cbo);
-        logger.info("{}", profissional);
-        profSvc.add(profissional);
-        model.clear();
-        return "redirect:/profissionais";
-    }
-    
+    final Cbo cbo =cboSvc.findById(profissional.getCbo().getCodigo()).orElseThrow();
+    profissional.setCbo(cbo);
+    logger.info("{}", profissional);
+    profSvc.add(profissional);
+    model.clear();
+    return "redirect:/profissionais";
+  }
+
 }

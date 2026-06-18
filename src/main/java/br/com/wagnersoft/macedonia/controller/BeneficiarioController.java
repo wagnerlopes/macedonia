@@ -33,8 +33,8 @@ public class BeneficiarioController {
     private BeneficiarioService benSvc;
 
     public BeneficiarioController() {
-        super();
-    	logger.debug("{} loaded", BeneficiarioController.class.getSimpleName());
+      super();
+      logger.debug("{} loaded", BeneficiarioController.class.getSimpleName());
     }
     
     @ModelAttribute("allBeneficiarios")

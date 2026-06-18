@@ -35,89 +35,90 @@ import jakarta.validation.Valid;
 @Controller
 public class OcsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(OcsController.class);
+  private static final Logger logger = LoggerFactory.getLogger(OcsController.class);
 
-    @Autowired
-    private OcsService ocsSvc;
+  @Autowired
+  private OcsService ocsSvc;
 
-    @Autowired
-    private ProcedimentoMedicoService pmSvc;
-    
-    public OcsController() {
-        super();
-    }
+  @Autowired
+  private ProcedimentoMedicoService pmSvc;
 
-    @ModelAttribute("allOcs")
-    public List<Ocs> allOcs() {
-    	return ocsSvc.listAll();
-    }
+  public OcsController() {
+    super();
+    logger.debug("{} loaded", OcsController.class.getSimpleName());
+  }
 
-    @ModelAttribute("allProcedimentos")
-    public Map<Integer, String> allProcedimentos() {
-    	return pmSvc.mapAll();
-    }
-    
-    @ModelAttribute("allEspecialidade")
-    public List<EstabelecimentoSaudeEnum> allEspecialidade() {
-        return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
-    }
-    
-    @ModelAttribute("allUf")
-    public List<UfEnum> allUf() {
-        return Arrays.asList(UfEnum.ALL);
-    }
+  @ModelAttribute("allOcs")
+  public List<Ocs> allOcs() {
+    return ocsSvc.listAll();
+  }
 
-    @ModelAttribute("tipoOcsMap")
-    public Map<String, String> tipoOcsMap() {
-        return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
-    }
+  @ModelAttribute("allProcedimentos")
+  public Map<Integer, String> allProcedimentos() {
+    return pmSvc.mapAll();
+  }
 
-    @ModelAttribute("unidadeMedidaMap")
-    public Map<String, String> unidadeMedidaMap() {
-        return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
-    }
-	
-	@GetMapping("/ocs")
-    public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
-        logger.info("+++ OCS +++");
-        model.addAttribute("menu", "ocs");
-        model.addAttribute("ocs", id == null ? new Ocs() : ocsSvc.findById(id).orElse(new Ocs()));
-        model.addAttribute("procedimentos", id != null && ocsSvc.findById(id).isPresent() ? ocsSvc.findById(id).get().getProcedimentos() : new OcsPm());
-        return "ocs";
-    }
+  @ModelAttribute("allEspecialidade")
+  public List<EstabelecimentoSaudeEnum> allEspecialidade() {
+    return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
+  }
 
-    @GetMapping({"/ocs/delete"})
-    public String delete(@RequestParam(name = "id", required = false) Integer id) {
-        ocsSvc.remove(id);
-        return "redirect:/ocs";
-    }
-	
-    @RequestMapping(value="/ocs", params={"save"})
-    public String save(@Valid final Ocs ocs, final BindingResult bindingResult, final ModelMap model) {
-        if (bindingResult.hasErrors()) {
-            return "ocs";
-        }
-        logger.info("{}", ocs);
-        ocsSvc.add(ocs);
-        model.clear();
-        return "redirect:/ocs";
-    }
+  @ModelAttribute("allUf")
+  public List<UfEnum> allUf() {
+    return Arrays.asList(UfEnum.ALL);
+  }
 
-    @RequestMapping(value="/ocs", params={"addRow"})
-    public String addRow(final Ocs ocs, final BindingResult bindingResult, final Model model) {
-        ocs.getProcedimentos().add(new OcsPm());
-        model.addAttribute("ocs", ocs);
-        model.addAttribute("procedimentos", ocs.getProcedimentos());
-        return "ocs";
-    }
+  @ModelAttribute("tipoOcsMap")
+  public Map<String, String> tipoOcsMap() {
+    return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
+  }
 
-    @RequestMapping(value="/ocs", params={"removeRow"})
-    public String removeRow(final Ocs ocs, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
-        final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
-        ocs.getProcedimentos().remove(rowId.intValue());
-        model.addAttribute("ocs", ocs);
-        model.addAttribute("procedimentos", ocs.getProcedimentos());
-        return "ocs";
+  @ModelAttribute("unidadeMedidaMap")
+  public Map<String, String> unidadeMedidaMap() {
+    return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
+  }
+
+  @GetMapping("/ocs")
+  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+    logger.info("+++ OCS +++");
+    model.addAttribute("menu", "ocs");
+    model.addAttribute("ocs", id == null ? new Ocs() : ocsSvc.findById(id).orElse(new Ocs()));
+    model.addAttribute("procedimentos", id != null && ocsSvc.findById(id).isPresent() ? ocsSvc.findById(id).get().getProcedimentos() : new OcsPm());
+    return "ocs";
+  }
+
+  @GetMapping({"/ocs/delete"})
+  public String delete(@RequestParam(name = "id", required = false) Integer id) {
+    ocsSvc.remove(id);
+    return "redirect:/ocs";
+  }
+
+  @RequestMapping(value="/ocs", params={"save"})
+  public String save(@Valid final Ocs ocs, final BindingResult bindingResult, final ModelMap model) {
+    if (bindingResult.hasErrors()) {
+      return "ocs";
     }
-    
+    logger.info("{}", ocs);
+    ocsSvc.add(ocs);
+    model.clear();
+    return "redirect:/ocs";
+  }
+
+  @RequestMapping(value="/ocs", params={"addRow"})
+  public String addRow(final Ocs ocs, final BindingResult bindingResult, final Model model) {
+    ocs.getProcedimentos().add(new OcsPm());
+    model.addAttribute("ocs", ocs);
+    model.addAttribute("procedimentos", ocs.getProcedimentos());
+    return "ocs";
+  }
+
+  @RequestMapping(value="/ocs", params={"removeRow"})
+  public String removeRow(final Ocs ocs, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
+    final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+    ocs.getProcedimentos().remove(rowId.intValue());
+    model.addAttribute("ocs", ocs);
+    model.addAttribute("procedimentos", ocs.getProcedimentos());
+    return "ocs";
+  }
+
 }

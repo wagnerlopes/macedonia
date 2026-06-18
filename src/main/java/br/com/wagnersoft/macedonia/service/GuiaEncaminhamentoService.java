@@ -35,6 +35,10 @@ public class GuiaEncaminhamentoService {
 	  if (id == null) return Optional.empty();
 		return rep.findById(id);
 	}
+
+  public List<Object[]> countByMonth(final Integer ano) {
+    return rep.countByMonth(ano);
+  }
 	
 	public List<GuiaEncaminhamento> listAll() {
 		final List<GuiaEncaminhamento> lista = rep.findAll(Sort.by(Sort.Order.by("beneficiario_cpf")));

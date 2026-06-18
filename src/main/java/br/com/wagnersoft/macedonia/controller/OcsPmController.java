@@ -32,58 +32,58 @@ import jakarta.validation.Valid;
 @Controller
 public class OcsPmController {
 
-	private static final Logger logger = LoggerFactory.getLogger(OcsPmController.class);
+  private static final Logger logger = LoggerFactory.getLogger(OcsPmController.class);
 
-    @Autowired
-    private OcsService ocsSvc;
+  @Autowired
+  private OcsService ocsSvc;
 
-    @Autowired
-    private OcsPmService ocsPmSvc;
+  @Autowired
+  private OcsPmService ocsPmSvc;
 
-    @Autowired
-    private ProcedimentoMedicoService pmSvc;
-    
-    public OcsPmController() {
-        super();
-    	logger.debug("{} loaded", OcsPmController.class.getSimpleName());
-    }
+  @Autowired
+  private ProcedimentoMedicoService pmSvc;
 
-    @ModelAttribute("allProcedimentos")
-    public Map<Integer, String> allProcedimentos() {
-    	return pmSvc.mapAll();
-    }
-    
-	@ModelAttribute("unidadeMedidaMap")
-    public Map<String, String> unidadeMedidaMap() {
-        return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
-    }
-	
-	@GetMapping("/ocspm")
-    public String show(@RequestParam(name = "ocsid", required = true) Integer ocsId, @RequestParam(name = "id", required = false, defaultValue = "0") Integer id, Model model) {
-		logger.info("+++ OCS/PM +++");
-		model.addAttribute("menu", "ocspm");
-		final Ocs ocs = ocsSvc.findById(ocsId).orElse(new Ocs(ocsId));
-        model.addAttribute("ocs", ocs);
-        model.addAttribute("listOcsPm", ocsPmSvc.findByOcs(ocs));
-        model.addAttribute("ocspm", ocsPmSvc.findById(id).orElse(new OcsPm()));
-        return "ocspm";
-    }
+  public OcsPmController() {
+    super();
+    logger.debug("{} loaded", OcsPmController.class.getSimpleName());
+  }
 
-    @GetMapping({"/ocspm/delete"})
-    public String delete(@RequestParam(name = "ocsid", required = true) Integer ocsId, @RequestParam(name = "id", required = true) Integer id) {
-        ocsPmSvc.remove(id);
-        return "redirect:/ocspm?ocsid=" + ocsId;
+  @ModelAttribute("allProcedimentos")
+  public Map<Integer, String> allProcedimentos() {
+    return pmSvc.mapAll();
+  }
+
+  @ModelAttribute("unidadeMedidaMap")
+  public Map<String, String> unidadeMedidaMap() {
+    return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
+  }
+
+  @GetMapping("/ocspm")
+  public String show(@RequestParam(name = "ocsid", required = true) Integer ocsId, @RequestParam(name = "id", required = false, defaultValue = "0") Integer id, Model model) {
+    logger.info("+++ OCS/PM +++");
+    model.addAttribute("menu", "ocspm");
+    final Ocs ocs = ocsSvc.findById(ocsId).orElse(new Ocs(ocsId));
+    model.addAttribute("ocs", ocs);
+    model.addAttribute("listOcsPm", ocsPmSvc.findByOcs(ocs));
+    model.addAttribute("ocspm", ocsPmSvc.findById(id).orElse(new OcsPm()));
+    return "ocspm";
+  }
+
+  @GetMapping({"/ocspm/delete"})
+  public String delete(@RequestParam(name = "ocsid", required = true) Integer ocsId, @RequestParam(name = "id", required = true) Integer id) {
+    ocsPmSvc.remove(id);
+    return "redirect:/ocspm?ocsid=" + ocsId;
+  }
+
+  @RequestMapping(value="/ocspm", params={"save"})
+  public String save(@Valid final OcsPm ocspm, final BindingResult bindingResult, final ModelMap model) {
+    if (bindingResult.hasErrors()) {
+      return "ocspm";
     }
-	
-    @RequestMapping(value="/ocspm", params={"save"})
-    public String save(@Valid final OcsPm ocspm, final BindingResult bindingResult, final ModelMap model) {
-        if (bindingResult.hasErrors()) {
-            return "ocspm";
-        }
-        logger.info("{}", ocspm);
-        ocsPmSvc.add(ocspm);
-        model.clear();
-        return "redirect:/ocspm?ocsid=" + ocspm.getOcs().getId();
-    }
+    logger.info("{}", ocspm);
+    ocsPmSvc.add(ocspm);
+    model.clear();
+    return "redirect:/ocspm?ocsid=" + ocspm.getOcs().getId();
+  }
 
 }

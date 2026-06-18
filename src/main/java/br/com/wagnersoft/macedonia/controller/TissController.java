@@ -29,7 +29,7 @@ public class TissController {
 
   public TissController() {
     super();
-    logger.debug("{} inicializado.", TissController.class.getSimpleName());
+    logger.debug("{} loaded", TissController.class.getSimpleName());
   }
 
   @GetMapping

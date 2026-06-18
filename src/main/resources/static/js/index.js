@@ -1,36 +1,46 @@
-/* globals Chart:false */
+document.addEventListener('DOMContentLoaded', () => {
 
-(() => {
   'use strict'
 
-  // Graphs
-  const ctx = document.getElementById('myChart')
-  const xValues = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"];
-  const yValues = [10, 13, 25, 22, 15, 9];
-  const barColors = ["blue"]; //["red", "yellow", "green", "blue", "orange", "brown"];
+  // placeholder visual
+  document.getElementById('status').textContent = 'Carregando dados...';
+
+  const ctx = document.getElementById('myChart');
   
-  new Chart(ctx, {
+  const xValues = ["Jan","Fev","Mar","Abr","Mai","Jun"];
+
+  // inicializa com zeros (evita layout shift)
+  const initialData = [0,0,0,0,0,0];
+
+  const chart = new Chart(ctx, {
     type: 'bar',
-    data: {
-      labels: xValues,
-      datasets: [{
-        data: yValues,
-        lineTension: 0,
-        backgroundColor: barColors, // 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 0,
-        pointBackgroundColor: '#007bff'
-      }]
-    },
+    data: { labels: xValues, datasets: [{ data: initialData, backgroundColor: 'blue' }]},
     options: {
       plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          boxPadding: 3
-        }
+        legend: { display: false },
+        tooltip: { boxPadding: 3 }
       }
     }
-  })
-})()
+  });
+
+  async function loadAndRender() {
+    try {
+      const base = window.location.pathname.split('/').slice(0,2).join('/') || '';
+      const res = await fetch(`${base}/api/chart`);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json(); // { x: [...], y: [...] }
+      console.log(res);
+      // atualiza labels se necessário
+      if (json.xValues) chart.data.labels = json.xValues;
+      chart.data.datasets[0].data = json.yValues;
+      chart.update();
+      document.getElementById('status').remove();
+    } catch(err) {
+      document.getElementById('status').textContent = 'Erro ao carregar dados';
+      console.error(err);
+    }
+  }
+
+  loadAndRender();
+  
+});

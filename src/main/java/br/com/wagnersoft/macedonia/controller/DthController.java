@@ -31,66 +31,66 @@ import jakarta.validation.Valid;
 @Controller
 public class DthController {
 
-	private static final Logger logger = LoggerFactory.getLogger(DthController.class);
+  private static final Logger logger = LoggerFactory.getLogger(DthController.class);
 
-    @Autowired
-    private DthService dthSvc;
+  @Autowired
+  private DthService dthSvc;
 
-    @Autowired
-    private OcsService ocsSvc;
-	
-    public DthController() {
-        super();
-    	logger.debug("{} loaded", DthController.class.getSimpleName());
-    }
+  @Autowired
+  private OcsService ocsSvc;
 
-    @ModelAttribute("allDth")
-    public List<Dth> allDth() {
-        return dthSvc.listAll();
-    }
-    
-    @ModelAttribute("allOcs")
-    public Map<Integer, String> allOcs() {
-        return ocsSvc.mapAll();
-    }
- 
-	@ModelAttribute("allUnidadeMedida")
-    public List<UnidadeMedidaEnum> allUnidadeMedida() {
-        return Arrays.asList(UnidadeMedidaEnum.ALL);
-    }
+  public DthController() {
+    super();
+    logger.debug("{} loaded", DthController.class.getSimpleName());
+  }
 
-	@ModelAttribute("tipoUmMap")
-    public Map<String, String> tipoUmMap() {
-	    return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
-    }
+  @ModelAttribute("allDth")
+  public List<Dth> allDth() {
+    return dthSvc.listAll();
+  }
 
-    @GetMapping({"/dth"})
-    public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
-		logger.info("+++ DTH +++");
-		model.addAttribute("menu", "Dth");
-        model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id).orElse(new Dth()));
-        return "dth";
-    }
+  @ModelAttribute("allOcs")
+  public Map<Integer, String> allOcs() {
+    return ocsSvc.mapAll();
+  }
 
-    @GetMapping({"/dth/delete"})
-    public String delete(@RequestParam(name = "id", required = false) Integer id) {
-        dthSvc.remove(id);
-        return "redirect:/dth";
+  @ModelAttribute("allUnidadeMedida")
+  public List<UnidadeMedidaEnum> allUnidadeMedida() {
+    return Arrays.asList(UnidadeMedidaEnum.ALL);
+  }
+
+  @ModelAttribute("tipoUmMap")
+  public Map<String, String> tipoUmMap() {
+    return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
+  }
+
+  @GetMapping({"/dth"})
+  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+    logger.info("+++ DTH +++");
+    model.addAttribute("menu", "Dth");
+    model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id).orElse(new Dth()));
+    return "dth";
+  }
+
+  @GetMapping({"/dth/delete"})
+  public String delete(@RequestParam(name = "id", required = false) Integer id) {
+    dthSvc.remove(id);
+    return "redirect:/dth";
+  }
+
+  @PostMapping(value="/dth", params={"save"})
+  public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
+    if (dth.getOcs().getId() == null)
+      bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
+    else
+      ocsSvc.findById(dth.getOcs().getId()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "dth.erro.ocs", "Deve ser informado"));
+    if (bindingResult.hasErrors()) {
+      return "dth";
     }
-    
-    @PostMapping(value="/dth", params={"save"})
-    public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
-    	if (dth.getOcs().getId() == null)
-    		bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
-    	else
-        ocsSvc.findById(dth.getOcs().getId()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "dth.erro.ocs", "Deve ser informado"));
-        if (bindingResult.hasErrors()) {
-        	return "dth";
-        }
-        logger.info("{}", dth);
-        dthSvc.add(dth);
-        model.clear();
-        return "redirect:/dth";
-    }
-    
+    logger.info("{}", dth);
+    dthSvc.add(dth);
+    model.clear();
+    return "redirect:/dth";
+  }
+
 }
