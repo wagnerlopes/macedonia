@@ -47,11 +47,15 @@ insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 2, '
 insert into contrato(ocs_id, inicio_data, termino_data, ch_qtd) values (1, '2020-05-14', '2030-12-26', 10);
 insert into contrato(ocs_id, inicio_data, termino_data, ch_qtd) values (2, '2021-08-23', '2031-05-12', 20);
 
-insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 1, '2026-02-10', '145', '99999999999', '88888888888', 321.74);
-insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 2, '2026-03-15', '146', '99999999999', '88888888888', 569.58);
-insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 1, '2026-01-21', '147', '99999999999', '88888888888', 321.74);
-insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('33333333333', 2, '2026-02-23', '148', '99999999999', '88888888888', 247.74);
-insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('44444444444', 1, '2026-04-16', '149', '99999999999', '88888888888', 321.74);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 1, '2026-02-10', '145', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 2, '2026-03-15', '146', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('22222222222', 3, '2026-01-21', '147', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('33333333333', 4, '2026-02-23', '148', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 1, '2026-04-16', '149', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('55555555555', 3, '2026-05-07', '150', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('44444444444', 4, '2026-06-14', '151', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('33333333333', 2, '2026-02-17', '131', '99999999999', '88888888888', 0);
+insert into guia_encaminhamento(beneficiario_cpf, ocs_id, emissao_data, guia_nr, responsavel_cpf, solicitante_cpf, valor_total) values ('11111111111', 2, '2026-04-22', '132', '99999999999', '88888888888', 0);
 
 insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, valor_total, pos_auditoria, unidade_medida) values (1, 1, 1, 327.27, 0, 250.00, '04');
 insert into guia_pm (guia_id, pm_id, pm_qtd, valor_unitario, valor_total, pos_auditoria, unidade_medida) values (2, 1, 1, 301.53, 0, 270.00, '04');

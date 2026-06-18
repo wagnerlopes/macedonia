@@ -13,6 +13,7 @@ import java.util.stream.IntStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
@@ -37,6 +38,12 @@ public class TissService {
 
   private static final Logger logger = LoggerFactory.getLogger(TissService.class);
 
+  @Value("${app.operadora}")
+  private String operadora;
+  
+  @Value("${app.registroAns}")
+  private String registroAns;
+  
   @Autowired
   private GuiaEncaminhamentoRepository rep;
 
@@ -61,8 +68,8 @@ public class TissService {
         .build();
 
     final Operadora operadora = Operadora.builder()
-        .nomeOperadora("N/I")
-        .numeroRegistroANSOperadora("N/I")
+        .nomeOperadora(this.operadora)
+        .numeroRegistroANSOperadora(this.registroAns)
         .build();
 
     final Cabecalho cab = Cabecalho.builder()
