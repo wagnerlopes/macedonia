@@ -6,6 +6,15 @@ logging:
     org.springframework: WARN
     br.com.wagnersoft.macedonia: INFO
 
+management:
+    endpoints:
+        web:
+          exposure:
+            include: mappings,health,info
+    endpoint:
+        mappings:
+          enabled: true
+
 server:
 
   port: 80
