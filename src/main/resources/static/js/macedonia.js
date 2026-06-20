@@ -22,3 +22,12 @@ const formatDate = function(field_name) {
   });
 
 };
+
+window.onload = function() {
+  document.getElementById('searchField').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      document.querySelector('#formSearch')?.requestSubmit();
+    }
+  });
+}
