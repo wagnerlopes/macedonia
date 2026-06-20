@@ -263,7 +263,9 @@
   
   </div>
 
-   <script src="../js/guias.js" th:src="@{/js/guias.js}" ></script>
+  <div th:insert = "~{index :: load-js}"></div>
+
+  <script src="../js/guias.js" th:src="@{/js/guias.js}" ></script>
 
 </body>
 
