@@ -73,6 +73,9 @@ spring:
       query-timeout: 30
 
   mvc:
+    locale: en_US
+    messages:
+      basename: messages
     format:
       date: yyyy-MM-dd
     pathmatch:
