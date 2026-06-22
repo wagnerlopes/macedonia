@@ -19,12 +19,11 @@
 
       <hr class="my-3" />
 
-      <div class="row">
+      <div class="row gx-2">
 
         <div class="col-sm-4 m-3">
-        
           <div class="card">
-            <div class="card-header">Local</div>
+            <div class="card-header text-bg-info p-3"><strong>Local</strong></div>
             <div class="card-body">
               <p class="card-text" th:text="${#locale}">LOCALE</p>
             </div>
@@ -33,7 +32,7 @@
           
         <div class="col-sm-4 m-3">
           <div class="card">
-            <div class="card-header">Data-hora</div>
+            <div class="card-header text-bg-info p-3"><strong>Data-hora</strong></div>
             <div class="card-body">
               <p class="card-text" th:text="${#calendars.format(#execInfo.now,'dd MMMM yyyy HH:mm:ss XXX')}">INFO</p>
             </div>
@@ -43,23 +42,20 @@
       </div>
       
       <div class="row">
-
         <div class="col-sm-9 m-3">
           <div class="card">
-            <div class="card-header">Vari&aacute;veis Globais</div>
+            <div class="card-header text-bg-info p-3"><strong>Vari&aacute;veis Globais</strong></div>
             <div class="card-body">
               <p class="card-text" th:text="${'usuarioLogado = ' + #ctx.usuarioLogado}">CTX</p>
             </div>
           </div>
-      
         </div>
-
       </div>
 
       <div class="row" th:if="${emsg} != null">
         <div class="col-sm-9 m-3">
           <div class="card">
-            <div class="card-header">Mensagem de Erro</div>
+            <div class="card-header text-bg-danger p-3"><strong>Erro no Processamento</strong></div>
             <div class="card-body">
               <p class="card-text text-danger" th:utext="#{app.error(${emsg})}"></p>
             </div>
