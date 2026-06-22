@@ -15,7 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded"><a th:href="@{ocs}" href="#"><span th:text="${ocs.descricao}">Estabelecimento</span></a> - Procedimento(s) M&eacute;dico(s)</h4>
+      <div th:replace="titulo :: titulo(#{ocspm.titulo})"></div>
 
       <hr class="my-3" />
 
