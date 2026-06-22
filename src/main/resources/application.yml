@@ -73,7 +73,7 @@ spring:
       query-timeout: 30
 
   mvc:
-    locale: en_US
+    locale: pt_BR
     messages:
       basename: messages
     format:

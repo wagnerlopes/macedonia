@@ -249,8 +249,11 @@
           </div>
         </div>
 
+        <hr class="border-2 border-secondary" />
+        
         <div class="submit text-center">
           <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{guia.save}">Sair</button>
+          <button type="reset" class="btn btn-secondary ms-2">Limpar</button>
         </div>
 
         <ul th:if="${#fields.hasErrors('*')}" class="text-danger">
