@@ -20,7 +20,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Diárias e Taxas Hospitalares (DTH). */
+/** Dth Entity.
+ * <p>Diárias e taxas hospitalares dos {@link Ocs estabelecimentos de saúde}.</p>
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Entity
 @Getter
 @Setter
