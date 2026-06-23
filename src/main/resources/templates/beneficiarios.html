@@ -15,7 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <div th:replace="titulo :: titulo(#{beneficiario.titulo})"></div>
+      <div th:replace="~{titulo :: titulo(#{beneficiario.titulo})}"></div>
 
       <hr class="my-3" />
 
@@ -50,11 +50,11 @@
             <td class="text-center"><span th:text="${ben.idade}"> Idade </span></td>
             <td class="text-center"><span th:text="${ben.faixaEtaria}"> Faixa Etaria </span></td>
             <td>
-              <table>
+              <table class="table-light table-sm">
                 <tr th:each="g : ${ben.guias}">
-                  <td th:text="${'Nr:' + g.guiaNr}"></td>
-                  <td th:text="${' - Data: ' + g.emissaoData}"></td>
-                  <td th:text="${' - Total: R$ ' + #numbers.formatDecimal(g.valorTotal,1,2,'COMMA')}"></td>
+                  <td th:text="${'Nr ' + g.guiaNr}"></td>
+                  <td th:text="${' - ' + #temporals.format(g.emissaoData, 'dd/MM/yyyy')}"></td>
+                  <td th:text="${' - R$ ' + #numbers.formatDecimal(g.valorTotal,1,2,'COMMA')}"></td>
                 </tr>
               </table>
             </td>
@@ -65,9 +65,9 @@
 
       </table>
 
-      <p  class="bg-danger" th:text="${error} ?: _"></p>
+      <p class="bg-danger" th:text="${error} ?: _"></p>
       
-      <h5 class="shadow-sm p-3 my-3 bg-body-tertiary rounded">Editar Benefici&aacute;rio</h5>
+      <h5 class="shadow-sm p-3 mt-5 bg-body-tertiary rounded">Criar/Editar Benefici&aacute;rio</h5>
 
       <hr class="my-3" />
 
