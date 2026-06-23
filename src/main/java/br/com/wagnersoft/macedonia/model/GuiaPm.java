@@ -65,7 +65,7 @@ public class GuiaPm implements Serializable {
 	private ProcedimentoMedico pm;
 
 	@Exclude
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="guia_id", updatable = false, nullable = false)
 	private GuiaEncaminhamento guiaEncaminhamento;
 

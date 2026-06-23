@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
-import br.com.wagnersoft.macedonia.model.GuiaPm;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
@@ -46,7 +46,8 @@ public class GuiaEncaminhamentoService {
 		return lista;
 	}
 
-	public void add(GuiaEncaminhamento guia) {
+	@Transactional
+	public void add(final GuiaEncaminhamento guia) {
 	  if (guia == null) return;
 	  Optional.ofNullable(guia.getId())
   	  .flatMap(rep::findById)
@@ -67,25 +68,13 @@ public class GuiaEncaminhamentoService {
 		existing.setValorTotal(BigDecimal.ZERO);
 		if (replacement.getProcedimentos() != null && !replacement.getProcedimentos().isEmpty()) {
 			  replacement.getProcedimentos().forEach(p -> {
-				existing.setValorTotal(existing.getValorTotal().add(p.getValorTotal()));
- 	    	    pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
+				  existing.setValorTotal(existing.getValorTotal().add(p.getValorTotal()));
+          pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));
 			    existing.addGuiaPm(p);
 			  });
 		}
 		logger.debug("SAVE = {}", existing);
 		rep.save(existing);
-	}
-	
-	public void addProcedimento(GuiaPm gop) {
-		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
-		guia.getProcedimentos().add(gop);
-		rep.save(guia);
-	}
-
-	public void removeProcedimento(GuiaPm gop) {
-		final GuiaEncaminhamento guia = rep.getReferenceById(gop.getGuiaEncaminhamento().getId());
-		guia.getProcedimentos().remove(gop);
-		rep.save(guia);
 	}
 	
 }

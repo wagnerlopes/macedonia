@@ -192,7 +192,10 @@
             <small th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}" class="text-danger">Erro de OBS</small>
           </div>
         </div>
-
+        
+        <!-- Procedimentos disponiveis somente apos salvar a Guia -->
+        <div th:if="${guiaEncaminhamento != null and guiaEncaminhamento.id != null}">
+        
         <hr class="mt-3"/>
 
         <div class="form-group row mt-1">
@@ -248,7 +251,9 @@
           </table>
           </div>
         </div>
-
+        
+        </div>
+        
         <hr class="border-2 border-secondary" />
         
         <div class="submit text-center">
