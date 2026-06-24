@@ -132,8 +132,8 @@
         <hr class="border-2 border-secondary" />
 
         <div class="submit text-center">
-          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{dth.save}">Novo</button>
-          <button type="reset" class="btn btn-secondary ms-2">Limpar</button>
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{form.save}">Salvar</button>
+          <button type="reset" class="btn btn-secondary ms-2" th:text="#{form.reset}">Limpar</button>
         </div>
 
         <ul th:if="${#fields.hasErrors('*')}" class="error">
