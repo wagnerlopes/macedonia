@@ -27,6 +27,14 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
 
+/** GuiaEncaminhamento Entity.
+ * <p>As guias de encaminhamento são solicitadas pelos {@link Beneficiario beneficiários} para utilizar nos
+ *  {@link Ocs establecimentos de saúde}.</p>
+ * <p>Os {@link OcsPm procedimentos médicos} dos estabelecimnetos de saúde são solicitados pelo {@link Profissional profissionais de saúde}.</p> 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Entity
 @Getter
 @Setter

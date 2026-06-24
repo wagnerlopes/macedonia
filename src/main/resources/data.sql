@@ -15,10 +15,10 @@ insert into cbo(codigo, descricao) values('3223-05', 'Auxiliar de enfermagem');
 insert into cbo(codigo, descricao) values('2265-10', 'Dentista');
 insert into cbo(codigo, descricao) values('2241-10', 'Nutricionista');
 
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('062106505000192', 'Hospital Cruz Azul', '01', 'Rua das Cruzes', '115', 'fundos', 'São Paulo', 'SP', '(91) 98234-4532', 'Maria das Dores');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061062212000198', 'Hospital Edmundo Vasconcelos', '02', 'Avenida Principal', '265', 'Parque Clinico', 'Itajubá', 'MG', '(35) 97521-6789', 'Clara Gimenez');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061699567000192', 'Hospital São Paulo', '03', 'Avenida Principal', '265', 'Parque Clinico', 'Chapecó', 'SC', '(43) 97521-6789', 'Clara Gimenez');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061599908000158', 'Beneficiência Portuguesa', '04', 'Avenida Principal', '265', 'Parque Clinico', 'Resende', 'RJ', '(21) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('62106505000192', 'Hospital Cruz Azul', '01', 'Rua das Cruzes', '115', 'fundos', 'São Paulo', 'SP', '(91) 98234-4532', 'Maria das Dores');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('61062212000198', 'Hospital Edmundo Vasconcelos', '02', 'Avenida Principal', '265', 'Parque Clinico', 'Itajubá', 'MG', '(35) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('61699567000192', 'Hospital São Paulo', '03', 'Avenida Principal', '265', 'Parque Clinico', 'Chapecó', 'SC', '(43) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('61599908000158', 'Beneficiência Portuguesa', '04', 'Avenida Principal', '265', 'Parque Clinico', 'Resende', 'RJ', '(21) 97521-6789', 'Clara Gimenez');
 
 insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('1', 'UTI', '01', 534.67, 1);
 insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('2', 'Enfermaria', '01', 215.98, 1);
@@ -40,9 +40,13 @@ insert into registro_profissional(conselho, numero, uf) values ('CRM', '1012453'
 insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('88888888888', 'Manoel Gomes', 1, '2251-10');
 insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('99999999999', 'Joaquim Teixeira', 2,'2251-15');
 
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, '04', 321.74);
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, '04', 247.74);
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 2, '02', 346.29);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, '01', 321.74);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, '02', 247.74);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 2, '03', 258.39);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(3, 4, '04', 179.45);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(3, 5, '05', 347.73);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(4, 3, '01', 764.56);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(4, 6, '05', 472.92);
 
 insert into contrato(ocs_id, inicio_data, termino_data, ch_qtd) values (1, '2020-05-14', '2030-12-26', 10);
 insert into contrato(ocs_id, inicio_data, termino_data, ch_qtd) values (2, '2021-08-23', '2031-05-12', 20);

@@ -15,7 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded"><a th:href="@{ocs}" href="#"><span th:text="${ocs.descricao}">Estabelecimento</span></a> - Procedimento(s) M&eacute;dico(s)</h4>
+      <div th:replace="~{titulo :: titulo(#{ocspm.titulo})}"></div>
 
       <hr class="my-3" />
 
@@ -55,7 +55,7 @@
 
       </table>
 
-      <h6 class="shadow-sm p-1 mt-5 bg-body-tertiary rounded">Editar ou Adicionar</h6>
+      <h5 id="editar" class="shadow-sm p-3 mt-5 bg-body-tertiary rounded" th:text="#{ocspm.editar}"> Criar/Editar </h5>
 
       <hr class="my-3" />
 
@@ -100,10 +100,11 @@
           </div>
         </div>
 
-        <hr class="my-3" />
+        <hr class="border-2 border-secondary" />
 
         <div class="submit text-center">
-          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{ocspm.save}">Salvar</button>
+          <button type="submit" class="btn btn-primary my-3" name="save" th:text="#{form.save}">Salvar</button>
+          <button type="reset" class="btn btn-secondary ms-2" th:text="#{form.reset}">Limpar</button>
         </div>
 
         <ul th:if="${#fields.hasErrors('*')}" class="error">
@@ -115,6 +116,8 @@
     </div>
   
   </div>
+
+  <div th:insert = "~{index :: load-js}"></div>
 
 </body>
 

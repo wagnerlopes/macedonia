@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.service;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,11 @@ public class BeneficiarioService {
     return rep.findById(cpf.replaceAll("[^0-9]", ""));
   }
 
+  public List<Beneficiario> findByNome(final String nome) {
+    if (nome == null || nome.isBlank()) return Collections.emptyList();
+    return rep.findByNome(nome);
+  }
+  
   public List<Beneficiario> listAll() {
     final List<Beneficiario> lista = rep.findAll(Sort.by(Sort.Order.by("nome").ignoreCase()));
     logger.debug("{}", lista);

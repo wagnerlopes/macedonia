@@ -23,6 +23,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/** Beneficiario Entity.
+ * <p>Os beneficiários são as pessoas que fazem uso das {@link GuiaEncaminhamento guias de encaminhamento} nos {@link Ocs estabelecimentos de saúde}.</p>
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Entity
 @Getter
 @Setter

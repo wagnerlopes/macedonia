@@ -24,6 +24,11 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
 
+/** Profissional Entity.
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Entity
 @Getter
 @Setter

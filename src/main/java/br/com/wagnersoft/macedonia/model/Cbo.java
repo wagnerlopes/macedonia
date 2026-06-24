@@ -10,7 +10,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Classificação Brasileira de Ocupacões. */
+/** Cbo Entity.
+ * <p> Classificação Brasileira de Ocupacões (CBO) usada nas especialidades médicas dos {@link Profissional profissionais de saúde}.</p>
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Entity
 @Getter
 @Setter

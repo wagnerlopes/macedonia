@@ -4,19 +4,24 @@ import java.util.regex.Pattern;
 
 public class Cnpj {
 
-	private static final Pattern PATTERN = Pattern.compile("^\\d{3}.?\\d{3}.?\\d{3}/?\\d{4}-?\\d{2}$");
+  private static final Pattern PATTERN = Pattern.compile("^\\d{3}.?\\d{3}.?\\d{3}/?\\d{4}-?\\d{2}$");
 
-	public boolean isCnpj(String cnpj) {
-		return PATTERN.matcher(cnpj).matches();
-	}
-	
-    public static String format(String cnpj) {
-      return cnpj.isEmpty() ? "CNPJ XXX.XXX.XXX/XXXX-XX" :
-    	  cnpj.substring(0,2) + "." +
-          cnpj.substring(2,5) + "." + 
-          cnpj.substring(5,8) + "/" +
-          cnpj.substring(8,12) + "-" +
-          cnpj.substring(12);
-    }
+  public boolean isCnpj(String cnpj) {
+    return cnpj != null && PATTERN.matcher(cnpj).matches();
+  }
+
+  public static String format(String cnpj) {
+
+    if (cnpj == null || cnpj.isBlank()) return "CNPJ XX.XXX.XXX/XXXX-XX";
+
+    String digits = cnpj.replaceAll("\\D", "");
+    if (digits.length() != 14) return "CNPJ XX.XXX.XXX/XXXX-XX";
+
+    return digits.substring(0,2) + "." +
+    digits.substring(2,5) + "." + 
+    digits.substring(5,8) + "/" +
+    digits.substring(8,12) + "-" +
+    digits.substring(12,14);
+  }
 
 }

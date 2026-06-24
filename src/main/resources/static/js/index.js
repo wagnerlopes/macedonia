@@ -2,11 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   'use strict'
 
-  // placeholder visual
-  document.getElementById('status').textContent = 'Carregando dados...';
-
-  const ctx = document.getElementById('myChart');
+  // Placeholder visual
+  const status = document.getElementById('status');
   
+  const ctx = document.getElementById('myChart');
+
+  // Labels default
   const xValues = ["Jan","Fev","Mar","Abr","Mai","Jun"];
 
   // inicializa com zeros (evita layout shift)
@@ -23,24 +24,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  async function loadAndRender() {
-    try {
-      const base = window.location.pathname.split('/').slice(0,2).join('/') || '';
-      const res = await fetch(`${base}/api/chart`);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const json = await res.json(); // { x: [...], y: [...] }
-      console.log(res);
-      // atualiza labels se necessário
-      if (json.xValues) chart.data.labels = json.xValues;
-      chart.data.datasets[0].data = json.yValues;
-      chart.update();
-      document.getElementById('status').remove();
-    } catch(err) {
-      document.getElementById('status').textContent = 'Erro ao carregar dados';
-      console.error(err);
-    }
-  }
-
-  loadAndRender();
+  loadAndRender(chart, status);
   
 });
+
+// Data Chart from REST API
+async function loadAndRender(chart, status) {
+  try {
+    status.textContent = 'Carregando dados...';
+    const base = window.location.pathname.split('/').slice(0,2).join('/') || '';
+    const res = await fetch(`${base}/api/chart`);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json(); // { x: [...], y: [...] }
+    console.log(res);
+    // Atualiza labels
+    if (json.xValues) chart.data.labels = json.xValues;
+    chart.data.datasets[0].data = json.yValues;
+    chart.update();
+    status.remove();
+  } catch(err) {
+    status.textContent = 'Erro ao carregar dados';
+    console.error(err);
+  }
+}
