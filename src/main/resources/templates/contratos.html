@@ -43,8 +43,11 @@
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
             </td>
-            <td><a th:href="@{/contratos(id=${cont.id})}" title="Editar">[[${cont.id}]]</a></td>
-            <td><span th:text="${cont.ocs.descricao}"> Estabelecimento </span></td>
+            <td><a th:href="@{/contratos(id=${cont.id})} + '#editar'" th:title="Editar" th:text="${cont.id}"></a></td>
+            <td>
+            <a th:href="@{/ocs(id=${cont.ocs.id})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.type.Cnpj).format(cont.ocs.cnpj)}"></a>
+            <span th:text="' - ' + ${cont.ocs.descricao}"> Estabelecimento </span>
+            </td>
             <td class="text-center"><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>
             <td class="text-center"><span th:text="${#temporals.format(cont.terminoData, 'dd/MM/yyyy')}"> Termino </span></td>
             <td class="text-end" th:text="${cont.chQtd}"> CH </td>
@@ -55,7 +58,7 @@
 
       </table>
 
-      <h5 class="shadow-sm p-3 my-3 bg-body-tertiary rounded">Editar Contrato</h5>
+      <h5 id="editar" class="shadow-sm p-3 my-3 bg-body-tertiary rounded">Criar / Editar Contrato</h5>
 
       <hr class="my-3" />
 

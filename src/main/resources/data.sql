@@ -15,10 +15,10 @@ insert into cbo(codigo, descricao) values('3223-05', 'Auxiliar de enfermagem');
 insert into cbo(codigo, descricao) values('2265-10', 'Dentista');
 insert into cbo(codigo, descricao) values('2241-10', 'Nutricionista');
 
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('062106505000192', 'Hospital Cruz Azul', '01', 'Rua das Cruzes', '115', 'fundos', 'São Paulo', 'SP', '(91) 98234-4532', 'Maria das Dores');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061062212000198', 'Hospital Edmundo Vasconcelos', '02', 'Avenida Principal', '265', 'Parque Clinico', 'Itajubá', 'MG', '(35) 97521-6789', 'Clara Gimenez');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061699567000192', 'Hospital São Paulo', '03', 'Avenida Principal', '265', 'Parque Clinico', 'Chapecó', 'SC', '(43) 97521-6789', 'Clara Gimenez');
-insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('061599908000158', 'Beneficiência Portuguesa', '04', 'Avenida Principal', '265', 'Parque Clinico', 'Resende', 'RJ', '(21) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('62106505000192', 'Hospital Cruz Azul', '01', 'Rua das Cruzes', '115', 'fundos', 'São Paulo', 'SP', '(91) 98234-4532', 'Maria das Dores');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('61062212000198', 'Hospital Edmundo Vasconcelos', '02', 'Avenida Principal', '265', 'Parque Clinico', 'Itajubá', 'MG', '(35) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('61699567000192', 'Hospital São Paulo', '03', 'Avenida Principal', '265', 'Parque Clinico', 'Chapecó', 'SC', '(43) 97521-6789', 'Clara Gimenez');
+insert into ocs(cnpj, descricao, especialidade, endereco, numero, complemento, municipio, uf, telefone, contato) values('61599908000158', 'Beneficiência Portuguesa', '04', 'Avenida Principal', '265', 'Parque Clinico', 'Resende', 'RJ', '(21) 97521-6789', 'Clara Gimenez');
 
 insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('1', 'UTI', '01', 534.67, 1);
 insert into dth(codigo, descricao, unidade_medida, valor_unitario, ocs_id) values('2', 'Enfermaria', '01', 215.98, 1);

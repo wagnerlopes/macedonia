@@ -44,7 +44,7 @@
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
             </td>
-            <td><a th:href="@{/beneficiarios(cpf=${ben.cpf})}" title="Editar">[[${ben.cpf}]]</a></td>
+            <td><a th:href="@{/beneficiarios(cpf=${ben.cpf})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.type.Cpf).format(ben.cpf)}"></a></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
             <td class="text-center"><span th:text="${#temporals.format(ben.nascimentoData, 'dd/MM/yyyy')}"> Nascimento </span></td>
             <td class="text-center"><span th:text="${ben.idade}"> Idade </span></td>
@@ -52,6 +52,11 @@
             <td>
               <table class="table-light table-sm">
                 <tr th:each="g : ${ben.guias}">
+                  <td>
+                    <a th:href="@{/guias(id=${g.id})} + '#editar'">
+                      <i class="bi bi-arrow-up-right-circle" style="font-size: 1rem; color: cornflowerblue;" title="Editar"></i>
+                    </a>
+                  </td>
                   <td th:text="${'Nr ' + g.guiaNr}"></td>
                   <td th:text="${' - ' + #temporals.format(g.emissaoData, 'dd/MM/yyyy')}"></td>
                   <td th:text="${' - R$ ' + #numbers.formatDecimal(g.valorTotal,1,2,'COMMA')}"></td>
@@ -67,7 +72,7 @@
 
       <p class="bg-danger" th:text="${error} ?: _"></p>
       
-      <h5 class="shadow-sm p-3 mt-5 bg-body-tertiary rounded">Criar/Editar Benefici&aacute;rio</h5>
+      <h5 id="editar" class="shadow-sm p-3 mt-5 bg-body-tertiary rounded">Criar/Editar Benefici&aacute;rio</h5>
 
       <hr class="my-3" />
 
