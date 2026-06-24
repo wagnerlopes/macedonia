@@ -40,9 +40,13 @@ insert into registro_profissional(conselho, numero, uf) values ('CRM', '1012453'
 insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('88888888888', 'Manoel Gomes', 1, '2251-10');
 insert into profissional(cpf, nome, registro_id, cbo_codigo) values ('99999999999', 'Joaquim Teixeira', 2,'2251-15');
 
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, '04', 321.74);
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, '04', 247.74);
-insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 2, '02', 346.29);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(1, 1, '01', 321.74);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 1, '02', 247.74);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(2, 2, '03', 258.39);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(3, 4, '04', 179.45);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(3, 5, '05', 347.73);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(4, 3, '01', 764.56);
+insert into ocs_pm(ocs_id, pm_id, unidade_medida, valor_unitario) values(4, 6, '05', 472.92);
 
 insert into contrato(ocs_id, inicio_data, termino_data, ch_qtd) values (1, '2020-05-14', '2030-12-26', 10);
 insert into contrato(ocs_id, inicio_data, termino_data, ch_qtd) values (2, '2021-08-23', '2031-05-12', 20);

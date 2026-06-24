@@ -44,7 +44,9 @@
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
             </td>
-            <td><a th:href="@{/guias(id=${guiaEncaminhamento.id})}" th:title="Editar">[[${guiaEncaminhamento.guiaNr}]]</a></td>
+            <td>
+              <a th:href="@{/guias(id=${guiaEncaminhamento.id})} + '#editar'" th:title="Editar" th:text="${guiaEncaminhamento.guiaNr}"></a>
+            </td>
             <td>
               <a th:href="@{/beneficiarios(cpf=${guiaEncaminhamento.beneficiario.cpf})}" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.type.Cpf).format(guiaEncaminhamento.beneficiario.cpf)}"></a>            
               <span th:text="${' - ' + guiaEncaminhamento.beneficiario.nome}"></span>
@@ -200,7 +202,7 @@
         
         <hr class="mt-3"/>
 
-        <div class="form-group row mt-1">
+        <div class="form-group row mt-1" id="procedimentos">
           <label for="valorTotal" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{guia.procedimentos}">Procedimentos</span></strong>
           </label>
@@ -224,7 +226,7 @@
                   <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].guiaEncaminhamento.id}"/>
                   <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select list-pm">
                     <option selected value="">--- Selecione ---</option>
-                    <option th:each="p : ${opm}" th:value="${p.id}" th:text="${p.pm.descricao}">Procedimento</option>
+                    <option th:each="p : ${opm}" th:value="${p.pm.id}" th:text="${p.pm.descricao}">Procedimento</option>
                   </select>
                 </td>
                 <td>
