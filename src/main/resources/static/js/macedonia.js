@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => { 'use strict'
     }
   });
 
+  document.getElementById('bd-theme').addEventListener('click', (e) => {
+    console.log(e);
+    document.body.dataset.bsTheme = (document.body.dataset.bsTheme === 'dark') ? 'light' : 'dark';
+  });
+
 });
 
 // Formatacao de data (dd/mm/aaaa)
