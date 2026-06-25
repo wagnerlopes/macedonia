@@ -8,14 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const ctx = document.getElementById('myChart');
 
   // Labels default
-  const xValues = ["Jan","Fev","Mar","Abr","Mai","Jun"];
+  const xValues = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+
+  const colorValues = ["blueviolet","indigo","blue","limegreen","green","yellowgreen","yellow","gold","orange","coral","red","darkred"];
 
   // inicializa com zeros (evita layout shift)
-  const initialData = [0,0,0,0,0,0];
+  const initialData = [0,0,0,0,0,0,0,0,0,0,0,0];
 
   const chart = new Chart(ctx, {
     type: 'bar',
-    data: { labels: xValues, datasets: [{ data: initialData, backgroundColor: 'blue' }]},
+    data: { labels: xValues, datasets: [{ data: initialData, backgroundColor: colorValues }]},
     options: {
       plugins: {
         legend: { display: false },
