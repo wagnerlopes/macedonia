@@ -4,13 +4,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Fragmento Titulo de Página</title>
+  <title>List Title Fragment</title>
 </head>
 
 <body>
-  <div th:fragment="titulo(texto)">
+
+  <div id="topo" th:fragment="div-content(texto)">
+  
     <h4 class="shadow p-3 mb-3 bg-body-tertiary rounded d-flex align-items-center w-100 m-0">
-      <span class="flex-grow-1" th:text="${texto}">Título da Página</span>
+      <span class="flex-grow-1" th:text="${texto}">Lista</span>
       <a href="#" class="text-secondary ms-auto" th:href="@{/}">
         <i class="bi bi-arrow-left-circle" style="font-size: 1rem; color: cornflowerblue;" title="Voltar"></i>
       </a>
@@ -18,7 +20,11 @@
         <i class="bi bi-question-circle" style="font-size: 1rem; color: cornflowerblue;" title="Ajuda"></i>
       </a>
     </h4>
+
+    <hr class="my-3" />
+
   </div>
+
 </body>
 
 </html>
