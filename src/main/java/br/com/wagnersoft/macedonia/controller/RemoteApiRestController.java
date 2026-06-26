@@ -48,7 +48,7 @@ public class RemoteApiRestController {
 
   @GetMapping("/opm/{id}")
   public ResponseEntity<ProcedimentoDTO> findById(@PathVariable Integer id) {
-    logger.debug("ID = {}", id);
+    logger.debug("OCSPM_ID = {}", id);
     return ocsPmSvc.findById(id)
         .map(opm -> new ProcedimentoDTO(opm.getId(), opm.getOcs().getId(), opm.getPm().getId(), opm.getPm().getTuss(), opm.getUnidadeMedida(), opm.getValorUnitario()))
         .map(ResponseEntity::ok)
