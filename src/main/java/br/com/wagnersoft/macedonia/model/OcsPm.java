@@ -17,12 +17,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /** OcsPm Entity.
+ * <p>A unique key ({@link Ocs}, {@link ProcedimentoMedico}) garante que o procedimento seja unico para o estabelecimento de saude.</p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
@@ -31,8 +33,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="ocs_pm")
 @ToString
+@Table(name = "ocs_pm", uniqueConstraints = {@UniqueConstraint(name = "ocs_pm_uk", columnNames = {"ocs_id", "pm_id"})})
 public class OcsPm implements Comparable<OcsPm>, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -53,12 +55,12 @@ public class OcsPm implements Comparable<OcsPm>, Serializable {
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id")
+	@JoinColumn(name="ocs_id", nullable = false)
 	private Ocs ocs;
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="pm_id")
+	@JoinColumn(name="pm_id", nullable = false)
 	private ProcedimentoMedico pm;
 
 	@Override

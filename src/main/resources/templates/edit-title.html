@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Title Fragment</title>
+</head>
+
+<body>
+
+  <div th:fragment="div-title(texto)">
+
+    <h5 id="editar" class="shadow-sm p-3 mt-5 bg-body-tertiary rounded d-flex align-items-center w-100 m-0">
+      <span class="flex-grow-1" th:text="${texto}">Criar / Editar</span>
+      <a href="#topo" class="text-secondary ms-auto px-1">
+        <i class="bi bi-arrow-up-circle" style="font-size: 1rem; color: cornflowerblue;" title="Voltar"></i>
+      </a>
+    </h5>
+
+    <hr class="my-3" />
+    
+  </div>
+
+</body>
+
+</html>

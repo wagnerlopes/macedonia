@@ -100,7 +100,7 @@ public class OcsService {
 		existing.setUf(replacement.getUf());
 		if (replacement.getProcedimentos() != null) {
 		  replacement.getProcedimentos().forEach(op -> {
-    	    pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
+		    pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
 		    existing.addOcsPm(op);
 		  });
 		}

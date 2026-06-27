@@ -15,9 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <div th:replace="~{titulo :: titulo(#{contrato.titulo})}"></div>
-
-      <hr class="my-3" />
+      <div th:replace="~{list-title :: div-content(#{contrato.titulo})}"></div>
 
       <table class="table table-striped table-sm">
 
@@ -58,9 +56,7 @@
 
       </table>
 
-      <h5 id="editar" class="shadow-sm p-3 mt-5 bg-body-tertiary rounded" th:text="#{contrato.editar}"> Criar/Editar </h5>
-
-      <hr class="my-3" />
+      <div th:replace="~{edit-title :: div-title(#{contrato.editar})}"></div>
 
       <form action="#" th:action="@{/contratos/save}" th:object="${contrato}" method="post">
 

@@ -15,9 +15,7 @@
 
     <div class="col-md-9 col-lg-10 ms-sm-auto p-md-4">
 
-      <div th:replace="~{titulo :: titulo(#{beneficiario.titulo})}"></div>
-
-      <hr class="my-3" />
+      <div th:replace="~{list-title :: div-content(#{beneficiario.titulo})}"></div>
 
       <table class="table table-striped table-sm">
 
@@ -70,11 +68,7 @@
 
       </table>
 
-      <p class="bg-danger" th:text="${error} ?: _"></p>
-      
-      <h5 id="editar" class="shadow-sm p-3 mt-5 bg-body-tertiary rounded" th:text="#{beneficiario.editar}"> Criar/Editar </h5>
-
-      <hr class="my-3" />
+      <div th:replace="~{edit-title :: div-title(#{beneficiario.editar})}"></div>
 
       <form action="#" th:action="@{/beneficiarios/save}" th:object="${beneficiario}" method="post">
           

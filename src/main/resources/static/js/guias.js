@@ -36,6 +36,7 @@ const calculaTotal = function(pm_id, pm_qtd) {
 
 // Carrega os dados Procedimento Medico selecionado na lista
 const opmLoad = function (idx, id) {
+  console.log('ID = ' + id);
   fetch(`${base}/api/opm/${encodeURIComponent(id)}`)
     .then(response => {
       if (response.ok) return response.json();
@@ -64,9 +65,11 @@ window.onload = function() {
       if(!match) return;
       const idx = match[1];
       const val = e.target.value;
+      const ocspm_id = document.getElementById('ocspm_id').value;
 	  console.log('IDX = ' + idx);
-	  console.log('VLR = ' + val);
-      opmLoad(idx, val);
+      console.log('PM_ID = ' + val);
+      console.log('OCSPM_ID = ' + ocspm_id);
+      opmLoad(idx, ocspm_id);
     });
   });
 
