@@ -218,7 +218,7 @@
             <tbody>
               <tr th:each="proc,rowStat : *{procedimentos}">
                 <td>
-                  <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].id}" id="ocspm_id"/>
+                  <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].id}"/>
                   <input type="hidden" th:field="*{procedimentos[__${rowStat.index}__].guiaEncaminhamento.id}"/>
                   <select th:field="*{procedimentos[__${rowStat.index}__].pm.id}" class="form-select list-pm">
                     <option selected value="">--- Selecione ---</option>

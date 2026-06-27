@@ -65,11 +65,9 @@ window.onload = function() {
       if(!match) return;
       const idx = match[1];
       const val = e.target.value;
-      const ocspm_id = document.getElementById('ocspm_id').value;
 	  console.log('IDX = ' + idx);
       console.log('PM_ID = ' + val);
-      console.log('OCSPM_ID = ' + ocspm_id);
-      opmLoad(idx, ocspm_id);
+      opmLoad(idx, val);
     });
   });
 

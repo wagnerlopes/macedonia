@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsPmService;
 
@@ -49,9 +50,12 @@ public class RemoteApiRestController {
   @GetMapping("/opm/{id}")
   public ResponseEntity<ProcedimentoDTO> findById(@PathVariable Integer id) {
     logger.debug("OCSPM_ID = {}", id);
-    return ocsPmSvc.findById(id)
+    final ProcedimentoMedico pm = new ProcedimentoMedico();
+    pm.setId(id);
+    return ocsPmSvc.findByPm(pm).stream()
         .map(opm -> new ProcedimentoDTO(opm.getId(), opm.getOcs().getId(), opm.getPm().getId(), opm.getPm().getTuss(), opm.getUnidadeMedida(), opm.getValorUnitario()))
         .map(ResponseEntity::ok)
+        .findAny()
         .orElseGet(() -> ResponseEntity.notFound().build());
   }    
 
