@@ -22,7 +22,7 @@ const formatDate = function(field_name) {
 
   field.addEventListener('input', (e) => {
     console.debug(e);
-    let v = field.value.replace(/\D/g, '').slice(0,8);       // keep digits only, max 8
+    let v = field.value.replace(/\D/g, '').slice(0,8); // keep digits only, max 8
     if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);  // insert slash after DD
     if (v.length >= 6) v = v.slice(0,5) + '/' + v.slice(5);  // insert slash after MM
     field.value = v;

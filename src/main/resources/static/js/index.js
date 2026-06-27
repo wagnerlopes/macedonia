@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const ctx = document.getElementById('myChart');
 
-  // Labels default
+  // Labels and Colors default
   const xValues = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
   const colorValues = ["blueviolet","indigo","blue","limegreen","green","yellowgreen","yellow","gold","orange","coral","red","darkred"];
