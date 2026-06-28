@@ -32,6 +32,11 @@ public class OcsPmService {
 		return rep.findById(id);
 	}
 
+  public Optional<OcsPm> findByOcsPm(final Integer ocsId, final Integer pmId) {
+    if (ocsId == null || pmId == null) return Optional.empty();
+    return rep.findByOcsPm(ocsId, pmId);
+  }
+	
 	public List<OcsPm> findByOcs(final Ocs ocs) {
 	  if (ocs == null) return Collections.emptyList();
 		return rep.findByOcs(ocs);

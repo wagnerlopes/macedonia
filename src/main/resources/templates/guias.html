@@ -159,7 +159,7 @@
             <strong><span th:text="#{guia.ocs}">Estabelecimento</span></strong>
           </label>
           <div class="col-sm-6">
-            <select th:field="*{ocs.id}" class="form-select">
+            <select th:field="*{ocs.id}" class="form-select" id="ocsid">
               <option selected value="">--- Selecione ---</option>
               <option th:each="e : ${allOcs}" th:value="${e.key}" th:text="${e.value}"> Estabelecimento </option>
             </select>

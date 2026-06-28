@@ -35,9 +35,9 @@ const calculaTotal = function(pm_id, pm_qtd) {
 }
 
 // Carrega os dados Procedimento Medico selecionado na lista
-const opmLoad = function (idx, id) {
-  console.log('ID = ' + id);
-  fetch(`${base}/api/opm/${encodeURIComponent(id)}`)
+const opmLoad = function (idx, ocs_id, pm_id) {
+  console.log('OCS_ID = ' + ocs_id);
+  fetch(`${base}/api/opm/${encodeURIComponent(ocs_id)}/${encodeURIComponent(pm_id)}`)
     .then(response => {
       if (response.ok) return response.json();
       if (response.status === 404) throw new Error('Procedimento não encontrado');
@@ -64,10 +64,12 @@ window.onload = function() {
       const match = name.match(/\[(\d+)\]/);
       if(!match) return;
       const idx = match[1];
-      const val = e.target.value;
+      const pm_id = e.target.value;
+      const ocs_id = document.getElementById("ocsid").value;
 	  console.log('IDX = ' + idx);
-      console.log('PM_ID = ' + val);
-      opmLoad(idx, val);
+      console.log('OCS_ID = ' + ocs_id);
+      console.log('PM_ID = ' + pm_id);
+      opmLoad(idx, ocs_id, pm_id);
     });
   });
 
