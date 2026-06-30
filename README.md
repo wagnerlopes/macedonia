@@ -9,7 +9,7 @@ Resumo
 ------
 Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvido com Spring Boot 4, Spring Data e Thymeleaf 3.1. Foi desenvolvido com JDK 21 e focado em funcionalidades para beneficiários, estabelecimentos e guias de encaminhamento.
 
-Principais funcionalidades
+**Principais funcionalidades**
 - Emissão eletrônica de guias de saúde
 - Cadastro e listagem de beneficiários
 - Cadastro e listagem de estabelecimentos
@@ -17,7 +17,7 @@ Principais funcionalidades
 - Views server-side com Thymeleaf
 - Persistência com Spring Data (JPA/Repositories)
 
-Tecnologias
+**Tecnologias**
 - Java 21
 - Spring Boot 4
 - Spring Data (JPA)
@@ -25,12 +25,12 @@ Tecnologias
 - Banco de dados (H2/PostgreSQL/MySQL — configurar conforme ambiente)
 - Maven (ou Gradle) — adapte conforme o build usado no projeto
 
-Requisitos
+**Requisitos**
 - JDK 21
 - Maven 3.8+ (ou Gradle, conforme o projeto)
 - Banco de dados (configurar em `application.properties` / `application.yml`)
 
-Instalação e execução (desenvolvimento)
+**Instalação e execução (desenvolvimento)**
 1. Clone o repositório:
    git clone https://github.com/wagnerlopes/macedonia.git
 2. Entre no diretório do projeto:
@@ -44,15 +44,15 @@ Instalação e execução (desenvolvimento)
 4. Acesse a aplicação em:
    http://localhost:8080
 
-Configuração
-- Variáveis importantes (em `src/main/resources/application.properties` ou `application.yml`):
+**Configuração**
+- Variáveis importantes (em `src/main/resources/application.yml`):
   - spring.datasource.url
   - spring.datasource.username
   - spring.datasource.password
   - spring.jpa.hibernate.ddl-auto
 - Para desenvolvimento rápido, você pode usar H2 (in-memory) e console H2 habilitado.
 
-Uso:
+Uso
 - Rotas principais (exemplos)
   - /beneficiarios — listagem e filtros de beneficiários
   - /estabelecimentos — listagem e filtros de estabelecimentos
@@ -68,9 +68,7 @@ Boas práticas para PRs:
 - Incluir screenshots se houver alteração nas views
 
 Licença
-(c) 2026 WagnerSoft.
+(c) 2026 WagnerSoft. [LICENÇA] (https://github.com/wagnerlopes/macedonia/blob/next/LICENSE)
 
 Contato
-- Wagner Lopes — https://github.com/wagnerlopes
-- Adicionar CI (GitHub Actions) e badges reais
-- Atualizar licença conforme necessário
+- [Wagner Lopes] (https://github.com/wagnerlopes)
