@@ -68,7 +68,7 @@ Boas práticas para PRs:
 - Incluir screenshots se houver alteração nas views
 
 Licença
-(c) 2026 WagnerSoft. [https://github.com/LICENSE]
+(c) 2026 WagnerSoft.
 
 Contato
 - Wagner Lopes — https://github.com/wagnerlopes
