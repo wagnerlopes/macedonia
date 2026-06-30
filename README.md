@@ -1,4 +1,4 @@
-# Project Macedonia - Sistema de Emissão de Guias de Saúde
+# Projeto Macedonia - Sistema de Emissão de Guias de Saúde
 
 [![Java](https://img.shields.io/badge/Java-21-blue.svg)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
@@ -6,10 +6,10 @@
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)]()
 
 Resumo
------
+------
 Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvido com Spring Boot 4, Spring Data e Thymeleaf 3.1. Foi desenvolvido com JDK 21 e focado em funcionalidades para beneficiários, estabelecimentos e guias de encaminhamento.
 
-Principais funcionalidades:
+Principais funcionalidades
 - Emissão eletrônica de guias de saúde
 - Cadastro e listagem de beneficiários
 - Cadastro e listagem de estabelecimentos
@@ -17,7 +17,7 @@ Principais funcionalidades:
 - Views server-side com Thymeleaf
 - Persistência com Spring Data (JPA/Repositories)
 
-Tecnologias:
+Tecnologias
 - Java 21
 - Spring Boot 4
 - Spring Data (JPA)
@@ -25,12 +25,12 @@ Tecnologias:
 - Banco de dados (H2/PostgreSQL/MySQL — configurar conforme ambiente)
 - Maven (ou Gradle) — adapte conforme o build usado no projeto
 
-Requisitos:
+Requisitos
 - JDK 21
 - Maven 3.8+ (ou Gradle, conforme o projeto)
 - Banco de dados (configurar em `application.properties` / `application.yml`)
 
-Instalação e execução (desenvolvimento):
+Instalação e execução (desenvolvimento)
 1. Clone o repositório:
    git clone https://github.com/wagnerlopes/macedonia.git
 2. Entre no diretório do projeto:
@@ -44,7 +44,7 @@ Instalação e execução (desenvolvimento):
 4. Acesse a aplicação em:
    http://localhost:8080
 
-Configuração:
+Configuração
 - Variáveis importantes (em `src/main/resources/application.properties` ou `application.yml`):
   - spring.datasource.url
   - spring.datasource.username
@@ -68,13 +68,9 @@ Boas práticas para PRs:
 - Incluir screenshots se houver alteração nas views
 
 Licença
-- (c) 2026 WagnerSoft.
+(c) 2026 WagnerSoft. [https://github.com/LICENSE]
 
 Contato
 - Wagner Lopes — https://github.com/wagnerlopes
-
-Notas finais / To-do
-- Adicionar seção de screenshots
-- Documentar endpoints REST (se houver) com exemplos (Postman/Insomnia ou OpenAPI)
 - Adicionar CI (GitHub Actions) e badges reais
 - Atualizar licença conforme necessário
