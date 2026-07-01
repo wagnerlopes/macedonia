@@ -5,7 +5,13 @@
   width: 1rem;
   height: 1rem;
 }
- 
+
+/* evita menu dropdown espanda o header */
+.navbar .dropdown-menu{
+  position: absolute;
+  z-index: 1060;
+}
+
 /*--------------
  * Sidebar
  *--------------*/
