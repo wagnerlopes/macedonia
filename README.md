@@ -2,8 +2,8 @@
 
 [![Java](https://img.shields.io/badge/Java-21-blue.svg)](https://adoptium.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)]()
+[![Status](https://img.shields.io/badge/status-active-success.svg)](https://github.com/users/wagnerlopes/projects/1)
+[![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://github.com/wagnerlopes/macedonia?tab=MIT-1-ov-file)
 
 Resumo
 ------
@@ -69,4 +69,4 @@ Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvi
 
 ---
 
-(c) 2026 WagnerSoft. [MIT License](https://github.com/wagnerlopes/macedonia/blob/next/LICENSE).
+(c) 2026 WagnerSoft. [MIT License]([https://github.com/wagnerlopes/macedonia/blob/next/LICENSE](https://github.com/wagnerlopes/macedonia?tab=MIT-1-ov-file)).
