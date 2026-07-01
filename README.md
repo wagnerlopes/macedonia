@@ -52,23 +52,21 @@ Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvi
   - spring.jpa.hibernate.ddl-auto
 - Para desenvolvimento rápido, você pode usar H2 (in-memory) e console H2 habilitado.
 
-Uso
+**Uso**
 - Rotas principais (exemplos)
   - /beneficiarios — listagem e filtros de beneficiários
   - /estabelecimentos — listagem e filtros de estabelecimentos
   - /guias — criação e listagem de guias
 
-Reporte bugs / abertura de issues:
+**Reporte bugs / abertura de issues**
 - Use a seção de Issues no GitHub:
   https://github.com/wagnerlopes/macedonia/issues
 
-Boas práticas para PRs:
+**Boas práticas para PRs**
 - Incluir descrição do que foi alterado e por quê
 - Referenciar issues relacionadas
 - Incluir screenshots se houver alteração nas views
 
-Licença
-(c) 2026 WagnerSoft. [LICENÇA] (https://github.com/wagnerlopes/macedonia/blob/next/LICENSE)
+---
 
-Contato
-- [Wagner Lopes] (https://github.com/wagnerlopes)
+(c) 2026 WagnerSoft. [MIT License](https://github.com/wagnerlopes/macedonia/blob/next/LICENSE).
