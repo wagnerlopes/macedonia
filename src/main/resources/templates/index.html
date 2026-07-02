@@ -185,8 +185,8 @@
       </ul>
 
       <div id="navbarSearch" class="navbar-search w-100 collapse">
-        <form action="#" id="formSearch" th:action="@{/beneficiarios/search}" method="get">
-          <input type="hidden" name="tipo" id="tipoPesquisa" value="beneficiario">        
+        <form action="#" id="formSearch" th:action="@{/search}" method="post">
+          <input type="hidden" name="tipo" id="tipoPesquisa" value="beneficiario">
           <input type="text" class="form-control w-100 rounded-0 border-0" id="searchField" name="nome" placeholder="Pesquisar..." aria-label="Pesquisa"/>
         </form>
       </div>
