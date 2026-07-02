@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,11 @@ public class GuiaEncaminhamentoService {
 		return rep.findById(id);
 	}
 
+  public List<GuiaEncaminhamento> findByGuiaNr(final String numero) {
+    if (numero == null || numero.isBlank()) return Collections.emptyList();
+    return rep.findByGuiaNr(numero);
+  }
+	
   public List<Object[]> countByMonth(final Integer ano) {
     return rep.countByMonth(ano);
   }
@@ -76,5 +82,5 @@ public class GuiaEncaminhamentoService {
 		logger.debug("SAVE = {}", existing);
 		rep.save(existing);
 	}
-	
+
 }
