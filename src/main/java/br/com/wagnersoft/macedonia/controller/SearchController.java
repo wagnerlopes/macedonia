@@ -1,7 +1,9 @@
 package br.com.wagnersoft.macedonia.controller;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +18,13 @@ import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
+import br.com.wagnersoft.macedonia.service.CboService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
+import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import br.com.wagnersoft.macedonia.type.ConselhoEnum;
+import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
 import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 
 /** Search Controller.
@@ -37,7 +43,13 @@ public class SearchController {
   private BeneficiarioService benSvc;
 
   @Autowired
+  private CboService cboSvc;
+
+  @Autowired
   private OcsService ocsSvc;
+
+  @Autowired
+  private ProcedimentoMedicoService pmSvc;
 
   @Autowired
   private ProfissionalService profSvc;
@@ -61,9 +73,13 @@ public class SearchController {
                                model.addAttribute("beneficiario", new Beneficiario());
                                return "beneficiarios"; },
         "estabelecimento", n -> { model.addAttribute("allOcs", ocsSvc.findByDescricao(n));
+                                  model.addAttribute("allProcedimentos", pmSvc.mapAll());
+                                  model.addAttribute("tipoOcsMap", Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao)));
                                   model.addAttribute("ocs", new Ocs());
                                   return "ocs"; },
         "profissional", n -> { model.addAttribute("allProfissionais", profSvc.findByNome(n));
+                               model.addAttribute("allCbo", cboSvc.mapAll());
+                               model.addAttribute("allConselho", Arrays.asList(ConselhoEnum.ALL));
                                model.addAttribute("profissional", new Profissional());
                                return "profissionais"; },
         "guia", n -> { guiaViewModelBuilder.populateGuias(model);

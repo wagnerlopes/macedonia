@@ -60,7 +60,7 @@ public class OcsController {
   public Map<String, String> tipoOcsMap() {
     return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
   }
-
+  
   @GetMapping("/ocs")
   public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
     logger.info("+++ OCS +++");
