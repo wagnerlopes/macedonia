@@ -1,4 +1,4 @@
-package br.com.wagnersoft.macedonia.controller;
+package br.com.wagnersoft.macedonia.viewmodel;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;

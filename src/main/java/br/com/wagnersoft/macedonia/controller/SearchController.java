@@ -19,8 +19,11 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 
 /** Search Controller.
+ * Os Model Attributes necessários na view Guias são carregados em
+ * {@link GuiaEncaminhamentoViewModelBuilder} através do {@link GuiaEncaminhamentoViewModelAdvice}.
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
@@ -42,6 +45,9 @@ public class SearchController {
   @Autowired
   private GuiaEncaminhamentoService guiaSvc;
 
+  @Autowired
+  private GuiaEncaminhamentoViewModelBuilder guiaViewModelBuilder;
+  
   public SearchController() {
     super();
     logger.debug("{} loaded", SearchController.class.getSimpleName());
@@ -61,7 +67,9 @@ public class SearchController {
                                model.addAttribute("profissional", new Profissional());
                                return "profissionais"; },
         "guia", n -> { model.addAttribute("allGuias", guiaSvc.findByGuiaNr(n)); 
-                       model.addAttribute("guia", new GuiaEncaminhamento());
+                       model.addAttribute("guiaEncaminhamento", new GuiaEncaminhamento());
+                       guiaViewModelBuilder.populateGuias(model);
+                       guiaViewModelBuilder.populateUnidadeMedida(model);
                        return "guias"; }
         );
 
