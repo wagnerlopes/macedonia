@@ -22,8 +22,6 @@ import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
-import br.com.wagnersoft.macedonia.type.UfEnum;
-import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -58,24 +56,9 @@ public class OcsController {
     return pmSvc.mapAll();
   }
 
-  @ModelAttribute("allEspecialidade")
-  public List<EstabelecimentoSaudeEnum> allEspecialidade() {
-    return Arrays.asList(EstabelecimentoSaudeEnum.ALL);
-  }
-
-  @ModelAttribute("allUf")
-  public List<UfEnum> allUf() {
-    return Arrays.asList(UfEnum.ALL);
-  }
-
   @ModelAttribute("tipoOcsMap")
   public Map<String, String> tipoOcsMap() {
     return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
-  }
-
-  @ModelAttribute("unidadeMedidaMap")
-  public Map<String, String> unidadeMedidaMap() {
-    return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
   }
 
   @GetMapping("/ocs")

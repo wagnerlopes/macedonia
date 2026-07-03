@@ -1,8 +1,5 @@
 package br.com.wagnersoft.macedonia.viewmodel;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -11,7 +8,6 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
-import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
 /** Incluí no Model os objetos solicitados na View Guias.
  * @since 1.0
@@ -45,11 +41,6 @@ public class GuiaEncaminhamentoViewModelBuilder {
     model.addAttribute("allGuias", guiaSvc.listAll());
     model.addAttribute("allOcs", ocsSvc.mapAll());
     model.addAttribute("allProfissional", profSvc.mapAll());
-  }
-
-  public void populateUnidadeMedida(Model model) {
-    model.addAttribute("unidadeMedidaMap",
-        Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao)));
   }
 
 }

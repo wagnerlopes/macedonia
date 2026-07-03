@@ -23,7 +23,6 @@ public class GuiaEncaminhamentoViewModelAdvice {
   @ModelAttribute
   public void addGuiaModel(Model model) {
     builder.populateGuias(model);
-    builder.populateUnidadeMedida(model);
   }
 
 }
