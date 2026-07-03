@@ -1,10 +1,7 @@
 package br.com.wagnersoft.macedonia.controller;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +21,13 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
-import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
+import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 /** Guia de Encaminhamento Controller.
+ * Os Model Attributes necessários na view Guias são carregados em
+ * {@link GuiaEncaminhamentoViewModelBuilder} através do {@link GuiaEncaminhamentoViewModelAdvice}.
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
@@ -58,26 +57,6 @@ public class GuiaEncaminhamentoController {
   @ModelAttribute("allGuias")
   public List<GuiaEncaminhamento> listGuias() {
     return guiaSvc.listAll();
-  }
-
-  @ModelAttribute("allBeneficiario")
-  public Map<String, String> listBeneficiario() {
-    return benSvc.mapAll();
-  }
-
-  @ModelAttribute("allProfissional")
-  public Map<String, String> listProfissional() {
-    return profSvc.mapAll();
-  }
-
-  @ModelAttribute("allOcs")
-  public Map<Integer, String> listEstabelecimento() {
-    return ocsSvc.mapAll();
-  }
-
-  @ModelAttribute("unidadeMedidaMap")
-  public Map<String, String> unidadeMedidaMap() {
-    return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
   }
 
   @GetMapping("/guias")

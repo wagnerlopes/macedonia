@@ -10,7 +10,7 @@
     <meta name="generator" content="Astro v5.13.2" />
     <meta name="theme-color" content="#712cf9" />
 
-    <title>Macedonia · WagnerSoft v1.0.1-alpha</title>
+    <title>Macedonia · WagnerSoft v1.0.2-alpha</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
     <link rel="stylesheet" type="text/css" media="all" href="../css/macedonia.css" th:href="@{/css/macedonia.css}"/>
@@ -165,26 +165,29 @@
             data-bs-target="#navbarSearch"
             aria-controls="navbarSearch"
             aria-expanded="false"
-            aria-label="Alterar busca">
+            aria-label="Pesquisar">
             <svg class="bi" aria-hidden="true"><use xlink:href="#search"></use></svg>
           </button>
         </li>
 
-        <li class="nav-item text-nowrap">
-          <button type="button" class="nav-link px-3 text-white"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#sidebarMenu"
-            aria-controls="sidebarMenu"
-            aria-expanded="false"
-            aria-label="Alterar navegação">
+        <li class="nav-item dropdown position-relative text-nowrap">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
             <svg class="bi" aria-hidden="true"><use xlink:href="#list"></use></svg>
-          </button>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" data-tipo="beneficiario">Benefici&aacute;rio</a></li>
+            <li><a class="dropdown-item" href="#" data-tipo="estabelecimento">Estabelecimento</a></li>
+            <li><a class="dropdown-item" href="#" data-tipo="profissional">Profissional</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-tipo="guia">Guia de Encaminhamento</a></li>
+          </ul>
         </li>
       </ul>
 
       <div id="navbarSearch" class="navbar-search w-100 collapse">
-        <form action="#" id="formSearch" th:action="@{/beneficiarios/search}" method="get">
-          <input type="text" class="form-control w-100 rounded-0 border-0" id="searchField" name="nome" placeholder="Pesquisar por nome" aria-label="Pesquisa"/>
+        <form action="#" id="formSearch" th:action="@{/search}" method="post">
+          <input type="hidden" name="tipo" id="tipoPesquisa" value="beneficiario">
+          <input type="text" class="form-control w-100 rounded-0 border-0" id="searchField" name="nome" placeholder="Pesquisar..." aria-label="Pesquisa"/>
         </form>
       </div>
 

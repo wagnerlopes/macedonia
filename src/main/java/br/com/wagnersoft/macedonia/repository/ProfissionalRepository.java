@@ -10,7 +10,8 @@ import br.com.wagnersoft.macedonia.model.Profissional;
 
 public interface ProfissionalRepository extends JpaRepository<Profissional, String> {
 
-	List<Profissional> findByNome(String nome);
+  @Query("SELECT p FROM Profissional p WHERE LOWER(p.nome) LIKE LOWER(CONCAT(:nome, '%'))")
+  List<Profissional> findByNome(@Param("nome") String nome);
 
 	@Query("SELECT p FROM Profissional p WHERE p.registroProfissional.numero = :numero")
 	List<Profissional> findByRegistroProfissional(@Param("numero") String numero);

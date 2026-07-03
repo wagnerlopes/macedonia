@@ -21,7 +21,6 @@ import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.service.CboService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
 import br.com.wagnersoft.macedonia.type.ConselhoEnum;
-import br.com.wagnersoft.macedonia.type.UfEnum;
 import jakarta.validation.Valid;
 
 /** Profissional Controller.
@@ -58,11 +57,6 @@ public class ProfissionalController {
   @ModelAttribute("allConselho")
   public List<ConselhoEnum> allConselho() {
     return Arrays.asList(ConselhoEnum.ALL);
-  }
-
-  @ModelAttribute("allUf")
-  public List<UfEnum> allUf() {
-    return Arrays.asList(UfEnum.ALL);
   }
 
   @GetMapping("/especialidades")

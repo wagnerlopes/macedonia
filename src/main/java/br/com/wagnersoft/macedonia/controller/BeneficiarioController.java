@@ -52,12 +52,6 @@ public class BeneficiarioController {
     return "beneficiarios";
   }
 
-  @GetMapping("/search")
-  public String search(final Beneficiario beneficiario, Model model) {
-    model.addAttribute("allBeneficiarios", benSvc.findByNome(beneficiario.getNome()));
-    return "beneficiarios";
-  }
-  
   @GetMapping("/delete")
   public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
     benSvc.remove(cpf);

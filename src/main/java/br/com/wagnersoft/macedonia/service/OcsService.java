@@ -1,5 +1,6 @@
 package br.com.wagnersoft.macedonia.service;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,11 @@ public class OcsService {
 		return rep.findById(id);
 	}
 
+  public List<Ocs> findByDescricao(String descricao) {
+    if (descricao == null || descricao.isBlank()) return Collections.emptyList();
+    return rep.findByDescricao(descricao);
+  }
+	
 	public List<Ocs> listAll() {
     final List<Ocs> lista = rep.findAll(Sort.by(Sort.Order.by("descricao").ignoreCase()));
     logger.debug("{}", lista);
@@ -106,5 +112,5 @@ public class OcsService {
 		}
 		rep.save(existing);
 	}
-	
+
 }

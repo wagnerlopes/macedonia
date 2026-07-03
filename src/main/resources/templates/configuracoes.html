@@ -44,7 +44,11 @@
           <div class="card">
             <div class="card-header text-bg-info p-3"><strong>Vari&aacute;veis Globais</strong></div>
             <div class="card-body">
-              <p class="card-text" th:text="${'usuarioLogado = ' + #ctx.usuarioLogado}">CTX</p>
+              <ul>
+                <li th:text="${'UsrAuth = ' + #ctx.usrAuth}">USR</li>
+                <li th:text="${'unidadeMedidaMap = ' + #ctx.unidadeMedidaMap}">UM</li>
+                <li th:text="${'allUf = ' + #ctx.allUf}">UF</li>
+              </ul>
             </div>
           </div>
         </div>

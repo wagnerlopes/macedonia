@@ -13,6 +13,9 @@ public interface GuiaEncaminhamentoRepository extends JpaRepository<GuiaEncaminh
 
 	Optional<GuiaEncaminhamento> findById(int id);
 
+	@Query("SELECT g FROM GuiaEncaminhamento g WHERE g.guiaNr = :numero")
+	List<GuiaEncaminhamento> findByGuiaNr(@Param("numero") String numero);
+
 	@Query("SELECT g FROM GuiaEncaminhamento g WHERE g.beneficiario.id = :cpf")
 	List<GuiaEncaminhamento> findByBeneficiario(@Param("cpf") String cpf);
 

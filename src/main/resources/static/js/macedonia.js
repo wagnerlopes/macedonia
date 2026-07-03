@@ -1,6 +1,7 @@
 // Inicializacao das paginas
 document.addEventListener('DOMContentLoaded', () => { 'use strict'
 
+  // Submete formulário de pesquisa  
   document.getElementById('searchField').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -8,6 +9,23 @@ document.addEventListener('DOMContentLoaded', () => { 'use strict'
     }
   });
 
+  // clique no dropdown => atualiza tipo / placeholder
+  document.querySelectorAll('.dropdown-item[data-tipo]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('tipoPesquisa').value = item.dataset.tipo;
+      item.closest('.dropdown').querySelector('.dropdown-toggle').textContent = item.textContent;
+      const placeholderPorTipo = {
+        beneficiario: 'Informe o nome do Beneficiário',
+        estabelecimento: 'Informe o nome do Estabelecimento de Saúde',
+        profissional: 'Informe o nome do Profissional de Saúde',
+        guia: 'Informe o número da Guia'
+      };
+      document.getElementById('searchField').placeholder = placeholderPorTipo[item.dataset.tipo] || 'Pesquisar...ops!';
+    });
+  });
+      
+  // Altera o tema do bootstrap
   document.getElementById('bd-theme').addEventListener('click', (e) => {
     console.log(e);
     document.body.dataset.bsTheme = (document.body.dataset.bsTheme === 'dark') ? 'light' : 'dark';
