@@ -60,7 +60,7 @@ public class OcsController {
   public Map<String, String> tipoOcsMap() {
     return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
   }
-  
+
   @GetMapping("/ocs")
   public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
     logger.info("+++ OCS +++");
@@ -76,7 +76,7 @@ public class OcsController {
     return "redirect:/ocs";
   }
 
-  @RequestMapping(value="/ocs", params={"save"})
+  @RequestMapping(value = "/ocs", params = {"save"})
   public String save(@Valid final Ocs ocs, final BindingResult bindingResult, final ModelMap model) {
     if (bindingResult.hasErrors()) {
       return "ocs";
@@ -87,7 +87,7 @@ public class OcsController {
     return "redirect:/ocs";
   }
 
-  @RequestMapping(value="/ocs", params={"addRow"})
+  @RequestMapping(value = "/ocs", params = {"addRow"})
   public String addRow(final Ocs ocs, final BindingResult bindingResult, final Model model) {
     ocs.getProcedimentos().add(new OcsPm());
     model.addAttribute("ocs", ocs);
@@ -95,7 +95,7 @@ public class OcsController {
     return "ocs";
   }
 
-  @RequestMapping(value="/ocs", params={"removeRow"})
+  @RequestMapping(value = "/ocs", params = {"removeRow"})
   public String removeRow(final Ocs ocs, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
     final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
     ocs.getProcedimentos().remove(rowId.intValue());

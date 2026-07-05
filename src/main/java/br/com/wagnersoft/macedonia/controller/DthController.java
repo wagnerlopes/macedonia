@@ -78,12 +78,14 @@ public class DthController {
     return "redirect:/dth";
   }
 
-  @PostMapping(value="/dth", params={"save"})
+  @PostMapping(value = "/dth", params = {"save"})
   public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
-    if (dth.getOcs().getId() == null)
+    if (dth.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
-    else
+    }
+    else {
       ocsSvc.findById(dth.getOcs().getId()).ifPresentOrElse(o -> dth.setOcs(o) , () -> bindingResult.rejectValue("ocs.cnpj", "dth.erro.ocs", "Deve ser informado"));
+    }
     if (bindingResult.hasErrors()) {
       return "dth";
     }

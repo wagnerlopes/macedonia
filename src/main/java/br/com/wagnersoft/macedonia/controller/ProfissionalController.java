@@ -81,13 +81,13 @@ public class ProfissionalController {
     return "redirect:/profissionais";
   }
 
-  @PostMapping(value="/profissionais", params={"save"})
+  @PostMapping(value = "/profissionais", params = {"save"})
   public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
     cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
     if (bindingResult.hasErrors()) {
       return "profissionais";
     }
-    final Cbo cbo =cboSvc.findById(profissional.getCbo().getCodigo()).orElseThrow();
+    final Cbo cbo = cboSvc.findById(profissional.getCbo().getCodigo()).orElseThrow();
     profissional.setCbo(cbo);
     logger.info("{}", profissional);
     profSvc.add(profissional);
