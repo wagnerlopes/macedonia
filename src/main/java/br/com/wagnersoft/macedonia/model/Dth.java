@@ -36,7 +36,7 @@ public class Dth implements Comparable<Dth>, Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @NotBlank
@@ -54,7 +54,7 @@ public class Dth implements Comparable<Dth>, Serializable {
 
   @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name="ocs_id")
+  @JoinColumn(name = "ocs_id")
   private Ocs ocs;
 
   @Override

@@ -22,24 +22,24 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="registro_profissional")
+@Table(name = "registro_profissional")
 public class RegistroProfissional implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JsonIgnore
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonIgnore
+  private Integer id;
 
-	private String conselho;
+  private String conselho;
 
-	private String numero;
+  private String numero;
 
-	private String uf;
+  private String uf;
 
-	public String toString() {
-      return conselho + "-" + uf + " " + numero;
-	}
+  public String toString() {
+    return conselho + "-" + uf + " " + numero;
+  }
 
 }

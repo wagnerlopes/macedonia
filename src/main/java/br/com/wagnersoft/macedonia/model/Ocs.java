@@ -32,132 +32,132 @@ import lombok.ToString.Include;
 @ToString(onlyExplicitlyIncluded = true)
 public class Ocs implements Comparable<Ocs>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@NotNull
-	@Include
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+  @NotNull
+  @Include
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	@NotBlank
-	@Include
-	private String cnpj;
+  @NotBlank
+  @Include
+  private String cnpj;
 
-	@NotBlank
-	@Include
-	private String descricao;
+  @NotBlank
+  @Include
+  private String descricao;
 
-	@NotBlank
-	private String especialidade;
+  @NotBlank
+  private String especialidade;
 
-	private String registroAns;
+  private String registroAns;
 
-	private String endereco;
+  private String endereco;
 
-	private String numero;
+  private String numero;
 
-	private String complemento;
+  private String complemento;
 
-	private String municipio;
+  private String municipio;
 
-	private String uf;
+  private String uf;
 
-	private String telefone;
+  private String telefone;
 
-	private String contato;
+  private String contato;
 
-	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Contrato> contratos = new ArrayList<>();
+  @OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<Contrato> contratos = new ArrayList<>();
 
-	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<Dth> dths = new ArrayList<>();
+  @OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<Dth> dths = new ArrayList<>();
 
-	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guias = new ArrayList<>();
+  @OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
-	@OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<OcsPm> procedimentos = new ArrayList<>();
+  @OneToMany(mappedBy = "ocs", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<OcsPm> procedimentos = new ArrayList<>();
 
-	public Ocs(Integer id) {
-		super();
-		this.id = id;
-	}
-	
-	@Override
-	public int compareTo(Ocs o) {
-		return this.getDescricao().compareTo(o.getDescricao());
-	}
+  public Ocs(Integer id) {
+    super();
+    this.id = id;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+  @Override
+  public int compareTo(Ocs o) {
+    return this.getDescricao().compareTo(o.getDescricao());
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		Ocs other = (Ocs) obj;
-		return Objects.equals(id, other.id);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-	public Contrato addContrato(final Contrato contrato) {
-		if (!this.getContratos().contains(contrato)) {
-			this.getContratos().add(contrato);
-			contrato.setOcs(this);
-		}
-		return contrato;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Ocs other = (Ocs) obj;
+    return Objects.equals(id, other.id);
+  }
 
-	public Contrato removeContrato(final Contrato contrato) {
-		getContratos().remove(contrato);
-		contrato.setOcs(null);
-		return contrato;
-	}
+  public Contrato addContrato(final Contrato contrato) {
+    if (!this.getContratos().contains(contrato)) {
+      this.getContratos().add(contrato);
+      contrato.setOcs(this);
+    }
+    return contrato;
+  }
 
-	public Dth addDth(final Dth dth) {
-		if (!this.getDths().contains(dth)) {
-			this.getDths().add(dth);
-			dth.setOcs(this);
-		}
-		return dth;
-	}
+  public Contrato removeContrato(final Contrato contrato) {
+    getContratos().remove(contrato);
+    contrato.setOcs(null);
+    return contrato;
+  }
 
-	public Dth removeDth(final Dth dth) {
-		getDths().remove(dth);
-		dth.setOcs(null);
-		return dth;
-	}
+  public Dth addDth(final Dth dth) {
+    if (!this.getDths().contains(dth)) {
+      this.getDths().add(dth);
+      dth.setOcs(this);
+    }
+    return dth;
+  }
 
-	public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
-		if (!this.getGuias().contains(guia)) {
-			this.getGuias().add(guia);
-			guia.setOcs(this);
-		}
-		return guia;
-	}
+  public Dth removeDth(final Dth dth) {
+    getDths().remove(dth);
+    dth.setOcs(null);
+    return dth;
+  }
 
-	public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
-		getGuias().remove(guia);
-		guia.setOcs(null);
-		return guia;
-	}
+  public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
+    if (!this.getGuias().contains(guia)) {
+      this.getGuias().add(guia);
+      guia.setOcs(this);
+    }
+    return guia;
+  }
 
-	public OcsPm addOcsPm(final OcsPm opm) {
-		if (this.getProcedimentos().contains(opm)) {
-			this.getProcedimentos().remove(opm);
-		}
-		this.getProcedimentos().add(opm);
-		opm.setOcs(this);
-		return opm;
-	}
+  public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
+    getGuias().remove(guia);
+    guia.setOcs(null);
+    return guia;
+  }
 
-	public OcsPm removeOcsPm(final OcsPm opm) {
-		getProcedimentos().remove(opm);
-		opm.setOcs(null);
-		return opm;
-	}
-	
+  public OcsPm addOcsPm(final OcsPm opm) {
+    if (this.getProcedimentos().contains(opm)) {
+      this.getProcedimentos().remove(opm);
+    }
+    this.getProcedimentos().add(opm);
+    opm.setOcs(this);
+    return opm;
+  }
+
+  public OcsPm removeOcsPm(final OcsPm opm) {
+    getProcedimentos().remove(opm);
+    opm.setOcs(null);
+    return opm;
+  }
+
 }

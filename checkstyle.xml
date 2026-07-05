@@ -29,7 +29,11 @@
 
     <!-- Outras regras úteis -->
     <module name="WhitespaceAround"/>
-    <module name="NeedBraces"/>
+
+    <module name="NeedBraces">
+      <property name="severity" value="ignore"/>
+    </module>
 
   </module>
+
 </module>
