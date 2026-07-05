@@ -40,10 +40,10 @@ public class TissService {
 
   @Value("${app.operadora}")
   private String operadora;
-  
+
   @Value("${app.registroAns}")
   private String registroAns;
-  
+
   @Autowired
   private GuiaEncaminhamentoRepository rep;
 
@@ -115,7 +115,7 @@ public class TissService {
         .build();
 
   }  
-  
+
   /** Converte a entidade {@link GuiaPm} em {@link Procedimento}.
    * @param gpm
    * @param sequencial

@@ -23,28 +23,28 @@ import br.com.wagnersoft.macedonia.repository.CboRepository;
 @Service
 public class CboService {
 
-	private static final Logger logger = LoggerFactory.getLogger(CboService.class);
+  private static final Logger logger = LoggerFactory.getLogger(CboService.class);
 
-	@Autowired
-	private CboRepository rep;
-	
-	public Optional<Cbo> findById(String id) {
-	  if (id == null || id.isBlank()) return Optional.empty();
-		return rep.findById(id);
-	}
+  @Autowired
+  private CboRepository rep;
 
-	public List<Cbo> listAll() {
-		final List<Cbo> lista = rep.findAll(Sort.by(Sort.Order.by("descricao").ignoreCase()));
-		logger.debug("{}", lista);
-		return lista;
-	}
+  public Optional<Cbo> findById(String id) {
+    if (id == null || id.isBlank()) return Optional.empty();
+    return rep.findById(id);
+  }
+
+  public List<Cbo> listAll() {
+    final List<Cbo> lista = rep.findAll(Sort.by(Sort.Order.by("descricao").ignoreCase()));
+    logger.debug("{}", lista);
+    return lista;
+  }
 
   /** Retorna apenas o mapa de descricao (value) e o codigo (key) usado em select list.
    * @return {@link Map<String, String>} codigo e descricao
    */
-	public Map<String, String> mapAll() {
-		return this.listAll().stream()
+  public Map<String, String> mapAll() {
+    return this.listAll().stream()
         .collect(Collectors.toMap(Cbo::getCodigo, Cbo::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));
-	}
-	
+  }
+
 }

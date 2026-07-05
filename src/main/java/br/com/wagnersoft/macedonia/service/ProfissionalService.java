@@ -24,56 +24,56 @@ import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 @Service
 public class ProfissionalService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProfissionalService.class);
+  private static final Logger logger = LoggerFactory.getLogger(ProfissionalService.class);
 
-	@Autowired
-	private ProfissionalRepository rep;
+  @Autowired
+  private ProfissionalRepository rep;
 
-	public Optional<Profissional> findByCpf(final String cpf) {
+  public Optional<Profissional> findByCpf(final String cpf) {
     if (cpf == null || cpf.isBlank()) return Optional.empty();
     return rep.findById(cpf.replaceAll("[^0-9]", ""));
-	}
+  }
 
   public List<Profissional> findByNome(final String nome) {
     if (nome == null || nome.isBlank()) return Collections.emptyList();
     return rep.findByNome(nome);
   }
-	
-	public List<Profissional> listAll() {
+
+  public List<Profissional> listAll() {
     final List<Profissional> lista = rep.findAll(Sort.by(Sort.Order.by("nome").ignoreCase()));
     logger.debug("{}", lista);
     return lista;
-	}
+  }
 
   /** Retorna apenas o mapa de nome (value) e o cpf (key) usado em select list.
    * @return {@link Map<String, String>} CPF e Nome
    */
-	public Map<String, String> mapAll() {
+  public Map<String, String> mapAll() {
     return this.listAll().stream()
         .collect(Collectors.toMap(Profissional::getCpf, Profissional::getNome, (existing, replacement) -> existing, LinkedHashMap::new));
-	}
-	
-	public void remove(final String cpf) {
+  }
+
+  public void remove(final String cpf) {
     if (cpf == null || cpf.isBlank()) return;
-		rep.findById(cpf.replaceAll("[^0-9]","")).ifPresent(p -> {
-			if (p.getGuiasResponsavel().isEmpty() && p.getGuiasSolicitante().isEmpty())
-				rep.delete(p);
-		});
-	}
+    rep.findById(cpf.replaceAll("[^0-9]","")).ifPresent(p -> {
+      if (p.getGuiasResponsavel().isEmpty() && p.getGuiasSolicitante().isEmpty())
+        rep.delete(p);
+    });
+  }
 
   public void add(final Profissional profissional) {
     if (profissional == null) return;
     Optional.ofNullable(profissional.getCpf())
-      .flatMap(rep::findById)
-      .ifPresentOrElse(existing -> this.save(existing, profissional), () -> rep.save(profissional));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, profissional), () -> rep.save(profissional));
   }
 
-	private void save(final Profissional existing, final Profissional replacement) {
-		existing.setNome(replacement.getNome());
-		existing.setCbo(replacement.getCbo());
-		existing.setCns(replacement.getCns());
-		existing.setRegistroProfissional(replacement.getRegistroProfissional());
-		rep.save(existing);
-	}
+  private void save(final Profissional existing, final Profissional replacement) {
+    existing.setNome(replacement.getNome());
+    existing.setCbo(replacement.getCbo());
+    existing.setCns(replacement.getCns());
+    existing.setRegistroProfissional(replacement.getRegistroProfissional());
+    rep.save(existing);
+  }
 
 }

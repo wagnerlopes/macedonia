@@ -23,21 +23,21 @@ import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 @Service
 public class ProcedimentoMedicoService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProcedimentoMedicoService.class);
+  private static final Logger logger = LoggerFactory.getLogger(ProcedimentoMedicoService.class);
 
-	@Autowired
-	private ProcedimentoMedicoRepository rep;
+  @Autowired
+  private ProcedimentoMedicoRepository rep;
 
-	public Optional<ProcedimentoMedico> findById(final Integer id) {
-	  if (id == null) return Optional.empty();
-		return rep.findById(id);
-	}
-	
-	public List<ProcedimentoMedico> listAll() {
+  public Optional<ProcedimentoMedico> findById(final Integer id) {
+    if (id == null) return Optional.empty();
+    return rep.findById(id);
+  }
+
+  public List<ProcedimentoMedico> listAll() {
     final List<ProcedimentoMedico> lista = rep.findAll(Sort.by(Sort.Order.by("descricao").ignoreCase()));
     logger.debug("{}", lista);
     return lista;
-	}
+  }
 
   /** Retorna apenas o mapa de nome (value) e o cpf (key) usado em select list.
    * @return {@link Map<String, String>} Id e Descricao
@@ -46,5 +46,5 @@ public class ProcedimentoMedicoService {
     return this.listAll().stream()
         .collect(Collectors.toMap(ProcedimentoMedico::getId, ProcedimentoMedico::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));
   }
-	
+
 }

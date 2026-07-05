@@ -20,43 +20,43 @@ import br.com.wagnersoft.macedonia.repository.DthRepository;
 @Service
 public class DthService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DthService.class);
+  private static final Logger logger = LoggerFactory.getLogger(DthService.class);
 
-	@Autowired
-	private DthRepository rep;
+  @Autowired
+  private DthRepository rep;
 
-	public Optional<Dth> findById(final Integer id) {
-	  if (id == null) return Optional.empty();
-		return rep.findById(id);
-	}
+  public Optional<Dth> findById(final Integer id) {
+    if (id == null) return Optional.empty();
+    return rep.findById(id);
+  }
 
-	public List<Dth> listAll() {
-		final List<Dth> lista = rep.findAll(Sort.by(Sort.Order.by("id")));
-		logger.debug("{}", lista);
-		return lista;
-	}
+  public List<Dth> listAll() {
+    final List<Dth> lista = rep.findAll(Sort.by(Sort.Order.by("id")));
+    logger.debug("{}", lista);
+    return lista;
+  }
 
-	public void remove(final Integer id) {
+  public void remove(final Integer id) {
     if (id == null) return;
-		rep.findById(id).ifPresent(c -> rep.delete(c));
-	}
-	
-	public void add(Dth dth) {
-		if (dth == null) return;
-		Optional.ofNullable(dth.getId())
-		  .flatMap(rep::findById)
-		  .ifPresentOrElse(existing -> this.save(existing, dth), () -> rep.save(dth));
-	}
+    rep.findById(id).ifPresent(c -> rep.delete(c));
+  }
 
-	private void save(final Dth existing, final Dth replacement) {
+  public void add(Dth dth) {
+    if (dth == null) return;
+    Optional.ofNullable(dth.getId())
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, dth), () -> rep.save(dth));
+  }
+
+  private void save(final Dth existing, final Dth replacement) {
     logger.debug("existing: {}", existing);
     logger.debug("replacement: {}", replacement);
-		existing.setDescricao(replacement.getDescricao());
-		existing.setCodigo(replacement.getCodigo());
-		existing.setUnidadeMedida(replacement.getUnidadeMedida());
-		existing.setValorUnitario(replacement.getValorUnitario());
-		existing.setOcs(replacement.getOcs());
-		rep.save(existing);
-	}
-	
+    existing.setDescricao(replacement.getDescricao());
+    existing.setCodigo(replacement.getCodigo());
+    existing.setUnidadeMedida(replacement.getUnidadeMedida());
+    existing.setValorUnitario(replacement.getValorUnitario());
+    existing.setOcs(replacement.getOcs());
+    rep.save(existing);
+  }
+
 }
