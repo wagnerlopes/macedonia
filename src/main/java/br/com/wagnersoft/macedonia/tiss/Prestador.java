@@ -7,10 +7,10 @@ import lombok.Getter;
 @Builder
 public class Prestador {
 
-	private String numeroRegistroANSPrestador;
-	
-	private String nomePrestador;
-	
-	private String cnpj;
-	
+  private String numeroRegistroANSPrestador;
+
+  private String nomePrestador;
+
+  private String cnpj;
+
 }

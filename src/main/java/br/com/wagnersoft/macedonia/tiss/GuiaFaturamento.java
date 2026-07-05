@@ -11,15 +11,15 @@ import lombok.Getter;
 @Builder
 public class GuiaFaturamento {
 
-	private Cabecalho cabecalho;
-	
-	private List<Procedimento> procedimentos;
-	
-	private Valores valores;
-	
-	private List<FormaPagamento> formasPagamento;
-	
-	private String observacoes;
+  private Cabecalho cabecalho;
+
+  private List<Procedimento> procedimentos;
+
+  private Valores valores;
+
+  private List<FormaPagamento> formasPagamento;
+
+  private String observacoes;
 
   public static GuiaFaturamento empty() {
     return GuiaFaturamento.builder()
@@ -35,5 +35,5 @@ public class GuiaFaturamento {
         .observacoes("")
         .build();
   }
-	
+
 }

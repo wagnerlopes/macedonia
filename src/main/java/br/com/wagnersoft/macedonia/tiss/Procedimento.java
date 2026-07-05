@@ -13,27 +13,27 @@ import lombok.Getter;
 @Builder
 public class Procedimento {
 
-	private Integer sequencial;
-	
-	private String codigoProcedimento;
+  private Integer sequencial;
 
-    private String descricaoProcedimento;
+  private String codigoProcedimento;
 
-    private String tabela;
-    
-    private Integer quantidade;
-    
-    private String unidadeMedida;
-    
-    private BigDecimal valorUnitario;
-    
-    private BigDecimal valorTotal;
-    
-    private Profissional profissionalExecutante;
+  private String descricaoProcedimento;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
-    private LocalDate dataRealizacao;
-    
-    private Boolean procedimentoPrincipal;
-    
+  private String tabela;
+
+  private Integer quantidade;
+
+  private String unidadeMedida;
+
+  private BigDecimal valorUnitario;
+
+  private BigDecimal valorTotal;
+
+  private Profissional profissionalExecutante;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
+  private LocalDate dataRealizacao;
+
+  private Boolean procedimentoPrincipal;
+
 }

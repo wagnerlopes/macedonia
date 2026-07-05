@@ -12,11 +12,11 @@ import lombok.Getter;
 @Builder
 public class FormaPagamento {
 
-	private String tipo;
-	
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
-	private LocalDate dataPagamento;
-	
-	private BigDecimal valorPago;
+  private String tipo;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", locale = "pt-BR", timezone = "Brazil/East")
+  private LocalDate dataPagamento;
+
+  private BigDecimal valorPago;
 
 }
