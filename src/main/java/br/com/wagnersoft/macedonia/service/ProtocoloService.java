@@ -19,34 +19,34 @@ import br.com.wagnersoft.macedonia.repository.ProtocoloRepository;
 @Service
 public class ProtocoloService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProtocoloService.class);
+  private static final Logger logger = LoggerFactory.getLogger(ProtocoloService.class);
 
-	@Autowired
-	private ProtocoloRepository rep;
+  @Autowired
+  private ProtocoloRepository rep;
 
-	public Optional<Protocolo> findById(final Integer id) {
-	  if (id == null) return Optional.empty();
-		return rep.findById(id);
-	}
-	
-	public List<Protocolo> listAll() {
-		final List<Protocolo> lista = rep.findAll();
+  public Optional<Protocolo> findById(final Integer id) {
+    if (id == null) return Optional.empty();
+    return rep.findById(id);
+  }
+
+  public List<Protocolo> listAll() {
+    final List<Protocolo> lista = rep.findAll();
     logger.debug("{}", lista);
-		return lista;
-	}
+    return lista;
+  }
 
   public void remove(final Integer id) {
     if (id == null) return;
     this.findById(id).ifPresent(p -> rep.delete(p));
   }
-  
-	public void add(final Protocolo protocolo) {
-	  if (protocolo == null) return;
+
+  public void add(final Protocolo protocolo) {
+    if (protocolo == null) return;
     logger.debug("{}", protocolo);
-	  Optional.of(protocolo.getId())
-	    .flatMap(rep::findById)
-	    .ifPresentOrElse(existing -> this.save(existing, protocolo), () -> rep.save(protocolo));
-	}
+    Optional.of(protocolo.getId())
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, protocolo), () -> rep.save(protocolo));
+  }
 
   private void save(final Protocolo existing, final Protocolo replacement) {
     existing.setAssunto(replacement.getAssunto());

@@ -38,7 +38,7 @@ public class BeneficiarioService {
     if (nome == null || nome.isBlank()) return Collections.emptyList();
     return rep.findByNome(nome);
   }
-  
+
   public List<Beneficiario> listAll() {
     final List<Beneficiario> lista = rep.findAll(Sort.by(Sort.Order.by("nome").ignoreCase()));
     logger.debug("{}", lista);
@@ -59,8 +59,8 @@ public class BeneficiarioService {
   public void add(final Beneficiario beneficiario) {
     if (beneficiario == null) return;
     Optional.ofNullable(beneficiario.getCpf())
-    .flatMap(rep::findById)
-    .ifPresentOrElse(existing -> this.save(existing, beneficiario), () -> rep.save(beneficiario));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, beneficiario), () -> rep.save(beneficiario));
   }
 
   private void save(final Beneficiario existing, final Beneficiario replacement) {

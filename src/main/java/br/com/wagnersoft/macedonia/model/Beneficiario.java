@@ -36,68 +36,68 @@ import lombok.ToString;
 @ToString
 public class Beneficiario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@Size(min = 11, max=11, message = "informar 11 dígitos")
-	@NotBlank
-	@Digits(integer = 11, fraction = 0, message = "somente dígitos permitidos")
-	private String cpf;
+  @Id
+  @Size(min = 11, max = 11, message = "informar 11 dígitos")
+  @NotBlank
+  @Digits(integer = 11, fraction = 0, message = "somente dígitos permitidos")
+  private String cpf;
 
-	@NotBlank
-	@Size(max=255)
-	private String nome;
+  @NotBlank
+  @Size(max = 255)
+  private String nome;
 
-	@NotNull
-	@Past
-	@Column(name="nascimento_data")
-	private LocalDate nascimentoData;
+  @NotNull
+  @Past
+  @Column(name = "nascimento_data")
+  private LocalDate nascimentoData;
 
-	@OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guias = new ArrayList<>();
+  @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(cpf);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(cpf);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Beneficiario other = (Beneficiario) obj;
-		return Objects.equals(cpf, other.cpf);
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Beneficiario other = (Beneficiario) obj;
+    return Objects.equals(cpf, other.cpf);
+  }
 
-	public long getIdade() {
-	    if (nascimentoData == null) return 0;
-	    final LocalDate today = LocalDate.now();
-	    if (nascimentoData.isAfter(today)) return -1;
-	    return ChronoUnit.YEARS.between(nascimentoData, today);
-	}	
+  public long getIdade() {
+    if (nascimentoData == null) return 0;
+    final LocalDate today = LocalDate.now();
+    if (nascimentoData.isAfter(today)) return -1;
+    return ChronoUnit.YEARS.between(nascimentoData, today);
+  }	
 
-	public String getFaixaEtaria() {
-		long idade = getIdade();
-		long s = idade == 0 ? idade + 1 : idade%10 == 0 ? idade - 1 : idade;
-		return Math.round(s / 10) * 10 + " a " + Math.round((s + 9) / 10) * 10;
-	}
+  public String getFaixaEtaria() {
+    long idade = getIdade();
+    long s = idade == 0 ? idade + 1 : idade % 10 == 0 ? idade - 1 : idade;
+    return Math.round(s / 10) * 10 + " a " + Math.round((s + 9) / 10) * 10;
+  }
 
-	public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
-		if (!this.getGuias().contains(guia)) {
-			this.getGuias().add(guia);
-			guia.setBeneficiario(this);
-		}
-		return guia;
-	}
+  public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
+    if (!this.getGuias().contains(guia)) {
+      this.getGuias().add(guia);
+      guia.setBeneficiario(this);
+    }
+    return guia;
+  }
 
-	public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
-		getGuias().remove(guia);
-		guia.setBeneficiario(null);
-		return guia;
-	}
-	
+  public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
+    getGuias().remove(guia);
+    guia.setBeneficiario(null);
+    return guia;
+  }
+
 }

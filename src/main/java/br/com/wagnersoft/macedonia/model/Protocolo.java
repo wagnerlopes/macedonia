@@ -32,64 +32,64 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Protocolo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	private String assunto;
+  private String assunto;
 
-	private String destino;
+  private String destino;
 
-	@Column(name="doc_data")
-	private LocalDate docData;
+  @Column(name = "doc_data")
+  private LocalDate docData;
 
-	@Column(name="doc_nr")
-	private String docNr;
+  @Column(name = "doc_nr")
+  private String docNr;
 
-	@Column(name="doc_tipo")
-	private String docTipo;
+  @Column(name = "doc_tipo")
+  private String docTipo;
 
-	private String observacao;
+  private String observacao;
 
-	private Integer status;
+  private Integer status;
 
-	private BigDecimal valor;
+  private BigDecimal valor;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id")
-	private Ocs ocs;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ocs_id")
+  private Ocs ocs;
 
-	@OneToMany(mappedBy = "protocolo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guias = new ArrayList<>();
+  @OneToMany(mappedBy = "protocolo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		Protocolo other = (Protocolo) obj;
-		return Objects.equals(id, other.id);
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Protocolo other = (Protocolo) obj;
+    return Objects.equals(id, other.id);
+  }
 
-	public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
-		if (!this.getGuias().contains(guia)) {
-			this.getGuias().add(guia);
-			guia.setProtocolo(this);
-		}
-		return guia;
-	}
+  public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
+    if (!this.getGuias().contains(guia)) {
+      this.getGuias().add(guia);
+      guia.setProtocolo(this);
+    }
+    return guia;
+  }
 
-	public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
-		getGuias().remove(guia);
-		guia.setProtocolo(null);
-		return guia;
-	}
-	
+  public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
+    getGuias().remove(guia);
+    guia.setProtocolo(null);
+    return guia;
+  }
+
 }

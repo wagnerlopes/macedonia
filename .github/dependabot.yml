@@ -1,0 +1,9 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/" # raiz do projeto onde está o pom.xml
+    schedule:
+      interval: "weekly" # pode ser daily, weekly ou monthly
+    open-pull-requests-limit: 5
+    reviewers:
+      - "wagner.luis.alopes@gmail.com" # opcional: quem revisa os PRs

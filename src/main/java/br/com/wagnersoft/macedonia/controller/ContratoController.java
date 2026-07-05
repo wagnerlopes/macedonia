@@ -28,56 +28,58 @@ import jakarta.validation.Valid;
 @Controller
 public class ContratoController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ContratoController.class);
+  private static final Logger logger = LoggerFactory.getLogger(ContratoController.class);
 
-    @Autowired
-    private OcsService ocsSvc;
-	
-    @Autowired
-    private ContratoService cttSvc;
+  @Autowired
+  private OcsService ocsSvc;
 
-    public ContratoController() {
-        super();
-        logger.debug("{} loaded", ContratoController.class.getSimpleName());
-    }
+  @Autowired
+  private ContratoService cttSvc;
 
-    @ModelAttribute("allContratos")
-    public List<Contrato> listContratos() {
-        return cttSvc.listAll();
-    }
-    
-    @ModelAttribute("allOcs")
-    public Map<Integer, String> listEstabelecimento() {
-        return ocsSvc.mapAll();
-    }
-    
-    @GetMapping({"/contratos"})
-    public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
-		logger.info("+++ Contratos +++");
-		model.addAttribute("menu", "Contrato");
-        model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id).orElse(new Contrato()));
-        return "contratos";
-    }
+  public ContratoController() {
+    super();
+    logger.debug("{} loaded", ContratoController.class.getSimpleName());
+  }
 
-    @GetMapping({"/contratos/delete"})
-    public String delete(@RequestParam(name = "id", required = false) Integer id) {
-        cttSvc.remove(id);
-        return "redirect:/contratos";
+  @ModelAttribute("allContratos")
+  public List<Contrato> listContratos() {
+    return cttSvc.listAll();
+  }
+
+  @ModelAttribute("allOcs")
+  public Map<Integer, String> listEstabelecimento() {
+    return ocsSvc.mapAll();
+  }
+
+  @GetMapping({"/contratos"})
+  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+    logger.info("+++ Contratos +++");
+    model.addAttribute("menu", "Contrato");
+    model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id).orElse(new Contrato()));
+    return "contratos";
+  }
+
+  @GetMapping({"/contratos/delete"})
+  public String delete(@RequestParam(name = "id", required = false) Integer id) {
+    cttSvc.remove(id);
+    return "redirect:/contratos";
+  }
+
+  @PostMapping(value = "/contratos/save", params = {"save"})
+  public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
+    if (contrato.getOcs().getId() == null) {
+      bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
     }
-    
-    @PostMapping(value="/contratos/save", params={"save"})
-    public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
-    	if (contrato.getOcs().getId() == null)
-    		bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
-    	else
-          ocsSvc.findById(contrato.getOcs().getId()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado"));
-        if (bindingResult.hasErrors()) {
-        	return "contratos";
-        }
-        logger.info("{}", contrato);
-        cttSvc.add(contrato);
-        model.clear();
-        return "redirect:/contratos";
+    else {
+      ocsSvc.findById(contrato.getOcs().getId()).ifPresentOrElse(o -> contrato.setOcs(o), () -> bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado"));
     }
-    
+    if (bindingResult.hasErrors()) {
+      return "contratos";
+    }
+    logger.info("{}", contrato);
+    cttSvc.add(contrato);
+    model.clear();
+    return "redirect:/contratos";
+  }
+
 }

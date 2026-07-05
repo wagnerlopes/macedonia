@@ -37,9 +37,9 @@ public class RemoteApiRestController {
   @Autowired
   private OcsPmService ocsPmSvc;
 
-  public record ProcedimentoDTO(Integer id, Integer ocs_id, Integer pm_id, String tuss, String unidadeMedida, BigDecimal valorUnitario) {};
+  public record ProcedimentoDTO(Integer id, Integer ocs_id, Integer pm_id, String tuss, String unidadeMedida, BigDecimal valorUnitario) { };
 
-  public record ChartDTO(String[] xValues, Integer[] yValues) {};
+  public record ChartDTO(String[] xValues, Integer[] yValues) { };
 
   public RemoteApiRestController() {
     super();
@@ -58,7 +58,7 @@ public class RemoteApiRestController {
   @GetMapping("/chart")
   public ResponseEntity<ChartDTO> computeChartValues() {
     String[] xValues = {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
-    
+
     //Integer[] yValues = {10, 13, 25, 22, 15, 9, 30, 18, 21, 28, 12, 35}; // Teste values
 
     List<Object[]> mesData = guiaSvc.countByMonth(LocalDate.now().getYear());
@@ -69,8 +69,8 @@ public class RemoteApiRestController {
             row -> ((Number) row[0]).intValue(),  // mes
             row -> ((Number) row[1]).longValue(), // total
             Long::sum                             // em caso de duplicatas
-        ));
-    
+            ));
+
     logger.debug("MAP DATA = {}", totalsByMonth);
 
     Integer[] yValues = IntStream.rangeClosed(1, xValues.length)
@@ -79,5 +79,5 @@ public class RemoteApiRestController {
 
     return ResponseEntity.ok(new ChartDTO(xValues, yValues));
   }
-  
+
 }

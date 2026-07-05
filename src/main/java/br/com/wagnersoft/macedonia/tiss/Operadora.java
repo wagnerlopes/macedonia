@@ -7,8 +7,8 @@ import lombok.Getter;
 @Builder
 public class Operadora {
 
-	private String numeroRegistroANSOperadora;
-	
-	private String nomeOperadora;
-	
+  private String numeroRegistroANSOperadora;
+
+  private String nomeOperadora;
+
 }

@@ -22,36 +22,36 @@ import br.com.wagnersoft.macedonia.repository.OcsPmRepository;
 @Service
 public class OcsPmService {
 
-	private static final Logger logger = LoggerFactory.getLogger(OcsPmService.class);
+  private static final Logger logger = LoggerFactory.getLogger(OcsPmService.class);
 
-	@Autowired
-	private OcsPmRepository rep;
+  @Autowired
+  private OcsPmRepository rep;
 
-	public Optional<OcsPm> findById(final Integer id) {
-	  if (id == null) return Optional.empty();
-		return rep.findById(id);
-	}
+  public Optional<OcsPm> findById(final Integer id) {
+    if (id == null) return Optional.empty();
+    return rep.findById(id);
+  }
 
   public Optional<OcsPm> findByOcsPm(final Integer ocsId, final Integer pmId) {
     if (ocsId == null || pmId == null) return Optional.empty();
     return rep.findByOcsPm(ocsId, pmId);
   }
-	
-	public List<OcsPm> findByOcs(final Ocs ocs) {
-	  if (ocs == null) return Collections.emptyList();
-		return rep.findByOcs(ocs);
-	}
 
-	public List<OcsPm> findByPm(final ProcedimentoMedico pm) {
+  public List<OcsPm> findByOcs(final Ocs ocs) {
+    if (ocs == null) return Collections.emptyList();
+    return rep.findByOcs(ocs);
+  }
+
+  public List<OcsPm> findByPm(final ProcedimentoMedico pm) {
     if (pm == null) return Collections.emptyList();
-		return rep.findByPm(pm);
-	}
-	
+    return rep.findByPm(pm);
+  }
+
   public List<OcsPm> listAll() {
     final List<OcsPm> lista = rep.findAll();
     return lista;
   }
-  
+
   public void remove(final Integer id) {
     if (id == null) return;
     rep.findById(id).ifPresent(o -> {
@@ -59,21 +59,21 @@ public class OcsPmService {
         rep.delete(o);
     });
   }
-  
-	public void add(final OcsPm opm) {
-	  if (opm == null) return;
-	  Optional.ofNullable(opm.getId())
-	    .flatMap(rep::findById)
-	    .ifPresentOrElse(existing -> save(existing, opm), () -> rep.save(opm));
-	}
 
-	private void save(final OcsPm existing, final OcsPm replacement) {
+  public void add(final OcsPm opm) {
+    if (opm == null) return;
+    Optional.ofNullable(opm.getId())
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> save(existing, opm), () -> rep.save(opm));
+  }
+
+  private void save(final OcsPm existing, final OcsPm replacement) {
     logger.debug("existing: {}", existing);
     logger.debug("replacement: {}", replacement);
-		existing.setChQtd(replacement.getChQtd());
-		existing.setUnidadeMedida(replacement.getUnidadeMedida());
-		existing.setValorUnitario(replacement.getValorUnitario());
-		rep.save(existing);
-	}
-	
+    existing.setChQtd(replacement.getChQtd());
+    existing.setUnidadeMedida(replacement.getUnidadeMedida());
+    existing.setValorUnitario(replacement.getValorUnitario());
+    rep.save(existing);
+  }
+
 }

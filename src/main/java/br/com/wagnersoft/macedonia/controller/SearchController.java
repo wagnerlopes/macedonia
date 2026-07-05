@@ -59,7 +59,7 @@ public class SearchController {
 
   @Autowired
   private GuiaEncaminhamentoViewModelBuilder guiaViewModelBuilder;
-  
+
   public SearchController() {
     super();
     logger.debug("{} loaded", SearchController.class.getSimpleName());
@@ -70,26 +70,26 @@ public class SearchController {
 
     var handlers = Map.<String, Function<String, String>>of(
         "beneficiario", n -> { model.addAttribute("allBeneficiarios", benSvc.findByNome(n));
-                               model.addAttribute("beneficiario", new Beneficiario());
-                               return "beneficiarios"; },
+          model.addAttribute("beneficiario", new Beneficiario());
+          return "beneficiarios"; },
         "estabelecimento", n -> { model.addAttribute("allOcs", ocsSvc.findByDescricao(n));
-                                  model.addAttribute("allProcedimentos", pmSvc.mapAll());
-                                  model.addAttribute("tipoOcsMap", Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao)));
-                                  model.addAttribute("ocs", new Ocs());
-                                  return "ocs"; },
+          model.addAttribute("allProcedimentos", pmSvc.mapAll());
+          model.addAttribute("tipoOcsMap", Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao)));
+          model.addAttribute("ocs", new Ocs());
+          return "ocs"; },
         "profissional", n -> { model.addAttribute("allProfissionais", profSvc.findByNome(n));
-                               model.addAttribute("allCbo", cboSvc.mapAll());
-                               model.addAttribute("allConselho", Arrays.asList(ConselhoEnum.ALL));
-                               model.addAttribute("profissional", new Profissional());
-                               return "profissionais"; },
+          model.addAttribute("allCbo", cboSvc.mapAll());
+          model.addAttribute("allConselho", Arrays.asList(ConselhoEnum.ALL));
+          model.addAttribute("profissional", new Profissional());
+          return "profissionais"; },
         "guia", n -> { guiaViewModelBuilder.populateGuias(model);
-                       model.addAttribute("guiaEncaminhamento", new GuiaEncaminhamento());
-                       model.addAttribute("allGuias", guiaSvc.findByGuiaNr(n));
-                       return "guias"; }
-        );
+          model.addAttribute("guiaEncaminhamento", new GuiaEncaminhamento());
+          model.addAttribute("allGuias", guiaSvc.findByGuiaNr(n));
+          return "guias"; }
+    );
 
     var view = handlers.get(tipo);
-    if (view == null) throw new IllegalArgumentException("Pesquisa inválida: " + tipo);
+    if (view == null) { throw new IllegalArgumentException("Pesquisa inválida: " + tipo); }
     return view.apply(nome);
   }
 
