@@ -103,7 +103,7 @@
           <failOnViolation>false</failOnViolation>
         </configuration>
       </plugin>
-
+    
     </plugins>
 
   </build>
