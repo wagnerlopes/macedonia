@@ -75,7 +75,7 @@ public class OcsPmController {
     return "redirect:/ocspm?ocsid=" + ocsId;
   }
 
-  @RequestMapping(value="/ocspm", params={"save"})
+  @RequestMapping(value = "/ocspm", params = {"save"})
   public String save(@Valid final OcsPm ocspm, final BindingResult bindingResult, final ModelMap model) {
     if (bindingResult.hasErrors()) {
       return "ocspm";

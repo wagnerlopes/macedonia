@@ -33,42 +33,42 @@ import lombok.ToString.Exclude;
 @ToString
 public class Contrato implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	@NotNull
-	@Column(name="inicio_data")
-	private LocalDate inicioData;
+  @NotNull
+  @Column(name = "inicio_data")
+  private LocalDate inicioData;
 
-	@NotNull
-	@Column(name="termino_data")
-	private LocalDate terminoData;
+  @NotNull
+  @Column(name = "termino_data")
+  private LocalDate terminoData;
 
-	@NotNull
-	@Column(name="ch_qtd")
-	private int chQtd;
+  @NotNull
+  @Column(name = "ch_qtd")
+  private int chQtd;
 
-	@NotNull
-	@Exclude
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name="ocs_id", updatable = false, nullable = false)
-	private Ocs ocs;
+  @NotNull
+  @Exclude
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+  @JoinColumn(name = "ocs_id", updatable = false, nullable = false)
+  private Ocs ocs;
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		Contrato other = (Contrato) obj;
-		return Objects.equals(id, other.id);
-	}
-	
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Contrato other = (Contrato) obj;
+    return Objects.equals(id, other.id);
+  }
+
 }

@@ -37,54 +37,54 @@ import lombok.ToString.Exclude;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Profissional implements Comparable<Profissional>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@NotBlank
-	private String cpf;
+  @Id
+  @NotBlank
+  private String cpf;
 
-	@NotBlank
-	private String nome;
+  @NotBlank
+  private String nome;
 
-	private String cns;
-	
-	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name="cbo_codigo")
-	private Cbo cbo;
+  private String cns;
 
-	@NotNull
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="registro_id")
-	private RegistroProfissional registroProfissional;
+  @NotNull
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+  @JoinColumn(name = "cbo_codigo")
+  private Cbo cbo;
 
-	@JsonIgnore
-	@Exclude
-	@OneToMany(mappedBy = "solicitante", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guiasSolicitante = new ArrayList<>();
+  @NotNull
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "registro_id")
+  private RegistroProfissional registroProfissional;
 
-	@JsonIgnore
-	@Exclude
-	@OneToMany(mappedBy = "responsavel", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-	private List<GuiaEncaminhamento> guiasResponsavel = new ArrayList<>();
+  @JsonIgnore
+  @Exclude
+  @OneToMany(mappedBy = "solicitante", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+  private List<GuiaEncaminhamento> guiasSolicitante = new ArrayList<>();
 
-	@Override
-	public int compareTo(Profissional o) {
-		return this.getNome().compareTo(o.getNome());
-	}
+  @JsonIgnore
+  @Exclude
+  @OneToMany(mappedBy = "responsavel", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+  private List<GuiaEncaminhamento> guiasResponsavel = new ArrayList<>();
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(cpf);
-	}
+  @Override
+  public int compareTo(Profissional o) {
+    return this.getNome().compareTo(o.getNome());
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		Profissional other = (Profissional) obj;
-		return Objects.equals(cpf, other.cpf);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(cpf);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Profissional other = (Profissional) obj;
+    return Objects.equals(cpf, other.cpf);
+  }
 
 }

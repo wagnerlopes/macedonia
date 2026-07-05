@@ -14,15 +14,15 @@ import lombok.Setter;
 public class Valores {
 
   @JsonProperty(defaultValue = "0")
-	private BigDecimal valorTotalGlosa;
-	
+  private BigDecimal valorTotalGlosa;
+
   @JsonProperty(defaultValue = "0")
-	private BigDecimal valorTotalBruto;
-	
+  private BigDecimal valorTotalBruto;
+
   @JsonProperty(defaultValue = "0")
-	private BigDecimal valorTotalLiquido;
-	
+  private BigDecimal valorTotalLiquido;
+
   @JsonProperty(defaultValue = "0")
-	private BigDecimal descontos;
-	
+  private BigDecimal descontos;
+
 }

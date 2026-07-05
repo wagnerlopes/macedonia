@@ -69,7 +69,7 @@ public class GuiaEncaminhamentoController {
     return "guias";
   }
 
-  @RequestMapping(value="/guias", params={"save"})
+  @RequestMapping(value = "/guias", params = {"save"})
   public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
     benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario.cpf", "guia.erro.beneficiario", "Deve ser informado"));
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
@@ -84,7 +84,7 @@ public class GuiaEncaminhamentoController {
     return "redirect:/guias";
   }
 
-  @RequestMapping(value="/guias", params={"addRow"})
+  @RequestMapping(value = "/guias", params = {"addRow"})
   public String addRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final Model model) {
     guiaEncaminhamento.getProcedimentos().add(new GuiaPm());
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
@@ -93,7 +93,7 @@ public class GuiaEncaminhamentoController {
     return "guias";
   }
 
-  @RequestMapping(value="/guias", params={"removeRow"})
+  @RequestMapping(value = "/guias", params = {"removeRow"})
   public String removeRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
     final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
     guiaEncaminhamento.getProcedimentos().remove(rowId.intValue());

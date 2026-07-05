@@ -26,29 +26,29 @@ import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 @Service
 public class OcsService {
 
-	private static final Logger logger = LoggerFactory.getLogger(OcsService.class);
+  private static final Logger logger = LoggerFactory.getLogger(OcsService.class);
 
-	@Autowired
-	private OcsRepository rep;
+  @Autowired
+  private OcsRepository rep;
 
-	@Autowired
-	private ProcedimentoMedicoRepository pmRep;
+  @Autowired
+  private ProcedimentoMedicoRepository pmRep;
 
-	public Optional<Ocs> findById(Integer id) {
-	  if (id == null) return Optional.empty();
-		return rep.findById(id);
-	}
+  public Optional<Ocs> findById(Integer id) {
+    if (id == null) return Optional.empty();
+    return rep.findById(id);
+  }
 
   public List<Ocs> findByDescricao(String descricao) {
     if (descricao == null || descricao.isBlank()) return Collections.emptyList();
     return rep.findByDescricao(descricao);
   }
-	
-	public List<Ocs> listAll() {
+
+  public List<Ocs> listAll() {
     final List<Ocs> lista = rep.findAll(Sort.by(Sort.Order.by("descricao").ignoreCase()));
     logger.debug("{}", lista);
     return lista;
-	}
+  }
 
   /** Retorna apenas o mapa de nome (value) e o cpf (key) usado em select list.
    * @return {@link Map<String, String>} Id e Descricao
@@ -65,52 +65,52 @@ public class OcsService {
         rep.delete(o);
     });
   }
-  
-	public void add(final Ocs ocs) {
+
+  public void add(final Ocs ocs) {
     if (ocs == null) return;
     logger.debug("{}", ocs);
     Optional.ofNullable(ocs.getId())
-      .flatMap(rep::findById)
-      .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
-	}
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
+  }
 
-	public void addProcedimentoMedico(final OcsPm opm) {
+  public void addProcedimentoMedico(final OcsPm opm) {
     if (opm == null) return;
-		final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
-		ocs.ifPresent(o -> {
-		  o.addOcsPm(opm);
-		  rep.save(o);
-		});
-	}
+    final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
+    ocs.ifPresent(o -> {
+      o.addOcsPm(opm);
+      rep.save(o);
+    });
+  }
 
-	public void removeProcedimentoMedico(final OcsPm opm) {
+  public void removeProcedimentoMedico(final OcsPm opm) {
     if (opm == null) return;
     final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
     ocs.ifPresent(o -> {
       o.removeOcsPm(opm);
       rep.save(o);
     });
-	}
+  }
 
-	private void save(final Ocs existing, final Ocs replacement) {
-		existing.setCnpj(replacement.getCnpj());
-		existing.setComplemento(replacement.getComplemento());
-		existing.setContato(replacement.getContato());
-		existing.setDescricao(replacement.getDescricao());
-		existing.setEndereco(replacement.getEndereco());
-		existing.setEspecialidade(replacement.getEspecialidade());
-		existing.setMunicipio(replacement.getMunicipio());
-		existing.setNumero(replacement.getNumero());
-		existing.setRegistroAns(replacement.getRegistroAns());
-		existing.setTelefone(replacement.getTelefone());
-		existing.setUf(replacement.getUf());
-		if (replacement.getProcedimentos() != null) {
-		  replacement.getProcedimentos().forEach(op -> {
-		    pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
-		    existing.addOcsPm(op);
-		  });
-		}
-		rep.save(existing);
-	}
+  private void save(final Ocs existing, final Ocs replacement) {
+    existing.setCnpj(replacement.getCnpj());
+    existing.setComplemento(replacement.getComplemento());
+    existing.setContato(replacement.getContato());
+    existing.setDescricao(replacement.getDescricao());
+    existing.setEndereco(replacement.getEndereco());
+    existing.setEspecialidade(replacement.getEspecialidade());
+    existing.setMunicipio(replacement.getMunicipio());
+    existing.setNumero(replacement.getNumero());
+    existing.setRegistroAns(replacement.getRegistroAns());
+    existing.setTelefone(replacement.getTelefone());
+    existing.setUf(replacement.getUf());
+    if (replacement.getProcedimentos() != null) {
+      replacement.getProcedimentos().forEach(op -> {
+        pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
+        existing.addOcsPm(op);
+      });
+    }
+    rep.save(existing);
+  }
 
 }

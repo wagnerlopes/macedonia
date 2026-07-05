@@ -37,52 +37,52 @@ import lombok.ToString;
 @Table(name = "ocs_pm", uniqueConstraints = {@UniqueConstraint(name = "ocs_pm_uk", columnNames = {"ocs_id", "pm_id"})})
 public class OcsPm implements Comparable<OcsPm>, Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	@Column(name="ch_qtd")
-	private Integer chQtd;
+  @Column(name = "ch_qtd")
+  private Integer chQtd;
 
-	@Column(name="unidade_medida")
-	private String unidadeMedida;
+  @Column(name = "unidade_medida")
+  private String unidadeMedida;
 
-	@NumberFormat(style = NumberFormat.Style.CURRENCY)
-	@Column(name="valor_unitario")
-	private BigDecimal valorUnitario;
+  @NumberFormat(style = NumberFormat.Style.CURRENCY)
+  @Column(name = "valor_unitario")
+  private BigDecimal valorUnitario;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ocs_id", nullable = false)
-	private Ocs ocs;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ocs_id", nullable = false)
+  private Ocs ocs;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="pm_id", nullable = false)
-	private ProcedimentoMedico pm;
+  @JsonIgnore
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "pm_id", nullable = false)
+  private ProcedimentoMedico pm;
 
-	@Override
-	public int compareTo(OcsPm o) {
-		return this.pm.getDescricao().compareTo(o.pm.getDescricao());
-	}
+  @Override
+  public int compareTo(OcsPm o) {
+    return this.pm.getDescricao().compareTo(o.pm.getDescricao());
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OcsPm other = (OcsPm) obj;
-		return Objects.equals(id, other.id);
-	}
-	
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    OcsPm other = (OcsPm) obj;
+    return Objects.equals(id, other.id);
+  }
+
 }

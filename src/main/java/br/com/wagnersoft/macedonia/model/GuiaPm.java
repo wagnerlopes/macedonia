@@ -31,56 +31,56 @@ import lombok.ToString.Exclude;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name="guia_pm")
+@Table(name = "guia_pm")
 @ToString
 public class GuiaPm implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	@Column(name="pm_qtd")
-	private Integer pmQtd;
+  @Column(name = "pm_qtd")
+  private Integer pmQtd;
 
-	@Column(name="unidade_medida")
-	private String unidadeMedida;
+  @Column(name = "unidade_medida")
+  private String unidadeMedida;
 
-	@NumberFormat(style = NumberFormat.Style.CURRENCY)
-	@Column(name="valor_unitario")
-	private BigDecimal valorUnitario;
+  @NumberFormat(style = NumberFormat.Style.CURRENCY)
+  @Column(name = "valor_unitario")
+  private BigDecimal valorUnitario;
 
-	@NumberFormat(style = NumberFormat.Style.CURRENCY)
-	@Column(name="valor_total")
-	private BigDecimal valorTotal;
-	
-	@NumberFormat(style = NumberFormat.Style.CURRENCY)
-	@Column(name="pos_auditoria")
-	private BigDecimal posAuditoria;
+  @NumberFormat(style = NumberFormat.Style.CURRENCY)
+  @Column(name = "valor_total")
+  private BigDecimal valorTotal;
 
-	@Exclude
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name="pm_id", updatable = false, nullable = false)
-	private ProcedimentoMedico pm;
+  @NumberFormat(style = NumberFormat.Style.CURRENCY)
+  @Column(name = "pos_auditoria")
+  private BigDecimal posAuditoria;
 
-	@Exclude
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="guia_id", updatable = false, nullable = false)
-	private GuiaEncaminhamento guiaEncaminhamento;
+  @Exclude
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+  @JoinColumn(name = "pm_id", updatable = false, nullable = false)
+  private ProcedimentoMedico pm;
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+  @Exclude
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "guia_id", updatable = false, nullable = false)
+  private GuiaEncaminhamento guiaEncaminhamento;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		GuiaPm other = (GuiaPm) obj;
-		return Objects.equals(id, other.id);
-	}
-	
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    GuiaPm other = (GuiaPm) obj;
+    return Objects.equals(id, other.id);
+  }
+
 }
