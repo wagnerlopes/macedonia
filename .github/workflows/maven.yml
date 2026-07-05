@@ -6,6 +6,9 @@ on:
   push:
     branches: [ "next" ]
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
