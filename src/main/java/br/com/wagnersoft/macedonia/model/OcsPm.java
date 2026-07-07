@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,6 +36,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Table(name = "ocs_pm", uniqueConstraints = {@UniqueConstraint(name = "ocs_pm_uk", columnNames = {"ocs_id", "pm_id"})})
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class OcsPm implements Comparable<OcsPm>, Serializable {
 
   private static final long serialVersionUID = 1L;

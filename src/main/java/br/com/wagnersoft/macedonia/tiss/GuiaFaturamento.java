@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@SuppressFBWarnings("EI_EXPOSE_REP2")
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class GuiaFaturamento {
 
   private final Cabecalho cabecalho;

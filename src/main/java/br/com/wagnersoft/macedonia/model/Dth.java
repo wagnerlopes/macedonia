@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 import org.springframework.format.annotation.NumberFormat;
 
 import jakarta.persistence.Entity;
@@ -31,6 +32,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class Dth implements Comparable<Dth>, Serializable {
 
   private static final long serialVersionUID = 1L;

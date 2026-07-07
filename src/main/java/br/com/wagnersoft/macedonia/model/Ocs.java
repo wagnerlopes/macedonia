@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,6 +32,7 @@ import lombok.ToString.Include;
 @Setter
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class Ocs implements Comparable<Ocs>, Serializable {
 
   private static final long serialVersionUID = 1L;

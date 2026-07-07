@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 import org.springframework.format.annotation.NumberFormat;
 
 import jakarta.persistence.CascadeType;
@@ -41,6 +42,7 @@ import lombok.ToString.Exclude;
 @NoArgsConstructor
 @ToString
 @Table(name = "guia_encaminhamento")
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class GuiaEncaminhamento implements Serializable {
 
   private static final long serialVersionUID = 1L;

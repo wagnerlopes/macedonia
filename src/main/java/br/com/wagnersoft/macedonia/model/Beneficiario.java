@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,7 +20,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +36,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class Beneficiario implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -55,14 +56,9 @@ public class Beneficiario implements Serializable {
   @Column(name = "nascimento_data")
   private LocalDate nascimentoData;
 
-  @Getter(AccessLevel.NONE)
   @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
-  public List<GuiaEncaminhamento> getGuias() {
-    return Collections.unmodifiableList(guias);
-  }
-  
   @Override
   public int hashCode() {
     return Objects.hash(cpf);
