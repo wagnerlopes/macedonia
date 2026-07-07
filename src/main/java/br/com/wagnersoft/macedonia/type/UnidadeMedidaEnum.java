@@ -16,8 +16,6 @@ public enum UnidadeMedidaEnum {
 
   private final String descricao;
 
-  public static final UnidadeMedidaEnum[] ALL = { DIARIA, HORA,PROCEDIMENTO, SESSAO, USO };
-
   private static final Map<String, UnidadeMedidaEnum> LOOKUP = new HashMap<>();
 
   static {

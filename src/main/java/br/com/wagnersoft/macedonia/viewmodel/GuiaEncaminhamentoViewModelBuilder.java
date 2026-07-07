@@ -1,6 +1,6 @@
 package br.com.wagnersoft.macedonia.viewmodel;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
@@ -25,7 +25,7 @@ public class GuiaEncaminhamentoViewModelBuilder {
 
   private final OcsService ocsSvc;
 
-  @Autowired
+  @SuppressFBWarnings("EI_EXPOSE_REP2")
   public GuiaEncaminhamentoViewModelBuilder(final BeneficiarioService benSvc,
                                             final GuiaEncaminhamentoService guiaSvc,
                                             final OcsService ocsSvc,

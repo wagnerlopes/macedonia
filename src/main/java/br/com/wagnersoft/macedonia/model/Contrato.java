@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,6 +33,7 @@ import lombok.ToString.Exclude;
 @Setter
 @NoArgsConstructor
 @ToString
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class Contrato implements Serializable {
 
   private static final long serialVersionUID = 1L;

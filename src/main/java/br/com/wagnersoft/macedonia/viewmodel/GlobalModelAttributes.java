@@ -21,7 +21,7 @@ public class GlobalModelAttributes {
 
   @ModelAttribute("allUf")
   public List<UfEnum> allUf() {
-    return Arrays.asList(UfEnum.ALL);
+    return Arrays.asList(UfEnum.values());
   }
 
   @ModelAttribute("unidadeMedidaMap")

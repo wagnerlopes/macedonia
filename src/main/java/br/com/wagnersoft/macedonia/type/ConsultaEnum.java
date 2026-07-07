@@ -22,11 +22,6 @@ public enum ConsultaEnum {
 
   private final String descricao;
 
-  public static final ConsultaEnum[] ALL = {
-      ACOMPANHAMENTO, COLETIVA, DOMICILIAR, EMERGENCIA,	INICIAL, MULTIPROFISSIONAL,	PERICIAL,
-      PRE_NATAL, PUERPERAL, RETORNO, TELECONSULTA, TRIAGEM, URGENCIA, VACINACAO, OUTROS
-  };
-
   private ConsultaEnum(final String codigo, final String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;

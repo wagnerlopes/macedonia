@@ -1,37 +1,48 @@
 package br.com.wagnersoft.macedonia.tiss;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
+
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Builder
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class GuiaFaturamento {
 
-  private Cabecalho cabecalho;
+  private final Cabecalho cabecalho;
 
-  private List<Procedimento> procedimentos;
+  private final List<Procedimento> procedimentos;
 
-  private Valores valores;
+  private final Valores valores;
 
-  private List<FormaPagamento> formasPagamento;
+  private final List<FormaPagamento> formasPagamento;
 
-  private String observacoes;
+  private final String observacoes;
 
+  //Construtor defensivo
+  public GuiaFaturamento(Cabecalho cabecalho, List<Procedimento> procedimentos, Valores valores, List<FormaPagamento> formasPagamento, String observacoes) {
+    this.cabecalho = cabecalho;
+    this.procedimentos = List.copyOf(procedimentos);
+    this.valores = valores;
+    this.formasPagamento = List.copyOf(formasPagamento);
+    this.observacoes = observacoes;
+  }
+ 
   public static GuiaFaturamento empty() {
     return GuiaFaturamento.builder()
         .cabecalho(Cabecalho.builder().build())
-        .procedimentos(Collections.emptyList())
+        .procedimentos(List.of())
         .valores(Valores.builder()
             .valorTotalGlosa(BigDecimal.ZERO)
             .valorTotalBruto(BigDecimal.ZERO)
             .valorTotalLiquido(BigDecimal.ZERO.setScale(2))
             .descontos(BigDecimal.ZERO)
             .build())
-        .formasPagamento(Collections.emptyList())
+        .formasPagamento(List.of())
         .observacoes("")
         .build();
   }

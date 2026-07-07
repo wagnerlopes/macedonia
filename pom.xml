@@ -15,11 +15,6 @@
   <inceptionYear>2026</inceptionYear>
   <url>https://wagnerlopes.github.io/</url>
 
-  <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-  </properties>
-
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -91,9 +86,33 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <release>21</release>
+          <source>21</source>
+          <target>21</target>
+          <fork>true</fork>
+          <parameters>true</parameters>
         </configuration>
       </plugin>
-      
+
+      <plugin>
+        <groupId>com.github.spotbugs</groupId>
+        <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.8.3.0</version>
+        <configuration>
+          <effort>Max</effort> <!-- nível de análise: Min, Default, Max -->
+          <threshold>Low</threshold> <!-- severidade mínima: High, Medium, Low -->
+          <xmlOutput>true</xmlOutput> <!-- gera relatório em XML -->
+          <failOnError>false</failOnError> <!-- não falhar build em caso de bugs -->
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+          
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -124,7 +143,7 @@
   <developers>
     <developer>
       <id>wagnerlopes</id>
-      <name>Wagner Luis barbosa de Abreu Lopes</name>
+      <name>Wagner Luis Lopes</name>
       <email>wagner.luis.alopes@gmail.com</email>
       <organization>WagnerSoft - WL</organization>
       <organizationUrl>https://wagnerlopes.github.io/</organizationUrl>

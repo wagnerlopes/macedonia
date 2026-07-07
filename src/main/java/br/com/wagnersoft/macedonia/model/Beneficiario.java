@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,6 +36,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
+@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class Beneficiario implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -83,19 +86,19 @@ public class Beneficiario implements Serializable {
   public String getFaixaEtaria() {
     long idade = getIdade();
     long s = idade == 0 ? idade + 1 : idade % 10 == 0 ? idade - 1 : idade;
-    return Math.round(s / 10) * 10 + " a " + Math.round((s + 9) / 10) * 10;
+    return (s / 10) * 10 + " a " + ((s + 9) / 10) * 10;
   }
 
   public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
-    if (!this.getGuias().contains(guia)) {
-      this.getGuias().add(guia);
+    if (!this.guias.contains(guia)) {
+      this.guias.add(guia);
       guia.setBeneficiario(this);
     }
     return guia;
   }
 
   public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
-    getGuias().remove(guia);
+    this.guias.remove(guia);
     guia.setBeneficiario(null);
     return guia;
   }

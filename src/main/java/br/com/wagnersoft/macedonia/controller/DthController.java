@@ -56,7 +56,7 @@ public class DthController {
 
   @ModelAttribute("allUnidadeMedida")
   public List<UnidadeMedidaEnum> allUnidadeMedida() {
-    return Arrays.asList(UnidadeMedidaEnum.ALL);
+    return Arrays.asList(UnidadeMedidaEnum.values());
   }
 
   @ModelAttribute("tipoUmMap")
