@@ -56,7 +56,7 @@ public class ProfissionalController {
 
   @ModelAttribute("allConselho")
   public List<ConselhoEnum> allConselho() {
-    return Arrays.asList(ConselhoEnum.ALL);
+    return Arrays.asList(ConselhoEnum.values());
   }
 
   @GetMapping("/especialidades")

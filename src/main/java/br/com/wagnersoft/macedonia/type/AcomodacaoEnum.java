@@ -22,11 +22,6 @@ public enum AcomodacaoEnum {
 
   private final String descricao;
 
-  public static final AcomodacaoEnum[] ALL = {
-      ENFERMARIA, APARTAMENTO, APTO_INDIVIDUAL, APTO_LUXO, APTO_SEMI_PRIVATIVO, APTO_MATERNIDADE, UTI,
-      UTI_NEONATAL, UTI_PEDIATRICA, UTI_CUIDADOS, BERCARIO, SALA_RECUPERACAO, CUIDADOS_PALIATIVOS, ACOMODACAO_ACOMPANHANTE, OUTROS
-  };
-
   private AcomodacaoEnum(final String codigo, final String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;

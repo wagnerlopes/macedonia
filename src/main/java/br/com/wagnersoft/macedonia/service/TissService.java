@@ -102,7 +102,7 @@ public class TissService {
     pagamentos.add(FormaPagamento.builder()
         .tipo("ONLINE")
         .dataPagamento(LocalDate.now())
-        .valorPago(liquido != null ? liquido : BigDecimal.ZERO)
+        .valorPago(liquido)
         .build());
 
     // Montagem da Guia de Faturamento

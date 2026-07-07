@@ -22,11 +22,6 @@ public enum GuiaConsultaEnum {
 
   private final String descricao;
 
-  public static final GuiaConsultaEnum[] ALL = {
-      AMBULATORIAL, ALTA_COMPLEXIDADE, CONSULTA, DOMICILIAR, EMERGENCIA, EXAMES, HEMODINAMICA,
-      INTERNACAO, FISIOTERAPIA, RADIOTERAPIA, TELECONSULTA, TERAPIA, TRANSPLANTE, URGENCIA, OUTROS
-  };
-
   private GuiaConsultaEnum(final String codigo, final String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;

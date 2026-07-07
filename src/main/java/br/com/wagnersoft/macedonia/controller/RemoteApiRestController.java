@@ -39,7 +39,7 @@ public class RemoteApiRestController {
 
   public record ProcedimentoDTO(Integer id, Integer ocs_id, Integer pm_id, String tuss, String unidadeMedida, BigDecimal valorUnitario) { };
 
-  public record ChartDTO(String[] xValues, Integer[] yValues) { };
+  public record ChartDTO(List<String> xValues, List<Integer> yValues) { };
 
   public RemoteApiRestController() {
     super();
@@ -57,9 +57,10 @@ public class RemoteApiRestController {
 
   @GetMapping("/chart")
   public ResponseEntity<ChartDTO> computeChartValues() {
-    String[] xValues = {"Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"};
-
-    //Integer[] yValues = {10, 13, 25, 22, 15, 9, 30, 18, 21, 28, 12, 35}; // Teste values
+    
+    List<String> xValues = List.of("Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez");
+    
+    //List<Integer> yValues = List.of(10, 13, 25, 22, 15, 9, 30, 18, 21, 28, 12, 35); // Teste values
 
     List<Object[]> mesData = guiaSvc.countByMonth(LocalDate.now().getYear());
 
@@ -73,9 +74,9 @@ public class RemoteApiRestController {
 
     logger.debug("MAP DATA = {}", totalsByMonth);
 
-    Integer[] yValues = IntStream.rangeClosed(1, xValues.length)
+    List<Integer> yValues = IntStream.rangeClosed(1, xValues.size())
         .mapToObj(m -> totalsByMonth.getOrDefault(m, 0L).intValue())
-        .toArray(Integer[]::new);
+        .toList();
 
     return ResponseEntity.ok(new ChartDTO(xValues, yValues));
   }

@@ -22,11 +22,6 @@ public enum AtendimentoEnum {
 
   private final String descricao;
 
-  public static final AtendimentoEnum[] ALL = {
-      ACOMPANHAMENTO, CONSULTA, DOMILICIAR,	EMERGENCIA,	EXAME, INTERNACAO, PROCEDIMENTO, PRONTO_ATENDIMENTO,
-      RETORNO, TELECONSULTA, TERAPIA, TRIAGEM, URGENCIA, VACINACAO, OUTROS
-  };
-
   private AtendimentoEnum(final String codigo, final String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;

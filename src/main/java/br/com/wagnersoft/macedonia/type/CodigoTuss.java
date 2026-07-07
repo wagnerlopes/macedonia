@@ -1,5 +1,7 @@
 package br.com.wagnersoft.macedonia.type;
 
+import java.util.stream.IntStream;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -58,23 +60,20 @@ public final class CodigoTuss {
   }
 
   public static int modulo10(final String codigo) {
-    int soma = 0;
-    final char[] c = codigo.toCharArray();
-    for (int i = 0; i < c.length; i++) {
-      int d = Character.digit(c[i], 10);
-      if (i % 2 == 0) {
-        d *= 2;
-        if (d > 9) {
-          soma += Integer.valueOf(Integer.toString(d).substring(0,1)) +
-              Integer.valueOf(Integer.toString(d).substring(1)); 
-        } else {
-          soma += d;
-        }
-      } else {
-        soma += d;
-      }
-    }
-    return soma % 10 == 0 ? 0 : 10 - soma % 10;
+    int soma = IntStream.range(0, codigo.length())
+        .map(i -> {
+          int d = codigo.charAt(i) - '0';
+          if (i % 2 == 0) {
+            d *= 2;
+            return (d > 9) ? d - 9 : d;
+          } else {
+            return d;
+          }
+        })
+        .sum();
+
+    int resto = soma % 10;
+    return (resto == 0) ? 0 : 10 - resto;
   }
 
   public static void main(String[] args) {

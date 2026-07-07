@@ -79,7 +79,7 @@ public class SearchController {
           return "ocs"; },
         "profissional", n -> { model.addAttribute("allProfissionais", profSvc.findByNome(n));
           model.addAttribute("allCbo", cboSvc.mapAll());
-          model.addAttribute("allConselho", Arrays.asList(ConselhoEnum.ALL));
+          model.addAttribute("allConselho", Arrays.asList(ConselhoEnum.values()));
           model.addAttribute("profissional", new Profissional());
           return "profissionais"; },
         "guia", n -> { guiaViewModelBuilder.populateGuias(model);

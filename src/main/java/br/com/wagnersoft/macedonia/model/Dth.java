@@ -40,7 +40,7 @@ public class Dth implements Comparable<Dth>, Serializable {
   private Integer id;
 
   @NotBlank
-  private String codigo;
+  private String codigo = "";
 
   @NotBlank
   private String descricao;
@@ -77,11 +77,13 @@ public class Dth implements Comparable<Dth>, Serializable {
   }
 
   public String getDotCodigo() {
-    return this.codigo.isEmpty() || this.codigo.length() < 8 ? codigo :
-      codigo.substring(0,2) + "." +
-      codigo.substring(2,4) + "." +
-      codigo.substring(4,7) + "-" +
-      codigo.substring(7);
+    if (codigo.isEmpty() || codigo.length() < 8) {
+      return codigo;
+    }
+    return codigo.substring(0,2) + "." +
+           codigo.substring(2,4) + "." +
+           codigo.substring(4,7) + "-" +
+           codigo.substring(7);
   }
 
 }

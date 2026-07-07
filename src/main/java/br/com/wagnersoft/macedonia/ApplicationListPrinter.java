@@ -15,15 +15,14 @@ public class ApplicationListPrinter implements ApplicationListener<ApplicationRe
 
   private static final Logger logger = LoggerFactory.getLogger(ApplicationListPrinter.class);
   
-  private final ServletContext servletContext;
-
+  private final Map<String, ? extends ServletRegistration> servlets;
+  
   public ApplicationListPrinter(ServletContext servletContext) {
-    this.servletContext = servletContext;
+    this.servlets = servletContext.getServletRegistrations();
   }
 
   @Override
   public void onApplicationEvent(ApplicationReadyEvent event) {
-    final Map<String, ? extends ServletRegistration> servlets = servletContext.getServletRegistrations();
     logger.info("---- Registered servlets ----");
     servlets.forEach((name, reg) -> {
       logger.info("name={}, mappings={}, class={} ",name , reg.getMappings(), reg.getClassName());

@@ -29,29 +29,6 @@ public enum EstabelecimentoSaudeEnum {
 
   private final String descricao;
 
-  public static final EstabelecimentoSaudeEnum[] ALL = {
-      AMBULATORIO_CIRURGICO,
-      APOIO_LOGISTICO,
-      CASA_REPOUSO,
-      CENTRO_FISIOTERAPIA,
-      CENTRO_REFERENCIA,
-      CENTRO_VACINACAO,
-      CLINICA_ESPECIALIZADA,
-      CLINICA_MEDICA,
-      CLINICA_ODONTOLOGICA,
-      DIAGNOSTICO_IMAGEM,
-      HOSPITAL_DIA,
-      HOSPITAL_GERAL,
-      HOSPITAL_ENSINO,
-      HOSPITAL_ESPECIALIZADO,
-      LABORATORIO,
-      SERVICO_HEMODIALISE,
-      UBS,
-      UPA,
-      UTI,
-      OUTROS
-  };
-
   private EstabelecimentoSaudeEnum(final String codigo, final String descricao) {
     this.codigo = codigo;
     this.descricao = descricao;

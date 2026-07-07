@@ -83,7 +83,7 @@ public class Beneficiario implements Serializable {
   public String getFaixaEtaria() {
     long idade = getIdade();
     long s = idade == 0 ? idade + 1 : idade % 10 == 0 ? idade - 1 : idade;
-    return Math.round(s / 10) * 10 + " a " + Math.round((s + 9) / 10) * 10;
+    return (s / 10) * 10 + " a " + ((s + 9) / 10) * 10;
   }
 
   public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
