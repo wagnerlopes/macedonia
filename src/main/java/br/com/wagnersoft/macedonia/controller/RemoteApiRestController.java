@@ -39,7 +39,12 @@ public class RemoteApiRestController {
 
   public record ProcedimentoDTO(Integer id, Integer ocs_id, Integer pm_id, String tuss, String unidadeMedida, BigDecimal valorUnitario) { };
 
-  public record ChartDTO(List<String> xValues, List<Integer> yValues) { };
+  public record ChartDTO(List<String> xValues, List<Integer> yValues) {
+    public ChartDTO {
+      xValues = List.copyOf(xValues);
+      yValues = List.copyOf(yValues);
+    }
+  };
 
   public RemoteApiRestController() {
     super();

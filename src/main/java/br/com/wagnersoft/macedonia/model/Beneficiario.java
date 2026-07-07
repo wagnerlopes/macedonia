@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,6 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -53,9 +55,14 @@ public class Beneficiario implements Serializable {
   @Column(name = "nascimento_data")
   private LocalDate nascimentoData;
 
+  @Getter(AccessLevel.NONE)
   @OneToMany(mappedBy = "beneficiario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private List<GuiaEncaminhamento> guias = new ArrayList<>();
 
+  public List<GuiaEncaminhamento> getGuias() {
+    return Collections.unmodifiableList(guias);
+  }
+  
   @Override
   public int hashCode() {
     return Objects.hash(cpf);
@@ -87,15 +94,15 @@ public class Beneficiario implements Serializable {
   }
 
   public GuiaEncaminhamento addGuia(final GuiaEncaminhamento guia) {
-    if (!this.getGuias().contains(guia)) {
-      this.getGuias().add(guia);
+    if (!this.guias.contains(guia)) {
+      this.guias.add(guia);
       guia.setBeneficiario(this);
     }
     return guia;
   }
 
   public GuiaEncaminhamento removeGuia(final GuiaEncaminhamento guia) {
-    getGuias().remove(guia);
+    this.guias.remove(guia);
     guia.setBeneficiario(null);
     return guia;
   }
