@@ -25,11 +25,12 @@ import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
 import br.com.wagnersoft.macedonia.type.ConselhoEnum;
 import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
+import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelAdvice;
 import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 
 /** Search Controller.
- * Os Model Attributes necessários na view Guias são carregados em
- * {@link GuiaEncaminhamentoViewModelBuilder} através do {@link GuiaEncaminhamentoViewModelAdvice}.
+ * Os Model Attributes necessários na view Guias sao carregados em
+ * {@link GuiaEncaminhamentoViewModelBuilder} atraves do {@link GuiaEncaminhamentoViewModelAdvice} .
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

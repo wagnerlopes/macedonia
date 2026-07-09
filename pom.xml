@@ -10,15 +10,15 @@
   <artifactId>macedonia</artifactId>
   <version>1.0-alpha</version>
 
-  <name>br.com.wagnersoft.babilonia</name>
-  <description>Open view WEB APP</description>
+  <name>br.com.wagnersoft.macedonia</name>
+  <description>Health System</description>
   <inceptionYear>2026</inceptionYear>
   <url>https://wagnerlopes.github.io/</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.0.7</version>
+    <version>4.1.0</version>
   </parent>
 
   <dependencies>

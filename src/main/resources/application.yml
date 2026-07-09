@@ -58,7 +58,7 @@ spring:
       initialization-fail-timeout: 1
 
   jpa:
-    show-sql: true
+    show-sql: false
     defer-datasource-initialization: true
     open-in-view: true
     hibernate:
