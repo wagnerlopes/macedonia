@@ -36,7 +36,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Table(name = "ocs_pm", uniqueConstraints = {@UniqueConstraint(name = "ocs_pm_uk", columnNames = {"ocs_id", "pm_id"})})
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class OcsPm implements Comparable<OcsPm>, Serializable {
 
   private static final long serialVersionUID = 1L;

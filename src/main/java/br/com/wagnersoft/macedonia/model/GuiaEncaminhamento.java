@@ -42,7 +42,7 @@ import lombok.ToString.Exclude;
 @NoArgsConstructor
 @ToString
 @Table(name = "guia_encaminhamento")
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class GuiaEncaminhamento implements Serializable {
 
   private static final long serialVersionUID = 1L;
