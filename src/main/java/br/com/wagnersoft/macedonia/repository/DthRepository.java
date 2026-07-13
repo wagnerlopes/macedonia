@@ -12,11 +12,11 @@ import br.com.wagnersoft.macedonia.model.Ocs;
 
 public interface DthRepository extends JpaRepository<Dth, Integer> {
 
-	Optional<Dth> findById(int id);
+  Optional<Dth> findById(int id);
 
-	List<Ocs> findByOcs(Ocs ocs);
+  List<Ocs> findByOcs(Ocs ocs);
 
-	@Query("SELECT d FROM Dth d WHERE d.codigo = :codigo")
-	List<Dth> findByCodigo(@Param("codigo") String codigo);
+  @Query("SELECT d FROM Dth d WHERE d.codigo = :codigo")
+  List<Dth> findByCodigo(@Param("codigo") String codigo);
 
 }

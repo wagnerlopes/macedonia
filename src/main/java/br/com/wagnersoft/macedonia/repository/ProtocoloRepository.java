@@ -9,8 +9,8 @@ import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Protocolo;
 
 public interface ProtocoloRepository extends JpaRepository<Protocolo, Integer> {
-	
-	@Query("SELECT p FROM Protocolo p WHERE p.ocs.cnpj = :cnpj")
-	Optional<Ocs> findByCnpj(String cnpj);
+
+  @Query("SELECT p FROM Protocolo p WHERE p.ocs.cnpj = :cnpj")
+  Optional<Ocs> findByCnpj(String cnpj);
 
 }

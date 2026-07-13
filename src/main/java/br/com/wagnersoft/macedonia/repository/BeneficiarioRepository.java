@@ -18,9 +18,9 @@ import br.com.wagnersoft.macedonia.model.Beneficiario;
 @Repository
 public interface BeneficiarioRepository extends JpaRepository<Beneficiario, String> {
 
-	Optional<Beneficiario> findById(String cpf);
-	
-	@Query("SELECT b FROM Beneficiario b WHERE LOWER(b.nome) LIKE LOWER(CONCAT(:id, '%'))")
-	List<Beneficiario> findByNome(@Param("id") String id);
+  Optional<Beneficiario> findById(String cpf);
+
+  @Query("SELECT b FROM Beneficiario b WHERE LOWER(b.nome) LIKE LOWER(CONCAT(:id, '%'))")
+  List<Beneficiario> findByNome(@Param("id") String id);
 
 }
