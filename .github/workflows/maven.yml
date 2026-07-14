@@ -7,77 +7,152 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-
-      - name: Set up Node.js (LTS)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Build with Maven (skip tests)
-        run: mvn -B package -DskipTests
+      - run: mvn -B package -DskipTests
 
   test:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
+      - run: mvn -B verify jacoco:report
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jacoco
+          path: target/site/jacoco
+          if-no-files-found: ignore
 
-      - name: Run tests
-        run: mvn -B test
+  javadocs:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+      - run: mvn -B compile javadoc:javadoc
+      - uses: actions/upload-artifact@v4
+        with:
+          name: javadocs
+          path: target/site/apidocs
+          if-no-files-found: ignore
 
   checkstyle:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-
-      - name: Run Checkstyle
-        run: mvn -B checkstyle:check
+      - run: mvn -B checkstyle:checkstyle
+      - uses: actions/upload-artifact@v4
+        with:
+          name: checkstyle
+          path: target/site/checkstyle/checkstyle.html
+          if-no-files-found: ignore
 
   spotbugs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
+      - run: mvn -B spotbugs:spotbugs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: spotbugs
+          path: target/spotbugs.html
+          if-no-files-found: ignore
 
-      - name: Run SpotBugs
-        run: mvn -B spotbugs:check
+  deployment:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    needs: [test, javadocs, checkstyle, spotbugs]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: jacoco
+          path: quality/coverage
+        continue-on-error: true
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: javadocs
+          path: quality/javadocs
+        continue-on-error: true
+        
+      - uses: actions/download-artifact@v4
+        with:
+          name: checkstyle
+          path: quality
+        continue-on-error: true
+        
+      - uses: actions/download-artifact@v4
+        with:
+          name: spotbugs
+          path: quality
+        continue-on-error: true
+        
+      - name: Create index.html
+        run: |
+          cat <<'EOF' > quality/index.html
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+            <meta charset="UTF-8">
+            <title>Portal de Qualidade - Babilonia</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+          </head>
+          <body class="m-5">
+            <h1>Portal de Qualidade do Projeto Macedonia</h1>
+            <hr>
+            <h2>Relatórios gerados automaticamente:</h2>
+            <ul>
+              <li>📊 <a href="coverage/index.html">Cobertura de Testes (Jacoco)</a></li>
+              <li>📚 <a href="javadocs/index.html">Documentação (Javadocs)</a></li>
+              <li>✅ <a href="checkstyle.html">Relatório de Estilo (Checkstyle)</a></li>
+              <li>🐞 <a href="spotbugs.html">Relatório de Bugs (SpotBugs)</a></li>
+            </ul>
+            <hr>
+            <p>(c)2026 WagnerSoft IT Solutions.</p>
+          </body>
+          </html>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: quality
+
+      - uses: actions/deploy-pages@v5
+        id: deployment
