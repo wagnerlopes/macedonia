@@ -32,7 +32,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class Protocolo implements Serializable {
 
   private static final long serialVersionUID = 1L;

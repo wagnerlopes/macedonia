@@ -11,11 +11,11 @@ import br.com.wagnersoft.macedonia.model.Ocs;
 
 public interface OcsRepository extends JpaRepository<Ocs, Integer> {
 
-	Optional<Ocs> findByCnpj(String cnpj);
+  Optional<Ocs> findByCnpj(String cnpj);
 
   @Query("SELECT o FROM Ocs o WHERE LOWER(o.descricao) LIKE LOWER(CONCAT(:descricao, '%'))")
   List<Ocs> findByDescricao(@Param("descricao") String descricao);
 
-	List<Ocs> findByEspecialidade(String especialidade);
-	
+  List<Ocs> findByEspecialidade(String especialidade);
+
 }

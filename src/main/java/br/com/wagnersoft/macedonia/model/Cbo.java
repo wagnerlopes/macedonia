@@ -24,11 +24,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Cbo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	private String codigo;
+  @Id
+  private String codigo;
 
-	private String descricao;
+  private String descricao;
 
 }

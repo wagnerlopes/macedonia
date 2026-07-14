@@ -33,7 +33,7 @@ import lombok.ToString.Exclude;
 @Setter
 @NoArgsConstructor
 @ToString
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class Contrato implements Serializable {
 
   private static final long serialVersionUID = 1L;

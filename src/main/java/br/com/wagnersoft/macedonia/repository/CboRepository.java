@@ -8,6 +8,6 @@ import br.com.wagnersoft.macedonia.model.Cbo;
 
 public interface CboRepository extends JpaRepository<Cbo, String> {
 
-	List<Cbo> findByDescricao(String descricao);
+  List<Cbo> findByDescricao(String descricao);
 
 }

@@ -36,7 +36,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class Beneficiario implements Serializable {
 
   private static final long serialVersionUID = 1L;

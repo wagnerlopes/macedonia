@@ -37,7 +37,7 @@ import lombok.ToString.Exclude;
 @NoArgsConstructor
 @ToString
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class Profissional implements Comparable<Profissional>, Serializable {
 
   private static final long serialVersionUID = 1L;

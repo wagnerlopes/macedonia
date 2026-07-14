@@ -13,13 +13,13 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 
 public interface OcsPmRepository extends JpaRepository<OcsPm, Integer> {
 
-	Optional<OcsPm> findById(int id);
+  Optional<OcsPm> findById(int id);
 
-	List<OcsPm> findByOcs(Ocs ocs);
+  List<OcsPm> findByOcs(Ocs ocs);
 
-	List<OcsPm> findByPm(ProcedimentoMedico pm);
+  List<OcsPm> findByPm(ProcedimentoMedico pm);
 
   @Query("SELECT o FROM OcsPm o WHERE o.ocs.id = :ocs_id AND o.pm.id = :pm_id")
   Optional<OcsPm> findByOcsPm(@Param("ocs_id") Integer ocsId, @Param("pm_id") Integer pmId);
-	
+
 }

@@ -13,7 +13,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-@SuppressFBWarnings({"EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
+@SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class Procedimento {
 
   private Integer sequencial;

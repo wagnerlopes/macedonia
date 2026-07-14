@@ -13,9 +13,9 @@ import br.com.wagnersoft.macedonia.model.Contrato;
 @Repository
 public interface ContratoRepository extends JpaRepository<Contrato, Integer> {
 
-	Optional<Contrato> findById(int id);
+  Optional<Contrato> findById(int id);
 
-	@Query("SELECT c FROM Contrato c WHERE c.ocs.id = :id")
-	List<Contrato> findByOcs(@Param("id") String id);
+  @Query("SELECT c FROM Contrato c WHERE c.ocs.id = :id")
+  List<Contrato> findByOcs(@Param("id") String id);
 
 }
