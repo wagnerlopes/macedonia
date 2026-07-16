@@ -38,6 +38,6 @@ public enum AcomodacaoEnum {
   @Override
   public String toString() {
     return getDescricao();
-  }	
+  }
 
 }

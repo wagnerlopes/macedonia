@@ -53,6 +53,6 @@ public enum EstabelecimentoSaudeEnum {
   @Override
   public String toString() {
     return getDescricao();
-  }	
+  }
 
 }

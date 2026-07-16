@@ -81,7 +81,7 @@ public class Beneficiario implements Serializable {
     final LocalDate today = LocalDate.now();
     if (nascimentoData.isAfter(today)) return -1;
     return ChronoUnit.YEARS.between(nascimentoData, today);
-  }	
+  }
 
   public String getFaixaEtaria() {
     long idade = getIdade();
