@@ -8,20 +8,20 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
 public class StringToBigDecimalConverterTest {
+
+  // Instância única para evitar repetição de 'new'
+  private final StringToBigDecimalConverter converter = new StringToBigDecimalConverter();
 
   @Test
   @DisplayName("String x.xxx,xx Deve retornar BigDecimal")
-  void pontoVirguladeveRetornarBigDecimal() {
+  void pontoVirgulaDeveRetornarBigDecimal() {
     // Arrange
     String decimal = "1.230,89";
     
     // Act
-    BigDecimal result = new StringToBigDecimalConverter().convert(decimal);
+    BigDecimal result = converter.convert(decimal);
     
     // Assert
     assertNotNull(result);
@@ -35,7 +35,7 @@ public class StringToBigDecimalConverterTest {
     String decimal = "1230,89";
     
     // Act
-    BigDecimal result = new StringToBigDecimalConverter().convert(decimal);
+    BigDecimal result = converter.convert(decimal);
     
     // Assert
     assertNotNull(result);
@@ -47,7 +47,11 @@ public class StringToBigDecimalConverterTest {
   void stringDeveRetornarNull() {
     // Arrange
     String decimal = "ABCD";
-    BigDecimal result = new StringToBigDecimalConverter().convert(decimal);
+    
+    // Act
+    BigDecimal result = converter.convert(decimal);
+    
+    // Assert
     assertNull(result);
   }
 
@@ -56,7 +60,11 @@ public class StringToBigDecimalConverterTest {
   void nuloDeveRetornarNull() {
     // Arrange
     String decimal = null;
-    BigDecimal result = new StringToBigDecimalConverter().convert(decimal);
+    
+    // Act
+    BigDecimal result = converter.convert(decimal);
+    
+    // Assert
     assertNull(result);
   }
 
@@ -65,8 +73,11 @@ public class StringToBigDecimalConverterTest {
   void vazioRetornarNull() {
     // Arrange
     String decimal = "";
-    BigDecimal result = new StringToBigDecimalConverter().convert(decimal);
+    
+    // Act
+    BigDecimal result = converter.convert(decimal);
+    
+    // Assert
     assertNull(result);
   }
-  
 }
