@@ -104,6 +104,9 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <skipTests>false</skipTests>
+          <argLine>
+            @{argLine} -XX:+EnableDynamicAgentLoading
+          </argLine>
         </configuration>
       </plugin>
 
