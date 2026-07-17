@@ -37,7 +37,7 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @NotNull
+  //@NotNull
   @Include
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
