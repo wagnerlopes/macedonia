@@ -22,7 +22,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Include;
 
-/** Ocs Entity.
+/** OCS são os Estabelecimentos de Saúde conveniados cadastrados
+ *  para atendimento dos {@link Beneficiario Beneficiarios}.
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
