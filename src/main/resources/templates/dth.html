@@ -41,7 +41,7 @@
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
             </td>
-            <td><a th:href="@{/dth(id=${dth.id})} + '#editar'" title="Editar">[[${dth.dotCodigo}]]</a></td>
+            <td><a th:href="@{/dth(id=${dth.id})} + '#editar'" th:text="${T(br.com.wagnersoft.macedonia.model.Dth).formatCodigo(dth.codigo)}" title="Editar"> Codigo </a></td>
             <td><span th:text="${dth.descricao}"> Descricao </span></td>
             <td><span th:text="${dth.ocs.descricao}"> Estabelecimento </span></td>
             <td><span th:text="${tipoUmMap[dth.UnidadeMedida]}"> Unidade </span></td>

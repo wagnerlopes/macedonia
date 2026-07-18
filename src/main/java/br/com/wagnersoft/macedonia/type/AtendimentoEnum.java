@@ -38,6 +38,6 @@ public enum AtendimentoEnum {
   @Override
   public String toString() {
     return getDescricao();
-  }	
+  }
 
 }

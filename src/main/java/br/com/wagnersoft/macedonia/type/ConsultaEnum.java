@@ -38,6 +38,6 @@ public enum ConsultaEnum {
   @Override
   public String toString() {
     return getDescricao();
-  }	
+  }
 
 }

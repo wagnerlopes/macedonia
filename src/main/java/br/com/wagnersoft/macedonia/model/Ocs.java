@@ -15,14 +15,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Include;
 
-/** Ocs Entity.
+/** OCS são os Estabelecimentos de Saúde conveniados cadastrados
+ *  para atendimento dos {@link Beneficiario Beneficiarios}.
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
@@ -37,7 +38,7 @@ public class Ocs implements Comparable<Ocs>, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @NotNull
+  //@NotNull
   @Include
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

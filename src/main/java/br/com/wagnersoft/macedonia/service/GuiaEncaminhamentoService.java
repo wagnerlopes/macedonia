@@ -57,7 +57,7 @@ public class GuiaEncaminhamentoService {
     if (guia == null) return;
     Optional.ofNullable(guia.getId())
         .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, guia), () -> rep.save(guia));	  
+        .ifPresentOrElse(existing -> this.save(existing, guia), () -> rep.save(guia));
   }
 
   private void save(final GuiaEncaminhamento existing, final GuiaEncaminhamento replacement) {

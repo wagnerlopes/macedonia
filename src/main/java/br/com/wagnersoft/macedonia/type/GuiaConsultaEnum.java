@@ -38,6 +38,6 @@ public enum GuiaConsultaEnum {
   @Override
   public String toString() {
     return getDescricao();
-  }	
+  }
 
 }

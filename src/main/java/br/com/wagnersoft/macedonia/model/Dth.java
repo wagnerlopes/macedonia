@@ -21,8 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Dth Entity.
- * <p>Diárias e taxas hospitalares dos {@link Ocs estabelecimentos de saúde}.</p>
+/** DTH são as diárias e taxas cobradas pelos {@link Ocs Estabelecimentos de Saúde}.
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
@@ -42,7 +41,7 @@ public class Dth implements Comparable<Dth>, Serializable {
   private Integer id;
 
   @NotBlank
-  private String codigo = "";
+  private String codigo;
 
   @NotBlank
   private String descricao;
@@ -78,8 +77,8 @@ public class Dth implements Comparable<Dth>, Serializable {
     return Objects.equals(id, other.id);
   }
 
-  public String getDotCodigo() {
-    if (codigo.isEmpty() || codigo.length() < 8) {
+  public static String formatCodigo(String codigo) {
+    if (codigo == null || codigo.isEmpty() || codigo.length() < 8) {
       return codigo;
     }
     return codigo.substring(0,2) + "." +

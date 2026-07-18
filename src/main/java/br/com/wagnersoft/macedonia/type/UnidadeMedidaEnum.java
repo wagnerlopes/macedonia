@@ -48,6 +48,6 @@ public enum UnidadeMedidaEnum {
   @Override
   public String toString() {
     return getDescricao();
-  }	
+  }
 
 }
