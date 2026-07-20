@@ -7,6 +7,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * Cabecalho. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Getter
 @Builder
 public class Cabecalho {

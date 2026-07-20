@@ -1,12 +1,20 @@
-package br.com.wagnersoft.macedonia.type;
+package br.com.wagnersoft.macedonia.util;
 
 import java.util.regex.Pattern;
 
+/**
+ *  CNPJ Utility.
+ *  
+ * TODO: renomear
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
 public class Cnpj {
 
   private static final Pattern PATTERN = Pattern.compile("^\\d{3}.?\\d{3}.?\\d{3}/?\\d{4}-?\\d{2}$");
 
-  public boolean isCnpj(String cnpj) {
+  public static boolean isCnpj(String cnpj) {
     return cnpj != null && PATTERN.matcher(cnpj).matches();
   }
 

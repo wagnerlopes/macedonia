@@ -7,6 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 
+/**
+ * Procedimento Médico repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface ProcedimentoMedicoRepository extends JpaRepository<ProcedimentoMedico, Integer> {
 
   Optional<ProcedimentoMedico> findById(int id);

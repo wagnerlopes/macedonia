@@ -9,6 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 
+/**
+ * Guia de Encaminhamento repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface GuiaEncaminhamentoRepository extends JpaRepository<GuiaEncaminhamento, Integer> {
 
   Optional<GuiaEncaminhamento> findById(int id);

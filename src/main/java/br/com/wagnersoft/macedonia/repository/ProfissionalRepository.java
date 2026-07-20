@@ -8,6 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.wagnersoft.macedonia.model.Profissional;
 
+/**
+ * Profissional repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface ProfissionalRepository extends JpaRepository<Profissional, String> {
 
   @Query("SELECT p FROM Profissional p WHERE LOWER(p.nome) LIKE LOWER(CONCAT(:nome, '%'))")

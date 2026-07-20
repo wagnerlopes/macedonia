@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
-/** Procedimento Medico service.
+/** 
+ * Procedimento Medico service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

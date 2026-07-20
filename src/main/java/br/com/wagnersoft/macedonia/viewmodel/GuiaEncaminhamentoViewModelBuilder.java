@@ -9,7 +9,9 @@ import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
 
-/** Incluí no Model os objetos solicitados na View Guias.
+/** 
+ * Inclui no Model os objetos solicitados na View Guias.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

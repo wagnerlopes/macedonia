@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Protocolo;
 import br.com.wagnersoft.macedonia.repository.ProtocoloRepository;
 
-/** Protocolo de Guia de Encaminhamento Service.
+/** 
+ * Protocolo de Guia de Encaminhamento Service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

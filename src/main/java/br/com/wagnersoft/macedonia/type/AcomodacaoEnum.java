@@ -1,5 +1,12 @@
 package br.com.wagnersoft.macedonia.type;
 
+/**
+ * Tipo de acomodação hospitalar. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public enum AcomodacaoEnum {
 
   ACOMODACAO_ACOMPANHANTE("14", "Acomodação para acompanhante"),

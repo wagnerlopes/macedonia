@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import br.com.wagnersoft.macedonia.config.StringToBigDecimalConverter;
+
 public class StringToBigDecimalConverterTest {
 
   // Instância única para evitar repetição de 'new'

@@ -11,6 +11,13 @@ import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 
+/**
+ * OcsPm repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface OcsPmRepository extends JpaRepository<OcsPm, Integer> {
 
   Optional<OcsPm> findById(int id);

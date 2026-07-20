@@ -20,7 +20,9 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
-/** Beneficiario Controller.
+/** 
+ * Beneficiario Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

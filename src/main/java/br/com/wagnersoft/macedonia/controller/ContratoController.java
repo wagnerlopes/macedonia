@@ -20,7 +20,9 @@ import br.com.wagnersoft.macedonia.service.ContratoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import jakarta.validation.Valid;
 
-/** Contrato Controller.
+/** 
+ * Contrato Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

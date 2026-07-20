@@ -1,5 +1,12 @@
 package br.com.wagnersoft.macedonia.type;
 
+/**
+ * Tipo de atendimento de saúde. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public enum AtendimentoEnum {
 
   CONSULTA("01", "Consulta"),

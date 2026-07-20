@@ -8,6 +8,13 @@ import org.apache.logging.log4j.internal.annotation.SuppressFBWarnings;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * Guia de faturamento. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Getter
 @Builder
 @SuppressFBWarnings({"EI_EXPOSE_REP"})

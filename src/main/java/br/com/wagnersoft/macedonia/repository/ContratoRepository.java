@@ -10,6 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
 
+/**
+ * Contrato repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Repository
 public interface ContratoRepository extends JpaRepository<Contrato, Integer> {
 

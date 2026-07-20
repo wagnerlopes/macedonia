@@ -3,7 +3,7 @@ package br.com.wagnersoft.macedonia.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import br.com.wagnersoft.macedonia.type.CodigoTuss;
+import br.com.wagnersoft.macedonia.util.CodigoTuss;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

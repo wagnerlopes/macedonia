@@ -1,4 +1,4 @@
-package br.com.wagnersoft.macedonia.type;
+package br.com.wagnersoft.macedonia.util;
 
 import java.util.stream.IntStream;
 
@@ -9,7 +9,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** Terminologia Unificada da Saúde Suplementar (TUSS). */
+/**
+ *  Terminologia Unificada da Saúde Suplementar (TUSS). 
+ *  TODO: refatorar
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Getter
 @Setter
 @Builder

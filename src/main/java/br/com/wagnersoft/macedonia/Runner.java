@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Macedonia starting application. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Controller
 @SpringBootApplication
 public class Runner {

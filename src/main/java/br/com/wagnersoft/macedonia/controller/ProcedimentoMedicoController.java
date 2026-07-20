@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 
-/** Procedimento Medico Controller.
+/** 
+ * Procedimento Medico Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

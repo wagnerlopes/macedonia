@@ -8,7 +8,7 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>macedonia</artifactId>
-  <version>1.0.5-alpha</version>
+  <version>1.0.6-beta</version>
 
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
@@ -113,25 +113,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
-        <configuration>
-          <configLocation>checkstyle.xml</configLocation>
-          <failOnViolation>false</failOnViolation>
-          <outputDirectory>${project.build.directory}/site/checkstyle</outputDirectory>
-        </configuration>
+        <version>3.6.0</version>
         <executions>
           <execution>
-            <id>checkstyle</id>
+            <id>validate-style</id>
             <phase>verify</phase>
             <goals>
               <goal>check</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>checkstyle-report</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>checkstyle</goal>
             </goals>
           </execution>
         </executions>
@@ -140,7 +128,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.10</version>
+        <version>0.8.15</version>
         <executions>
           <execution>
             <goals>
@@ -195,6 +183,23 @@
     </plugins>
 
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.6.0</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
   <organization>
     <name>WagnerSoft - WL</name>

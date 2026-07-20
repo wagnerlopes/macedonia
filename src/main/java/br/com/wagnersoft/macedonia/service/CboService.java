@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.repository.CboRepository;
 
-/** CBO (Classificacao Brasileira de Ocupacoes) service.
+/** 
+ * CBO (Classificacao Brasileira de Ocupacoes) service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

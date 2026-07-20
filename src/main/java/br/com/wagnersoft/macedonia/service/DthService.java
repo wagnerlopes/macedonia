@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.repository.DthRepository;
 
-/** Diarias e Taxas (DTH) Service.
+/** 
+ * Diarias e Taxas (DTH) Service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

@@ -1,5 +1,12 @@
 package br.com.wagnersoft.macedonia.type;
 
+/**
+ * Tipo de consulta de saúde. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public enum ConsultaEnum {
 
   ACOMPANHAMENTO("02", "Consulta de acompanhamento"),

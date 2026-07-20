@@ -11,6 +11,13 @@ import br.com.wagnersoft.macedonia.model.Profissional;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * Procedimento. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Getter
 @Builder
 @SuppressFBWarnings({"EI_EXPOSE_REP"})

@@ -25,7 +25,9 @@ import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
-/** OCS (Estabelecimento de Saude) Controller.
+/** 
+ * OCS (Estabelecimento de Saude) Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

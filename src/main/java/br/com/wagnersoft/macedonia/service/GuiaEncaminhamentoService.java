@@ -16,7 +16,9 @@ import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
-/** Guia de Encaminhamento Service.
+/** 
+ * Guia de Encaminhamento Service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

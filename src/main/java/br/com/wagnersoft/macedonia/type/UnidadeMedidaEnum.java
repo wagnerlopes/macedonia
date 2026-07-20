@@ -4,6 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Unidade de medida da área de saúde. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public enum UnidadeMedidaEnum {
 
   DIARIA("01", "Diária"),

@@ -28,7 +28,9 @@ import br.com.wagnersoft.macedonia.tiss.Procedimento;
 import br.com.wagnersoft.macedonia.tiss.Valores;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
-/** TISS API service.
+/** 
+ * TISS API service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
