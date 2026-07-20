@@ -23,7 +23,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
 
-/** GuiaPm Entity.
+/** 
+ * Procedimento médico na guia de encaminhamento.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

@@ -24,8 +24,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** OcsPm Entity.
+/** 
+ * Procedimento médico da organização conveniada de saúde.
+ * 
  * <p>A unique key ({@link Ocs}, {@link ProcedimentoMedico}) garante que o procedimento seja unico para o estabelecimento de saude.</p>
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

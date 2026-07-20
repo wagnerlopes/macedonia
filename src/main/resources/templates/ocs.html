@@ -42,7 +42,7 @@
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
             </td>
-            <td><a th:href="@{/ocs(id=${ocs.id})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.Cnpj).format(ocs.cnpj)}"></a></td>
+            <td><a th:href="@{/ocs(id=${ocs.id})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.CnpjHelper).format(ocs.cnpj)}"></a></td>
             <td><span th:text="${ocs.descricao}"> Descricao </span></td>
             <td><span th:text="${tipoOcsMap[ocs.especialidade]}"> Tipo </span></td>
             <td><span th:text="${ocs.municipio + ' - ' + ocs.uf}"> Municipio </span></td>

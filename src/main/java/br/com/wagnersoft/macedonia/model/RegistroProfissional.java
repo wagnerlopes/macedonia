@@ -13,7 +13,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** RegistroProfissional Entity.
+/** 
+ * Registro Profissional do profissional de saúde.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

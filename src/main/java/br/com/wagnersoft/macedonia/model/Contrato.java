@@ -22,8 +22,11 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
 
-/** Contrato Entity.
+/** 
+ * Contrato Entity.
+ * 
  * <p>Contratos com os {@link Ocs estabelecimentos de saúde}.</p>
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

@@ -25,9 +25,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Beneficiarios sao os clientes cadastrados que
- *  solicitam as {@link GuiaEncaminhamento Guias de Encaminhamento} 
- *  para uso nos {@link Ocs Estabelecimentos de Saúde}.</p>
+/**
+ * Beneficiários de saúde.
+ * 
+ * <p>São clientes cadastrados que solicitam as {@link GuiaEncaminhamento Guias de Encaminhamento} 
+ * para uso nos {@link Ocs Estabelecimentos de Saúde}.</p>
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

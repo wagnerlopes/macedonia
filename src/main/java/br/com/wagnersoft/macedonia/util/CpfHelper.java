@@ -9,10 +9,14 @@ import java.util.regex.Pattern;
  * @since 1.0
  * @version 1.0
  */
-public class Cpf {
+public final class CpfHelper {
 
   private static final Pattern PATTERN = Pattern.compile("^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$");
 
+  CpfHelper() {
+    // Protected
+  }
+  
   public static boolean isCpf(String cpf) {
     return cpf != null && PATTERN.matcher(cpf).matches();
   }
