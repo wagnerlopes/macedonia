@@ -1,4 +1,4 @@
-package br.com.wagnersoft.macedonia;
+package br.com.wagnersoft.macedonia.config;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

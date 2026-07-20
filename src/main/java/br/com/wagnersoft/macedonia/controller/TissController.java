@@ -13,7 +13,9 @@ import br.com.wagnersoft.macedonia.service.TissService;
 import br.com.wagnersoft.macedonia.tiss.GuiaFaturamento;
 import br.com.wagnersoft.macedonia.tiss.TissReponseDTO;
 
-/** TISS API Controller.
+/**
+ *  TISS API Controller.
+ *  
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

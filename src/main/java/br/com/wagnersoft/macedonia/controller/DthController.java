@@ -23,7 +23,9 @@ import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.validation.Valid;
 
-/** Diarias e Taxas (DTH) Controller.
+/** 
+ * Diarias e Taxas (DTH) Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

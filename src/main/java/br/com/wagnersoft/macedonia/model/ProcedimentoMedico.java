@@ -3,7 +3,6 @@ package br.com.wagnersoft.macedonia.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import br.com.wagnersoft.macedonia.type.CodigoTuss;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +15,9 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Include;
 
-/** ProcedimentoMedico Entity.
+/**
+ *  ProcedimentoMedico Entity.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
@@ -80,10 +81,6 @@ public class ProcedimentoMedico implements Comparable<ProcedimentoMedico>, Seria
     if (getClass() != obj.getClass()) return false;
     ProcedimentoMedico other = (ProcedimentoMedico) obj;
     return Objects.equals(id, other.id);
-  }
-
-  public String getCodigoTuss() {
-    return new CodigoTuss(tuss).getCodigoTuss();
   }
 
 }

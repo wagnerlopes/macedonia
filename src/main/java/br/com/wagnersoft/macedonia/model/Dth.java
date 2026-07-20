@@ -21,7 +21,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** DTH são as diárias e taxas cobradas pelos {@link Ocs Estabelecimentos de Saúde}.
+/** 
+ * Diárias e Taxas Hospitalares.
+ * 
+ * <p>São as diárias e taxas cobradas pelos {@link Ocs Estabelecimentos de Saúde}.<p>
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

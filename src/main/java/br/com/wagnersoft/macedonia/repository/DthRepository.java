@@ -10,6 +10,13 @@ import org.springframework.data.repository.query.Param;
 import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.model.Ocs;
 
+/**
+ * DTH repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface DthRepository extends JpaRepository<Dth, Integer> {
 
   Optional<Dth> findById(int id);

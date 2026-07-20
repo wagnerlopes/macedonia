@@ -1,5 +1,12 @@
 package br.com.wagnersoft.macedonia.type;
 
+/**
+ * Tipo de guia de encaminhamento. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public enum GuiaConsultaEnum {
 
   AMBULATORIAL("02", "Guia de Procedimentos Ambulatoriais"),

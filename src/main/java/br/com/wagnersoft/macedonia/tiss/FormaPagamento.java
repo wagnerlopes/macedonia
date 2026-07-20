@@ -8,6 +8,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * Forma de pagamento. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @Getter
 @Builder
 public class FormaPagamento {

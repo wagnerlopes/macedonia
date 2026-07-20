@@ -23,7 +23,9 @@ import br.com.wagnersoft.macedonia.service.ProfissionalService;
 import br.com.wagnersoft.macedonia.type.ConselhoEnum;
 import jakarta.validation.Valid;
 
-/** Profissional Controller.
+/** 
+ * Profissional Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

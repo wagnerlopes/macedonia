@@ -8,6 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Protocolo;
 
+/**
+ * Protocolo repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface ProtocoloRepository extends JpaRepository<Protocolo, Integer> {
 
   @Query("SELECT p FROM Protocolo p WHERE p.ocs.cnpj = :cnpj")

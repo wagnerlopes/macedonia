@@ -23,7 +23,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/** Protocolo Entity.
+/** 
+ * Protocolo da guia de encaminhamento.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

@@ -2,6 +2,13 @@ package br.com.wagnersoft.macedonia.type;
 
 import java.util.Arrays;
 
+/**
+ * Tipo de estabelecimento de saúde. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public enum EstabelecimentoSaudeEnum {
 
   HOSPITAL_GERAL("01", "Hospital geral"),

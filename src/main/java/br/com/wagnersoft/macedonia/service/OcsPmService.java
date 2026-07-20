@@ -14,7 +14,9 @@ import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.repository.OcsPmRepository;
 
-/** OcsPm Service.
+/** 
+ * OcsPm Service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

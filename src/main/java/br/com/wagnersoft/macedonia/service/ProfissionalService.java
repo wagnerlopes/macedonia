@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 
-/** Profissional de Saude service.
+/** 
+ * Profissional de Saude service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import br.com.wagnersoft.macedonia.type.UfEnum;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
+/**
+ * Global Model Attributes. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 @ControllerAdvice
 public class GlobalModelAttributes {
 

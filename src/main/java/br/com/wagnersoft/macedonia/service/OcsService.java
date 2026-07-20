@@ -18,7 +18,9 @@ import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.repository.OcsRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
-/** OCS (Estabelecimento de Saude) service.
+/** 
+ * OCS (Estabelecimento de Saude) service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

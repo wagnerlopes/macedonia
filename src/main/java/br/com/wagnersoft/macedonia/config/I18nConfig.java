@@ -1,4 +1,4 @@
-package br.com.wagnersoft.macedonia;
+package br.com.wagnersoft.macedonia.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

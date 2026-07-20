@@ -41,7 +41,7 @@
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
             </td>
-            <td><a th:href="@{/profissionais(cpf=${prof.cpf})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.type.Cpf).format(prof.cpf)}"></a></td>
+            <td><a th:href="@{/profissionais(cpf=${prof.cpf})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.CpfHelper).format(prof.cpf)}"></a></td>
             <td><span th:text="${prof.nome}"> Nome </span></td>
             <td><span th:text="${prof.cbo.descricao}"> Especialidade </span></td>
             <td><span th:text="${prof.registroProfissional}"> Registro </span></td>

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 
-/** Beneficiario JPA Repository.
+/** 
+ * Beneficiario JPA Repository.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

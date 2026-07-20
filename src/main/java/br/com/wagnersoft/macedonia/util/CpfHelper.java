@@ -1,12 +1,23 @@
-package br.com.wagnersoft.macedonia.type;
+package br.com.wagnersoft.macedonia.util;
 
 import java.util.regex.Pattern;
 
-public class Cpf {
+/**
+ *  CPF Utility.
+ * TODO: renomear
+ * @author Wagner Lopes
+ * @since 1.0
+ * @version 1.0
+ */
+public final class CpfHelper {
 
   private static final Pattern PATTERN = Pattern.compile("^\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2}$");
 
-  public boolean isCpf(String cpf) {
+  CpfHelper() {
+    // Protected
+  }
+  
+  public static boolean isCpf(String cpf) {
     return cpf != null && PATTERN.matcher(cpf).matches();
   }
 

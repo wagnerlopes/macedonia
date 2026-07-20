@@ -25,9 +25,12 @@ import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
-/** Guia de Encaminhamento Controller.
- * Os Model Attributes necessários na view Guias são carregados em
+/** 
+ * Guia de Encaminhamento Controller.
+ * 
+ * Os objetos {@code Model Attribute} necessários na view Guias são carregados em
  * {@link GuiaEncaminhamentoViewModelBuilder} através do {@link GuiaEncaminhamentoViewModelAdvice}.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

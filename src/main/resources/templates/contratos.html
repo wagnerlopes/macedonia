@@ -43,7 +43,7 @@
             </td>
             <td><a th:href="@{/contratos(id=${cont.id})} + '#editar'" th:title="Editar" th:text="${cont.id}"></a></td>
             <td>
-            <a th:href="@{/ocs(id=${cont.ocs.id})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.type.Cnpj).format(cont.ocs.cnpj)}"></a>
+            <a th:href="@{/ocs(id=${cont.ocs.id})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.CnpjHelper).format(cont.ocs.cnpj)}"></a>
             <span th:text="' - ' + ${cont.ocs.descricao}"> Estabelecimento </span>
             </td>
             <td class="text-center"><span th:text="${#temporals.format(cont.inicioData, 'dd/MM/yyyy')}"> Inicio </span></td>

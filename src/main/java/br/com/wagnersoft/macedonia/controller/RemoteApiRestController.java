@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsPmService;
 
-/** Remote API Rest Controller.
+/** 
+ * Remote API Rest Controller.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

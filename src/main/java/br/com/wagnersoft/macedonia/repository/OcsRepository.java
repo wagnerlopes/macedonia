@@ -9,6 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 import br.com.wagnersoft.macedonia.model.Ocs;
 
+/**
+ * Ocs repository. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ */
 public interface OcsRepository extends JpaRepository<Ocs, Integer> {
 
   Optional<Ocs> findByCnpj(String cnpj);

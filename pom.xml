@@ -8,7 +8,7 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>macedonia</artifactId>
-  <version>1.0.5-alpha</version>
+  <version>1.0.6-beta</version>
 
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
@@ -113,7 +113,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>3.6.0</version>
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
           <failOnViolation>false</failOnViolation>
@@ -121,7 +121,7 @@
         </configuration>
         <executions>
           <execution>
-            <id>checkstyle</id>
+            <id>checkstyle-check</id>
             <phase>verify</phase>
             <goals>
               <goal>check</goal>
@@ -140,7 +140,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.10</version>
+        <version>0.8.15</version>
         <executions>
           <execution>
             <goals>

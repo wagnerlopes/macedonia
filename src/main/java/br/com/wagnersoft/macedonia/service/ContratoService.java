@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.repository.ContratoRepository;
 
-/** Contrato com Estabelecimento de Saude service.
+/** 
+ * Contrato com Estabelecimento de Saude service.
+ * 
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

@@ -46,7 +46,7 @@
               <a th:href="@{/guias(id=${guiaEncaminhamento.id})} + '#editar'" th:title="Editar" th:text="${guiaEncaminhamento.guiaNr}"></a>
             </td>
             <td>
-              <a th:href="@{/beneficiarios(cpf=${guiaEncaminhamento.beneficiario.cpf})}" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.type.Cpf).format(guiaEncaminhamento.beneficiario.cpf)}"></a>            
+              <a th:href="@{/beneficiarios(cpf=${guiaEncaminhamento.beneficiario.cpf})}" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.CpfHelper).format(guiaEncaminhamento.beneficiario.cpf)}"></a>            
               <span th:text="${' - ' + guiaEncaminhamento.beneficiario.nome}"></span>
             <td><span th:text="${guiaEncaminhamento.ocs.descricao}"> OCS </span></td>
             <td class="text-center"><span th:text="${#temporals.format(guiaEncaminhamento.emissaoData, 'dd/MM/yyyy')}"> Data </span></td>
