@@ -66,13 +66,13 @@ public class ContratoController {
     return "contratos";
   }
 
-  @GetMapping({"/delete"})
+  @PostMapping(params = "delete")
   public String delete(Integer id) {
     cttSvc.remove(id);
     return "redirect:/contratos";
   }
 
-  @PostMapping(value = "/save", params = "save")
+  @PostMapping(params = "save")
   public String save(@Valid Contrato contrato, BindingResult bindingResult, Model model) {
     if (contrato.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
@@ -83,10 +83,10 @@ public class ContratoController {
     if (bindingResult.hasErrors()) {
       return "contratos";
     }
-    
-    logger.info("{}", contrato);
+
+    logger.debug("{}", contrato);
     cttSvc.add(contrato);
-    
+
     return "redirect:/contratos";
   }
 
