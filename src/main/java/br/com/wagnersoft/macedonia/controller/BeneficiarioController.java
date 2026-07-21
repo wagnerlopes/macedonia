@@ -55,13 +55,13 @@ public class BeneficiarioController {
     return "beneficiarios";
   }
 
-  @GetMapping("/delete")
+  @PostMapping(params = "delete")
   public String delete(String cpf) {
     benSvc.remove(cpf);
     return "redirect:/beneficiarios";
   }
 
-  @PostMapping(value = "/save", params = "save")
+  @PostMapping(params = "save")
   public String save(@Valid Beneficiario beneficiario, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       return "beneficiarios";
