@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,16 +27,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 /** 
- * Guia de Encaminhamento Controller.
- * 
- * Os objetos {@code Model Attribute} necessários na view Guias são carregados em
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas as <strong>guias de encaminhamento</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>guias de encaminhamento</strong> no sistema através do caminho base {@code /guias}.
+ * </p>
+ * <p>
+ * Os objetos {@code Model Attribute} carregados na view Guias são carregados em
  * {@link GuiaEncaminhamentoViewModelBuilder} através do {@link GuiaEncaminhamentoViewModelAdvice}.
- * 
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
  */
 @Controller
+@RequestMapping("/guias")
 public class GuiaEncaminhamentoController {
 
   private static final Logger logger = LoggerFactory.getLogger(GuiaEncaminhamentoController.class);
@@ -62,7 +68,7 @@ public class GuiaEncaminhamentoController {
     return guiaSvc.listAll();
   }
 
-  @GetMapping("/guias")
+  @GetMapping
   public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
     logger.info("+++ Guias +++");
     model.addAttribute("menu", "guias");
@@ -72,7 +78,7 @@ public class GuiaEncaminhamentoController {
     return "guias";
   }
 
-  @RequestMapping(value = "/guias", params = {"save"})
+  @PostMapping(value = "/save", params = {"save"})
   public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
     benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario.cpf", "guia.erro.beneficiario", "Deve ser informado"));
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
@@ -87,7 +93,7 @@ public class GuiaEncaminhamentoController {
     return "redirect:/guias";
   }
 
-  @RequestMapping(value = "/guias", params = {"addRow"})
+  @PostMapping(value = "/save", params = {"addRow"})
   public String addRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final Model model) {
     guiaEncaminhamento.getProcedimentos().add(new GuiaPm());
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
@@ -96,7 +102,7 @@ public class GuiaEncaminhamentoController {
     return "guias";
   }
 
-  @RequestMapping(value = "/guias", params = {"removeRow"})
+  @PostMapping(value = "/save", params = {"removeRow"})
   public String removeRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
     final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
     guiaEncaminhamento.getProcedimentos().remove(rowId.intValue());

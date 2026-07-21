@@ -25,15 +25,14 @@ import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
 import br.com.wagnersoft.macedonia.type.ConselhoEnum;
 import br.com.wagnersoft.macedonia.type.EstabelecimentoSaudeEnum;
-import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelAdvice;
 import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 
 /** 
- * Search Controller.
- * 
- * Os objetos {@code Model Attribute} necessários na view Guias sao carregados em
- * {@link GuiaEncaminhamentoViewModelBuilder} atraves do {@link GuiaEncaminhamentoViewModelAdvice} .
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas as <strong>pesquisas</strong>.
+ * <p>
+ * Centraliza os endpoints referentes a consulta de <strong>entidades</strong> 
+ * no sistema através do caminho base {@code /search}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes

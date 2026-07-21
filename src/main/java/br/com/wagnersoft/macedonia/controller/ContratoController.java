@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
@@ -21,13 +22,17 @@ import br.com.wagnersoft.macedonia.service.OcsService;
 import jakarta.validation.Valid;
 
 /** 
- * Contrato Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>contratos de saúde</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>contratos</strong> no sistema através do caminho base {@code /contratos}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
  */
 @Controller
+@RequestMapping("/contratos")
 public class ContratoController {
 
   private static final Logger logger = LoggerFactory.getLogger(ContratoController.class);
@@ -53,7 +58,7 @@ public class ContratoController {
     return ocsSvc.mapAll();
   }
 
-  @GetMapping({"/contratos"})
+  @GetMapping
   public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
     logger.info("+++ Contratos +++");
     model.addAttribute("menu", "Contrato");
@@ -61,13 +66,13 @@ public class ContratoController {
     return "contratos";
   }
 
-  @GetMapping({"/contratos/delete"})
+  @GetMapping({"/delete"})
   public String delete(@RequestParam(name = "id", required = false) Integer id) {
     cttSvc.remove(id);
     return "redirect:/contratos";
   }
 
-  @PostMapping(value = "/contratos/save", params = {"save"})
+  @PostMapping(value = "/save", params = {"save"})
   public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
     if (contrato.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");

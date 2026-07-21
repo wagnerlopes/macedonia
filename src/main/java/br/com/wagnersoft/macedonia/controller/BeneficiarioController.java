@@ -21,11 +21,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 /** 
- * Beneficiario Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>beneficiários</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>beneficiários</strong> no sistema através do caminho base {@code /beneficiarios}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see BeneficiarioService
  */
 @Controller
 @RequestMapping("/beneficiarios")
@@ -60,7 +64,7 @@ public class BeneficiarioController {
     return "redirect:/beneficiarios";
   }
 
-  @PostMapping("/save")
+  @PostMapping(value = "/save", params = {"save"})
   public String save(@Valid final Beneficiario beneficiario, final BindingResult bindingResult, final HttpServletRequest req, final ModelMap model) {
     if (bindingResult.hasErrors()) {
       return "beneficiarios";

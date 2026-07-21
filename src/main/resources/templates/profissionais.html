@@ -55,7 +55,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{profissional.editar})}"></div>
 
-      <form action="#" th:action="@{/profissionais}" th:object="${profissional}" method="post">
+      <form action="#" th:action="@{/profissionais/save}" th:object="${profissional}" method="post">
           
         <div class="form-group row mt-1">
           <label for="cpf" class="col-sm-2 form-label my-1 text-end">

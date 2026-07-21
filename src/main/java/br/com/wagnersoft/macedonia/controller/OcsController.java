@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,13 +27,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 /** 
- * OCS (Estabelecimento de Saude) Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>estabelecimentos de saúde</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>estabelecimentos de saúde</strong> no sistema através do caminho base {@code /ocs}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
  */
 @Controller
+@RequestMapping("/ocs")
 public class OcsController {
 
   private static final Logger logger = LoggerFactory.getLogger(OcsController.class);
@@ -63,7 +68,7 @@ public class OcsController {
     return Arrays.stream(EstabelecimentoSaudeEnum.values()).collect(Collectors.toMap(EstabelecimentoSaudeEnum::getCodigo, EstabelecimentoSaudeEnum::getDescricao));
   }
 
-  @GetMapping("/ocs")
+  @GetMapping
   public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
     logger.info("+++ OCS +++");
     model.addAttribute("menu", "ocs");
@@ -72,13 +77,13 @@ public class OcsController {
     return "ocs";
   }
 
-  @GetMapping({"/ocs/delete"})
+  @GetMapping({"/delete"})
   public String delete(@RequestParam(name = "id", required = false) Integer id) {
     ocsSvc.remove(id);
     return "redirect:/ocs";
   }
 
-  @RequestMapping(value = "/ocs", params = {"save"})
+  @PostMapping(value = "/save", params = {"save"})
   public String save(@Valid final Ocs ocs, final BindingResult bindingResult, final ModelMap model) {
     if (bindingResult.hasErrors()) {
       return "ocs";
@@ -89,7 +94,7 @@ public class OcsController {
     return "redirect:/ocs";
   }
 
-  @RequestMapping(value = "/ocs", params = {"addRow"})
+  @PostMapping(value = "/save", params = {"addRow"})
   public String addRow(final Ocs ocs, final BindingResult bindingResult, final Model model) {
     ocs.getProcedimentos().add(new OcsPm());
     model.addAttribute("ocs", ocs);
@@ -97,7 +102,7 @@ public class OcsController {
     return "ocs";
   }
 
-  @RequestMapping(value = "/ocs", params = {"removeRow"})
+  @PostMapping(value = "/save", params = {"removeRow"})
   public String removeRow(final Ocs ocs, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
     final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
     ocs.getProcedimentos().remove(rowId.intValue());

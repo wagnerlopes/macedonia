@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Dth;
@@ -24,13 +25,17 @@ import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.validation.Valid;
 
 /** 
- * Diarias e Taxas (DTH) Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas as <strong>diárias e taxas</strong> de saúde.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>diárias e taxas</strong> no sistema através do caminho base {@code /dth}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
  */
 @Controller
+@RequestMapping("/dth")
 public class DthController {
 
   private static final Logger logger = LoggerFactory.getLogger(DthController.class);
@@ -66,7 +71,7 @@ public class DthController {
     return Arrays.stream(UnidadeMedidaEnum.values()).collect(Collectors.toMap(UnidadeMedidaEnum::getCodigo, UnidadeMedidaEnum::getDescricao));
   }
 
-  @GetMapping({"/dth"})
+  @GetMapping
   public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
     logger.info("+++ DTH +++");
     model.addAttribute("menu", "Dth");
@@ -74,13 +79,13 @@ public class DthController {
     return "dth";
   }
 
-  @GetMapping({"/dth/delete"})
+  @GetMapping({"/delete"})
   public String delete(@RequestParam(name = "id", required = false) Integer id) {
     dthSvc.remove(id);
     return "redirect:/dth";
   }
 
-  @PostMapping(value = "/dth", params = {"save"})
+  @PostMapping(value = "/save", params = {"save"})
   public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
     if (dth.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");

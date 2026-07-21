@@ -55,7 +55,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{dth.editar})}"></div>
 
-      <form action="#" th:action="@{/dth}" th:object="${dth}" method="post">
+      <form action="#" th:action="@{/dth/save}" th:object="${dth}" method="post">
           
         <input type="hidden" th:field="*{id}"/>
 

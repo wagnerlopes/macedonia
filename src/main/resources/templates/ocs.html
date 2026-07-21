@@ -65,7 +65,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{ocs.editar})}"></div>
 
-      <form action="#" th:action="@{/ocs}" th:object="${ocs}" method="post">
+      <form action="#" th:action="@{/ocs/save}" th:object="${ocs}" method="post">
 
         <input type="hidden" th:field="*{id}"/>
           

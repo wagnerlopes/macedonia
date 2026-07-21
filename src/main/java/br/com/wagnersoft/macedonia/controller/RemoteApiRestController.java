@@ -21,8 +21,11 @@ import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsPmService;
 
 /** 
- * Remote API Rest Controller.
- * 
+ * Rest Controller Spring MVC responsável por gerenciar as requisições as API <strong>OPM</strong> e <strong>CHART</strong>.
+ * <p>
+ * Centraliza os endpoints referentes a consulta das API <strong>OPM</strong> e <strong>CHART</strong>
+ * no sistema através do caminho base {@code /api}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
