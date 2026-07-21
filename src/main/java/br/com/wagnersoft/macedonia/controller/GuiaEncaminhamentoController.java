@@ -8,13 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
 import br.com.wagnersoft.macedonia.model.GuiaPm;
@@ -22,6 +20,7 @@ import br.com.wagnersoft.macedonia.service.BeneficiarioService;
 import br.com.wagnersoft.macedonia.service.GuiaEncaminhamentoService;
 import br.com.wagnersoft.macedonia.service.OcsService;
 import br.com.wagnersoft.macedonia.service.ProfissionalService;
+import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelAdvice;
 import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -33,16 +32,16 @@ import jakarta.validation.Valid;
  * de <strong>guias de encaminhamento</strong> no sistema através do caminho base {@code /guias}.
  * </p>
  * <p>
- * Os objetos {@code Model Attribute} carregados na view Guias são carregados em
+ * Todos os {@code Model Attribute} utilizados na view {@code guias.html} são carregados em
  * {@link GuiaEncaminhamentoViewModelBuilder} através do {@link GuiaEncaminhamentoViewModelAdvice}.
  * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
- * @see GuiaEncaminhamentoService
  * @see BeneficiarioService
- * @see ProfissionalService
+ * @see GuiaEncaminhamentoService
  * @see OcsService
+ * @see ProfissionalService
  */
 @Controller
 @RequestMapping("/guias")
@@ -73,7 +72,7 @@ public class GuiaEncaminhamentoController {
   }
 
   @GetMapping
-  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+  public String show(Integer id, Model model) {
     logger.info("+++ Guias +++");
     model.addAttribute("menu", "guias");
     final GuiaEncaminhamento guia = id == null ? new GuiaEncaminhamento() : guiaSvc.findById(id).orElse(new GuiaEncaminhamento());
@@ -82,23 +81,32 @@ public class GuiaEncaminhamentoController {
     return "guias";
   }
 
-  @PostMapping(value = "/save", params = {"save"})
-  public String save(@Valid final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final ModelMap model) {
+  @PostMapping(params = "delete")
+  public String delete(Integer id) {
+    guiaSvc.remove(id);
+    return "redirect:/guias";
+  }
+
+
+  @PostMapping(params = "save")
+  public String save(@Valid GuiaEncaminhamento guiaEncaminhamento, BindingResult bindingResult, Model model) {
     benSvc.findByCpf(guiaEncaminhamento.getBeneficiario().getCpf()).ifPresentOrElse(b -> guiaEncaminhamento.setBeneficiario(b) , () -> bindingResult.rejectValue("beneficiario.cpf", "guia.erro.beneficiario", "Deve ser informado"));
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
     profSvc.findByCpf(guiaEncaminhamento.getSolicitante().getCpf()).ifPresentOrElse(s -> guiaEncaminhamento.setSolicitante(s) , () -> bindingResult.rejectValue("solicitante.cpf", "guia.erro.solicitante", "Deve ser informado"));
     profSvc.findByCpf(guiaEncaminhamento.getResponsavel().getCpf()).ifPresentOrElse(r -> guiaEncaminhamento.setResponsavel(r) , () -> bindingResult.rejectValue("responsavel.cpf", "guia.erro.responsavel", "Deve ser informado"));
+
     if (bindingResult.hasErrors()) {
       return "guias";
     }
-    logger.info("NEW = {}", guiaEncaminhamento);
+
+    logger.debug("{}", guiaEncaminhamento);
     guiaSvc.add(guiaEncaminhamento);
-    model.clear();
+
     return "redirect:/guias";
   }
 
-  @PostMapping(value = "/save", params = {"addRow"})
-  public String addRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final Model model) {
+  @PostMapping(params = "addRow")
+  public String addRow(GuiaEncaminhamento guiaEncaminhamento, BindingResult bindingResult, Model model) {
     guiaEncaminhamento.getProcedimentos().add(new GuiaPm());
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));
     model.addAttribute("guia", guiaEncaminhamento);
@@ -106,8 +114,8 @@ public class GuiaEncaminhamentoController {
     return "guias";
   }
 
-  @PostMapping(value = "/save", params = {"removeRow"})
-  public String removeRow(final GuiaEncaminhamento guiaEncaminhamento, final BindingResult bindingResult, final HttpServletRequest req, final Model model) {
+  @PostMapping(params = "removeRow")
+  public String removeRow(GuiaEncaminhamento guiaEncaminhamento, BindingResult bindingResult, HttpServletRequest req, Model model) {
     final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
     guiaEncaminhamento.getProcedimentos().remove(rowId.intValue());
     ocsSvc.findById(guiaEncaminhamento.getOcs().getId()).ifPresentOrElse(o -> guiaEncaminhamento.setOcs(o) , () -> bindingResult.rejectValue("ocs.id", "guia.erro.ocs", "Deve ser informado"));

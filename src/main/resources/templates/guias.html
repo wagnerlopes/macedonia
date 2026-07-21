@@ -38,9 +38,12 @@
 			
           <tr th:each="guiaEncaminhamento : ${allGuias}">
             <td>
-              <a th:href="@{/guias/delete(id=${guiaEncaminhamento.id})}">
-                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
-              </a>
+              <form th:action="@{/guias}" method="post" class="d-inline">
+                <input type="hidden" name="id" th:value="${guiaEncaminhamento.id}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
             </td>
             <td>
               <a th:href="@{/guias(id=${guiaEncaminhamento.id})} + '#editar'" th:title="Editar" th:text="${guiaEncaminhamento.guiaNr}"></a>
@@ -65,7 +68,7 @@
       
       <div th:replace="~{edit-title :: div-title(#{guia.editar})}"></div>
 
-      <form action="#" th:action="@{/guias/save}" th:object="${guiaEncaminhamento}" method="post">
+      <form action="#" th:action="@{/guias}" th:object="${guiaEncaminhamento}" method="post">
 
         <input type="hidden" th:field="*{id}"/>
           
