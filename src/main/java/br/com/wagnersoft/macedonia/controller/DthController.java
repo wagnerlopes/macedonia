@@ -80,13 +80,13 @@ public class DthController {
     return "dth";
   }
 
-  @GetMapping({"/delete"})
+  @PostMapping(params = "delete")
   public String delete(Integer id) {
     dthSvc.remove(id);
     return "redirect:/dth";
   }
 
-  @PostMapping(value = "/save", params = "save")
+  @PostMapping(params = "save")
   public String save(@Valid Dth dth, BindingResult bindingResult, Model model) {
     if (dth.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
@@ -98,7 +98,7 @@ public class DthController {
       return "dth";
     }
     
-    logger.info("{}", dth);
+    logger.debug("{}", dth);
     dthSvc.add(dth);
     
     return "redirect:/dth";

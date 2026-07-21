@@ -37,9 +37,12 @@
 			
           <tr th:each="dth : ${allDth}">
             <td>
-              <a th:href="@{/dth/delete(id=${dth.id})}">
-                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
-              </a>
+              <form th:action="@{/dth}" method="post" class="d-inline">
+                <input type="hidden" name="id" th:value="${dth.id}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
             </td>
             <td><a th:href="@{/dth(id=${dth.id})} + '#editar'" th:text="${T(br.com.wagnersoft.macedonia.model.Dth).formatCodigo(dth.codigo)}" title="Editar"> Codigo </a></td>
             <td><span th:text="${dth.descricao}"> Descricao </span></td>
@@ -55,7 +58,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{dth.editar})}"></div>
 
-      <form action="#" th:action="@{/dth/save}" th:object="${dth}" method="post">
+      <form action="#" th:action="@{/dth}" th:object="${dth}" method="post">
           
         <input type="hidden" th:field="*{id}"/>
 
