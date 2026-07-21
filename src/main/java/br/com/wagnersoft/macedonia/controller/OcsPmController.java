@@ -34,6 +34,9 @@ import jakarta.validation.Valid;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see OcsService
+ * @see OcsPmService
+ * @see ProcedimentoMedicoService
  */
 @Controller
 @RequestMapping("/ocspm")

@@ -33,6 +33,8 @@ import jakarta.validation.Valid;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see CboService
+ * @see ProfissionalService
  */
 @Controller
 @RequestMapping("/profissionais")

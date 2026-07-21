@@ -22,6 +22,7 @@ import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see ProcedimentoMedicoService
  */
 @Controller
 public class ProcedimentoMedicoController {

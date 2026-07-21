@@ -29,6 +29,8 @@ import br.com.wagnersoft.macedonia.service.OcsPmService;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see GuiaEncaminhamentoService
+ * @see OcsPmService
  */
 @RestController
 @RequestMapping("/api")

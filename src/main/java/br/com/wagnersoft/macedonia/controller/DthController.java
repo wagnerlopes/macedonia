@@ -10,13 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.service.DthService;
@@ -25,7 +23,8 @@ import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 import jakarta.validation.Valid;
 
 /** 
- * Controller Spring MVC responsável por gerenciar as requisições relacionadas as <strong>diárias e taxas</strong> de saúde.
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas 
+ * as <strong>diárias e taxas</strong> de saúde.
  * <p>
  * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
  * de <strong>diárias e taxas</strong> no sistema através do caminho base {@code /dth}.
@@ -33,6 +32,8 @@ import jakarta.validation.Valid;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see DthService
+ * @see OcsService
  */
 @Controller
 @RequestMapping("/dth")
@@ -72,7 +73,7 @@ public class DthController {
   }
 
   @GetMapping
-  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+  public String show(Integer id, Model model) {
     logger.info("+++ DTH +++");
     model.addAttribute("menu", "Dth");
     model.addAttribute("dth", id == null ? new Dth() : dthSvc.findById(id).orElse(new Dth()));
@@ -80,13 +81,13 @@ public class DthController {
   }
 
   @GetMapping({"/delete"})
-  public String delete(@RequestParam(name = "id", required = false) Integer id) {
+  public String delete(Integer id) {
     dthSvc.remove(id);
     return "redirect:/dth";
   }
 
-  @PostMapping(value = "/save", params = {"save"})
-  public String save(@Valid final Dth dth, final BindingResult bindingResult, final ModelMap model) {
+  @PostMapping(value = "/save", params = "save")
+  public String save(@Valid Dth dth, BindingResult bindingResult, Model model) {
     if (dth.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
     }
@@ -96,9 +97,10 @@ public class DthController {
     if (bindingResult.hasErrors()) {
       return "dth";
     }
+    
     logger.info("{}", dth);
     dthSvc.add(dth);
-    model.clear();
+    
     return "redirect:/dth";
   }
 

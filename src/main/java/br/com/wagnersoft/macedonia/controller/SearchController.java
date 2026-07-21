@@ -36,6 +36,13 @@ import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see BeneficiarioService
+ * @see CboService
+ * @see GuiaEncaminhamentoService
+ * @see GuiaEncaminhamentoViewModelBuilder
+ * @see OcsService
+ * @see ProcedimentoMedicoService
+ * @see ProfissionalService
  */
 @Controller
 public class SearchController {

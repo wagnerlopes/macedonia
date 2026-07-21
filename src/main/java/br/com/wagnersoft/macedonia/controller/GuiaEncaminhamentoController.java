@@ -39,6 +39,10 @@ import jakarta.validation.Valid;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see GuiaEncaminhamentoService
+ * @see BeneficiarioService
+ * @see ProfissionalService
+ * @see OcsService
  */
 @Controller
 @RequestMapping("/guias")

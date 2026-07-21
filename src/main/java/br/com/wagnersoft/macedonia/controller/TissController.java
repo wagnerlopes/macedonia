@@ -22,6 +22,7 @@ import br.com.wagnersoft.macedonia.tiss.TissReponseDTO;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see TissService
  */
 @RestController
 @RequestMapping("/api/tiss")

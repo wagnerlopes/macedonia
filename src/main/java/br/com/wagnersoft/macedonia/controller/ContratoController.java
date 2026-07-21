@@ -8,13 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.service.ContratoService;
@@ -30,6 +28,8 @@ import jakarta.validation.Valid;
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see ContratoService
+ * @see OcsService
  */
 @Controller
 @RequestMapping("/contratos")
@@ -59,7 +59,7 @@ public class ContratoController {
   }
 
   @GetMapping
-  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+  public String show(Integer id, Model model) {
     logger.info("+++ Contratos +++");
     model.addAttribute("menu", "Contrato");
     model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id).orElse(new Contrato()));
@@ -67,13 +67,13 @@ public class ContratoController {
   }
 
   @GetMapping({"/delete"})
-  public String delete(@RequestParam(name = "id", required = false) Integer id) {
+  public String delete(Integer id) {
     cttSvc.remove(id);
     return "redirect:/contratos";
   }
 
-  @PostMapping(value = "/save", params = {"save"})
-  public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
+  @PostMapping(value = "/save", params = "save")
+  public String save(@Valid Contrato contrato, BindingResult bindingResult, Model model) {
     if (contrato.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
     }
@@ -83,9 +83,10 @@ public class ContratoController {
     if (bindingResult.hasErrors()) {
       return "contratos";
     }
+    
     logger.info("{}", contrato);
     cttSvc.add(contrato);
-    model.clear();
+    
     return "redirect:/contratos";
   }
 
