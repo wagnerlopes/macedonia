@@ -2,7 +2,6 @@ package br.com.wagnersoft.macedonia;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -11,16 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import br.com.wagnersoft.macedonia.service.CboService;
 import jakarta.servlet.Servlet;
 import jakarta.servlet.http.HttpSession;
 
 /**
  * Macedonia starting application. 
  * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 @Controller
 @SpringBootApplication
@@ -28,9 +26,6 @@ public class Runner {
 
   private static final Logger logger = LoggerFactory.getLogger(Runner.class);
 
-  @Autowired
-  private CboService cboSvc;
-  
   @Bean
   public ServletRegistrationBean<Servlet> h2ServletRegistration() {
     final Servlet servlet = new org.h2.server.web.JakartaWebServlet();
@@ -54,13 +49,6 @@ public class Runner {
     return "configuracoes";
   }
 
-  @GetMapping("/especialidades")
-  public String especialidades(Model model) {
-    logger.info("+++ Especialidades +++");
-    model.addAttribute("menu", "esp");
-    model.addAttribute("lista", cboSvc.listAll());
-    return "especialidades";
-  }
   
   public static void main(String[] args) {
     SpringApplication.run(Runner.class, args);
