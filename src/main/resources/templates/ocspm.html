@@ -37,9 +37,17 @@
 			
           <tr th:each="op : ${listOcsPm}">
             <td>
+              <form th:action="@{/ocspm(ocsid=${ocs.id} ,id=${op.id})}" method="post" class="d-inline">
+                <input type="hidden" name="id" th:value="${ocs.id}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
+<!--             
               <a th:href="@{/ocspm/delete(ocsid=${ocs.id} ,id=${op.id})}">
                 <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
               </a>
+ -->              
             </td>
             <td><a th:href="@{/ocspm(ocsid=${op.ocs.id},id=${op.id})}" title="Editar">[[${op.pm.tuss}]]</a></td>
             <td><span th:text="${op.pm.descricao}"> Descricao </span></td>
@@ -55,7 +63,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{ocspm.editar})}"></div>
 
-      <form action="#" th:action="@{/ocspm/save}" th:object="${ocspm}" method="post">
+      <form action="#" th:action="@{/ocspm}" th:object="${ocspm}" method="post">
           
         <input type="hidden" th:field="*{id}"/>
         <input type="hidden" name="ocs.id" th:value="${ocs.id}" />
