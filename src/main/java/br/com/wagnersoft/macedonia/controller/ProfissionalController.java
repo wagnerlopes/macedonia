@@ -9,13 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.model.Profissional;
@@ -25,10 +23,10 @@ import br.com.wagnersoft.macedonia.type.ConselhoEnum;
 import jakarta.validation.Valid;
 
 /** 
- * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>profissionais</strong>.
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>profissionais de saúde</strong>.
  * <p>
  * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
- * de <strong>profissionais</strong> no sistema através do caminho base {@code /profissionais}.
+ * de <strong>profissionais de saúde</strong> no sistema através do caminho base {@code /profissionais}.
  * </p>
  * @since 1.0
  * @version 1.0
@@ -69,30 +67,33 @@ public class ProfissionalController {
   }
 
   @GetMapping
-  public String show(@RequestParam(name = "cpf", required = false) String cpf, final Profissional profissional, Model model) {
+  public String show(String cpf, Model model) {
     logger.info("+++ Profissionais +++");
     model.addAttribute("menu", "prof");
     model.addAttribute("profissional", cpf == null ? new Profissional() : profSvc.findByCpf(cpf).orElse(new Profissional()));
     return "profissionais";
   }
 
-  @GetMapping({"/delete"})
-  public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
+  @PostMapping(params = "delete")
+  public String delete(String cpf) {
     profSvc.remove(cpf);
     return "redirect:/profissionais";
   }
 
-  @PostMapping(value = "/save", params = {"save"})
-  public String save(@Valid final Profissional profissional, final BindingResult bindingResult, final ModelMap model) {
+  @PostMapping(params = "save")
+  public String save(@Valid Profissional profissional, BindingResult bindingResult, Model model) {
     cboSvc.findById(profissional.getCbo().getCodigo()).ifPresentOrElse(c -> profissional.setCbo(c), () -> bindingResult.rejectValue("cbo.codigo", "profissional.erro.cbo", "Especialidade deve ser informada"));
+
     if (bindingResult.hasErrors()) {
       return "profissionais";
     }
+    
     final Cbo cbo = cboSvc.findById(profissional.getCbo().getCodigo()).orElseThrow();
     profissional.setCbo(cbo);
-    logger.info("{}", profissional);
+    
+    logger.debug("{}", profissional);
     profSvc.add(profissional);
-    model.clear();
+    
     return "redirect:/profissionais";
   }
 
