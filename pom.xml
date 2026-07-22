@@ -13,7 +13,7 @@
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
   <inceptionYear>2026</inceptionYear>
-  <url>https://wagnerlopes.github.io/</url>
+  <url>https://github.com/wagnerlopes/macedonia</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -108,6 +108,12 @@
             @{argLine} -XX:+EnableDynamicAgentLoading
           </argLine>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.6.0</version>
       </plugin>
 
       <plugin>
