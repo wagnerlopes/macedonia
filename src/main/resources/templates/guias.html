@@ -38,9 +38,12 @@
 			
           <tr th:each="guiaEncaminhamento : ${allGuias}">
             <td>
-              <a th:href="@{/guias/delete(id=${guiaEncaminhamento.id})}">
-                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
-              </a>
+              <form th:action="@{/guias}" method="post" class="d-inline">
+                <input type="hidden" name="id" th:value="${guiaEncaminhamento.id}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
             </td>
             <td>
               <a th:href="@{/guias(id=${guiaEncaminhamento.id})} + '#editar'" th:title="Editar" th:text="${guiaEncaminhamento.guiaNr}"></a>
@@ -244,7 +247,7 @@
                   <input type="text" th:field="*{procedimentos[__${rowStat.index}__].posAuditoria}" class="form-control text-end"/>
                 </td>
                 <td>
-                  <button type="submit" class="btn btn-sm btn-danger"  name="removeRow" th:value="${rowStat.index}"><i class="bi bi-trash" style="color: white;" title="Excluir"></i></button>
+                  <button type="submit" class="btn btn-sm btn-danger" name="removeRow" th:value="${rowStat.index}"><i class="bi bi-trash" style="color: white;" title="Excluir"></i></button>
                 </td>
               </tr>
             </tbody>

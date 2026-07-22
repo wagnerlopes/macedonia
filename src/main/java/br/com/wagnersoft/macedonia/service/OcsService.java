@@ -62,6 +62,7 @@ public class OcsService {
 
   public void remove(final Integer id) {
     if (id == null) return;
+
     rep.findById(id).ifPresent(o -> {
       if (o.getGuias().isEmpty())
         rep.delete(o);
@@ -70,15 +71,21 @@ public class OcsService {
 
   public void add(final Ocs ocs) {
     if (ocs == null) return;
+
+    ocs.getProcedimentos().removeIf(op -> op.getPm() == null || op.getPm().getId() == null);
+
     logger.debug("{}", ocs);
+
     Optional.ofNullable(ocs.getId())
-        .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
+    .flatMap(rep::findById)
+    .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
   }
 
   public void addProcedimentoMedico(final OcsPm opm) {
     if (opm == null) return;
+
     final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
+
     ocs.ifPresent(o -> {
       o.addOcsPm(opm);
       rep.save(o);
@@ -87,7 +94,9 @@ public class OcsService {
 
   public void removeProcedimentoMedico(final OcsPm opm) {
     if (opm == null) return;
+
     final Optional<Ocs> ocs = this.findById(opm.getOcs().getId());
+
     ocs.ifPresent(o -> {
       o.removeOcsPm(opm);
       rep.save(o);
@@ -106,12 +115,15 @@ public class OcsService {
     existing.setRegistroAns(replacement.getRegistroAns());
     existing.setTelefone(replacement.getTelefone());
     existing.setUf(replacement.getUf());
+
+    // Tratamento dos procedimentos do OCS
     if (replacement.getProcedimentos() != null) {
       replacement.getProcedimentos().forEach(op -> {
         pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
         existing.addOcsPm(op);
       });
     }
+
     rep.save(existing);
   }
 

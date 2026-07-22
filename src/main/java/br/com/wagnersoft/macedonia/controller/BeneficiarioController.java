@@ -7,25 +7,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.service.BeneficiarioService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 /** 
- * Beneficiario Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>beneficiários</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>beneficiários</strong> no sistema através do caminho base {@code /beneficiarios}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see BeneficiarioService
  */
 @Controller
 @RequestMapping("/beneficiarios")
@@ -47,27 +48,28 @@ public class BeneficiarioController {
   }
 
   @GetMapping
-  public String show(@RequestParam(name = "cpf", required = false) String cpf, final Beneficiario beneficiario, Model model) {
+  public String show(String cpf, Model model) {
     logger.info("+++ Beneficiarios +++");
     model.addAttribute("menu", "ben");
     model.addAttribute("beneficiario", cpf  == null ? new Beneficiario() : benSvc.findByCpf(cpf));
     return "beneficiarios";
   }
 
-  @GetMapping("/delete")
-  public String delete(@RequestParam(name = "cpf", required = false) String cpf) {
+  @PostMapping(params = "delete")
+  public String delete(String cpf) {
     benSvc.remove(cpf);
     return "redirect:/beneficiarios";
   }
 
-  @PostMapping("/save")
-  public String save(@Valid final Beneficiario beneficiario, final BindingResult bindingResult, final HttpServletRequest req, final ModelMap model) {
+  @PostMapping(params = "save")
+  public String save(@Valid Beneficiario beneficiario, BindingResult bindingResult, Model model) {
     if (bindingResult.hasErrors()) {
       return "beneficiarios";
     }
+    
     logger.debug("{}", beneficiario);
     benSvc.add(beneficiario);
-    model.clear();
+    
     return "redirect:/beneficiarios";
   }
 

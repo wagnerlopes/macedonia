@@ -38,9 +38,12 @@
 			
           <tr th:each="ben : ${allBeneficiarios}">
             <td>
-              <a th:href="@{/beneficiarios/delete(cpf=${ben.cpf})}">
-                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
-              </a>
+              <form th:action="@{/beneficiarios}" method="post" class="d-inline">
+                <input type="hidden" name="cpf" th:value="${ben.cpf}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
             </td>
             <td><a th:href="@{/beneficiarios(cpf=${ben.cpf})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.CpfHelper).format(ben.cpf)}"></a></td>
             <td><span th:text="${ben.nome}"> Nome </span></td>
@@ -70,7 +73,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{beneficiario.editar})}"></div>
 
-      <form action="#" th:action="@{/beneficiarios/save}" th:object="${beneficiario}" method="post">
+      <form action="#" th:action="@{/beneficiarios}" th:object="${beneficiario}" method="post">
           
         <div class="form-group row mt-1">
           <label for="cpf" class="col-sm-2 form-label my-1 text-end">

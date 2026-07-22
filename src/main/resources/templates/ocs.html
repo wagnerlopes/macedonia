@@ -38,9 +38,12 @@
 			
           <tr th:each="ocs : ${allOcs}">
             <td>
-              <a th:href="@{/ocs/delete(id=${ocs.id})}">
-                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
-              </a>
+              <form th:action="@{/ocs}" method="post" class="d-inline">
+                <input type="hidden" name="id" th:value="${ocs.id}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
             </td>
             <td><a th:href="@{/ocs(id=${ocs.id})} + '#editar'" th:title="Editar" th:text="${T(br.com.wagnersoft.macedonia.util.CnpjHelper).format(ocs.cnpj)}"></a></td>
             <td><span th:text="${ocs.descricao}"> Descricao </span></td>

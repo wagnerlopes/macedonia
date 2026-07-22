@@ -14,11 +14,15 @@ import br.com.wagnersoft.macedonia.tiss.GuiaFaturamento;
 import br.com.wagnersoft.macedonia.tiss.TissReponseDTO;
 
 /**
- *  TISS API Controller.
- *  
+ * Rest Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>beneficiários</strong>.
+ * <p>
+ * Centraliza os endpoints referentes a consulta da <strong>API TISS</strong> 
+ * no sistema através do caminho base {@code /api/tiss}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see TissService
  */
 @RestController
 @RequestMapping("/api/tiss")

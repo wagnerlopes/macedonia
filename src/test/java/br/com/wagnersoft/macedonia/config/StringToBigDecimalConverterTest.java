@@ -1,15 +1,13 @@
-package br.com.wagnersoft.macedonia;
+package br.com.wagnersoft.macedonia.config;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.math.BigDecimal;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import br.com.wagnersoft.macedonia.config.StringToBigDecimalConverter;
 
 public class StringToBigDecimalConverterTest {
 

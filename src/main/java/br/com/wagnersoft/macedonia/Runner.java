@@ -16,9 +16,9 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Macedonia starting application. 
  * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 @Controller
 @SpringBootApplication
@@ -49,6 +49,7 @@ public class Runner {
     return "configuracoes";
   }
 
+  
   public static void main(String[] args) {
     SpringApplication.run(Runner.class, args);
   }

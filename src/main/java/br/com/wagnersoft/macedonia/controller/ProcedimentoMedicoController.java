@@ -14,11 +14,15 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
 
 /** 
- * Procedimento Medico Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>procedimentos médicos</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>procedimentos médicos</strong> no sistema através do caminho base {@code /procedimentos}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see ProcedimentoMedicoService
  */
 @Controller
 public class ProcedimentoMedicoController {

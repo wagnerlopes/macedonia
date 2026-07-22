@@ -8,12 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.service.ContratoService;
@@ -21,13 +20,19 @@ import br.com.wagnersoft.macedonia.service.OcsService;
 import jakarta.validation.Valid;
 
 /** 
- * Contrato Controller.
- * 
+ * Controller Spring MVC responsável por gerenciar as requisições relacionadas aos <strong>contratos de saúde</strong>.
+ * <p>
+ * Centraliza os endpoints referentes ao cadastro, consulta, atualização e remoção
+ * de <strong>contratos</strong> no sistema através do caminho base {@code /contratos}.
+ * </p>
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
+ * @see ContratoService
+ * @see OcsService
  */
 @Controller
+@RequestMapping("/contratos")
 public class ContratoController {
 
   private static final Logger logger = LoggerFactory.getLogger(ContratoController.class);
@@ -53,22 +58,22 @@ public class ContratoController {
     return ocsSvc.mapAll();
   }
 
-  @GetMapping({"/contratos"})
-  public String show(@RequestParam(name = "id", required = false) Integer id, Model model) {
+  @GetMapping
+  public String show(Integer id, Model model) {
     logger.info("+++ Contratos +++");
     model.addAttribute("menu", "Contrato");
     model.addAttribute("contrato", id == null ? new Contrato() : cttSvc.findById(id).orElse(new Contrato()));
     return "contratos";
   }
 
-  @GetMapping({"/contratos/delete"})
-  public String delete(@RequestParam(name = "id", required = false) Integer id) {
+  @PostMapping(params = "delete")
+  public String delete(Integer id) {
     cttSvc.remove(id);
     return "redirect:/contratos";
   }
 
-  @PostMapping(value = "/contratos/save", params = {"save"})
-  public String save(@Valid final Contrato contrato, final BindingResult bindingResult, final ModelMap model) {
+  @PostMapping(params = "save")
+  public String save(@Valid Contrato contrato, BindingResult bindingResult, Model model) {
     if (contrato.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
     }
@@ -78,9 +83,10 @@ public class ContratoController {
     if (bindingResult.hasErrors()) {
       return "contratos";
     }
-    logger.info("{}", contrato);
+
+    logger.debug("{}", contrato);
     cttSvc.add(contrato);
-    model.clear();
+
     return "redirect:/contratos";
   }
 

@@ -37,9 +37,12 @@
 			
           <tr th:each="cont : ${allContratos}">
             <td>
-              <a th:href="@{/contratos/delete(id=${cont.id})}">
-                <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
-              </a>
+              <form th:action="@{/contratos}" method="post" class="d-inline">
+                <input type="hidden" name="id" th:value="${cont.id}" />
+                <button type="submit" name="delete" class="btn btn-sm">
+                  <i class="bi bi-trash" style="font-size: 1rem; color: cornflowerblue;" title="Excluir"></i>
+                </button>
+              </form>
             </td>
             <td><a th:href="@{/contratos(id=${cont.id})} + '#editar'" th:title="Editar" th:text="${cont.id}"></a></td>
             <td>
@@ -58,7 +61,7 @@
 
       <div th:replace="~{edit-title :: div-title(#{contrato.editar})}"></div>
 
-      <form action="#" th:action="@{/contratos/save}" th:object="${contrato}" method="post">
+      <form action="#" th:action="@{/contratos}" th:object="${contrato}" method="post">
 
         <input type="hidden" th:field="*{id}"/>
           
