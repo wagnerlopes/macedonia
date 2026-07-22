@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -72,27 +71,32 @@ public class OcsPmController {
   public String show(@RequestParam(name = "ocsid", required = true) Integer ocsId, @RequestParam(name = "id", required = false, defaultValue = "0") Integer id, Model model) {
     logger.info("+++ OCS/PM +++");
     model.addAttribute("menu", "ocspm");
+    
     final Ocs ocs = ocsSvc.findById(ocsId).orElse(new Ocs(ocsId));
+    logger.debug("{}", ocs);
+
     model.addAttribute("ocs", ocs);
     model.addAttribute("listOcsPm", ocsPmSvc.findByOcs(ocs));
     model.addAttribute("ocspm", ocsPmSvc.findById(id).orElse(new OcsPm()));
+    
     return "ocspm";
   }
 
-  @GetMapping({"/delete"})
+  @PostMapping(params = "delete")
   public String delete(@RequestParam(name = "ocsid", required = true) Integer ocsId, @RequestParam(name = "id", required = true) Integer id) {
     ocsPmSvc.remove(id);
     return "redirect:/ocspm?ocsid=" + ocsId;
   }
 
-  @PostMapping(value = "/save", params = {"save"})
-  public String save(@Valid final OcsPm ocspm, final BindingResult bindingResult, final ModelMap model) {
+  @PostMapping(params = "save")
+  public String save(@Valid final OcsPm ocspm, final BindingResult bindingResult, final Model model) {
     if (bindingResult.hasErrors()) {
       return "ocspm";
     }
-    logger.info("{}", ocspm);
+    
+    logger.debug("{}", ocspm);
     ocsPmSvc.add(ocspm);
-    model.clear();
+    
     return "redirect:/ocspm?ocsid=" + ocspm.getOcs().getId();
   }
 

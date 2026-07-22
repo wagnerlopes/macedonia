@@ -77,8 +77,8 @@ public class OcsService {
     logger.debug("{}", ocs);
 
     Optional.ofNullable(ocs.getId())
-    .flatMap(rep::findById)
-    .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, ocs), () -> rep.save(ocs));
   }
 
   public void addProcedimentoMedico(final OcsPm opm) {

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
@@ -45,6 +45,7 @@ import br.com.wagnersoft.macedonia.viewmodel.GuiaEncaminhamentoViewModelBuilder;
  * @see ProfissionalService
  */
 @Controller
+@RequestMapping("/search")
 public class SearchController {
 
   private static final Logger logger = LoggerFactory.getLogger(SearchController.class);
@@ -75,8 +76,8 @@ public class SearchController {
     logger.debug("{} loaded", SearchController.class.getSimpleName());
   }
 
-  @PostMapping("/search")
-  public String search(@RequestParam("tipo") String tipo, @RequestParam("nome") String nome, Model model) {
+  @PostMapping
+  public String search(String tipo, String nome, Model model) {
 
     var handlers = Map.<String, Function<String, String>>of(
         "beneficiario", n -> { model.addAttribute("allBeneficiarios", benSvc.findByNome(n));

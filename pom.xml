@@ -13,7 +13,7 @@
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
   <inceptionYear>2026</inceptionYear>
-  <url>https://wagnerlopes.github.io/</url>
+  <url>https://github.com/wagnerlopes/macedonia</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -112,6 +112,12 @@
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.6.0</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.6.0</version>
         <configuration>
@@ -140,7 +146,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.15</version>
+        <version>0.8.12</version>
         <executions>
           <execution>
             <goals>

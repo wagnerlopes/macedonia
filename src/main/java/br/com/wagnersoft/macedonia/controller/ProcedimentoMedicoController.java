@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
@@ -25,6 +26,7 @@ import br.com.wagnersoft.macedonia.service.ProcedimentoMedicoService;
  * @see ProcedimentoMedicoService
  */
 @Controller
+@RequestMapping("/procedimentos")
 public class ProcedimentoMedicoController {
 
   private static final Logger logger = LoggerFactory.getLogger(ProcedimentoMedicoController.class);
@@ -42,7 +44,7 @@ public class ProcedimentoMedicoController {
     return pmSvc.listAll();
   }
 
-  @GetMapping("/procedimentos")
+  @GetMapping
   public String procedimentos(Model model) {
     logger.info("+++ Procedimentos +++");
     model.addAttribute("menu", "proc");
