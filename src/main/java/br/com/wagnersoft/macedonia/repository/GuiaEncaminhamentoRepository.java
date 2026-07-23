@@ -16,9 +16,9 @@ import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
  * para gerenciamento de guia de encaminhamento.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface GuiaEncaminhamentoRepository extends JpaRepository<GuiaEncaminhamento, Integer> {
 

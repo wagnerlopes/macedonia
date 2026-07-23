@@ -15,9 +15,9 @@ import br.com.wagnersoft.macedonia.model.Profissional;
  * para gerenciamento de profissional de saúde.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface ProfissionalRepository extends JpaRepository<Profissional, String> {
 

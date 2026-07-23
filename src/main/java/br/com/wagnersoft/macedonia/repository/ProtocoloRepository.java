@@ -15,9 +15,9 @@ import br.com.wagnersoft.macedonia.model.Protocolo;
  * para gerenciamento de protocolo de guia de encaminhamento.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface ProtocoloRepository extends JpaRepository<Protocolo, Integer> {
 

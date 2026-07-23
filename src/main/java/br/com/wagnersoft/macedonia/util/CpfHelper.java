@@ -4,10 +4,10 @@ import java.util.regex.Pattern;
 
 /**
  *  CPF Utility.
- * TODO: renomear
- * @author Wagner Lopes
+ *  
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public final class CpfHelper {
 

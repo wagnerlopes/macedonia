@@ -18,9 +18,9 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
  * para gerenciamento de procedimento médico de estabelecimento de saúde.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface OcsPmRepository extends JpaRepository<OcsPm, Integer> {
 

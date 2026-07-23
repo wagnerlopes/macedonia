@@ -16,9 +16,9 @@ import br.com.wagnersoft.macedonia.model.Cbo;
  * ocupações da área de saúde.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface CboRepository extends JpaRepository<Cbo, String> {
 

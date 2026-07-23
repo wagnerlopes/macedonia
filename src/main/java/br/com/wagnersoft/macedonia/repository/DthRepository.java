@@ -17,9 +17,9 @@ import br.com.wagnersoft.macedonia.model.Ocs;
  * para gerenciamento de diárias e taxas de estabelecimento de saúde.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface DthRepository extends JpaRepository<Dth, Integer> {
 

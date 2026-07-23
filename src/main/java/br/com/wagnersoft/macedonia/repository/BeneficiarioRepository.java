@@ -17,9 +17,9 @@ import br.com.wagnersoft.macedonia.model.Beneficiario;
  * para gerenciamento de beneficiários.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 @Repository
 public interface BeneficiarioRepository extends JpaRepository<Beneficiario, String> {

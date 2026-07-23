@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 /**
  *  Utilitário de validação e formatação de CNPJ.
  *  
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public class CnpjHelper {
 

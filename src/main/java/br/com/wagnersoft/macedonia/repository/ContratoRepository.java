@@ -17,9 +17,9 @@ import br.com.wagnersoft.macedonia.model.Contrato;
  * para gerenciamento de contrato com estabelecimento de saúde.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 @Repository
 public interface ContratoRepository extends JpaRepository<Contrato, Integer> {

@@ -16,9 +16,9 @@ import br.com.wagnersoft.macedonia.model.Ocs;
  * para gerenciamento de estabelecimento de saúde.
  * </p>
  * 
- * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
+ * @author Wagner Lopes
  */
 public interface OcsRepository extends JpaRepository<Ocs, Integer> {
 
