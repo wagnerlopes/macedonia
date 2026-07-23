@@ -16,7 +16,7 @@ import lombok.ToString;
 import lombok.ToString.Include;
 
 /**
- *  ProcedimentoMedico Entity.
+ *  Procedimento Médico.
  * 
  * @since 1.0
  * @version 1.0

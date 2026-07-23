@@ -12,7 +12,11 @@ import br.com.wagnersoft.macedonia.model.OcsPm;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 
 /**
- * OcsPm repository. 
+ * Repositório de dados para a entidade {@link OcsPm}.
+ * <p>
+ * Provê operações de acesso ao banco de dados e consultas customizadas
+ * para gerenciamento de procedimento médico de estabelecimento de saúde.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0

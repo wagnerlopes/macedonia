@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 
 /**
- * Procedimento Médico repository. 
+ * Repositório de dados para a entidade {@link ProcedimentoMedico}.
+ * <p>
+ * Provê operações de acesso ao banco de dados e consultas customizadas
+ * para gerenciamento de procedimento médico.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0

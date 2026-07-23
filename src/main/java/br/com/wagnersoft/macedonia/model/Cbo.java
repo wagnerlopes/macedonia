@@ -11,9 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /** 
- * Cbo Entity.
- * 
- * <p> Classificação Brasileira de Ocupacões (CBO) usada nas especialidades médicas dos {@link Profissional profissionais de saúde}.</p>
+ * Subcojunto da área de saúde da Classificação Brasileira de Ocupações (CBO).
  * 
  * @since 1.0
  * @version 1.0

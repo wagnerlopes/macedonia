@@ -23,9 +23,7 @@ import lombok.ToString;
 import lombok.ToString.Exclude;
 
 /** 
- * Contrato Entity.
- * 
- * <p>Contratos com os {@link Ocs estabelecimentos de saúde}.</p>
+ * Contrato com Estabelecimento de Saúde.
  * 
  * @since 1.0
  * @version 1.0
