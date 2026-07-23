@@ -16,9 +16,13 @@ import org.springframework.stereotype.Service;
 import br.com.wagnersoft.macedonia.model.Beneficiario;
 import br.com.wagnersoft.macedonia.repository.BeneficiarioRepository;
 
-/** 
- * Beneficiario service.
- * 
+/**
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Beneficiario}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos beneficiários no sistema.
+ * </p>
+ *
  * @since 1.0
  * @version 1.0
  * @author Wagner Lopes
