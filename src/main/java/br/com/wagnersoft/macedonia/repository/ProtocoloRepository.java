@@ -9,11 +9,15 @@ import br.com.wagnersoft.macedonia.model.Ocs;
 import br.com.wagnersoft.macedonia.model.Protocolo;
 
 /**
- * Protocolo repository. 
+ * Repositório de dados para a entidade {@link Protocolo}.
+ * <p>
+ * Provê operações de acesso ao banco de dados e consultas customizadas
+ * para gerenciamento de protocolo de guia de encaminhamento.
+ * </p>
  * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 public interface ProtocoloRepository extends JpaRepository<Protocolo, Integer> {
 

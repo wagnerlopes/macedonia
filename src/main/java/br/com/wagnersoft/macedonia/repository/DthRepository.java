@@ -11,11 +11,15 @@ import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.model.Ocs;
 
 /**
- * DTH repository. 
+ * Repositório de dados para a entidade {@link Dth}.
+ * <p>
+ * Provê operações de acesso ao banco de dados e consultas customizadas
+ * para gerenciamento de diárias e taxas de estabelecimento de saúde.
+ * </p>
  * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 public interface DthRepository extends JpaRepository<Dth, Integer> {
 

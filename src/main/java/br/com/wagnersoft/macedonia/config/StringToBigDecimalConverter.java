@@ -4,11 +4,21 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
+/**
+ * Implementa um Spring Converter de String para BigDecimal. 
+ * 
+ * @since 1.0
+ * @version 1.0
+ * @author Wagner Lopes
+ * @see Converter
+ */
 @Component
 public class StringToBigDecimalConverter implements Converter<String, BigDecimal> {
 
   @Override
   public BigDecimal convert(String source) {
+
+    //Tratamento de nulo e vazio
     if (source == null) return null;
     String s = source.trim();
     if (s.isEmpty()) return null;
@@ -24,6 +34,7 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
       // apenas vírgula -> decimal separator
       s = s.replace(",", ".");
     }
+    
     // se só tem pontos, pode ser decimal ou milhares; assumimos ponto decimal
     try {
       return new BigDecimal(s);
@@ -31,4 +42,5 @@ public class StringToBigDecimalConverter implements Converter<String, BigDecimal
       return null;
     }
   }
+
 }

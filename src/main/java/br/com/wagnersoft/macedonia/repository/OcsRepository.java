@@ -10,11 +10,15 @@ import org.springframework.data.repository.query.Param;
 import br.com.wagnersoft.macedonia.model.Ocs;
 
 /**
- * Ocs repository. 
+ * Repositório de dados para a entidade {@link Ocs}.
+ * <p>
+ * Provê operações de acesso ao banco de dados e consultas customizadas
+ * para gerenciamento de estabelecimento de saúde.
+ * </p>
  * 
+ * @author Wagner Lopes
  * @since 1.0
  * @version 1.0
- * @author Wagner Lopes
  */
 public interface OcsRepository extends JpaRepository<Ocs, Integer> {
 
