@@ -27,7 +27,7 @@ import lombok.ToString;
 import lombok.ToString.Exclude;
 
 /** 
- * Profissional de saúde.
+ * Profissional da área de saúde.
  * 
  * @since 1.0
  * @version 1.0
