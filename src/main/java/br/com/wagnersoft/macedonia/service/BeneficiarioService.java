@@ -49,9 +49,12 @@ public class BeneficiarioService {
     final List<Beneficiario> lista = rep.findAll(Sort.by(Sort.Order.by("nome").ignoreCase()));
     logger.debug("{}", lista);
     return lista;  }
-  /** Retorna apenas o mapa de nome (value) e o cpf (key) usado em select list.
-   * @return {@link Map<String, String>} CPF e Nome
-   */
+  /**
+   * Mapeia todos os Beneficiários para uma estrutura de chave-valor, onde a chave é o CPF 
+   * e o valor é a nome. Preserva a ordem original do retorno de {@link #listAll()}.
+   *
+   * @return {@link Map} contendo os pares (cpf, nome) de todos os Beneficiários.
+   */      
   public Map<String, String> mapAll() {
     return this.listAll().stream()
         .collect(Collectors.toMap(Beneficiario::getCpf, Beneficiario::getNome, (existing, replacement) -> existing, LinkedHashMap::new));

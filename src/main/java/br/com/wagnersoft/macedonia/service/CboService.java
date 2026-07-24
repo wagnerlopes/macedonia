@@ -16,7 +16,12 @@ import br.com.wagnersoft.macedonia.model.Cbo;
 import br.com.wagnersoft.macedonia.repository.CboRepository;
 
 /** 
- * CBO (Classificacao Brasileira de Ocupacoes) service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Cbo}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio das <strong>especialidade de saúde</strong> representadas
+ * pela ocupações da área de saúde incluídas na CBO (Classificacao Brasileira de Ocupações).
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -41,9 +46,12 @@ public class CboService {
     return lista;
   }
 
-  /** Retorna apenas o mapa de descricao (value) e o codigo (key) usado em select list.
-   * @return {@link Map<String, String>} codigo e descricao
-   */
+  /**
+   * Mapeia todos os CBOs para uma estrutura de chave-valor, onde a chave é o código 
+   * e o valor é a descrição. Preserva a ordem original do retorno de {@link #listAll()}.
+   *
+   * @return {@link Map} contendo os pares (código, descrição) de todos os CBOs.
+   */      
   public Map<String, String> mapAll() {
     return this.listAll().stream()
         .collect(Collectors.toMap(Cbo::getCodigo, Cbo::getDescricao, (existing, replacement) -> existing, LinkedHashMap::new));

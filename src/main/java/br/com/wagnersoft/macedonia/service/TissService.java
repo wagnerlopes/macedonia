@@ -29,7 +29,11 @@ import br.com.wagnersoft.macedonia.tiss.Valores;
 import br.com.wagnersoft.macedonia.type.UnidadeMedidaEnum;
 
 /** 
- * TISS API service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da classe {@link GuiaFaturamento}.
+ * <p>
+ * Centraliza as operações de consulta, validações e montagem da estrutura da guia de faturamento 
+ * para consulta através do <strong>TISS Rest API Service</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -55,9 +59,11 @@ public class TissService {
         .orElseGet(GuiaFaturamento::empty);
   }
 
-  /** Converte a Guia de ENcaminhamento em Guia de Faturamento no padrao TISS.
-   * @param guia Guia de Encaminhamento
-   * @return Guia de Faturamento
+  /**
+   * Converte a Guia de Encaminhamento em Guia de Faturamento no padrao TISS.
+   * 
+   * @param guia guia de encaminhamento
+   * @return {@link GuiaFaturamento} guia de faturamento padrão TISS
    */
   private GuiaFaturamento convertNonNull(final GuiaEncaminhamento guia) {
 
@@ -118,10 +124,12 @@ public class TissService {
 
   }  
 
-  /** Converte a entidade {@link GuiaPm} em {@link Procedimento}.
-   * @param gpm
-   * @param sequencial
-   * @return {@link Procedimento} Procedimento no padrao TISS
+  /** 
+   * Converte a entidade {@link GuiaPm} em {@link Procedimento}.
+   * 
+   * @param gpm procedimento medico da guia 
+   * @param sequencial sequência do procedimento na guia
+   * @return {@link Procedimento} procedimento no padrao TISS
    */
   private Procedimento toProcedimento(final GuiaPm gpm, int sequencial) {
 
@@ -148,9 +156,12 @@ public class TissService {
         .build();
   }
 
-  /** Calculo do Valor Total Bruto, soma dos valores parciais dos procedimentos.
-   * @param procs
-   * @return Valor Bruto Total
+  /**
+   * Calcula o valor total bruto somando os valores dos procedimentos médicos
+   * executados no estabelecimento de saúde.
+   * 
+   * @param procs lista de procedimentos médicos
+   * @return {@link BigDecimal} valor total bruto da guia
    */
   private BigDecimal calcularValorTotalBruto(final List<Procedimento> procs) {
     return procs.stream()
@@ -160,9 +171,12 @@ public class TissService {
         .setScale(2, RoundingMode.HALF_UP);
   }  
 
-  /** Calculo do Valor Total Liquido, soma dos valores pos-auditoria dos procedimentos.
-   * @param procs
-   * @return Valor Liquido Total
+  /**
+   * Calcula o valor total liquido somando os valores pos-auditoria dos
+   * procedimentos médicos executados.
+   * 
+   * @param itens lista de procedimentos médicos da guia
+   * @return {@link BigDecimal} valor total liquido da guia
    */
   private BigDecimal calcularValorTotalLiquido(final List<GuiaPm> itens) {
     return itens.stream()

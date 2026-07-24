@@ -12,7 +12,11 @@ import br.com.wagnersoft.macedonia.model.Protocolo;
 import br.com.wagnersoft.macedonia.repository.ProtocoloRepository;
 
 /** 
- * Protocolo de Guia de Encaminhamento Service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Protocolo}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos <strong>protocolos</strong> das guias de encaminhamento.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -46,8 +50,8 @@ public class ProtocoloService {
     if (protocolo == null) return;
     logger.debug("{}", protocolo);
     Optional.of(protocolo.getId())
-        .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, protocolo), () -> rep.save(protocolo));
+    .flatMap(rep::findById)
+    .ifPresentOrElse(existing -> this.save(existing, protocolo), () -> rep.save(protocolo));
   }
 
   private void save(final Protocolo existing, final Protocolo replacement) {
