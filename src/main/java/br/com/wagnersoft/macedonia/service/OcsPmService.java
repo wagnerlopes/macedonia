@@ -15,7 +15,11 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.repository.OcsPmRepository;
 
 /** 
- * OcsPm Service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link OcsPm}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos <strong>procedimentos médicos (PM)</strong> executados pelos estabelecimentos de saúde (OCS).
+ * </p>
  * 
  * @since 1.0
  * @version 1.0

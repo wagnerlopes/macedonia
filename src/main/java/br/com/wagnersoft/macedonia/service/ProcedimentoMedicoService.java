@@ -16,7 +16,11 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
 /** 
- * Procedimento Medico service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link ProcedimentoMedico}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos <strong>procedimentos médicos</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0

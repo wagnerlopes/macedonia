@@ -13,7 +13,11 @@ import br.com.wagnersoft.macedonia.model.Contrato;
 import br.com.wagnersoft.macedonia.repository.ContratoRepository;
 
 /** 
- * Contrato com Estabelecimento de Saude service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Contrato}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos <strong>contratos de saúde</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -46,8 +50,8 @@ public class ContratoService {
   public void add(Contrato contrato) {
     if (contrato == null) return;
     Optional.ofNullable(contrato.getId())
-        .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, contrato), () -> rep.save(contrato));
+    .flatMap(rep::findById)
+    .ifPresentOrElse(existing -> this.save(existing, contrato), () -> rep.save(contrato));
   }
 
   private void save(final Contrato existing, final Contrato replacement) {

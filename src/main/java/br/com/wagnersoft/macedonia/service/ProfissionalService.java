@@ -17,7 +17,11 @@ import br.com.wagnersoft.macedonia.model.Profissional;
 import br.com.wagnersoft.macedonia.repository.ProfissionalRepository;
 
 /** 
- * Profissional de Saude service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Profissional}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos <strong>profissionais de saúde</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -66,8 +70,8 @@ public class ProfissionalService {
   public void add(final Profissional profissional) {
     if (profissional == null) return;
     Optional.ofNullable(profissional.getCpf())
-        .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, profissional), () -> rep.save(profissional));
+    .flatMap(rep::findById)
+    .ifPresentOrElse(existing -> this.save(existing, profissional), () -> rep.save(profissional));
   }
 
   private void save(final Profissional existing, final Profissional replacement) {

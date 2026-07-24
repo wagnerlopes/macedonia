@@ -13,7 +13,11 @@ import br.com.wagnersoft.macedonia.model.Dth;
 import br.com.wagnersoft.macedonia.repository.DthRepository;
 
 /** 
- * Diarias e Taxas (DTH) Service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Dth}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio das <strong>Diarias e Taxas Hospitalares</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -46,8 +50,8 @@ public class DthService {
   public void add(Dth dth) {
     if (dth == null) return;
     Optional.ofNullable(dth.getId())
-        .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, dth), () -> rep.save(dth));
+    .flatMap(rep::findById)
+    .ifPresentOrElse(existing -> this.save(existing, dth), () -> rep.save(dth));
   }
 
   private void save(final Dth existing, final Dth replacement) {

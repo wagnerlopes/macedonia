@@ -19,7 +19,11 @@ import br.com.wagnersoft.macedonia.repository.OcsRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
 /** 
- * OCS (Estabelecimento de Saude) service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link Ocs}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio dos <strong>estabelecimentos de saúde (OCS)</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0

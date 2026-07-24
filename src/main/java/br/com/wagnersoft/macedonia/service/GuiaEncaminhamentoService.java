@@ -17,7 +17,11 @@ import br.com.wagnersoft.macedonia.repository.GuiaEncaminhamentoRepository;
 import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
 /** 
- * Guia de Encaminhamento Service.
+ * Serviço responsável pelo gerenciamento e pelas regras de negócio da entidade {@link GuiaEncaminhamento}.
+ * <p>
+ * Centraliza as operações de cadastro, atualização, consulta e validações 
+ * de domínio das <strong>Guia de Encaminhamento</strong>.
+ * </p>
  * 
  * @since 1.0
  * @version 1.0
@@ -63,8 +67,8 @@ public class GuiaEncaminhamentoService {
   public void add(final GuiaEncaminhamento guia) {
     if (guia == null) return;
     Optional.ofNullable(guia.getId())
-        .flatMap(rep::findById)
-        .ifPresentOrElse(existing -> this.save(existing, guia), () -> rep.save(guia));
+    .flatMap(rep::findById)
+    .ifPresentOrElse(existing -> this.save(existing, guia), () -> rep.save(guia));
   }
 
   private void save(final GuiaEncaminhamento existing, final GuiaEncaminhamento replacement) {
