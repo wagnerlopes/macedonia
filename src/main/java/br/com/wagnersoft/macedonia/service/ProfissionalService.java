@@ -70,8 +70,8 @@ public class ProfissionalService {
   public void add(final Profissional profissional) {
     if (profissional == null) return;
     Optional.ofNullable(profissional.getCpf())
-    .flatMap(rep::findById)
-    .ifPresentOrElse(existing -> this.save(existing, profissional), () -> rep.save(profissional));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, profissional), () -> rep.save(profissional));
   }
 
   private void save(final Profissional existing, final Profissional replacement) {

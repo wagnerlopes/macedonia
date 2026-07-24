@@ -50,8 +50,8 @@ public class DthService {
   public void add(Dth dth) {
     if (dth == null) return;
     Optional.ofNullable(dth.getId())
-    .flatMap(rep::findById)
-    .ifPresentOrElse(existing -> this.save(existing, dth), () -> rep.save(dth));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, dth), () -> rep.save(dth));
   }
 
   private void save(final Dth existing, final Dth replacement) {
