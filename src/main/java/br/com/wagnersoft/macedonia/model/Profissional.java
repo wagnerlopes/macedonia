@@ -92,4 +92,32 @@ public class Profissional implements Comparable<Profissional>, Serializable {
     return Objects.equals(cpf, other.cpf);
   }
 
+  public GuiaEncaminhamento addGuiaSolicitante(final GuiaEncaminhamento guia) {
+    if (!this.guiasSolicitante.contains(guia)) {
+      this.guiasSolicitante.add(guia);
+      guia.setSolicitante(this);
+    }
+    return guia;
+  }
+
+  public GuiaEncaminhamento removeGuiaSolicitante(final GuiaEncaminhamento guia) {
+    this.guiasSolicitante.remove(guia);
+    guia.setSolicitante(null);
+    return guia;
+  }
+
+  public GuiaEncaminhamento addGuiaResponsavel(final GuiaEncaminhamento guia) {
+    if (!this.guiasResponsavel.contains(guia)) {
+      this.guiasResponsavel.add(guia);
+      guia.setResponsavel(this);
+    }
+    return guia;
+  }
+
+  public GuiaEncaminhamento removeGuiaResponsavel(final GuiaEncaminhamento guia) {
+    this.guiasResponsavel.remove(guia);
+    guia.setResponsavel(null);
+    return guia;
+  }
+
 }
