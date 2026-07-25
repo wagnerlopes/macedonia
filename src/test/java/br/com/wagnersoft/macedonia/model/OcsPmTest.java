@@ -34,6 +34,7 @@ class OcsPmTest {
     opm.setUnidadeMedida("X");
 
     assertEquals(1, opm.getId());
+    assertEquals(1, opm.getChQtd());
     assertEquals(ocs, opm.getOcs());
     assertEquals(pm, opm.getPm());
     assertEquals(BigDecimal.ONE, opm.getValorUnitario());
