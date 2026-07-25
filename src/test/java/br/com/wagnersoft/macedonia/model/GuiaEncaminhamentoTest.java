@@ -23,7 +23,7 @@ class GuiaEncaminhamentoTest {
     guia.setId(1);
     guia.setGuiaNr(1);
   }
-  
+
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
@@ -36,7 +36,7 @@ class GuiaEncaminhamentoTest {
 
     BigDecimal valor = BigDecimal.valueOf(100.98);
     LocalDate now = LocalDate.now();
-    
+
     guia.setOperador("Teste 1");
     guia.setObservacao("Diaria");
     guia.setValorTotal(valor);
@@ -46,7 +46,7 @@ class GuiaEncaminhamentoTest {
     guia.setResponsavel(responsavel);
     guia.setBeneficiario(beneficiario);
     guia.setProtocolo(protocolo);
-    
+
     assertEquals(1, guia.getId());
     assertEquals(1, guia.getGuiaNr());
     assertEquals("Teste 1", guia.getOperador());
@@ -97,7 +97,7 @@ class GuiaEncaminhamentoTest {
   void deveAdicionarRemoverProcedimentoMantendoRelacionamentoBidirecional() {
     GuiaPm procedimento = new GuiaPm(); 
     procedimento.setId(1);
-    
+
     guia.addGuiaPm(procedimento);
 
     assertAll(
@@ -112,5 +112,5 @@ class GuiaEncaminhamentoTest {
         () -> assertThat(procedimento.getGuiaEncaminhamento()).isNull()
         );
   }
-    
+
 }

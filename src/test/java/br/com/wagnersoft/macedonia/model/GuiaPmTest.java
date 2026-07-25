@@ -19,14 +19,14 @@ class GuiaPmTest {
     gpm = new GuiaPm();
     gpm.setId(1);
   }
-  
+
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
 
     GuiaEncaminhamento guia = new GuiaEncaminhamento();
     ProcedimentoMedico pm = new ProcedimentoMedico();
-    
+
     BigDecimal valor = BigDecimal.valueOf(100.98);
 
     gpm.setGuiaEncaminhamento(guia);
@@ -36,7 +36,7 @@ class GuiaPmTest {
     gpm.setUnidadeMedida("teste");
     gpm.setValorTotal(valor);
     gpm.setValorUnitario(valor);
-    
+
     assertEquals(1, gpm.getId());
     assertEquals(1, gpm.getPmQtd());
     assertEquals(guia, gpm.getGuiaEncaminhamento());
@@ -77,5 +77,5 @@ class GuiaPmTest {
     assertTrue(toStringResult.contains("GuiaPm"));
     assertTrue(toStringResult.contains("id=1"));
   }
-    
+
 }

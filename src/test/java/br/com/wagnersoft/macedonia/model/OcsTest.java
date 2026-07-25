@@ -19,7 +19,7 @@ class OcsTest {
     ocs = new Ocs();
     ocs.setId(1);
   }
-  
+
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
@@ -35,7 +35,7 @@ class OcsTest {
     ocs.setRegistroAns("123");
     ocs.setTelefone("999");
     ocs.setUf("KK");
-    
+
     assertEquals(1, ocs.getId());
     assertEquals("1", ocs.getCnpj());
     assertEquals("CON", ocs.getContato());
@@ -84,10 +84,10 @@ class OcsTest {
   @Test
   @DisplayName("Deve adicionar e remover contrato mantendo relacionamento bidirecional")
   void deveAdicionarRemoverProcedimentoMantendoRelacionamentoBidirecional() {
-    
+
     Contrato contrato = new Contrato(); 
     contrato.setId(1);
-    
+
     ocs.addContrato(contrato);
 
     assertAll(
@@ -102,5 +102,5 @@ class OcsTest {
         () -> assertThat(contrato.getOcs()).isNull()
         );
   }
-    
+
 }
