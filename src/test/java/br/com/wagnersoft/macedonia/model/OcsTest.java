@@ -83,7 +83,7 @@ class OcsTest {
 
   @Test
   @DisplayName("Deve adicionar e remover contrato mantendo relacionamento bidirecional")
-  void deveAdicionarRemoverProcedimentoMantendoRelacionamentoBidirecional() {
+  void deveAdicionarRemoverContratoMantendoRelacionamentoBidirecional() {
 
     Contrato contrato = new Contrato(); 
     contrato.setId(1);
@@ -100,6 +100,72 @@ class OcsTest {
     assertAll(
         () -> assertThat(ocs.getContratos()).isEmpty(),
         () -> assertThat(contrato.getOcs()).isNull()
+        );
+  }
+
+  @Test
+  @DisplayName("Deve adicionar e remover dth mantendo relacionamento bidirecional")
+  void deveAdicionarRemoverDthMantendoRelacionamentoBidirecional() {
+
+    Dth dth = new Dth(); 
+    dth.setId(1);
+
+    ocs.addDth(dth);
+
+    assertAll(
+        () -> assertThat(ocs.getDths()).contains(dth),
+        () -> assertThat(dth.getOcs()).isEqualTo(ocs)
+        );
+
+    ocs.removeDth(dth);
+
+    assertAll(
+        () -> assertThat(ocs.getDths()).isEmpty(),
+        () -> assertThat(dth.getOcs()).isNull()
+        );
+  }
+
+  @Test
+  @DisplayName("Deve adicionar e remover guia mantendo relacionamento bidirecional")
+  void deveAdicionarRemoverGuiaMantendoRelacionamentoBidirecional() {
+
+    GuiaEncaminhamento guia = new GuiaEncaminhamento(); 
+    guia.setId(1);
+
+    ocs.addGuia(guia);
+
+    assertAll(
+        () -> assertThat(ocs.getGuias()).contains(guia),
+        () -> assertThat(guia.getOcs()).isEqualTo(ocs)
+        );
+
+    ocs.removeGuia(guia);
+
+    assertAll(
+        () -> assertThat(ocs.getGuias()).isEmpty(),
+        () -> assertThat(guia.getOcs()).isNull()
+        );
+  }
+
+  @Test
+  @DisplayName("Deve adicionar e remover procedimento mantendo relacionamento bidirecional")
+  void deveAdicionarRemoverProcedimentoMantendoRelacionamentoBidirecional() {
+
+    OcsPm opm = new OcsPm(); 
+    opm.setId(1);
+
+    ocs.addOcsPm(opm);
+
+    assertAll(
+        () -> assertThat(ocs.getProcedimentos()).contains(opm),
+        () -> assertThat(opm.getOcs()).isEqualTo(ocs)
+        );
+
+    ocs.removeOcsPm(opm);
+
+    assertAll(
+        () -> assertThat(ocs.getProcedimentos()).isEmpty(),
+        () -> assertThat(opm.getOcs()).isNull()
         );
   }
 

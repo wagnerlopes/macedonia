@@ -1,5 +1,7 @@
 package br.com.wagnersoft.macedonia.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,16 +9,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ProtocoloTest {
 
+  private Protocolo protocolo;
+
+  @BeforeEach
+  void setUp() {
+    protocolo = new Protocolo();
+    protocolo.setId(1);
+  }
+
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
 
-    Protocolo protocolo = new Protocolo();
     Ocs ocs = new Ocs();
     LocalDate data = LocalDate.of(2020, 1, 1);
 
@@ -73,11 +83,30 @@ class ProtocoloTest {
   @Test
   @DisplayName("Deve gerar toString corretamente")
   void testToString() {
-    Protocolo protocolo = new Protocolo();
-    protocolo.setId(1);
     String toStringResult = protocolo.toString();
     assertTrue(toStringResult.contains("Protocolo"));
     assertTrue(toStringResult.contains("id=1"));
+  }
+
+  @Test
+  @DisplayName("Deve adicionar e remover guia mantendo relacionamento bidirecional")
+  void deveAdicionarRemoverGuiaMantendoRelacionamentoBidirecional() {
+
+    GuiaEncaminhamento guia = new GuiaEncaminhamento();
+
+    protocolo.addGuia(guia);
+
+    assertAll(
+        () -> assertThat(protocolo.getGuias()).contains(guia),
+        () -> assertThat(guia.getProtocolo()).isEqualTo(protocolo)
+        );
+
+    protocolo.removeGuia(guia);
+
+    assertAll(
+        () -> assertThat(protocolo.getGuias()).isEmpty(),
+        () -> assertThat(guia.getProtocolo()).isNull()
+        );
   }
 
 }
