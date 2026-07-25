@@ -50,8 +50,8 @@ public class ProtocoloService {
     if (protocolo == null) return;
     logger.debug("{}", protocolo);
     Optional.of(protocolo.getId())
-    .flatMap(rep::findById)
-    .ifPresentOrElse(existing -> this.save(existing, protocolo), () -> rep.save(protocolo));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, protocolo), () -> rep.save(protocolo));
   }
 
   private void save(final Protocolo existing, final Protocolo replacement) {

@@ -19,9 +19,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /** 
  * Protocolo da guia de encaminhamento.
@@ -34,6 +37,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @SuppressFBWarnings({"EI_EXPOSE_REP"})
 public class Protocolo implements Serializable {
 
@@ -43,10 +47,12 @@ public class Protocolo implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotBlank
   private String assunto;
 
   private String destino;
 
+  @NotNull
   @Column(name = "doc_data")
   private LocalDate docData;
 

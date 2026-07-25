@@ -50,8 +50,8 @@ public class ContratoService {
   public void add(Contrato contrato) {
     if (contrato == null) return;
     Optional.ofNullable(contrato.getId())
-    .flatMap(rep::findById)
-    .ifPresentOrElse(existing -> this.save(existing, contrato), () -> rep.save(contrato));
+        .flatMap(rep::findById)
+        .ifPresentOrElse(existing -> this.save(existing, contrato), () -> rep.save(contrato));
   }
 
   private void save(final Contrato existing, final Contrato replacement) {
