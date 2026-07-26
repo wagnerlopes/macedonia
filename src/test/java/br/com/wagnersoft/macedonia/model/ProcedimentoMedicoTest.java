@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,6 +17,7 @@ class ProcedimentoMedicoTest {
   void setUp() {
     pm = new ProcedimentoMedico();
     pm.setId(1);
+    pm.setDescricao("D");
   }
 
   @Test
@@ -30,7 +32,6 @@ class ProcedimentoMedicoTest {
     pm.setTuss("TUSS");
     pm.setGrupo("G");
     pm.setSubgrupo("S");
-    pm.setDescricao("D");
     pm.setAuxiliaresQtd(1);
     pm.setPorteAnestesico(1);
     
@@ -55,7 +56,8 @@ class ProcedimentoMedicoTest {
     // Arrange
     ProcedimentoMedico pmIgual = new ProcedimentoMedico();
     pmIgual.setId(1);
-
+    pmIgual.setDescricao("D");
+    
     ProcedimentoMedico pmDiferente = new ProcedimentoMedico();
     pmDiferente.setId(2);
 
@@ -63,14 +65,16 @@ class ProcedimentoMedicoTest {
     assertEquals(pm, pm);
     assertEquals(pm, pmIgual);
     assertEquals(pm.hashCode(), pmIgual.hashCode());
+    assertTrue(pm.compareTo(pmIgual) == 0);
 
     // Teste de diferença (IDs diferentes)
     assertNotEquals(pm, pmDiferente);
     assertNotEquals(pm.hashCode(), pmDiferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, pm);
-    assertNotEquals("Uma String qualquer", pm);
+    assertFalse(pm.equals(null));
+    assertNotEquals(pm, "Uma String qualquer");
+    
   }
 
   @Test

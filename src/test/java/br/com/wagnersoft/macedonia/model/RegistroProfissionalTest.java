@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,12 +25,12 @@ class RegistroProfissionalTest {
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
-
+    // Assert
     assertEquals(1, rp.getId());
     assertEquals("C", rp.getConselho());
     assertEquals("1", rp.getNumero());
     assertEquals("UF", rp.getUf());
-    
+
   }
 
   @Test
@@ -37,23 +38,23 @@ class RegistroProfissionalTest {
   void testEqualsAndHashCode() {
 
     // Arrange
-    RegistroProfissional rpIgual = new RegistroProfissional();
-    rpIgual.setId(1);
+    RegistroProfissional igual = new RegistroProfissional();
+    igual.setId(1);
 
-    RegistroProfissional rpDiferente = new RegistroProfissional();
-    rpDiferente.setId(2);
+    RegistroProfissional diferente = new RegistroProfissional();
+    diferente.setId(2);
 
     // Teste de igualdade (mesmo ID)
-    assertEquals(rp, rp);
-    assertEquals(rp, rpIgual);
-    assertEquals(rp.hashCode(), rpIgual.hashCode());
+    assertTrue(rp.equals(rp));
+    assertTrue(rp.equals(igual));
+    assertEquals(rp.hashCode(), igual.hashCode());
 
     // Teste de diferença (IDs diferentes)
-    assertNotEquals(rp, rpDiferente);
-    assertNotEquals(rp.hashCode(), rpDiferente.hashCode());
+    assertFalse(rp.equals(diferente));
+    assertNotEquals(rp.hashCode(), diferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, rp);
+    assertFalse(rp.equals(null));
     assertNotEquals("Uma String qualquer", rp);
   }
 

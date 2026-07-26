@@ -1,7 +1,11 @@
 package br.com.wagnersoft.macedonia.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,25 +24,32 @@ class BeneficiarioTest {
   }
 
   @Test
+  @DisplayName("Deve gerar getter e setter corretamente")
+  void testGettersAndSetters() {
+    assertEquals("12345678901", beneficiario.getCpf());
+    assertEquals("Wagner Lopes", beneficiario.getNome());
+  }
+
+  @Test
   @DisplayName("Deve calcular idade corretamente")
   void deveCalcularIdadeCorretamente() {
     // Se hoje for 16/07/2026, alguém nascido em 16/07/1996 tem exatamente 30 anos.
     beneficiario.setNascimentoData(LocalDate.now().minusYears(30));
-    assertThat(beneficiario.getIdade()).isEqualTo(30);
+    assertEquals(beneficiario.getIdade(), 30);
   }
 
   @Test
   @DisplayName("Deve retornar idade 0 quando data de nascimento nula")
   void deveRetornarZeroQuandoDataNascimentoForNula() {
     beneficiario.setNascimentoData(null);
-    assertThat(beneficiario.getIdade()).isZero();
+    assertEquals(beneficiario.getIdade(), 0);
   }
 
   @Test
   @DisplayName("Deve retornar idade -1 quando data nascimento no futuro")
   void deveRetornarMenosUmQuandoDataNascimentoFutura() {
     beneficiario.setNascimentoData(LocalDate.now().plusDays(1));
-    assertThat(beneficiario.getIdade()).isEqualTo(-1);
+    assertEquals(beneficiario.getIdade(), -1);
   }
 
   @Test
@@ -46,15 +57,45 @@ class BeneficiarioTest {
   void deveCalcularFaixaEtariaCorretamente() {
     // Exemplo: 25 anos -> faixa "20 a 30"
     beneficiario.setNascimentoData(LocalDate.now().minusYears(25));
-    assertThat(beneficiario.getFaixaEtaria()).isEqualTo("20 a 30");
+    assertEquals(beneficiario.getFaixaEtaria(), "20 a 30");
 
     // Exemplo de borda: 30 anos (30 % 10 == 0 -> s = 29 -> "20 a 30")
     beneficiario.setNascimentoData(LocalDate.now().minusYears(30));
-    assertThat(beneficiario.getFaixaEtaria()).isEqualTo("20 a 30");
+    assertEquals(beneficiario.getFaixaEtaria(), "20 a 30");
 
     // Exemplo de borda: 31 anos -> faixa "30 a 40"
     beneficiario.setNascimentoData(LocalDate.now().minusYears(31));
-    assertThat(beneficiario.getFaixaEtaria()).isEqualTo("30 a 40");
+    assertEquals(beneficiario.getFaixaEtaria(), "30 a 40");
+
+    // Exemplo de borda: 0 anos -> faixa "0 a 10"
+    beneficiario.setNascimentoData(LocalDate.now());
+    assertEquals(beneficiario.getFaixaEtaria(), "0 a 10");
+  }
+
+  @Test
+  @DisplayName("Deve respeitar Equals e Hashcode no CPF")
+  void testEqualsAndHashCode() {
+
+    // Arrange
+    Beneficiario igual = new Beneficiario();
+    igual.setCpf("12345678901");
+
+    Beneficiario diferente = new Beneficiario();
+    diferente.setCpf("11111111111");
+
+    // Teste de igualdade (mesmo ID)
+    assertTrue(beneficiario.equals(beneficiario));
+    assertTrue(beneficiario.equals(igual));
+    assertEquals(beneficiario.hashCode(), igual.hashCode());
+
+    // Teste de diferença (IDs diferentes)
+    assertFalse(beneficiario.equals(diferente));
+    assertNotEquals(beneficiario.hashCode(), diferente.hashCode());
+
+    // Limite: nulo e classes diferentes
+    assertFalse(beneficiario.equals(null));
+    assertNotEquals(beneficiario, "Uma String qualquer");
+
   }
 
   @Test
@@ -65,29 +106,18 @@ class BeneficiarioTest {
     beneficiario.addGuia(guia);
 
     assertAll(
-        () -> assertThat(beneficiario.getGuias()).contains(guia),
-        () -> assertThat(guia.getBeneficiario()).isEqualTo(beneficiario)
+        () -> assertTrue(beneficiario.getGuias().contains(guia)),
+        () -> assertEquals(guia.getBeneficiario(), beneficiario)
         );
+
+    assertTrue(beneficiario.addGuia(guia).equals(guia));
 
     beneficiario.removeGuia(guia);
 
     assertAll(
-        () -> assertThat(beneficiario.getGuias()).isEmpty(),
-        () -> assertThat(guia.getBeneficiario()).isNull()
+        () -> assertTrue(beneficiario.getGuias().isEmpty()),
+        () -> assertNull(guia.getBeneficiario())
         );
   }
-
-  @Test
-  @DisplayName("Deve respeitar Equals e Hashcode no CPF")
-  void deveRespeitarEqualsEHashCodeBaseadoNoCpf() {
-    Beneficiario b1 = new Beneficiario();
-    b1.setCpf("12345678901");
-
-    Beneficiario b2 = new Beneficiario();
-    b2.setCpf("12345678901");
-
-    assertThat(b1).isEqualTo(b2);
-    assertThat(b1.hashCode()).isEqualTo(b2.hashCode());
-  }
-
+  
 }

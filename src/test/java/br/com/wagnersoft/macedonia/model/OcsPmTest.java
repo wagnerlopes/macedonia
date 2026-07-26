@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,25 +15,36 @@ class OcsPmTest {
 
   private OcsPm opm;
 
+  private ProcedimentoMedico pm;
+
+  private Ocs ocs;
+
   @BeforeEach
   void setUp() {
     opm = new OcsPm();
+    ocs = new Ocs();
+    pm = new ProcedimentoMedico();
+
     opm.setId(1);
+    opm.setOcs(ocs);
+    opm.setPm(pm);
+    opm.getOcs().setDescricao("OCS");
+    opm.getPm().setDescricao("PM");
   }
 
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
+    // Arrange
 
-    Ocs ocs = new Ocs();
-    ProcedimentoMedico pm = new ProcedimentoMedico();
-
+    // Act
     opm.setChQtd(1);
     opm.setOcs(ocs);
     opm.setPm(pm);
     opm.setValorUnitario(BigDecimal.ONE);
     opm.setUnidadeMedida("X");
 
+    // Assert
     assertEquals(1, opm.getId());
     assertEquals(1, opm.getChQtd());
     assertEquals(ocs, opm.getOcs());
@@ -46,24 +58,29 @@ class OcsPmTest {
   void testEqualsAndHashCode() {
 
     // Arrange
-    OcsPm opmIgual = new OcsPm();
-    opmIgual.setId(1);
+    OcsPm igual = new OcsPm();
+    igual.setId(1);
+    igual.setOcs(ocs);
+    igual.setPm(pm);
+    igual.getOcs().setDescricao("OCS");
+    igual.getPm().setDescricao("PM");
 
-    OcsPm opmDiferente = new OcsPm();
-    opmDiferente.setId(2);
+    OcsPm diferente = new OcsPm();
+    diferente.setId(2);
 
     // Teste de igualdade (mesmo ID)
-    assertEquals(opm, opm);
-    assertEquals(opm, opmIgual);
-    assertEquals(opm.hashCode(), opmIgual.hashCode());
+    assertTrue(opm.equals(opm));
+    assertTrue(opm.equals(igual));
+    assertEquals(opm.hashCode(), igual.hashCode());
+    assertTrue(opm.compareTo(igual) == 0);
 
     // Teste de diferença (IDs diferentes)
-    assertNotEquals(opm, opmDiferente);
-    assertNotEquals(opm.hashCode(), opmDiferente.hashCode());
+    assertFalse(opm.equals(diferente));
+    assertNotEquals(opm.hashCode(), diferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, opm);
-    assertNotEquals("Uma String qualquer", opm);
+    assertFalse(opm.equals(null));
+    assertNotEquals(opm, "Uma String qualquer");
   }
 
   @Test

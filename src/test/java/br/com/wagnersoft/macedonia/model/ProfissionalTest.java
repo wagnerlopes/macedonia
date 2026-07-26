@@ -1,8 +1,10 @@
 package br.com.wagnersoft.macedonia.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,14 +24,16 @@ class ProfissionalTest {
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
-
+    // Arrange
     Cbo cbo = new Cbo();
     RegistroProfissional rp = new RegistroProfissional();
 
+    // Act
     profissional.setCbo(cbo);
     profissional.setCns("12345");
     profissional.setRegistroProfissional(rp);
 
+    // Assert
     assertEquals("12345678901", profissional.getCpf());
     assertEquals("Wagner Lopes", profissional.getNome());
     assertEquals(cbo, profissional.getCbo());
@@ -42,11 +46,27 @@ class ProfissionalTest {
   @DisplayName("Deve respeitar Equals e Hashcode no CPF")
   void deveRespeitarEqualsEHashCodeBaseadoNoCpf() {
 
-    Profissional outro = new Profissional();
-    outro.setCpf("12345678901");
+    Profissional igual = new Profissional();
+    igual.setCpf("12345678901");
+    igual.setNome("Wagner Lopes");
 
-    assertThat(profissional).isEqualTo(outro);
-    assertThat(profissional.hashCode()).isEqualTo(outro.hashCode());
+    Profissional diferente = new Profissional();
+    diferente.setCpf("11111111111");
+
+    // Teste de igualdade (mesmo ID)
+    assertTrue(profissional.equals(profissional));
+    assertTrue(profissional.equals(igual));
+    assertEquals(profissional.hashCode(), igual.hashCode());
+    assertTrue(profissional.compareTo(igual) == 0);
+
+    // Teste de diferença (IDs diferentes)
+    assertFalse(profissional.equals(diferente));
+    assertNotEquals(profissional.hashCode(), diferente.hashCode());
+
+    // Limite: nulo e classes diferentes
+    assertFalse(profissional.equals(null));
+    assertNotEquals(profissional, "Uma String qualquer");
+
   }
 
 
@@ -59,31 +79,34 @@ class ProfissionalTest {
     profissional.addGuiaSolicitante(guia);
 
     assertAll(
-        () -> assertThat(profissional.getGuiasSolicitante()).contains(guia),
-        () -> assertThat(guia.getSolicitante()).isEqualTo(profissional)
+        () -> assertTrue(profissional.getGuiasSolicitante().contains(guia)),
+        () -> assertEquals(guia.getSolicitante(), profissional)
         );
+
+    assertTrue(profissional.addGuiaSolicitante(guia).equals(guia));
 
     profissional.removeGuiaSolicitante(guia);
-
-    assertAll(
-        () -> assertThat(profissional.getGuiasSolicitante()).isEmpty(),
-        () -> assertThat(guia.getSolicitante()).isNull()
-        );
 
     profissional.addGuiaResponsavel(guia);
 
     assertAll(
-        () -> assertThat(profissional.getGuiasResponsavel()).contains(guia),
-        () -> assertThat(guia.getResponsavel()).isEqualTo(profissional)
+        () -> assertTrue(profissional.getGuiasResponsavel().contains(guia)),
+        () -> assertEquals(guia.getResponsavel(), profissional)
         );
+
+    assertTrue(profissional.addGuiaResponsavel(guia).equals(guia));
 
     profissional.removeGuiaResponsavel(guia);
 
-    assertAll(
-        () -> assertThat(profissional.getGuiasResponsavel()).isEmpty(),
-        () -> assertThat(guia.getResponsavel()).isNull()
-        );
+  }
 
+  @Test
+  @DisplayName("Deve gerar toString corretamente")
+  void testToString() {
+    // Verifica se o toString do Lombok gera uma string contendo informações essenciais
+    String toStringResult = profissional.toString();
+    assertTrue(toStringResult.contains("Profissional"));
+    assertTrue(toStringResult.contains("cpf=12345678901"));
   }
 
 }

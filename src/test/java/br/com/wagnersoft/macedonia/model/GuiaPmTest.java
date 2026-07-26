@@ -1,6 +1,7 @@
 package br.com.wagnersoft.macedonia.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,12 +24,13 @@ class GuiaPmTest {
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
-
+    // Arrange
     GuiaEncaminhamento guia = new GuiaEncaminhamento();
     ProcedimentoMedico pm = new ProcedimentoMedico();
 
     BigDecimal valor = BigDecimal.valueOf(100.98);
 
+    // Act
     gpm.setGuiaEncaminhamento(guia);
     gpm.setPm(pm);
     gpm.setPmQtd(1);
@@ -37,6 +39,7 @@ class GuiaPmTest {
     gpm.setValorTotal(valor);
     gpm.setValorUnitario(valor);
 
+    // Assert
     assertEquals(1, gpm.getId());
     assertEquals(1, gpm.getPmQtd());
     assertEquals(guia, gpm.getGuiaEncaminhamento());
@@ -50,24 +53,24 @@ class GuiaPmTest {
   @DisplayName("Deve respeitar Equals e Hashcode no ID")
   void testEqualsAndHashCode() {
     // Arrange
-    GuiaPm gpmIgual = new GuiaPm();
-    gpmIgual.setId(1);
+    GuiaPm igual = new GuiaPm();
+    igual.setId(1);
 
-    GuiaPm gpmDiferente = new GuiaPm();
-    gpmDiferente.setId(2);
+    GuiaPm diferente = new GuiaPm();
+    diferente.setId(2);
 
     // Teste de igualdade (mesmo ID)
-    assertEquals(gpm, gpm);
-    assertEquals(gpm, gpmIgual);
-    assertEquals(gpm.hashCode(), gpmIgual.hashCode());
+    assertTrue(gpm.equals(gpm));
+    assertTrue(gpm.equals(igual));
+    assertEquals(gpm.hashCode(), igual.hashCode());
 
     // Teste de diferença (IDs diferentes)
-    assertNotEquals(gpm, gpmDiferente);
-    assertNotEquals(gpm.hashCode(), gpmDiferente.hashCode());
+    assertFalse(gpm.equals(diferente));
+    assertNotEquals(gpm.hashCode(), diferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, gpm);
-    assertNotEquals("Uma String qualquer", gpm);
+    assertFalse(gpm.equals(null));
+    assertNotEquals(gpm, "Uma String qualquer");
   }
 
   @Test

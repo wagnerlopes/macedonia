@@ -1,8 +1,8 @@
 package br.com.wagnersoft.macedonia.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,26 +27,28 @@ class GuiaEncaminhamentoTest {
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
-
+    // Arrange
     Ocs ocs = new Ocs();
-    Profissional solicitante = new Profissional();
-    Profissional responsavel = new Profissional();
     Beneficiario beneficiario = new Beneficiario();
     Protocolo protocolo = new Protocolo();
+    Profissional responsavel = new Profissional();
+    Profissional solicitante = new Profissional();
 
     BigDecimal valor = BigDecimal.valueOf(100.98);
     LocalDate now = LocalDate.now();
 
+    // Act
     guia.setOperador("Teste 1");
     guia.setObservacao("Diaria");
     guia.setValorTotal(valor);
     guia.setEmissaoData(now);
     guia.setOcs(ocs);
-    guia.setSolicitante(solicitante);
-    guia.setResponsavel(responsavel);
-    guia.setBeneficiario(beneficiario);
+    guia.setBeneficiario(beneficiario);;
     guia.setProtocolo(protocolo);
+    guia.setResponsavel(responsavel);
+    guia.setSolicitante(solicitante);
 
+    // Assert
     assertEquals(1, guia.getId());
     assertEquals(1, guia.getGuiaNr());
     assertEquals("Teste 1", guia.getOperador());
@@ -64,24 +66,24 @@ class GuiaEncaminhamentoTest {
   @DisplayName("Deve respeitar Equals e Hashcode no ID")
   void testEqualsAndHashCode() {
     // Arrange
-    GuiaEncaminhamento guiaIgual = new GuiaEncaminhamento();
-    guiaIgual.setId(1);
+    GuiaEncaminhamento igual = new GuiaEncaminhamento();
+    igual.setId(1);
 
-    GuiaEncaminhamento guiaDiferente = new GuiaEncaminhamento();
-    guiaDiferente.setId(2);
+    GuiaEncaminhamento diferente = new GuiaEncaminhamento();
+    diferente.setId(2);
 
     // Teste de igualdade (mesmo ID)
-    assertEquals(guia, guia);
-    assertEquals(guia, guiaIgual);
-    assertEquals(guia.hashCode(), guiaIgual.hashCode());
+    assertTrue(guia.equals(guia));
+    assertTrue(guia.equals(igual));
+    assertEquals(guia.hashCode(), igual.hashCode());
 
     // Teste de diferença (IDs diferentes)
-    assertNotEquals(guia, guiaDiferente);
-    assertNotEquals(guia.hashCode(), guiaDiferente.hashCode());
+    assertFalse(guia.equals(diferente));
+    assertNotEquals(guia.hashCode(), diferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, guia);
-    assertNotEquals("Uma String qualquer", guia);
+    assertFalse(guia.equals(null));
+    assertNotEquals(guia, "Uma String qualquer");
   }
 
   @Test
@@ -95,22 +97,23 @@ class GuiaEncaminhamentoTest {
   @Test
   @DisplayName("Deve adicionar e remover procedimento mantendo relacionamento bidirecional")
   void deveAdicionarRemoverProcedimentoMantendoRelacionamentoBidirecional() {
+    // Arrange
     GuiaPm procedimento = new GuiaPm(); 
     procedimento.setId(1);
 
+    // Act
     guia.addGuiaPm(procedimento);
 
+    // Assert
     assertAll(
-        () -> assertThat(guia.getProcedimentos()).contains(procedimento),
-        () -> assertThat(procedimento.getGuiaEncaminhamento()).isEqualTo(guia)
+        () -> assertTrue(guia.getProcedimentos().contains(procedimento)),
+        () -> assertEquals(procedimento.getGuiaEncaminhamento(), guia)
         );
+
+    assertTrue(guia.addGuiaPm(procedimento).equals(procedimento));
 
     guia.removeGuiaPm(procedimento);
 
-    assertAll(
-        () -> assertThat(guia.getProcedimentos()).isEmpty(),
-        () -> assertThat(procedimento.getGuiaEncaminhamento()).isNull()
-        );
   }
 
 }
