@@ -1,9 +1,10 @@
 package br.com.wagnersoft.macedonia.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
@@ -26,10 +27,11 @@ class ProtocoloTest {
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
-
+    // Arrange
     Ocs ocs = new Ocs();
     LocalDate data = LocalDate.of(2020, 1, 1);
 
+    // Act
     protocolo.setId(1);
     protocolo.setAssunto("A");
     protocolo.setDestino("D");
@@ -41,6 +43,7 @@ class ProtocoloTest {
     protocolo.setStatus(1);
     protocolo.setValor(BigDecimal.ONE);
 
+    // Assert
     assertEquals(1, protocolo.getId());
     assertEquals(data, protocolo.getDocData());
     assertEquals("A", protocolo.getAssunto());
@@ -57,27 +60,24 @@ class ProtocoloTest {
   @DisplayName("Deve respeitar Equals e Hashcode no ID")
   void testEqualsAndHashCode() {
     // Arrange
-    Protocolo protocolo1 = new Protocolo();
-    protocolo1.setId(1);
+    Protocolo igual = new Protocolo();
+    igual.setId(1);
 
-    Protocolo protocolo2 = new Protocolo();
-    protocolo2.setId(1);
-
-    Protocolo dthDiferente = new Protocolo();
-    dthDiferente.setId(2);
+    Protocolo diferente = new Protocolo();
+    diferente.setId(2);
 
     // Teste de igualdade (mesmo ID)
-    assertEquals(protocolo1, protocolo1);
-    assertEquals(protocolo1, protocolo2);
-    assertEquals(protocolo1.hashCode(), protocolo2.hashCode());
+    assertTrue(protocolo.equals(protocolo));
+    assertTrue(protocolo.equals(igual));
+    assertEquals(protocolo.hashCode(), igual.hashCode());
 
     // Teste de diferença (IDs diferentes)
-    assertNotEquals(protocolo1, dthDiferente);
-    assertNotEquals(protocolo1.hashCode(), dthDiferente.hashCode());
+    assertNotEquals(protocolo, diferente);
+    assertNotEquals(protocolo.hashCode(), diferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, protocolo1);
-    assertNotEquals("Uma String qualquer", protocolo1);
+    assertFalse(protocolo.equals(null));
+    assertNotEquals(protocolo, "Uma String qualquer");
   }
 
   @Test
@@ -97,15 +97,17 @@ class ProtocoloTest {
     protocolo.addGuia(guia);
 
     assertAll(
-        () -> assertThat(protocolo.getGuias()).contains(guia),
-        () -> assertThat(guia.getProtocolo()).isEqualTo(protocolo)
+        () -> assertTrue(protocolo.getGuias().contains(guia)),
+        () -> assertEquals(guia.getProtocolo(), protocolo)
         );
 
+    assertTrue(protocolo.addGuia(guia).equals(guia));
+    
     protocolo.removeGuia(guia);
 
     assertAll(
-        () -> assertThat(protocolo.getGuias()).isEmpty(),
-        () -> assertThat(guia.getProtocolo()).isNull()
+        () -> assertTrue(protocolo.getGuias().isEmpty()),
+        () -> assertNull(guia.getProtocolo())
         );
   }
 

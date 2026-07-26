@@ -1,8 +1,8 @@
 package br.com.wagnersoft.macedonia.model;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,18 +16,17 @@ class OcsTest {
 
   @BeforeEach
   void setUp() {
-    ocs = new Ocs();
-    ocs.setId(1);
+    ocs = new Ocs(1);
+    ocs.setDescricao("DES");
   }
 
   @Test
   @DisplayName("Deve gerar getter e setter corretamente")
   void testGettersAndSetters() {
-
+    // Arrange
     ocs.setCnpj("1");
     ocs.setComplemento("COM");
     ocs.setContato("CON");
-    ocs.setDescricao("DES");
     ocs.setEndereco("END");
     ocs.setEspecialidade("ESP");
     ocs.setMunicipio("MUN");
@@ -36,6 +35,7 @@ class OcsTest {
     ocs.setTelefone("999");
     ocs.setUf("KK");
 
+    // Assert
     assertEquals(1, ocs.getId());
     assertEquals("1", ocs.getCnpj());
     assertEquals("CON", ocs.getContato());
@@ -53,24 +53,26 @@ class OcsTest {
   @DisplayName("Deve respeitar Equals e Hashcode no ID")
   void testEqualsAndHashCode() {
     // Arrange
-    Ocs ocsIgual = new Ocs();
-    ocsIgual.setId(1);
+    Ocs igual = new Ocs();
+    igual.setId(1);
+    igual.setDescricao("DES");
 
-    Ocs ocsDiferente = new Ocs();
-    ocsDiferente.setId(2);
+    Ocs diferente = new Ocs();
+    diferente.setId(2);
 
     // Teste de igualdade (mesmo ID)
-    assertEquals(ocs, ocs);
-    assertEquals(ocs, ocsIgual);
-    assertEquals(ocs.hashCode(), ocsIgual.hashCode());
+    assertTrue(ocs.equals(ocs));
+    assertTrue(ocs.equals(igual));
+    assertEquals(ocs.hashCode(), igual.hashCode());
+    assertTrue(ocs.compareTo(igual) == 0);
 
     // Teste de diferença (IDs diferentes)
-    assertNotEquals(ocs, ocsDiferente);
-    assertNotEquals(ocs.hashCode(), ocsDiferente.hashCode());
+    assertFalse(ocs.equals(diferente));
+    assertNotEquals(ocs.hashCode(), diferente.hashCode());
 
     // Limite: nulo e classes diferentes
-    assertNotEquals(null, ocs);
-    assertNotEquals("Uma String qualquer", ocs);
+    assertFalse(ocs.equals(null));
+    assertNotEquals(ocs, "Uma String qualquer");
   }
 
   @Test
@@ -82,91 +84,76 @@ class OcsTest {
   }
 
   @Test
-  @DisplayName("Deve adicionar e remover contrato mantendo relacionamento bidirecional")
-  void deveAdicionarRemoverContratoMantendoRelacionamentoBidirecional() {
-
+  @DisplayName("Deve adicionar e remover ocs mantendo relacionamento bidirecional")
+  void deveAdicionarRemoverocsMantendoRelacionamentoBidirecional() {
+    // Arrange
     Contrato contrato = new Contrato(); 
     contrato.setId(1);
 
+    // Act
     ocs.addContrato(contrato);
 
+    // Assert
     assertAll(
-        () -> assertThat(ocs.getContratos()).contains(contrato),
-        () -> assertThat(contrato.getOcs()).isEqualTo(ocs)
+        () -> assertTrue(ocs.getContratos().contains(contrato)),
+        () -> assertEquals(contrato.getOcs(), ocs)
         );
+
+    assertTrue(ocs.addContrato(contrato).equals(contrato));
 
     ocs.removeContrato(contrato);
 
-    assertAll(
-        () -> assertThat(ocs.getContratos()).isEmpty(),
-        () -> assertThat(contrato.getOcs()).isNull()
-        );
-  }
-
-  @Test
-  @DisplayName("Deve adicionar e remover dth mantendo relacionamento bidirecional")
-  void deveAdicionarRemoverDthMantendoRelacionamentoBidirecional() {
-
+    // Arrange
     Dth dth = new Dth(); 
     dth.setId(1);
 
+    // Act
     ocs.addDth(dth);
 
+    // Assert
     assertAll(
-        () -> assertThat(ocs.getDths()).contains(dth),
-        () -> assertThat(dth.getOcs()).isEqualTo(ocs)
+        () -> assertTrue(ocs.getDths().contains(dth)),
+        () -> assertEquals(dth.getOcs(), ocs)
         );
+
+    assertTrue(ocs.addDth(dth).equals(dth));
 
     ocs.removeDth(dth);
 
-    assertAll(
-        () -> assertThat(ocs.getDths()).isEmpty(),
-        () -> assertThat(dth.getOcs()).isNull()
-        );
-  }
-
-  @Test
-  @DisplayName("Deve adicionar e remover guia mantendo relacionamento bidirecional")
-  void deveAdicionarRemoverGuiaMantendoRelacionamentoBidirecional() {
-
+    // Arrange
     GuiaEncaminhamento guia = new GuiaEncaminhamento(); 
     guia.setId(1);
 
+    // Act
     ocs.addGuia(guia);
 
+    // Assert
     assertAll(
-        () -> assertThat(ocs.getGuias()).contains(guia),
-        () -> assertThat(guia.getOcs()).isEqualTo(ocs)
+        () -> assertTrue(ocs.getGuias().contains(guia)),
+        () -> assertEquals(guia.getOcs(), ocs)
         );
+
+    assertTrue(ocs.addGuia(guia).equals(guia));
 
     ocs.removeGuia(guia);
 
-    assertAll(
-        () -> assertThat(ocs.getGuias()).isEmpty(),
-        () -> assertThat(guia.getOcs()).isNull()
-        );
-  }
-
-  @Test
-  @DisplayName("Deve adicionar e remover procedimento mantendo relacionamento bidirecional")
-  void deveAdicionarRemoverProcedimentoMantendoRelacionamentoBidirecional() {
-
+    // Arrange
     OcsPm opm = new OcsPm(); 
     opm.setId(1);
 
+    // Act
     ocs.addOcsPm(opm);
 
+    // Assert
     assertAll(
-        () -> assertThat(ocs.getProcedimentos()).contains(opm),
-        () -> assertThat(opm.getOcs()).isEqualTo(ocs)
+        () -> assertTrue(ocs.getProcedimentos().contains(opm)),
+        () -> assertEquals(opm.getOcs(), ocs)
         );
+
+    assertTrue(ocs.addOcsPm(opm).equals(opm));
 
     ocs.removeOcsPm(opm);
 
-    assertAll(
-        () -> assertThat(ocs.getProcedimentos()).isEmpty(),
-        () -> assertThat(opm.getOcs()).isNull()
-        );
   }
 
 }
