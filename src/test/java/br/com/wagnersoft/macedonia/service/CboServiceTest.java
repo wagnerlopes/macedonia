@@ -73,7 +73,7 @@ class CboServiceTest {
   }
 
   @Test
-  void findAll_deveRetornarListaGeral() {
+  void listAll_deveRetornarTodosCbo() {
 
     when(rep.findAll(any(Sort.class))).thenReturn(List.of(b1,b2));
 

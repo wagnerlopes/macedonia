@@ -43,8 +43,8 @@ public class GuiaEncaminhamentoService {
     return rep.findById(id);
   }
 
-  public List<GuiaEncaminhamento> findByGuiaNr(final String numero) {
-    if (numero == null || numero.isBlank()) return Collections.emptyList();
+  public List<GuiaEncaminhamento> findByGuiaNr(final Integer numero) {
+    if (numero == null) return Collections.emptyList();
     return rep.findByGuiaNr(numero);
   }
 

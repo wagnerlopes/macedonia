@@ -168,9 +168,9 @@ class BeneficiarioServiceTest {
   }
 
   @Test
-  void add_deveAtualizarBeneficiarioExistente() {
+  void add_deveSalvarBeneficiarioInexistente() {
 
-    when(rep.findById("22222222222")).thenReturn(Optional.of(b2));
+    when(rep.findById("22222222222")).thenReturn(Optional.empty());
 
     service.add(b2);
 
@@ -179,10 +179,10 @@ class BeneficiarioServiceTest {
   }
 
   @Test
-  void add_deveSalvarBeneficiarioInexistente() {
+  void add_deveSalvarBeneficiarioExistente() {
     b2.setNome("Carlos Atualizado");
 
-    when(rep.findById("22222222222")).thenReturn(Optional.empty());
+    when(rep.findById("22222222222")).thenReturn(Optional.of(b2));
     service.add(b2);
 
     verify(rep).findById("22222222222");
