@@ -1,7 +1,6 @@
 package br.com.wagnersoft.macedonia.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,8 +20,6 @@ import br.com.wagnersoft.macedonia.model.GuiaEncaminhamento;
  * @author Wagner Lopes
  */
 public interface GuiaEncaminhamentoRepository extends JpaRepository<GuiaEncaminhamento, Integer> {
-
-  Optional<GuiaEncaminhamento> findById(int id);
 
   @Query("SELECT g FROM GuiaEncaminhamento g WHERE g.guiaNr = :numero")
   List<GuiaEncaminhamento> findByGuiaNr(@Param("numero") String numero);

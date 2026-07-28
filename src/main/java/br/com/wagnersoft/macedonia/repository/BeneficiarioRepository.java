@@ -1,7 +1,6 @@
 package br.com.wagnersoft.macedonia.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,15 +22,6 @@ import br.com.wagnersoft.macedonia.model.Beneficiario;
  */
 @Repository
 public interface BeneficiarioRepository extends JpaRepository<Beneficiario, String> {
-
-  /**
-   * Busca um beneficiário pelo seu CPF (chave primária).
-   *
-   * @param cpf O CPF do beneficiário a ser buscado.
-   * @return Um {@link Optional} contendo o beneficiário, se encontrado.
-   */
-  Optional<Beneficiario> findById(String cpf);
-
 
   /**
    * Busca beneficiários cujo nome inicie com o termo informado (case-insensitive).
