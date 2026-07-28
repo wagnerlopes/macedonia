@@ -20,7 +20,7 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
  */
 public interface ProcedimentoMedicoRepository extends JpaRepository<ProcedimentoMedico, Integer> {
 
-  Optional<ProcedimentoMedico> findById(int id);
+  Optional<ProcedimentoMedico> findById(Integer id);
 
   List<ProcedimentoMedico> findByDescricao(String descricao);
 

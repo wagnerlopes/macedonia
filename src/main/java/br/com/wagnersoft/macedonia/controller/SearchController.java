@@ -95,7 +95,7 @@ public class SearchController {
           return "profissionais"; },
         "guia", n -> { guiaViewModelBuilder.populateGuias(model);
           model.addAttribute("guiaEncaminhamento", new GuiaEncaminhamento());
-          model.addAttribute("allGuias", guiaSvc.findByGuiaNr(n));
+          model.addAttribute("allGuias", guiaSvc.findByGuiaNr(Integer.valueOf(nome)));
           return "guias"; }
     );
 

@@ -24,8 +24,6 @@ import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
  */
 public interface OcsPmRepository extends JpaRepository<OcsPm, Integer> {
 
-  Optional<OcsPm> findById(int id);
-
   List<OcsPm> findByOcs(Ocs ocs);
 
   List<OcsPm> findByPm(ProcedimentoMedico pm);
