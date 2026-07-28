@@ -57,11 +57,10 @@ class BeneficiarioServiceTest {
 
     Optional<Beneficiario> result = service.findByCpf("111.111.111-11");
 
-    assertThat(result)
-    .isPresent()
-    .get()
-    .extracting(Beneficiario::getNome)
-    .isEqualTo("Ana");
+    assertThat(result).isPresent()
+                      .get()
+                      .extracting(Beneficiario::getNome)
+                      .isEqualTo("Ana");
   }
 
   @Test
@@ -83,7 +82,8 @@ class BeneficiarioServiceTest {
 
     var lista = service.findByNome("C");
 
-    assertThat(lista).isNotEmpty().containsExactly(b2);
+    assertThat(lista).isNotEmpty()
+                     .containsExactly(b2);
   }
 
   @Test
@@ -105,10 +105,9 @@ class BeneficiarioServiceTest {
 
     var mapa = service.mapAll();
 
-    assertThat(mapa)
-    .containsEntry("11111111111", "Ana")
-    .containsEntry("22222222222", "Carlos")
-    .hasSize(2);
+    assertThat(mapa).containsEntry("11111111111", "Ana")
+                    .containsEntry("22222222222", "Carlos")
+                    .hasSize(2);
   }
 
   @Test
@@ -130,9 +129,8 @@ class BeneficiarioServiceTest {
 
     var mapa = service.mapAll();
 
-    assertThat(mapa)
-    .containsEntry("11111111111", "Ana") // mantém o primeiro
-    .hasSize(1);
+    assertThat(mapa).containsEntry("11111111111", "Ana") // mantém o primeiro
+                    .hasSize(1);
   }
 
   @Test
