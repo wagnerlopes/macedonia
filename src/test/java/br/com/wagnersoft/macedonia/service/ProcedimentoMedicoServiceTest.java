@@ -16,59 +16,53 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
-import br.com.wagnersoft.macedonia.model.Cbo;
-import br.com.wagnersoft.macedonia.repository.CboRepository;
+import br.com.wagnersoft.macedonia.model.ProcedimentoMedico;
+import br.com.wagnersoft.macedonia.repository.ProcedimentoMedicoRepository;
 
 @ExtendWith(MockitoExtension.class)
-class CboServiceTest {
+class ProcedimentoMedicoServiceTest {
 
   @Mock
-  private CboRepository rep;
+  private ProcedimentoMedicoRepository rep;
 
   @InjectMocks
-  private CboService service;
+  private ProcedimentoMedicoService service;
 
-  private Cbo b1;
+  private ProcedimentoMedico b1;
 
-  private Cbo b2;
+  private ProcedimentoMedico b2;
 
-  public CboServiceTest() {
+  public ProcedimentoMedicoServiceTest() {
     MockitoAnnotations.openMocks(this);
   }
 
   @BeforeEach
   void setup() {
-    b1 = new Cbo();
-    b1.setCodigo("1");
-    b1.setDescricao("Ocupacao 1");
+    b1 = new ProcedimentoMedico();
+    b1.setId(1);
+    b1.setDescricao("PM 1");
 
-    b2 = new Cbo();
-    b2.setCodigo("2");
-    b2.setDescricao("Ocupacao 2");
+    b2 = new ProcedimentoMedico();
+    b2.setId(2);
+    b2.setDescricao("PM 2");
   }
 
   @Test
   void findById_deveRetornarObjetoQuandoExiste() {
 
-    when(rep.findById("1")).thenReturn(Optional.of(b1));
+    when(rep.findById(1)).thenReturn(Optional.of(b1));
 
-    Optional<Cbo> result = service.findById("1");
+    Optional<ProcedimentoMedico> result = service.findById(1);
 
     assertThat(result).isPresent()
     .get()
-    .extracting(Cbo::getDescricao)
-    .isEqualTo("Ocupacao 1");
+    .extracting(ProcedimentoMedico::getId)
+    .isEqualTo(1);
   }
 
   @Test
   void findById_deveRetornarEmptyQuandoCpfNulo() {
-    Optional<Cbo> result = service.findById(null);
-    assertThat(result).isEmpty();
-  }
-
-  @Test
-  void findById_deveRetornarEmptyQuandoCpfVazio() {
-    Optional<Cbo> result = service.findById("   ");
+    Optional<ProcedimentoMedico> result = service.findById(null);
     assertThat(result).isEmpty();
   }
 
@@ -92,8 +86,8 @@ class CboServiceTest {
 
     var mapa = service.mapAll();
 
-    assertThat(mapa).containsEntry("1", "Ocupacao 1")
-    .containsEntry("2", "Ocupacao 2")
+    assertThat(mapa).containsEntry(1, "PM 1")
+    .containsEntry(2, "PM 2")
     .hasSize(2);
   }
 
@@ -110,15 +104,15 @@ class CboServiceTest {
   @Test
   void mapAll_deveManterPrimeiraOcupacaoQuandoCodigoDuplicado() {
 
-    Cbo b3 = new Cbo();
-    b3.setCodigo("1");
+    ProcedimentoMedico b3 = new ProcedimentoMedico();
+    b3.setId(1);
     b3.setDescricao("Outra");
 
     when(rep.findAll(any(Sort.class))).thenReturn(List.of(b1, b3));
 
     var mapa = service.mapAll();
 
-    assertThat(mapa).containsEntry("1", "Ocupacao 1") // mantém o primeiro
+    assertThat(mapa).containsEntry(1, "PM 1") // mantém o primeiro
     .hasSize(1);
   }
 

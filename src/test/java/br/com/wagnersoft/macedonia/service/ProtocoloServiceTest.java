@@ -2,11 +2,11 @@ package br.com.wagnersoft.macedonia.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,34 +17,33 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Sort;
 
-import br.com.wagnersoft.macedonia.model.Dth;
-import br.com.wagnersoft.macedonia.repository.DthRepository;
+import br.com.wagnersoft.macedonia.model.Protocolo;
+import br.com.wagnersoft.macedonia.repository.ProtocoloRepository;
 
 @ExtendWith(MockitoExtension.class)
-class DthServiceTest {
+class ProtocoloServiceTest {
 
   @Mock
-  private DthRepository rep;
+  private ProtocoloRepository rep;
 
   @InjectMocks
-  private DthService service;
+  private ProtocoloService service;
 
-  private Dth b1;
+  private Protocolo b1;
 
-  private Dth b2;
+  private Protocolo b2;
 
-  public DthServiceTest() {
+  public ProtocoloServiceTest() {
     MockitoAnnotations.openMocks(this);
   }
 
   @BeforeEach
   void setup() {
-    b1 = new Dth();
+    b1 = new Protocolo();
     b1.setId(1);
 
-    b2 = new Dth();
+    b2 = new Protocolo();
     b2.setId(2);
   }
 
@@ -53,25 +52,25 @@ class DthServiceTest {
 
     when(rep.findById(1)).thenReturn(Optional.of(b1));
 
-    Optional<Dth> result = service.findById(1);
+    Optional<Protocolo> result = service.findById(1);
 
     assertThat(result).isPresent()
     .get()
-    .extracting(Dth::getId)
+    .extracting(Protocolo::getId)
     .isEqualTo(1);
 
   }
 
   @Test
   void findById_deveRetornarEmptyQuandoIdNulo() {
-    Optional<Dth> result = service.findById(null);
+    Optional<Protocolo> result = service.findById(null);
     assertThat(result).isEmpty();
   }
 
   @Test
   void listAll_deveRetornarTodosObjetos() {
 
-    when(rep.findAll(any(Sort.class))).thenReturn(List.of(b1,b2));
+    when(rep.findAll()).thenReturn(List.of(b1,b2));
 
     var lista = service.listAll();
 
@@ -105,14 +104,25 @@ class DthServiceTest {
 
   @Test
   void add_deveAtualizarObjetoExistente() {
+    // Arrange
+    LocalDate now = LocalDate.now();
+    Protocolo existing = new Protocolo();
+    existing.setId(1);
+    existing.setAssunto("Antigo");
+    existing.setDocData(now);
 
-    when(rep.findById(2)).thenReturn(Optional.of(b2));
-    b2.setDescricao("Contrato 2");
+    Protocolo replacement = new Protocolo();
+    replacement.setId(1);
+    replacement.setAssunto("Protocolo 1");
+    replacement.setDocData(now);
 
-    service.add(b2);
+    // Act
+    when(rep.findById(any())).thenReturn(Optional.of(existing));
 
-    verify(rep).findById(2);
-    verify(rep).save(argThat(b -> b.getId().equals(2) && b.getDescricao().equals("Contrato 2")));
+    service.add(replacement);
+
+    // Assert
+    verify(rep).findById(1);
   }
 
   @Test

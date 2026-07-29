@@ -195,7 +195,7 @@ class GuiaEncaminhamentoServiceTest {
   }
 
   @Test
-  void add_deveSalvarBeneficiarioInexistente() {
+  void add_deveSalvarObjetoInexistente() {
     when(rep.findById(2)).thenReturn(Optional.empty());
     service.add(b2);
     verify(rep).save(b2);
