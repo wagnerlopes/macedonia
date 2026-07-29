@@ -101,7 +101,7 @@ class ContratoServiceTest {
   }
 
   @Test
-  void add_deveAtualizarContratoExistente() {
+  void add_deveAtualizarObjetoExistente() {
 
     when(rep.findById(2)).thenReturn(Optional.of(b2));
     b2.setChQtd(10);
@@ -113,7 +113,7 @@ class ContratoServiceTest {
   }
 
   @Test
-  void add_deveSalvarBeneficiarioInexistente() {
+  void add_deveSalvarObjetoInexistente() {
     when(rep.findById(2)).thenReturn(Optional.empty());
     service.add(b2);
     verify(rep).save(b2);
