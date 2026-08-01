@@ -121,12 +121,10 @@ public class OcsService {
     existing.setUf(replacement.getUf());
 
     // Tratamento dos procedimentos do OCS
-    if (replacement.getProcedimentos() != null) {
-      replacement.getProcedimentos().forEach(op -> {
-        pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
-        existing.addOcsPm(op);
-      });
-    }
+    replacement.getProcedimentos().forEach(op -> {
+      pmRep.findById(op.getPm().getId()).ifPresent(x -> op.setPm(x));
+      existing.addOcsPm(op);
+    });
 
     rep.save(existing);
   }

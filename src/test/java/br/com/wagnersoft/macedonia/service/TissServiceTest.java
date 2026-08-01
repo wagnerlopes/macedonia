@@ -70,6 +70,13 @@ class TissServiceTest {
     gpm1.setPosAuditoria(new BigDecimal("40.00"));  // Valor liquido = 40.00
     gpm1.setUnidadeMedida("01");
 
+    GuiaPm gpm2 = new GuiaPm();
+    gpm2.setPm(pm);
+    gpm2.setPmQtd(1);
+    gpm2.setValorUnitario(new BigDecimal("20.00")); // Valor total bruto = 20.00
+    gpm2.setPosAuditoria(new BigDecimal("10.00"));  // Valor liquido = 10.00
+    gpm2.setUnidadeMedida("01");
+    
     Profissional prof = new Profissional();
     prof.setCpf("11111111111");
     prof.setNome("Dr. Silva");
@@ -79,10 +86,11 @@ class TissServiceTest {
     guiaMock.setEmissaoData(LocalDate.now());
     guiaMock.setResponsavel(prof);
     guiaMock.setObservacao("Teste de emissao");
-    guiaMock.setProcedimentos(List.of(gpm1));
+    guiaMock.setProcedimentos(List.of(gpm1, gpm2));
 
     // Vincula a referência bidirecional
     gpm1.setGuiaEncaminhamento(guiaMock);
+    gpm2.setGuiaEncaminhamento(guiaMock);
 
     when(repository.findById(guiaId)).thenReturn(Optional.of(guiaMock));
 
@@ -98,16 +106,16 @@ class TissServiceTest {
     assertEquals("Hospital Teste", resultado.getCabecalho().getIdentificacaoPrestador().getNomePrestador());
 
     // Validações dos Procedimentos
-    assertEquals(1, resultado.getProcedimentos().size());
+    assertEquals(2, resultado.getProcedimentos().size());
     Procedimento proc = resultado.getProcedimentos().get(0);
     assertEquals("40304321", proc.getCodigoProcedimento());
     assertTrue(proc.getProcedimentoPrincipal()); // Primeiro item deve ser o principal (sequencial == 1)
     assertEquals(new BigDecimal("100.00"), proc.getValorTotal());
 
     // Validações dos Valores
-    assertEquals(new BigDecimal("100.00"), resultado.getValores().getValorTotalBruto());
-    assertEquals(new BigDecimal("40.00"), resultado.getValores().getValorTotalLiquido());
-    assertEquals(new BigDecimal("60.00"), resultado.getValores().getValorTotalGlosa()); // 100 - 40 = 60
+    assertEquals(new BigDecimal("120.00"), resultado.getValores().getValorTotalBruto());
+    assertEquals(new BigDecimal("50.00"), resultado.getValores().getValorTotalLiquido());
+    assertEquals(new BigDecimal("70.00"), resultado.getValores().getValorTotalGlosa()); // 120 - 50 = 70
 
     // Validação da Forma de Pagamento
     assertEquals(1, resultado.getFormasPagamento().size());

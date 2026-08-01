@@ -58,12 +58,14 @@ class OcsServiceTest {
   }
 
   @Test
-  void findById_deveRetornarOcsQuandoExiste() {
-
+  void findById_deveRetornarOcsQuandoIdExiste() {
+    // Arrange
     when(rep.findById(1)).thenReturn(Optional.of(b1));
 
+    // Act
     Optional<Ocs> result = service.findById(1);
 
+    // Assert
     assertThat(result).isPresent()
     .get()
     .extracting(Ocs::getDescricao)
@@ -77,26 +79,26 @@ class OcsServiceTest {
   }
 
   @Test
-  void findByDescricao_deveRetornarListaComDescricaoPesquisado() {
+  void findByDescricao_deveRetornarListaQuandoDescricaoExiste() {
     when(rep.findByDescricao("OCS 2")).thenReturn(List.of(b2));
     var lista = service.findByDescricao("OCS 2");
     assertThat(lista).isNotEmpty().containsExactly(b2);
   }
 
   @Test
-  void findByDescricao_deveRetornarListaVaziaQuandoDescricaoNulo() {
+  void findByDescricao_deveRetornarEmptyQuandoDescricaoNulo() {
     List<Ocs> result = service.findByDescricao(null);
     assertThat(result).isEmpty();
   }
 
   @Test
-  void findByDescricao_deveRetornarListaVaziaQuandoDescricaoVazio() {
+  void findByDescricao_deveRetornarEmptyQuandoDescricaoVazia() {
     List<Ocs> result = service.findByDescricao("   ");
     assertThat(result).isEmpty();
   }
 
   @Test
-  void mapAll_deveRetornarMapaComIdEDescricao() {
+  void mapAll_deveRetornarMapIdDescricao() {
     when(rep.findAll(any(Sort.class))).thenReturn(List.of(b1, b2));
     var mapa = service.mapAll();
     assertThat(mapa).containsEntry(1, "OCS 1")
@@ -105,7 +107,7 @@ class OcsServiceTest {
   }
 
   @Test
-  void mapAll_deveRetornarMapaVazioQuandoNaoHaOcss() {
+  void mapAll_deveRetornarEmptyQuandoOcsNaoExiste() {
     when(rep.findAll(any(Sort.class))).thenReturn(List.of());
     var mapa = service.mapAll();
     assertThat(mapa).isEmpty();
@@ -118,12 +120,14 @@ class OcsServiceTest {
     b3.setId(1);
     b3.setDescricao("Outro");
 
-    // Act
     when(rep.findAll(any(Sort.class))).thenReturn(List.of(b1, b3));
+
+    // Act
     var mapa = service.mapAll();
 
     // Assert
-    assertThat(mapa).containsEntry(1, "OCS 1").hasSize(1);
+    assertThat(mapa).containsEntry(1, "OCS 1")
+                    .hasSize(1);
   }
 
   @Test
@@ -133,15 +137,23 @@ class OcsServiceTest {
   }
 
   @Test
-  void remove_deveIgnorarOcsExistenteComGuia() {
-    b2.addGuia(new GuiaEncaminhamento());
+  void remove_deveIgnorarOcsComGuiaEmitida() {
+    // Arrange
+    GuiaEncaminhamento guia = new GuiaEncaminhamento();
+    guia.setId(1);
+    b2.addGuia(guia);
+    
     when(rep.findById(2)).thenReturn(Optional.of(b2));
+    
+    // Act
     service.remove(2);
+    
+    // Assert
     verify(rep, never()).delete(any());
   }
 
   @Test
-  void remove_deveExcluirOcsExistente() {
+  void remove_deveExcluirOcsSemGuia() {
     when(rep.findById(2)).thenReturn(Optional.of(b2));
     service.remove(2);
     verify(rep).delete(b2);
@@ -159,8 +171,9 @@ class OcsServiceTest {
     OcsPm opm = new OcsPm();
     b2.addOcsPm(opm);
 
-    // Act
     when(rep.findById(2)).thenReturn(Optional.empty());
+    
+    // Act
     service.add(b2);
 
     //Assert
@@ -176,8 +189,9 @@ class OcsServiceTest {
     b2.addOcsPm(opm);
     b2.setDescricao("OCS Atualizado");
 
-    // Act
     when(rep.findById(2)).thenReturn(Optional.of(b2));
+
+    // Act
     service.add(b2);
 
     // Arrange
@@ -189,19 +203,36 @@ class OcsServiceTest {
   void add_deveSalvarOcsExistenteComProcedimento() {
     // Arrange
     ProcedimentoMedico pm = new ProcedimentoMedico();
+    pm.setId(100); // ID setado para não ser removido no removeIf
+
     OcsPm opm = new OcsPm();
     opm.setPm(pm);
 
-    b2.addOcsPm(opm);
-    b2.setDescricao("OCS Atualizado");
+    // OCS que será atualizado (replacement)
+    Ocs ocsReplacement = new Ocs();
+    ocsReplacement.setId(2);
+    ocsReplacement.setDescricao("OCS Atualizado");
+    ocsReplacement.addOcsPm(opm);
+
+    // OCS que já existe no banco (existing)
+    Ocs ocsExisting = new Ocs();
+    ocsExisting.setId(2);
+
+    // Mocks do repositório
+    when(rep.findById(2)).thenReturn(Optional.of(ocsExisting));
+    when(pmRep.findById(100)).thenReturn(Optional.of(pm));
 
     // Act
-    when(rep.findById(2)).thenReturn(Optional.of(b2));
-    service.add(b2);
+    service.add(ocsReplacement);
 
-    // Arrange
+    // Assert
     verify(rep).findById(2);
-    verify(rep).save(argThat(b -> b.getId().equals(2) && b.getDescricao().equals("OCS Atualizado")));
+    verify(pmRep).findById(100); // Garante que buscou o procedimento no repositório
+    verify(rep).save(argThat(saved -> 
+    saved.getId().equals(2) && 
+    saved.getDescricao().equals("OCS Atualizado") &&
+    !saved.getProcedimentos().isEmpty() // Garante que o procedimento foi adicionado
+        ));
   }
 
   @Test
@@ -211,14 +242,15 @@ class OcsServiceTest {
   }
 
   @Test
-  void addProcedimento_deveInluirProcedimentoOcs() {
+  void addProcedimento_deveInluirProcedimento() {
     // Arrange
     OcsPm opm = new OcsPm();
     opm.setPm(new ProcedimentoMedico());
     opm.setOcs(b1);
 
-    // Act
     when(rep.findById(1)).thenReturn(Optional.of(b1));
+    
+    // Act
     service.addProcedimentoMedico(opm);
 
     // Arrange
@@ -232,14 +264,15 @@ class OcsServiceTest {
   }
 
   @Test
-  void removeProcedimento_deveInluirProcedimentoOcs() {
+  void removeProcedimento_deveExcluirProcedimento() {
     // Arrange
     OcsPm opm = new OcsPm();
     opm.setPm(new ProcedimentoMedico());
     opm.setOcs(b1);
 
-    // Act
     when(rep.findById(1)).thenReturn(Optional.of(b1));
+    
+    // Act
     service.removeProcedimentoMedico(opm);
 
     // Arrange
