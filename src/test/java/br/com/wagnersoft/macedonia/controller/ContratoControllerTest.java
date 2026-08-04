@@ -143,7 +143,10 @@ public class ContratoControllerTest {
   @Test
   @DisplayName("POST /contratos?save - Deve retornar para a view em caso de erro de validação")
   void testSaveComErrosDeValidacao() throws Exception {
+    // Arrange
+    when(ocsSvc.findById(1)).thenReturn(Optional.of(o1));
 
+    // Act
     mockMvc.perform(post("/contratos")
         .param("save", "")
         .param("inicioData", "")) // valor inválido para retornar erro
@@ -151,6 +154,7 @@ public class ContratoControllerTest {
     .andExpect(view().name("contratos"))
     .andExpect(model().hasErrors());
 
+    // Assert
     verify(cttSvc, never()).add(any(Contrato.class));
   }
 
