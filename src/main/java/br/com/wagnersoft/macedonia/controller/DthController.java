@@ -88,7 +88,7 @@ public class DthController {
 
   @PostMapping(params = "save")
   public String save(@Valid Dth dth, BindingResult bindingResult, Model model) {
-    if (dth.getOcs().getId() == null) {
+    if (dth.getOcs() == null ||  dth.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "dth.erro.ocs", "Deve ser informado");
     }
     else {
