@@ -83,7 +83,7 @@ public class GuiaEncaminhamentoService {
     existing.setSolicitante(replacement.getSolicitante());
     // Totaliza Guia e obtem Procedimento Medico 
     existing.setValorTotal(BigDecimal.ZERO);
-    if (replacement.getProcedimentos() != null && !replacement.getProcedimentos().isEmpty()) {
+    if (!replacement.getProcedimentos().isEmpty()) {
       replacement.getProcedimentos().forEach(p -> {
         existing.setValorTotal(existing.getValorTotal().add(p.getValorTotal()));
         pmRep.findById(p.getPm().getId()).ifPresent(x -> p.setPm(x));

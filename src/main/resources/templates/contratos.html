@@ -55,7 +55,7 @@
           </tr>
         </tbody>
 
-        <tfoot><tr><td colspan="6"><small th:text="${'Total de contratos = ' + allContratos.size}">0</small></td></tr></tfoot>
+        <tfoot><tr><td colspan="6"><small th:text="${'Total de contratos = ' + allContratos.size()}">0</small></td></tr></tfoot>
 
       </table>
 
@@ -66,7 +66,7 @@
         <input type="hidden" th:field="*{id}"/>
           
         <div class="form-group row mt-1">
-          <label for="ocs.cnpj" class="col-sm-2 form-label my-1 text-end">
+          <label for="ocs.id" class="col-sm-2 form-label my-1 text-end">
             <strong><span th:text="#{contrato.ocs}">Estabelecimento</span></strong>
           </label>
           <div class="col-sm-4">

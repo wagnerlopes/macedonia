@@ -51,7 +51,7 @@ public class BeneficiarioController {
   public String show(String cpf, Model model) {
     logger.info("+++ Beneficiarios +++");
     model.addAttribute("menu", "ben");
-    model.addAttribute("beneficiario", cpf  == null ? new Beneficiario() : benSvc.findByCpf(cpf));
+    model.addAttribute("beneficiario", cpf  == null ? new Beneficiario() : benSvc.findByCpf(cpf).orElse(new Beneficiario()));
     return "beneficiarios";
   }
 

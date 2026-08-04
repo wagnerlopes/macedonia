@@ -74,7 +74,7 @@ public class ContratoController {
 
   @PostMapping(params = "save")
   public String save(@Valid Contrato contrato, BindingResult bindingResult, Model model) {
-    if (contrato.getOcs().getId() == null) {
+    if (contrato.getOcs() == null || contrato.getOcs().getId() == null) {
       bindingResult.rejectValue("ocs.id", "contrato.erro.ocs", "Deve ser informado");
     }
     else {
