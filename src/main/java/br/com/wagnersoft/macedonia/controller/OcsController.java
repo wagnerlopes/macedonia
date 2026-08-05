@@ -3,6 +3,7 @@ package br.com.wagnersoft.macedonia.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -72,8 +73,18 @@ public class OcsController {
   public String show(Integer id, Model model) {
     logger.info("+++ OCS +++");
     model.addAttribute("menu", "ocs");
-    model.addAttribute("ocs", id == null ? new Ocs() : ocsSvc.findById(id).orElse(new Ocs()));
-    model.addAttribute("procedimentos", id != null && ocsSvc.findById(id).isPresent() ? ocsSvc.findById(id).get().getProcedimentos() : new OcsPm());
+
+    Ocs ocsObj = new Ocs();
+    if (id != null) {
+      Optional<Ocs> ocsOpt = ocsSvc.findById(id);
+      if (ocsOpt.isPresent()) {
+        ocsObj = ocsOpt.get();
+      }
+    }
+
+    model.addAttribute("ocs", ocsObj);
+    model.addAttribute("procedimentos", ocsObj.getProcedimentos());
+
     return "ocs";
   }
 

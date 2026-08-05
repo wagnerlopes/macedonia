@@ -58,11 +58,11 @@
                 </tr>
               </table>
             </td>
-            <td class="text-center"><a th:href="@{ocspm(ocsid=${ocs.id})}" href="#" title="Lista de procedimentos">Total = <span th:text="${ocs.procedimentos.size}">0</span></a></td>
+            <td class="text-center"><a th:href="@{ocspm(ocsid=${ocs.id})}" href="#" title="Lista de procedimentos">Total = <span th:text="${ocs.procedimentos.size()}">0</span></a></td>
           </tr>
         </tbody>
 
-        <tfoot><tr><td colspan="7"><small th:text="${'Total de estabelecimentos = ' + allOcs.size}">0</small></td></tr></tfoot>
+        <tfoot><tr><td colspan="7"><small th:text="${'Total de estabelecimentos = ' + allOcs.size()}">0</small></td></tr></tfoot>
 
       </table>
 
