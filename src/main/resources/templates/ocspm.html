@@ -45,7 +45,7 @@
                 </button>
               </form>
             </td>
-            <td><a th:href="@{/ocspm(ocsid=${op.ocs.id},id=${op.id})}" title="Editar">[[${op.pm.tuss}]]</a></td>
+            <td><a th:href="@{/ocspm(ocsid=${op.ocs.id},id=${op.id})}" title="Editar" th:text="${op.pm.tuss}">TUSS</a></td>
             <td><span th:text="${op.pm.descricao}"> Descricao </span></td>
             <td><span th:text="${unidadeMedidaMap[op.UnidadeMedida]}"> Unidade </span></td>
             <td class="text-end" th:text="${#numbers.formatCurrency(op.valorUnitario)}"> Valor </td>
@@ -53,7 +53,7 @@
           </tr>
         </tbody>
 
-        <tfoot><tr><td colspan="6"><small th:text="${'Total de procedimentos = ' + listOcsPm.size}">0</small></td></tr></tfoot>
+        <tfoot><tr><td colspan="6"><small th:text="${'Total de procedimentos = ' + listOcsPm.size()}">0</small></td></tr></tfoot>
 
       </table>
 

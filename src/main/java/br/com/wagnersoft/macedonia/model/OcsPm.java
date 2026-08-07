@@ -19,6 +19,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -58,11 +59,13 @@ public class OcsPm implements Comparable<OcsPm>, Serializable {
   @Column(name = "valor_unitario")
   private BigDecimal valorUnitario;
 
+  @NotNull
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "ocs_id", nullable = false)
   private Ocs ocs;
 
+  @NotNull
   @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "pm_id", nullable = false)
