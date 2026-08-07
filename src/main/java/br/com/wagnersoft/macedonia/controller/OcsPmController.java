@@ -91,6 +91,9 @@ public class OcsPmController {
   @PostMapping(params = "save")
   public String save(@Valid final OcsPm ocspm, final BindingResult bindingResult, final Model model) {
     if (bindingResult.hasErrors()) {
+      model.addAttribute("listOcsPm", ocsPmSvc.listAll());
+      model.addAttribute("ocs", ocspm.getOcs() != null ? ocspm.getOcs() :  new OcsPm());
+      model.addAttribute("ocspm", ocspm);
       return "ocspm";
     }
     
