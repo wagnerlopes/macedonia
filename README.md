@@ -12,8 +12,8 @@ Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvi
 **Principais funcionalidades**
 - Emissão eletrônica de guias de saúde
 - Cadastro e listagem de beneficiários
-- Cadastro e listagem de estabelecimentos
-- Gerenciamento e filtro de guias
+- Cadastro e listagem de estabelecimentos de saúde
+- Gerenciamento e filtro de guias de encaminhamento
 - Views server-side com Thymeleaf
 - Persistência com Spring Data (JPA/Repositories)
 
@@ -23,11 +23,11 @@ Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvi
 - Spring Data (JPA)
 - Thymeleaf 3.1
 - Banco de dados (H2/PostgreSQL/MySQL — configurar conforme ambiente)
-- Maven (ou Gradle) — adapte conforme o build usado no projeto
+- Application Building com Apache Maven
 
 **Requisitos**
-- JDK 21
-- Maven 3.8+ (ou Gradle, conforme o projeto)
+- OpenJdk Temurin 21
+- Apache Maven 3.9
 - Banco de dados (configurar em `application.properties` / `application.yml`)
 
 **Instalação e execução (desenvolvimento)**
@@ -69,4 +69,4 @@ Macedonia é um sistema para Emissão Eletrônica de Guias de Saúde, desenvolvi
 
 ---
 
-(c) 2026 WagnerSoft. [MIT License]([https://github.com/wagnerlopes/macedonia/blob/next/LICENSE](https://github.com/wagnerlopes/macedonia?tab=MIT-1-ov-file)).
+(c) 2026 WagnerSoft IT Solutions. [MIT License]([https://github.com/wagnerlopes/macedonia/blob/next/LICENSE](https://github.com/wagnerlopes/macedonia?tab=MIT-1-ov-file)).

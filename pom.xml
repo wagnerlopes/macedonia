@@ -8,7 +8,7 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>macedonia</artifactId>
-  <version>1.0.6-beta</version>
+  <version>1.0.6-prod</version>
 
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
@@ -158,7 +158,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.12</version>
+        <version>0.8.15</version>
         <executions>
           <execution>
             <goals>
@@ -192,7 +192,7 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.10.2.0</version>
+        <version>4.10.3.0</version>
         <configuration>
           <effort>Max</effort>             <!-- nível de análise: Min, Default, Max  -->
           <threshold>Low</threshold>       <!-- severidade mínima: High, Medium, Low -->
