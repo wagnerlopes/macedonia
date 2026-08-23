@@ -8,17 +8,17 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>macedonia</artifactId>
-  <version>1.0.6-prod</version>
+  <version>1.0.7-prod</version>
 
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
   <inceptionYear>2026</inceptionYear>
-  <url>https://github.com/wagnerlopes/macedonia</url>
+  <url>https://wagnerlopes.github.io/macedonia/index.html</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.1.0</version>
+    <version>4.1.1</version>
   </parent>
 
   <dependencies>
@@ -88,6 +88,13 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.maven.skins</groupId>
+      <artifactId>maven-fluido-skin</artifactId>
+      <version>2.1.0</version>
+      <scope>compile</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -97,6 +104,13 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+             <goals>
+               <goal>build-info</goal>
+             </goals>
+          </execution>
+        </executions>        
       </plugin>
 
       <plugin>
