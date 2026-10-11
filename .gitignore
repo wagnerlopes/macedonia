@@ -24,3 +24,5 @@ hs_err_pid*
 replay_pid*
 /target/
 /logs/
+/.apt_generated/
+/.apt_generated_tests/
