@@ -8,7 +8,7 @@
     
   <groupId>br.com.wagnersoft</groupId>
   <artifactId>macedonia</artifactId>
-  <version>1.0.9-prod</version>
+  <version>1.0.10-prod</version>
 
   <name>br.com.wagnersoft.macedonia</name>
   <description>Health System</description>
@@ -18,7 +18,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.2.0-M2</version>
+    <version>4.2.0-RC1</version>
   </parent>
 
   <dependencies>
