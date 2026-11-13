@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadAndRender(chart, status) {
   try {
     status.textContent = 'Carregando dados...';
-    const base = window.location.pathname.split('/').slice(0,2).join('/') || '';
+    const base = window.location.origin //.pathname.split('/').slice(0,2).join('/') || ''; // usado quando app era /macedonia
     const res = await fetch(`${base}/api/chart`);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json(); // { x: [...], y: [...] }

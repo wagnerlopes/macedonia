@@ -17,23 +17,23 @@ management:
 
 server:
 
-  port: 80
+  port: 443
 
   http2:
     enabled: true
 
   servlet:
-    context-path: /macedonia
+    context-path:
     compression:
       enabled: true
       min-response-size: 1KB
         
   ssl:
-    enabled: false
-    key-store: "" #wagnerstore.p12
-    key-store-password: "" #123
-    #keyStoreType: PKCS12
-    #keyAlias: macedonia
+    enabled: true
+    key-store: classpath:macedonia.p12
+    key-store-password: wl1234
+    key-store-type: PKCS12
+    key-alias: macedonia
 
 spring:
 
