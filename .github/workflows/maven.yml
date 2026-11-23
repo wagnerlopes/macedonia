@@ -140,7 +140,7 @@ jobs:
 
       - name: Create index.html
         run: |
-          cat <<'EOF' > quality/index.html
+          cat <<EOF > quality/index.html
           <!DOCTYPE html>
           <html lang="pt-BR">
           <head>
