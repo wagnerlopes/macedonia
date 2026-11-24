@@ -87,7 +87,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: spotbugs
-          path: target/spotbugs.html
+          path: target/site/spotbugs.html
           if-no-files-found: ignore
 
   deployment:
@@ -97,7 +97,7 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -107,8 +107,6 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - uses: actions/checkout@v4
-    
       - uses: actions/download-artifact@v4
         with:
           name: jacoco
@@ -139,7 +137,7 @@ jobs:
           echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
           echo "BUILD_DATE=$(date '+%d/%m/%Y %H:%M')" >> $GITHUB_ENV
           echo "COMMIT_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
-
+          
       - name: Create index.html
         run: |
           cat <<EOF > quality/index.html
@@ -147,15 +145,15 @@ jobs:
           <html lang="pt-BR">
           <head>
             <meta charset="UTF-8">
-            <title>Portal de Qualidade - Macedonia</title>
+            <title>Projeto Macedônia</title>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
           </head>
           <body class="m-5">
-            <h1>Portal de Qualidade do Projeto Macedonia</h1>
+            <h1>Portal de Qualidade do Projeto Macedônia</h1>
             <hr>
             <p><strong>Versão:</strong> ${VERSION}</p>
             <p><strong>Build:</strong> ${BUILD_DATE}</p>
-            <p><strong>Commit:</strong> ${COMMIT_SHA}</p>
+            <p><strong>Commit:</strong> ${COMMIT_SHA}</p>            
             <h2>Relatórios gerados automaticamente:</h2>
             <ul>
               <li>📊 <a href="coverage/index.html">Cobertura de Testes (Jacoco)</a></li>
